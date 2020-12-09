@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+
+import { auth } from "database/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { signout } from "database";
+
+import Loading from "./Loading";
+import External from "views/External/External";
+import Internal from "views/Internal/Internal";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [cred, loading] = useAuthState(auth);
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
+
+  useEffect(() => {
+    if (!loading) {
+      if (cred) {
+        if (cred.emailVerified && cred.displayName === "researcher") {
+          setIsLoggedIn(true);
+          return;
+        } else {
+          signout();
+        }
+      }
+      setIsLoggedIn(false);
+    }
+  }, [cred, loading]);
+
+  return loading || isLoggedIn === null ? <Loading /> : isLoggedIn ? <Internal /> : <External />;
 }
 
 export default App;
