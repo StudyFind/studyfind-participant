@@ -6,7 +6,7 @@ function Field({ name, value, label, height, placeholder, limit, error, onChange
   const [count, setCount] = useState();
 
   useEffect(() => {
-    setCount(value.length);
+    setCount(value && value.length);
   }, [value]);
 
   const handleChange = (e) => {

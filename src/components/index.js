@@ -1,72 +1,12 @@
-import Card from "./Card";
-import Form from "./Form";
-import Spinner from "./Spinner";
-import Modal from "./Modal";
-import Input from "./Input";
-import Select from "./Select";
-import Textarea from "./Textarea";
-import Message from "./Message";
-
-import {
-  Box,
-  Flex,
-  Grid,
-  Center,
-  Heading,
-  Text,
-  Button,
-  Icon,
-  IconButton,
-  Tag,
-  TagLabel,
-  FormControl,
-  FormErrorMessage,
-  Progress,
-  Badge,
-  Switch,
-  Tooltip,
-  Alert,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerHeader,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerFooter,
-} from "@chakra-ui/react";
-
-export {
-  Box,
-  Flex,
-  Grid,
-  Center,
-  Heading,
-  Text,
-  Button,
-  Icon,
-  IconButton,
-  Select,
-  Card,
-  Form,
-  Spinner,
-  Modal,
-  Input,
-  Textarea,
-  Message,
-  Tag,
-  TagLabel,
-  FormControl,
-  FormErrorMessage,
-  Progress,
-  Badge,
-  Switch,
-  Tooltip,
-  Alert,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerHeader,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerFooter,
-};
+export { default as TabCard } from "./TabCard";
+export { default as Card } from "./Card";
+export { default as Form } from "./Form";
+export { default as Spinner } from "./Spinner";
+export { default as Modal } from "./Modal";
+export { default as Input } from "./Input";
+export { default as Select } from "./Select";
+export { default as Textarea } from "./Textarea";
+export { default as Message } from "./Message";
+export { default as Page } from "./Page";
+export { default as FileInput } from "./FileInput";
+export { default as List } from "./List";

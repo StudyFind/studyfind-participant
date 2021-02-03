@@ -1,10 +1,9 @@
 import React from "react";
-import styled from "styled-components";
 
-import { Heading, Text, Box, Center, Flex } from "components";
+import { Heading, Text, Box, Center, Flex } from "@chakra-ui/react";
 import { FaTimesCircle, FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 
-function Message({ type, title, description, children }) {
+function Message({ type, title, description, children, ...rest }) {
   const status = {
     success: {
       icon: FaCheckCircle,
@@ -23,39 +22,23 @@ function Message({ type, title, description, children }) {
   const { icon, color } = status[type] || status["neutral"];
 
   return (
-    <Page>
+    <Flex direction="column" justify="center" align="center" h="100%" w="100%" {...rest}>
       <Center maxW="400px">
         <Flex direction="column" align="center" textAlign="center">
           <Box as={icon} size="48px" color={`${color}.400`} />
-          <Head>
+          <Flex justify="center" align="center" gridGap="10px">
             <Heading size="lg" mt="20px" mb="10px">
               {title}
             </Heading>
-          </Head>
+          </Flex>
           <Text mb="15px" color="gray.500">
             {description}
           </Text>
           {children}
         </Flex>
       </Center>
-    </Page>
+    </Flex>
   );
 }
-
-const Page = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-`;
-
-const Head = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  grid-gap: 10px;
-`;
 
 export default Message;
