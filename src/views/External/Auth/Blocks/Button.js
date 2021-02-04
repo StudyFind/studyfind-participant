@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "components";
+import { Button } from "@chakra-ui/react";
 
 function AuthButton({ children, loading, ...rest }) {
   return (

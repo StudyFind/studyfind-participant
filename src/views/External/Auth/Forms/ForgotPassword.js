@@ -1,27 +1,27 @@
 import React from "react";
 
 import { useAuthForm } from "hooks";
-import { sendPasswordResetEmail } from "database";
+import { forgotPassword } from "database";
 import { Form, Heading, Email, Button, TabLink } from "views/External/Auth/Blocks";
-import { Box, Message } from "components";
+import { Box } from "@chakra-ui/react";
+import { Message } from "components";
 
 function ForgotPassword({ setTab }) {
   const { inputs, errors, success, loading, handleInput, handleSubmit } = useAuthForm({
     initial: { email: "" },
-    onSubmit: sendPasswordResetEmail,
+    onSubmit: forgotPassword,
   });
 
   if (success) {
     return (
-      <Box p="40px 30px">
-        <Message
-          type="success"
-          title="Email Sent!"
-          description="Check your email for a password reset link"
-        >
-          <TabLink onClick={() => setTab("login")}> Back to login </TabLink>
-        </Message>
-      </Box>
+      <Message
+        type="success"
+        title="Email Sent!"
+        description="Check your email for a password reset link"
+        padding="40px 30px"
+      >
+        <TabLink onClick={() => setTab("login")}> Back to login </TabLink>
+      </Message>
     );
   }
 

@@ -2,16 +2,16 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { Heading, Button, Text } from "components";
+import { Heading, Button, Text } from "@chakra-ui/react";
 
 import Background from "images/microscope.jpg";
 
 function Hero() {
   return (
     <Box>
-      <Heading size="2xl" lineHeight="1.2">
-        We help optimize your
-        <Text color="blue.500"> participant recruitment </Text>
+      <Heading size="2xl" lineHeight="1.25">
+        We help you find relevant
+        <Text color="blue.500">research studies</Text>
       </Heading>
       <Link to="/auth">
         <Button size="lg" colorScheme="blue">

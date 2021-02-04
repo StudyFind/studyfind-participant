@@ -3,7 +3,8 @@ import React from "react";
 import { useAuthForm } from "hooks";
 import { resetPassword } from "database";
 import { Form, Heading, Password, Button, TabLink } from "views/External/Auth/Blocks";
-import { Box, Message } from "components";
+import { Box } from "@chakra-ui/react";
+import { Message } from "components";
 
 function ResetPassword({ setTab }) {
   const url = new URL(window.location.href);

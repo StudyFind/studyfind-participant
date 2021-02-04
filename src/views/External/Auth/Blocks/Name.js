@@ -1,18 +1,17 @@
 import React from "react";
 import { Input } from "components";
 
-function Email({ value, error, onChange }) {
+function Name({ value, error, onChange }) {
   return (
     <Input
       size="lg"
-      name="email"
-      type="email"
+      name="name"
       value={value}
       error={error}
       onChange={onChange}
-      placeholder="Email"
+      placeholder="Name"
     />
   );
 }
 
-export default Email;
+export default Name;

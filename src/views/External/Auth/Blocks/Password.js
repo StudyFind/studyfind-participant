@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import { Input, Button } from "components";
+import { Input } from "components";
+import { Button } from "@chakra-ui/react";
 
 function Password({ name, placeholder, value, error, onChange }) {
   const [show, setShow] = useState(false);
