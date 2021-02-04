@@ -12,10 +12,6 @@ const app = firebase.initializeApp({
 
 const auth = app.auth();
 const storage = app.storage();
-const database = app.database();
 const firestore = app.firestore();
 
-const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-const facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
-
-export { auth, storage, database, firestore, googleAuthProvider, facebookAuthProvider };
+export { auth, storage, firestore };
