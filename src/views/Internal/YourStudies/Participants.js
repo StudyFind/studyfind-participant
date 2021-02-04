@@ -22,7 +22,7 @@ import {
 } from "components";
 
 import ParticipantsFilter from "./ParticipantsFilter";
-import ParticipantsRow from "./ParticipantsRow";
+import ParticipantsRow from "./StudyRow";
 import Screen from "./Screen/Screen";
 
 import { compute } from "functions";

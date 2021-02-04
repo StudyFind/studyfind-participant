@@ -1,29 +1,21 @@
 import React from "react";
-import styled from "styled-components";
 
-import { Heading, Button, Spinner } from "components";
+import { Flex, Heading } from "@chakra-ui/react";
 import ChangePassword from "./ChangePassword";
 import DeleteAccount from "./DeleteAccount";
 
 function Settings() {
   return (
-    <Page>
-      <Heading mb="25px">Settings</Heading>
-      <Body>
+    <>
+      <Heading size="lg" mb="25px">
+        Settings
+      </Heading>
+      <Flex gridGap="20px">
         <ChangePassword />
         <DeleteAccount />
-      </Body>
-    </Page>
+      </Flex>
+    </>
   );
 }
-
-const Page = styled.div`
-  padding: 30px;
-`;
-
-const Body = styled.div`
-  display: flex;
-  grid-gap: 20px;
-`;
 
 export default Settings;

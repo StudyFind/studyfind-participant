@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { format } from "functions";
-import { Box, Flex, Heading, Text, Icon } from "components";
+import { Box, Flex, Heading, Text, Icon } from "@chakra-ui/react";
 import { FaCertificate, FaStopwatch, FaUser, FaComment } from "react-icons/fa";
 
 function Notification({ notification }) {

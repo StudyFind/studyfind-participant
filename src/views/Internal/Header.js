@@ -1,17 +1,19 @@
 import React from "react";
-import { auth } from "database/firebase";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import StudyFindLogo from "images/logo.png";
 
-import { Box, Heading, Flex, Text, Avatar, Tooltip } from "@chakra-ui/react";
-import { FaSearch, FaBell, FaCog, FaUserCircle } from "react-icons/fa";
+import { Box, Heading, Flex, Text } from "components";
 
-function Sidebar({ user }) {
+import { FaBell, FaSearch, FaCog, FaUserCircle, FaLocationArrow } from "react-icons/fa";
+import { Avatar, Tooltip } from "@chakra-ui/react";
+
+function Header() {
   const location = useLocation();
 
   const links = [
     { name: "Search", path: "/search", icon: <FaSearch /> },
+    { name: "Locate", path: "/locate", icon: <FaLocationArrow /> },
     { name: "Notifications", path: "/notifications", icon: <FaBell /> },
     { name: "Settings", path: "/settings", icon: <FaCog /> },
     { name: "Account", path: "/account", icon: <FaUserCircle /> },
@@ -27,29 +29,26 @@ function Sidebar({ user }) {
       </Logo>
       <Links>
         {links.map((link, index) => (
-          <NavLink key={index} to={link.path} selected={location.pathname === link.path}>
-            {link.icon}
-            {link.name}
-          </NavLink>
+          <Tooltip label={link.name} placement="bottom">
+            <NavLink key={index} to={link.path} selected={location.pathname === link.path}>
+              {link.icon}
+              {link.name}
+            </NavLink>
+          </Tooltip>
         ))}
       </Links>
       <Box p="15px">
         <Flex rounded="md" align="center">
-          <Avatar
-            name={user && user.name}
-            bg="blue.500"
-            color="white"
-            h="42px"
-            w="42px"
-            mr="10px"
-          />
+          <Avatar name="Yohan Jhaveri" bg="blue.500" color="white" h="42px" w="42px" mr="10px" />
           <Info>
             <Text fontSize="0.9rem" color="white" fontWeight="500" isTruncated maxWidth="100px">
-              {user ? user.name : "Your Account"}
+              Yohan Jhaveri
             </Text>
-            <Text fontSize="0.9rem" color="gray.500" isTruncated maxWidth="180px">
-              {auth.currentUser.email}
-            </Text>
+            <Tooltip label="yohanjhaveri@gmail.com" placement="right">
+              <Text fontSize="0.9rem" color="gray.500" isTruncated maxWidth="180px">
+                yohanjhaveri@gmail.com
+              </Text>
+            </Tooltip>
           </Info>
         </Flex>
       </Box>
@@ -58,13 +57,15 @@ function Sidebar({ user }) {
 }
 
 const Fixed = styled(Box)`
-  width: 280px;
-  height: 100vh;
-  background: #2b6cb0;
+  width: 100%;
+  height: 80px;
   position: fixed;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  top: 0;
   z-index: 100;
+  padding: 20px 30px;
 `;
 
 const Info = styled.div``;
@@ -75,7 +76,6 @@ const Logo = styled(Link)`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 20px;
 `;
 
 const LogoIcon = styled.img`
@@ -86,15 +86,15 @@ const LogoIcon = styled.img`
 const LogoName = styled(Heading)``;
 
 const Links = styled.div`
-  display: grid;
-  margin-bottom: auto;
+  display: flex;
+  grid-gap: 40px;
 `;
 
 const NavLink = styled(Link)`
-  padding: 25px 20px;
   display: flex;
-  grid-gap: 12px;
+  justify-content: center;
   align-items: center;
+  grid-gap: 6px;
   color: rgb(255, 255, 255, 0.5);
   font-size: 16px;
   font-weight: 600;
@@ -103,12 +103,10 @@ const NavLink = styled(Link)`
     color: white;
   }
 
-  ${(props) =>
-    props.selected &&
-    `
-    color: white;
-    background: rgb(0, 0, 0, 0.2);
-  `}
+  // border: 1px solid rgb(255, 255, 255, 0.5);
+  border-radius: 100px;
+
+  ${(props) => props.selected && "color: white"}
 `;
 
-export default Sidebar;
+export default Header;
