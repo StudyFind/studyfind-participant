@@ -22,4 +22,13 @@ function formatDate(value) {
   return `${MONTHS[month]} ${day}, ${year}`;
 }
 
-export default { date: formatDate };
+function formatTime(value) {
+  const [hours, minutes] = value.split(":");
+  const hours12 = hours % 12 || 12;
+  const hoursPad = hours < 10 ? "0" : "";
+  const minutesPad = minutes < 10 ? "0" : "";
+  const meridian = hours < 12 ? "am" : "pm";
+  return `${hoursPad}${hours12}:${minutesPad}${minutes}${meridian}`;
+}
+
+export default { date: formatDate, time: formatTime };
