@@ -4,7 +4,7 @@ import { Box, Flex } from "@chakra-ui/react";
 import { Page } from "components";
 
 import { auth, firestore } from "database/firebase";
-import { useDocument, useCollection } from "hooks";
+import { useDocument } from "hooks";
 
 import Sidebar from "./Sidebar";
 
@@ -15,16 +15,13 @@ import Notifications from "views/Internal/Notifications/Notifications";
 
 function Internal() {
   const { uid } = auth.currentUser;
-  const [user] = useDocument(firestore.collection("researchers").doc(uid));
-  const [studies] = useCollection(
-    firestore.collection("studies").where("researcher.id", "==", uid).orderBy("updatedAt", "desc")
-  );
+  const [user] = useDocument(firestore.collection("participants").doc(uid));
 
   return (
     <Flex bg="#f8f9fa">
       <Sidebar />
       <Box ml="280px" w="100%" minH="100vh">
-        <Page isLoading={!(user && studies)}>
+        <Page isLoading={!user}>
           <Switch>
             <Route exact path="/" component={FindStudies} />
             <Route exact path="/search" component={FindStudies} />

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useAuthForm } from "hooks";
-import { signin } from "database";
+import { signin } from "database/auth";
 import { Form, Heading, Email, Password, Button, TabLink } from "views/External/Auth/Blocks";
 
 function Login({ setTab }) {

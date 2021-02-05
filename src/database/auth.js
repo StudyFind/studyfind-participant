@@ -8,12 +8,7 @@ const forgotPassword = async (email) => auth.sendPasswordResetEmail(email);
 const signup = async (name, email, password) => {
   try {
     const { user } = await auth.createUserWithEmailAndPassword(email, password);
-    await firestore
-      .collection("participants")
-      .doc(user.uid)
-      .set({ name })
-      .then(console.log)
-      .catch(console.log);
+    await firestore.collection("participants").doc(user.uid).set({ name });
     localStorage.setItem("exists", true);
     return user;
   } catch (error) {
