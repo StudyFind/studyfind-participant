@@ -50,13 +50,7 @@ function Notifications() {
     </>
   );
 
-  return <Page>{loading ? LOAD : BODY}</Page>;
+  return loading ? LOAD : BODY;
 }
-
-const Page = styled.div`
-  padding: 30px;
-  height: 100%;
-  background: #f8f9fa;
-`;
 
 export default Notifications;

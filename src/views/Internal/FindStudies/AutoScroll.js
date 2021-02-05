@@ -21,8 +21,8 @@ function AutoScroll() {
       onClick={handleAutoscroll}
       display={active ? "flex" : "none"}
       position="fixed"
-      right="20px"
-      bottom="20px"
+      right="16px"
+      bottom="16px"
       opacity="0.7"
       _hover={{ opacity: "1" }}
       colorScheme="blue"

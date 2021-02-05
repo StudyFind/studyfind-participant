@@ -8,7 +8,7 @@ import AutoScroll from "./AutoScroll";
 
 import { Spinner } from "components";
 import { Grid, Flex, Heading, Button, IconButton, Tooltip } from "@chakra-ui/react";
-import { FaFilter, FaLocationArrow, FaSquare, FaThLarge } from "react-icons/fa";
+import { FaFilter, FaLocationArrow, FaThLarge } from "react-icons/fa";
 import StudyCardSmall from "views/Internal/StudyCardSmall";
 
 function FindStudies() {
@@ -23,19 +23,19 @@ function FindStudies() {
       <Flex justify="space-between" align="center" mb="25px">
         <Heading size="lg">Find Studies</Heading>
       </Flex>
-      <Flex justify="space-between">
+      <Flex justify="space-between" mb="25px" gridGap="10px">
         <Search />
-        <Flex>
+        <Flex gridGap="10px">
           <Flex>
-            <Tooltip label="Detailed View">
+            <Tooltip label="Map View">
               <IconButton
                 color="gray.500"
                 borderTopRightRadius="0"
                 borderBottomRightRadius="0"
-                icon={<FaSquare />}
+                icon={<FaLocationArrow />}
               />
             </Tooltip>
-            <Tooltip label="Condensed View">
+            <Tooltip label="Grid View">
               <IconButton
                 color="gray.500"
                 borderTopLeftRadius="0"
@@ -44,10 +44,7 @@ function FindStudies() {
               />
             </Tooltip>
           </Flex>
-          <Button color="gray.500" leftIcon={<FaLocationArrow />} colorScheme="gray" ml="10px">
-            Location
-          </Button>
-          <Button color="gray.500" leftIcon={<FaFilter />} colorScheme="gray" ml="10px">
+          <Button color="gray.500" leftIcon={<FaFilter />}>
             Filter
           </Button>
         </Flex>
