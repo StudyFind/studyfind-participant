@@ -5,11 +5,14 @@ function useDocument(query, options) {
   const [document, setDocument] = useState();
   const [snapshot, loading, error] = useFirestoreDocument(query, options);
 
+  const transformData = (snapshot) => {
+    return { id: snapshot.id, ...snapshot.data() };
+  };
+
   useEffect(() => {
-    console.log(snapshot);
-    if (!error && !loading && snapshot) {
-      console.log(snapshot.id);
-      setDocument({ id: snapshot.id, ...snapshot.data() });
+    if (snapshot) {
+      const data = transformData(snapshot);
+      setDocument(data);
     }
   }, [snapshot]);
 

@@ -5,11 +5,16 @@ function useCollection(query, options) {
   const [collection, setCollection] = useState();
   const [snapshot, loading, error] = useFirestoreCollection(query, options);
 
+  const transformData = (snapshot) => {
+    const documents = [];
+    snapshot.forEach((doc) => documents.push({ id: doc.id, ...doc.data() }));
+    return documents;
+  };
+
   useEffect(() => {
     if (snapshot) {
-      const documents = [];
-      snapshot.forEach((doc) => documents.push({ id: doc.id, ...doc.data() }));
-      setCollection(documents);
+      const data = transformData(snapshot);
+      setCollection(data);
     }
   }, [snapshot]);
 

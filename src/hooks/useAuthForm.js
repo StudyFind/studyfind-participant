@@ -7,7 +7,7 @@ function useAuthForm({ initial, onSubmit }) {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState();
 
-  const handleInput = (name, value) => {
+  const handleChange = (name, value) => {
     setInputs({ ...inputs, [name]: value });
     setErrors({ ...errors, [name]: validate.input(name, value) });
   };
@@ -38,7 +38,7 @@ function useAuthForm({ initial, onSubmit }) {
         });
     });
 
-  return { inputs, errors, loading, success, handleInput, handleSubmit };
+  return { inputs, errors, loading, success, handleChange, handleSubmit };
 }
 
 export default useAuthForm;

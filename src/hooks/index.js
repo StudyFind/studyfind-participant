@@ -1,6 +1,3 @@
-import useForm from "./useForm";
-import useAuthForm from "./useAuthForm";
-import useDocument from "./useDocument";
-import useCollection from "./useCollection";
-
-export { useForm, useAuthForm, useDocument, useCollection };
+export { default as useAuthForm } from "./useAuthForm";
+export { default as useDocument } from "./useDocument";
+export { default as useCollection } from "./useCollection";
