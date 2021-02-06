@@ -1,3 +1,5 @@
+import validator from "validator";
+
 const inferType = (name) => {
   const includesKeyword = (keyword) => name.toLowerCase().includes(keyword);
   if (includesKeyword("email")) return "email";
@@ -24,11 +26,8 @@ const validate = {
   },
 
   email: (email) => {
-    const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const checkValid = EMAIL_REGEX.test(email.toLowerCase());
-
     if (!email) return " ";
-    if (!checkValid) return "Email is invalid";
+    if (!validator.isEmail(email)) return "Email is invalid";
     return "";
   },
 

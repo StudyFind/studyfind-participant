@@ -1,5 +1,3 @@
-import validate from "./validate";
-import compute from "./compute";
-import format from "./format";
-
-export { validate, compute, format };
+export { default as validate } from "./validate";
+export { default as compute } from "./compute";
+export { default as format } from "./format";
