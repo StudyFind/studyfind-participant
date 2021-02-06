@@ -2,12 +2,13 @@ import React from "react";
 
 import { useAuthForm } from "hooks";
 import { changePassword } from "database/auth";
+
 import { Form, Heading, Password, Button } from "views/External/Auth/Blocks";
 import { Box } from "@chakra-ui/react";
 import { Message } from "components";
 
 function ChangePassword() {
-  const { inputs, errors, success, loading, handleInput, handleSubmit } = useAuthForm({
+  const { inputs, errors, success, loading, handleChange, handleSubmit } = useAuthForm({
     initial: { password: "", newPassword: "" },
     onSubmit: changePassword,
   });
@@ -32,14 +33,14 @@ function ChangePassword() {
           value={inputs.password}
           placeholder="Old Password"
           error={errors.password}
-          onChange={handleInput}
+          onChange={handleChange}
         />
         <Password
           name="newPassword"
           placeholder="New Password"
           value={inputs.newPassword}
           error={errors.newPassword}
-          onChange={handleInput}
+          onChange={handleChange}
         />
         <Button loading={loading}>Confirm Change Password</Button>
       </Form>
