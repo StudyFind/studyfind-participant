@@ -1,4 +1,4 @@
-const errors = {
+export default {
   // COMMON
   "auth/invalid-email": { email: "Email is invalid" },
 
@@ -27,5 +27,3 @@ const errors = {
     password: "Invalid link",
   },
 };
-
-export { errors };
