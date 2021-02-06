@@ -10,7 +10,6 @@ import Sidebar from "./Sidebar";
 
 import Settings from "views/Internal/Settings/Settings";
 import FindStudies from "views/Internal/FindStudies/FindStudies";
-import YourStudies from "views/Internal/YourStudies/YourStudies";
 import Notifications from "views/Internal/Notifications/Notifications";
 
 function Internal() {
@@ -25,7 +24,6 @@ function Internal() {
           <Switch>
             <Route exact path="/" component={FindStudies} />
             <Route exact path="/search" component={FindStudies} />
-            <Route exact path="/your" component={YourStudies} />
             <Route exact path="/notifications" component={Notifications} />
             <Route exact path="/settings" component={Settings} />
             <Redirect to="/" />

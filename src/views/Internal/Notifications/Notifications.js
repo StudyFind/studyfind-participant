@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import { Heading, Spinner, Box } from "@chakra-ui/react";
 import Notification from "./Notification";
 

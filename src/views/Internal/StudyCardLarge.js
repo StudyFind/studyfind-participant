@@ -7,12 +7,6 @@ import { FaVenusMars, FaBirthdayCake, FaHeart } from "react-icons/fa";
 function StudyCardLarge({ study }) {
   const { researcher } = study;
 
-  const getInitials = (name) => {
-    if (!name) return "";
-    const split = name.split(" ");
-    return split[0] + " " + split[split.length - 1];
-  };
-
   return (
     <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white" p="20px">
       <Text fontSize="sm" color="gray.400">
@@ -57,7 +51,7 @@ function StudyCardLarge({ study }) {
         </Eligibility>
         {researcher && (
           <Researcher borderWidth="1px" rounded="md" overflow="hidden" bg="white" p="12px">
-            <Avatar color="white" bg="blue.500" name={getInitials(researcher.name)} />
+            <Avatar color="white" bg="blue.500" name={researcher.name} />
             <Box>
               <Text>{researcher.name}</Text>
               <Text color="gray.500">
