@@ -11,6 +11,7 @@ import Sidebar from "./Sidebar";
 import Settings from "views/Internal/Settings/Settings";
 import FindStudies from "views/Internal/FindStudies/FindStudies";
 import Notifications from "views/Internal/Notifications/Notifications";
+import Account from "views/Internal/Account/Account"
 
 function Internal() {
   const { uid } = auth.currentUser;
@@ -26,6 +27,7 @@ function Internal() {
             <Route exact path="/search" component={FindStudies} />
             <Route exact path="/notifications" component={Notifications} />
             <Route exact path="/settings" component={Settings} />
+            <Route exact path="/account" component={Account} />
             <Redirect to="/" />
           </Switch>
         </Page>

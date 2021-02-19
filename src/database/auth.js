@@ -6,9 +6,27 @@ const getErrorMessage = ({ code }) => ({ email: "", password: "", ...errors[code
 const forgotPassword = async (email) => auth.sendPasswordResetEmail(email);
 
 const signup = async (name, email, password) => {
+  const defaultUser = {
+    filter: {
+        control_no: "",
+        control_yes: "",
+        saved: "",
+        observational: "",
+        interventional: "",
+        enrolled: ""
+    },
+    personal_info: {
+        birthdate: new Date().toLocaleString().split(",")[0],
+        sex: "",
+        availability: "",
+        name: name
+    },
+    enrolled: [],
+    saved: []
+  }
   try {
     const { user } = await auth.createUserWithEmailAndPassword(email, password);
-    await firestore.collection("participants").doc(user.uid).set({ name });
+    await firestore.collection("participants").doc(user.uid).set(defaultUser);
     localStorage.setItem("exists", true);
     return user;
   } catch (error) {
