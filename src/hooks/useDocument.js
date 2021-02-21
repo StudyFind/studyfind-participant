@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useDocument as useFirestoreDocument } from "react-firebase-hooks/firestore";
+import {useDocument as useFirestoreDocument } from "react-firebase-hooks/firestore";
 
 function useDocument(query, options) {
   const [document, setDocument] = useState();
@@ -16,7 +16,7 @@ function useDocument(query, options) {
     }
   }, [snapshot]);
 
-  return [document, loading, error];
+  return [document, snapshot, setDocument, loading, error];
 }
 
 export default useDocument;

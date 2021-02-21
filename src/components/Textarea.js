@@ -20,7 +20,7 @@ function Field({ name, value, label, height, placeholder, limit, error, onChange
       <Textarea
         h={height}
         value={value}
-        maxLength={limit}
+        maxLength={500}
         placeholder={placeholder}
         onChange={handleChange}
         style={{ minHeight: 0 }}

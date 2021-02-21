@@ -26,8 +26,10 @@ function Radio(props) {
     return (
         <>
           {/* <VStack> */}
-            <Heading alignContent="center" fontSize="16">{formatHeading(heading)}</Heading>
+            <HStack justify='space-between'>
+            <Heading paddingBottom='5px' alignContent="center" fontSize="17px">{formatHeading(heading)}</Heading>
             <RadioComponent heading={heading} init={init} onChange={update} options={options}/>
+            </HStack>
           {/* </VStack> */}
         </>
     )
@@ -75,6 +77,8 @@ function RadioCard(props) {
       <Box as="label">
         <input {...input} />
         <Box
+        w='100px'
+        textAlign='center'
           {...checkbox}
           cursor="pointer"
           borderWidth="1px"

@@ -16,17 +16,18 @@ function DOB(props) {
 
     const {init, update} = props
 
-    const [date, setDate] = useState(init);
+    const [date, setDate] = useState("2/20/2021");
 
     const onChange = (adate) => {
+        console.log(adate)
         setDate(adate)
         update("birthdate", adate)
     }
 
     return (
         <>
-            <Heading fontSize="16px">Birth Date</Heading>
-            <Input type="date" value={date} onChange={date => {onChange(date.target.value)}}></Input>
+            <Heading fontSize="17px">Birth Date</Heading>
+            <Input type="date" defaultValue={date} onChange={date => {onChange(date.target.value)}}></Input>
         </>
     )
 }

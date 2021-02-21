@@ -1,46 +1,51 @@
 import React, { useState, useEffect } from "react";
 
 import { firestore, auth } from "database/firebase";
-import { Flex, Heading, HStack } from "@chakra-ui/react";
+import { Flex, Heading, HStack, VStack } from "@chakra-ui/react";
 import { Box } from "@chakra-ui/react";
-import PersonalInfo from "./PersonalInfo"
-import Preferences from "./Preferences"
 
-import { Form } from "views/External/Auth/Blocks";
+import { Form, Button } from "views/External/Auth/Blocks";
 
 import { useCollection, useDocument } from "hooks";
 
-import { Spinner } from "components";
+import styled from "styled-components";
+
+import DOB from "./DOB"
+
+import { Spinner, Radio, Textarea, Input } from "components";
+import { set } from "lodash";
 
 
 
 function Account() {
 
-    const [user, loading, error] = useDocument(
+    const testing = true
+
+    const [user, snapshot, setUser, loading, error] = useDocument(
         firestore.collection("participants").doc(auth.currentUser.uid)
     )
 
-    const [temp_user, setTemp] = useState(user)
+    const [changed, setChanged] = useState(false)
 
-    useEffect(() => {
-            setTemp(user)
-            console.log('user: ', user)
-    }, [user])
-
-    const updateTemp = (key, val) => {
+    const updateUser = (key, val) => {
         console.log(key, val)
         if (key in user.filter) {
-            temp_user.filter[key] = val
+            user.filter[key] = val
         } else if (key in user.personal_info) {
-            temp_user.personal_info[key] = val
+            user.personal_info[key] = val
         } else {
-            temp_user[key] = val
+            user[key] = val
         }
-        setTemp(temp_user)        
-        console.log('temp user: ', temp_user)
+        setChanged(true)
+        console.log('user: ', user)
     }
 
-    if (loading || !user || !temp_user) return <Spinner/>
+    const onSave = () => {
+        console.log(user)
+        firestore.collection('participants').doc(user.id).set(user)
+    }
+
+    if (loading || !user) return <Spinner/>
 
     if (error) return (
         <>
@@ -51,16 +56,48 @@ function Account() {
     )
 
     return (
-        <>
-            <Heading size="lg" mb="25px">
-                Welcome Back, {temp_user.personal_info.name.split(' ')[0]}
-            </Heading>
-                <HStack align="start">
-                <Preferences user={temp_user} update={updateTemp}/>
-                <PersonalInfo user={temp_user} update={updateTemp}/>
+            <>
+            <Form onSubmit={() => {}}>
+                <HStack justifyContent='space-between'>
+                <Heading size="lg" mb="25px">
+                    Welcome Back, {user.personal_info.name.split(' ')[0]}
+                </Heading>
+                {changed ? (<HStack>
+                            <Button colorScheme='red' onClick={() => {console.log('cancel')}}>Cancel</Button>
+                            <Button onClick={onSave}>Save</Button>
+                            </HStack>) : (<></>)}
                 </HStack>
+                <Box bg="white" borderWidth="1px" rounded="md">
+                    <Form>
+                    <Heading paddingBottom='5px' borderBottomWidth='1px' fontSize="22px">Search Preferences</Heading>
+                    {Object.entries(user.filter).map((pref) => {
+                    const heading = pref[0]
+                    const val = pref[1]
+                    return(
+                        <Radio key={heading} update={updateUser} heading={heading} init={val} options={["Yes", "No"]}></Radio>
+                    )
+                    })}
+                    </Form>
+                </Box>
+                <Box bg="white" borderWidth="1px" rounded="md">
+                    <Form>
+                    <Heading paddingBottom='5px' borderBottomWidth='1px' fontSize="22px">{"Personal Info"}</Heading>
+                        <Radio heading={"sex"} options={["Male", "Female"] } init={user.personal_info.sex} update={updateUser}></Radio>
+                        <Heading fontSize="17px">{user.personal_info.birthdate}</Heading>
+                        <Input type="date" value={user.personal_info.birthdate}></Input>
+                        <Heading fontSize="17px">Availability</Heading>
+                        <Textarea value={user.personal_info.availability} limit={500} name='availability' onChange={updateUser} placeholder="Put a little something about your weekly availability"></Textarea>
+                    </Form>
+                </Box>
+            </Form>
         </>
     )
 }
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: 10rem 10rem;
+  grid-gap: 1rem;
+`;
 
 export default Account
