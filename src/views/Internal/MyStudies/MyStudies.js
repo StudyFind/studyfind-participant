@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Heading, Box, Flex } from "@chakra-ui/react";
+import { Heading, Box, Flex, Badge } from "@chakra-ui/react";
 
 const studies = [
     {id: 12345,
@@ -12,13 +12,13 @@ const studies = [
     survey: "not applicable"},
     {id: 23456,
     name: "study number two",
-    status: "pending",
+    status: "screened",
     meetings: "tuesday 11am",
     reminders: "none",
     survey: "completed"},
     {id: 35467,
     name: "study number three",
-    status: "accepted",
+    status: "consented",
     meetings: "monday 11am",
     reminders: "none",
     survey: "completed"},
@@ -29,6 +29,14 @@ const studies = [
     reminders: "none",
     survey: "not applicable"},
 ];
+
+const statusColors = {
+    interested: "gray",
+    screened: "purple",
+    consented: "cyan",
+    accepted: "green",
+    rejected: "red",
+  };
 
 function MyStudies() {
   return (
@@ -67,22 +75,31 @@ function MyStudies() {
 
     <td >
     {studies.map((study) =>
-    <tr>{study.status}</tr>)}
+      <tr>
+    <Badge
+        size="sm"
+        cursor="pointer"
+        colorScheme={statusColors[study.status]}
+      >
+      {study.status}
+     </Badge>
+    </tr>)}
+
     </td>
 
     <td >
     {studies.map((study) =>
-    <tr>{study.meetings}</tr>)}
+    <tr><button>{study.meetings}</button></tr>)}
     </td>
 
     <td >
     {studies.map((study) =>
-    <tr>{study.reminders}</tr>)}
+    <tr><button>{study.reminders}</button></tr>)}
     </td>
 
     <td >
     {studies.map((study) =>
-    <tr>{study.survey}</tr>)}
+    <tr><button>{study.survey}</button></tr>)}
     </td>
 
 
