@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { Heading, Box, Flex, Badge } from "@chakra-ui/react";
 
-const studies = [
+const studies1 = [
     {id: 12345,
     name: "study number one",
     status: "accepted",
@@ -38,7 +38,28 @@ const statusColors = {
     rejected: "red",
   };
 
-function MyStudies() {
+function MyStudies({ user, studies }) {
+
+  // user.enrolled = ['ID1', 'ID2']
+
+
+  
+
+  console.log(user);
+  console.log(user.enrolled);
+
+  console.log(studies);
+
+  // userStudies = []
+  // for study in studies:
+  //   if study.id is in user.enrolled:
+  //       userStudies.append(study)
+
+
+  // each study in userStudies:
+  //   study.id
+  //   study.title
+
   return (
     <div>
 
@@ -64,17 +85,17 @@ function MyStudies() {
 
 
     <td>
-    {studies.map((study) =>
+    {studies1.map((study) =>
     <tr>{study.id}</tr>)}
     </td>
 
     <td >
-    {studies.map((study) =>
+    {studies1.map((study) =>
     <tr>{study.name}</tr>)}
     </td>
 
     <td >
-    {studies.map((study) =>
+    {studies1.map((study) =>
       <tr>
     <Badge
         size="sm"
@@ -88,17 +109,17 @@ function MyStudies() {
     </td>
 
     <td >
-    {studies.map((study) =>
+    {studies1.map((study) =>
     <tr><button>{study.meetings}</button></tr>)}
     </td>
 
     <td >
-    {studies.map((study) =>
+    {studies1.map((study) =>
     <tr><button>{study.reminders}</button></tr>)}
     </td>
 
     <td >
-    {studies.map((study) =>
+    {studies1.map((study) =>
     <tr><button>{study.survey}</button></tr>)}
     </td>
 
