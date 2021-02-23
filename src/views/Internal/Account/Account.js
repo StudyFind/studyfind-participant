@@ -1,103 +1,156 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment-timezone";
 
 import { firestore, auth } from "database/firebase";
-import { Flex, Heading, HStack, VStack } from "@chakra-ui/react";
-import { Box } from "@chakra-ui/react";
+import { useDocument } from "hooks";
 
-import { Form, Button } from "views/External/Auth/Blocks";
+import lodash from "lodash";
 
-import { useCollection, useDocument } from "hooks";
-
-import styled from "styled-components";
-
-import DOB from "./DOB"
-
-import { Spinner, Radio, Textarea, Input } from "components";
-import { set } from "lodash";
-
-
+import {
+  FormControl,
+  FormLabel,
+  Heading,
+  Box,
+  Flex,
+  Grid,
+  Switch,
+  Button,
+  Divider,
+} from "@chakra-ui/react";
+import { Spinner, Radio, Textarea, Input, Select } from "components";
 
 function Account() {
+  const [user, loading, error] = useDocument(
+    firestore.collection("participants").doc(auth.currentUser.uid)
+  );
 
-    const testing = true
+  const [initial, setInitial] = useState({});
+  const [filter, setFilter] = useState({});
+  const [personal, setPersonal] = useState({});
 
-    const [user, snapshot, setUser, loading, error] = useDocument(
-        firestore.collection("participants").doc(auth.currentUser.uid)
-    )
+  useEffect(() => {
+    if (user) {
+      const userInitial = {
+        sex: user.sex,
+        birthdate: user.birthdate,
+        timezone: user.timezone,
+        availability: user.availability,
+      };
 
-    const [changed, setChanged] = useState(false)
-
-    const updateUser = (key, val) => {
-        console.log(key, val)
-        if (key in user.filter) {
-            user.filter[key] = val
-        } else if (key in user.personal_info) {
-            user.personal_info[key] = val
-        } else {
-            user[key] = val
-        }
-        setChanged(true)
-        console.log('user: ', user)
+      setFilter(user.filter);
+      setPersonal(userInitial);
+      setInitial(userInitial);
     }
+  }, [user]);
 
-    const onSave = () => {
-        console.log(user)
-        firestore.collection('participants').doc(user.id).set(user)
-    }
+  const handleFilterChange = ({ target: { name, checked } }) => {
+    setFilter((prev) => ({ ...prev, [name]: checked }));
+  };
 
-    if (loading || !user) return <Spinner/>
+  const handlePersonalChange = (name, value) => {
+    setPersonal((prev) => ({ ...prev, [name]: value }));
+  };
 
-    if (error) return (
-        <>
-        <Heading size="lg" mb="25px">
-            Error!
-        </Heading>
-    </>
-    )
+  const handleCancel = () => {
+    setFilter(user.filter);
+    setPersonal();
+  };
 
+  const handleUpdate = () => {
+    firestore
+      .collection("participants")
+      .doc(user.id)
+      .update({
+        filter,
+        ...personal,
+      });
+  };
+
+  if (loading || !user) return <Spinner />;
+
+  if (error)
     return (
-            <>
-            <Form onSubmit={() => {}}>
-                <HStack justifyContent='space-between'>
-                <Heading size="lg" mb="25px">
-                    Welcome Back, {user.personal_info.name.split(' ')[0]}
-                </Heading>
-                {changed ? (<HStack>
-                            <Button colorScheme='red' onClick={() => {console.log('cancel')}}>Cancel</Button>
-                            <Button onClick={onSave}>Save</Button>
-                            </HStack>) : (<></>)}
-                </HStack>
-                <Box bg="white" borderWidth="1px" rounded="md">
-                    <Form>
-                    <Heading paddingBottom='5px' borderBottomWidth='1px' fontSize="22px">Search Preferences</Heading>
-                    {Object.entries(user.filter).map((pref) => {
-                    const heading = pref[0]
-                    const val = pref[1]
-                    return(
-                        <Radio key={heading} update={updateUser} heading={heading} init={val} options={["Yes", "No"]}></Radio>
-                    )
-                    })}
-                    </Form>
-                </Box>
-                <Box bg="white" borderWidth="1px" rounded="md">
-                    <Form>
-                    <Heading paddingBottom='5px' borderBottomWidth='1px' fontSize="22px">{"Personal Info"}</Heading>
-                        <Radio heading={"sex"} options={["Male", "Female"] } init={user.personal_info.sex} update={updateUser}></Radio>
-                        <Heading fontSize="17px">{user.personal_info.birthdate}</Heading>
-                        <Input type="date" value={user.personal_info.birthdate}></Input>
-                        <Heading fontSize="17px">Availability</Heading>
-                        <Textarea value={user.personal_info.availability} limit={500} name='availability' onChange={updateUser} placeholder="Put a little something about your weekly availability"></Textarea>
-                    </Form>
-                </Box>
-            </Form>
-        </>
-    )
+      <Heading size="lg" mb="25px">
+        Error!
+      </Heading>
+    );
+
+  return (
+    <>
+      <Flex justify="space-between" align="center" mb="25px">
+        <Heading size="lg">Welcome Back, {user.name.split(" ")[0]}</Heading>
+        {!(
+          lodash.isEqual(personal, initial) &&
+          lodash.isEqual(filter, user.filter)
+        ) && (
+          <Flex gridGap="10px">
+            <Button color="gray.500" onClick={handleCancel}>
+              Cancel
+            </Button>
+            <Button colorScheme="green" onClick={handleUpdate}>
+              Save Changes
+            </Button>
+          </Flex>
+        )}
+      </Flex>
+      <Flex gridGap="30px">
+        <Box bg="white" borderWidth="1px" rounded="md" p="20px" w="100%">
+          <Heading size="md">Personal Info</Heading>
+          <Divider my="15px" />
+          <Grid gap="25px">
+            <Radio
+              label="Biological Sex"
+              name="sex"
+              value={personal.sex}
+              options={["Male", "Female"]}
+              onChange={handlePersonalChange}
+            />
+            <Input
+              type="date"
+              name="birthdate"
+              label="Birthdate"
+              value={personal.birthdate}
+              onChange={handlePersonalChange}
+            />
+            <Select
+              name="timezone"
+              label="Timezone"
+              value={personal.timezone}
+              options={moment.tz.names()}
+              onChange={handlePersonalChange}
+            />
+            <Textarea
+              label="Availability"
+              name="availability"
+              value={personal.availability}
+              limit={500}
+              onChange={handlePersonalChange}
+              placeholder="Put a little something about your weekly availability"
+            />
+          </Grid>
+        </Box>
+        <Box bg="white" borderWidth="1px" rounded="md" p="20px" w="100%">
+          <Heading size="md">Search Preferences</Heading>
+          <Divider my="15px" />
+          <Grid gap="20px">
+            {Object.entries(user.filter).map((p, i) => (
+              <FormControl key={i} display="flex" alignItems="center">
+                <Switch
+                  name={p[0]}
+                  value={filter[p[0]]}
+                  onChange={handleFilterChange}
+                  defaultChecked={p[1]}
+                />
+                <FormLabel ml="10px" my="0" textTransform="capitalize">
+                  {p[0].split("_").join(" ")}
+                </FormLabel>
+              </FormControl>
+            ))}
+          </Grid>
+        </Box>
+      </Flex>
+    </>
+  );
 }
 
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: 10rem 10rem;
-  grid-gap: 1rem;
-`;
-
-export default Account
+export default Account;
