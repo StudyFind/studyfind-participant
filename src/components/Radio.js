@@ -22,7 +22,7 @@ function Radio({ name, value, options, onChange, label, error }) {
             colorScheme={value === o ? "blue" : "gray"}
             borderColor={value === o ? "blue.500" : "rgb(226, 232, 240)"}
             borderWidth="1px"
-            onClick={() => onChange(name, o)}
+            onClick={() => onChange(name, value === o ? "" : o)}
             _focus={{ zIndex: 100 }}
           >
             {o}

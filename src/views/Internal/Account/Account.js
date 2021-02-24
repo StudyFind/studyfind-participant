@@ -28,18 +28,22 @@ function Account() {
   const [filter, setFilter] = useState({});
   const [personal, setPersonal] = useState({});
 
+  const resetUser = () => {
+    const userInitial = {
+      sex: user.sex,
+      birthdate: user.birthdate,
+      timezone: user.timezone,
+      availability: user.availability,
+    };
+
+    setFilter(user.filter);
+    setPersonal(userInitial);
+    setInitial(userInitial);
+  };
+
   useEffect(() => {
     if (user) {
-      const userInitial = {
-        sex: user.sex,
-        birthdate: user.birthdate,
-        timezone: user.timezone,
-        availability: user.availability,
-      };
-
-      setFilter(user.filter);
-      setPersonal(userInitial);
-      setInitial(userInitial);
+      resetUser();
     }
   }, [user]);
 
@@ -52,8 +56,7 @@ function Account() {
   };
 
   const handleCancel = () => {
-    setFilter(user.filter);
-    setPersonal();
+    resetUser();
   };
 
   const handleUpdate = () => {
@@ -78,7 +81,9 @@ function Account() {
   return (
     <>
       <Flex justify="space-between" align="center" mb="25px">
-        <Heading size="lg">Welcome Back, {user.name.split(" ")[0]}</Heading>
+        <Heading size="lg" my="8px">
+          Welcome Back, {user.name.split(" ")[0]}
+        </Heading>
         {!(
           lodash.isEqual(personal, initial) &&
           lodash.isEqual(filter, user.filter)
@@ -137,9 +142,8 @@ function Account() {
               <FormControl key={i} display="flex" alignItems="center">
                 <Switch
                   name={p[0]}
-                  value={filter[p[0]]}
+                  isChecked={filter[p[0]]}
                   onChange={handleFilterChange}
-                  defaultChecked={p[1]}
                 />
                 <FormLabel ml="10px" my="0" textTransform="capitalize">
                   {p[0].split("_").join(" ")}
