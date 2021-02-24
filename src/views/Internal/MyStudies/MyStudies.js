@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 import { Heading, Box, Flex, Badge } from "@chakra-ui/react";
+import { FaCalendar, FaClock } from "react-icons/fa";
+
 
 const studies = [
     {id: 12345,
@@ -89,12 +91,12 @@ function MyStudies() {
 
     <td >
     {studies.map((study) =>
-    <tr><button>{study.meetings}</button></tr>)}
+    <tr><button style={{display: "flex", gridGap: "5px"}}><FaCalendar /> {study.meetings}</button></tr>)}
     </td>
 
     <td >
     {studies.map((study) =>
-    <tr><button>{study.reminders}</button></tr>)}
+    <tr ><button><FaClock /></button></tr>)}
     </td>
 
     <td >
@@ -127,6 +129,7 @@ const Row = styled.div`
     border-bottom: none;
   }
 `;
+
 
 
 export default MyStudies;
