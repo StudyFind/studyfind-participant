@@ -5,7 +5,7 @@ import { Heading, Box, Flex, Badge } from "@chakra-ui/react";
 import { FaCalendar, FaClock } from "react-icons/fa";
 
 
-const studies = [
+const studies1 = [
     {id: 12345,
     name: "study number one",
     status: "accepted",
@@ -40,7 +40,28 @@ const statusColors = {
     rejected: "red",
   };
 
-function MyStudies() {
+function MyStudies({ user, studies }) {
+
+  // user.enrolled = ['ID1', 'ID2']
+
+
+  
+
+  console.log(user);
+  console.log(user.enrolled);
+
+  console.log(studies);
+
+  // userStudies = []
+  // for study in studies:
+  //   if study.id is in user.enrolled:
+  //       userStudies.append(study)
+
+
+  // each study in userStudies:
+  //   study.id
+  //   study.title
+
   return (
     <div>
 
@@ -66,17 +87,17 @@ function MyStudies() {
 
 
     <td>
-    {studies.map((study) =>
+    {studies1.map((study) =>
     <tr>{study.id}</tr>)}
     </td>
 
     <td >
-    {studies.map((study) =>
+    {studies1.map((study) =>
     <tr>{study.name}</tr>)}
     </td>
 
     <td >
-    {studies.map((study) =>
+    {studies1.map((study) =>
       <tr>
     <Badge
         size="sm"
@@ -90,6 +111,7 @@ function MyStudies() {
     </td>
 
     <td >
+<<<<<<< HEAD
     {studies.map((study) =>
     <tr><button style={{display: "flex", gridGap: "5px"}}><FaCalendar /> {study.meetings}</button></tr>)}
     </td>
@@ -97,10 +119,19 @@ function MyStudies() {
     <td >
     {studies.map((study) =>
     <tr ><button><FaClock /></button></tr>)}
+=======
+    {studies1.map((study) =>
+    <tr><button>{study.meetings}</button></tr>)}
     </td>
 
     <td >
-    {studies.map((study) =>
+    {studies1.map((study) =>
+    <tr><button>{study.reminders}</button></tr>)}
+>>>>>>> d3c3d65cb7a20ab2dc689d9af54c03491217a738
+    </td>
+
+    <td >
+    {studies1.map((study) =>
     <tr><button>{study.survey}</button></tr>)}
     </td>
 
