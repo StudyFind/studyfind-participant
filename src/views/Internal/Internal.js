@@ -23,7 +23,7 @@ function Internal() {
     { path: "/", component: <FindStudies studies={studies} /> },
     { path: "/settings", component: <Settings /> },
     { path: "/search", component: <FindStudies studies={studies} /> },
-    { path: "/mystudies", component: <MyStudies user={user} studies={studies}/> },
+    { path: "/mystudies", component: <MyStudies user={user} /> },
     { path: "/notifications", component: <Notifications /> },
   ];
 

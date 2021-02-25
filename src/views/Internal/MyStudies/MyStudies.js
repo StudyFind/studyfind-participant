@@ -1,6 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
+import { auth, firestore } from "database/firebase";
+import { useDocument, useCollection } from "hooks";
+
+import { Spinner } from "components";
+
 import { Heading, Box, Badge } from "@chakra-ui/react";
 import { FaCalendar, FaClock } from "react-icons/fa";
 
@@ -40,37 +45,27 @@ const statusColors = {
     rejected: "red",
   };
 
-function MyStudies({ user, studies }) {
+function MyStudies({ user }) {
 
-  //console.log(user);
-  //console.log(user.enrolled);
+  const [studies, loading, error] = useCollection(
+    firestore.collection("studies").where("nctID", "in", user.enrolled)
+  );
+
+  if (loading || !user || !studies) return <Spinner />;
+
+  if (error)
+    return (
+      <Heading size="lg" mb="25px">
+        Error!
+      </Heading>
+    );
+
 
   console.log(studies);
+  if(studies){
+  	console.log(studies[0]);
+  }
 
-
-  const userStudies = [];
-
-  const mystudies = [];
-  mystudies.push(studies);
-
-  const userids = [];
-
-user.enrolled.map(x =>
-userids.push(x));
-
-
-for (const study in studies) {
-  console.log(study)
-};
-
-  // for study in studies:
-  //   if study.id is in user.enrolled:
-  //       userStudies.append(study)
-
-
-  // each study in userStudies:
-  //   study.id
-  //   study.title
 
   return (
     <div>
@@ -97,13 +92,13 @@ for (const study in studies) {
 
 
     <td>
-    {user.enrolled.map((study) =>
+    {studies.map((study) =>
     <tr>{study.id}</tr>)}
     </td>
 
     <td >
-    {userStudies.map((study) =>
-    <tr>{study.name}</tr>)}
+    {studies.map((study) =>
+    <tr>{study.title}</tr>)}
     </td>
 
     <td >
