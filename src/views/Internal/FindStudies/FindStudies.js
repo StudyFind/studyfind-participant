@@ -1,10 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-import { firestore } from "database/firebase";
-import { useCollection } from "hooks";
+import { firestore, auth } from "database/firebase";
+import { useCollection, useDocument } from "hooks";
 
 import { Spinner, Input } from "components";
-import { Grid, Flex, Heading, Button, Icon, IconButton, Tooltip } from "@chakra-ui/react";
+import { 
+  Grid,
+  Box,
+  Flex,
+  Heading,
+  Button,
+  Icon,
+  IconButton,
+  Tooltip,
+  useDisclosure,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerHeader,
+  DrawerBody,
+  DrawerCloseButton,
+  FormControl,
+  FormLabel,
+  Switch,
+ } from "@chakra-ui/react";
 import { FaSearch, FaFilter, FaLocationArrow, FaThLarge } from "react-icons/fa";
 
 import AutoScroll from "./AutoScroll";
@@ -16,12 +35,46 @@ function FindStudies() {
     firestore.collection("studies").where("published", "==", true)
   );
 
+  const {isOpen, onOpen, onClose} = useDisclosure()
+
+  const [user, loading2, error2] = useDocument(
+    firestore.collection("participants").doc(auth.currentUser.uid)
+  );
+
+  const [filter, setFilter] = useState({});
+
+  useEffect(() => {
+    if (user) {
+      setFilter(user.filter)
+      console.log(filter)
+      console.log(auth.currentUser.uid)
+    }
+  }, [user]);
+
   const handleChange = (name, value) => {
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
 
-  if (loading) return <Spinner />;
-  if (error) return <div>There was an error loading your studies...</div>;
+  const handleFilterChange = ({ target: { name, checked } }) => {
+    setFilter((prev) => ({ ...prev, [name]: checked }));
+    console.log(name)
+  };
+
+  const handleFilterSave = () => {
+    firestore
+    .collection("participants")
+    .doc(user.id)
+    .update({
+      filter,
+    });
+  }
+
+  const handleCancel = () => {
+    setFilter(user.filter)
+  }
+
+  if (loading || loading2) return <Spinner />;
+  if (error || error2) return <div>There was an error loading your studies...</div>;
 
   return (
     <>
@@ -56,7 +109,7 @@ function FindStudies() {
               />
             </Tooltip>
           </Flex>
-          <Button color="gray.500" leftIcon={<FaFilter />}>
+          <Button onClick={onOpen} color="gray.500" leftIcon={<FaFilter />}>
             Filter
           </Button>
         </Flex>
@@ -67,7 +120,51 @@ function FindStudies() {
             <StudyCardSmall key={index} study={study} />
           ))}
         </Grid>
-      )}
+      )}    
+      <Drawer size="md" placement="right" onClose={onClose} isOpen={isOpen}>
+      <DrawerOverlay />
+      <DrawerContent>
+        <DrawerHeader borderBottomWidth="1px">
+          <Flex align="center" justify="space-between">
+            <div>
+              <Heading size="md" textTransform="capitalize">
+                Search Preferences
+              </Heading>
+            </div>
+            <DrawerCloseButton position="static" />
+          </Flex>
+        </DrawerHeader>
+        <DrawerBody p="25px" bg="#f8f9fa">
+        <Grid gap="20px">
+        <Box bg="white" borderWidth="1px" rounded="md" p="20px" w="100%">
+            {Object.entries(filter).map((p, i) => (
+              <FormControl key={i} display="flex" alignItems="center">
+                <Switch
+                  name={p[0]}
+                  isChecked={filter[p[0]]}
+                  onChange={handleFilterChange}
+                />
+                <FormLabel ml="10px" my="0" textTransform="capitalize">
+                  {p[0].split("_").join(" ")}
+                </FormLabel>
+              </FormControl>
+            ))}
+            </Box>
+          </Grid>
+          <Flex gridGap="10px" py="20px" justify="flex-end">
+          <Button onClick={handleCancel} variant="outline">
+            Cancel
+          </Button>
+          <Button
+            onClick={handleFilterSave}
+            colorScheme="blue"
+          >
+            Save
+          </Button>
+        </Flex>
+        </DrawerBody>
+      </DrawerContent>
+    </Drawer>
       <AutoScroll />
     </>
   );
