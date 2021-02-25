@@ -25,7 +25,6 @@ function Account() {
   );
 
   const [initial, setInitial] = useState({});
-  const [filter, setFilter] = useState({});
   const [personal, setPersonal] = useState({});
 
   const resetUser = () => {
@@ -36,7 +35,6 @@ function Account() {
       availability: user.availability,
     };
 
-    setFilter(user.filter);
     setPersonal(userInitial);
     setInitial(userInitial);
   };
@@ -46,10 +44,6 @@ function Account() {
       resetUser();
     }
   }, [user]);
-
-  const handleFilterChange = ({ target: { name, checked } }) => {
-    setFilter((prev) => ({ ...prev, [name]: checked }));
-  };
 
   const handlePersonalChange = (name, value) => {
     setPersonal((prev) => ({ ...prev, [name]: value }));
@@ -64,8 +58,7 @@ function Account() {
       .collection("participants")
       .doc(user.id)
       .update({
-        filter,
-        ...personal,
+        ...personal
       });
   };
 
@@ -85,8 +78,7 @@ function Account() {
           Welcome Back, {user.name.split(" ")[0]}
         </Heading>
         {!(
-          lodash.isEqual(personal, initial) &&
-          lodash.isEqual(filter, user.filter)
+          lodash.isEqual(personal, initial)
         ) && (
           <Flex gridGap="10px">
             <Button color="gray.500" onClick={handleCancel}>
@@ -132,24 +124,6 @@ function Account() {
               onChange={handlePersonalChange}
               placeholder="Put a little something about your weekly availability"
             />
-          </Grid>
-        </Box>
-        <Box bg="white" borderWidth="1px" rounded="md" p="20px" w="100%">
-          <Heading size="md">Search Preferences</Heading>
-          <Divider my="15px" />
-          <Grid gap="20px">
-            {Object.entries(user.filter).map((p, i) => (
-              <FormControl key={i} display="flex" alignItems="center">
-                <Switch
-                  name={p[0]}
-                  isChecked={filter[p[0]]}
-                  onChange={handleFilterChange}
-                />
-                <FormLabel ml="10px" my="0" textTransform="capitalize">
-                  {p[0].split("_").join(" ")}
-                </FormLabel>
-              </FormControl>
-            ))}
           </Grid>
         </Box>
       </Flex>
