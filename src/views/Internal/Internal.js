@@ -12,6 +12,8 @@ import Settings from "views/Internal/Settings/Settings";
 import FindStudies from "views/Internal/FindStudies/FindStudies";
 import Notifications from "views/Internal/Notifications/Notifications";
 import ViewStudy from "views/Internal/ViewStudy/ViewStudy"
+import Questionnaire from "views/Internal/ViewStudy/Questionnaire"
+
 
 function Internal() {
   const { uid } = auth.currentUser;
@@ -26,6 +28,7 @@ function Internal() {
     { path: "/notifications", component: <Notifications />},
     { path: "/settings", component: <Settings />},
     { path: "/study/:nctID", component: <ViewStudy studies={studies} /> },
+    { path: "/study/:nctID/questionnaire", component: <Questionnaire studies={studies} />}
   ]
 
   return (

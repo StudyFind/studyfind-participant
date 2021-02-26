@@ -1,15 +1,23 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-import { Heading, Button } from "@chakra-ui/react";
+import { Heading, Button, Flex } from "@chakra-ui/react";
 import StudyCardLarge from "views/Internal/StudyCardLarge";
 
 function DetailsView({ study, setEdit }) {
   return (
     <>
-      <Head>
-        <Heading fontSize="28px">Details</Heading>
-      </Head>
+      <Flex justify="space-between" align="center" mb="25px">
+        <Heading size="lg" my="8px">
+          Details
+        </Heading>
+        <Link to={`/study/${study.id}/questionnaire`}>
+        <Button colorScheme="green">
+          Enroll
+        </Button>
+        </Link>
+      </Flex>
       <StudyCardLarge study={study} />
     </>
   );
