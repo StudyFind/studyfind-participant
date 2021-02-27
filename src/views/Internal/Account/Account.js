@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import moment from "moment-timezone";
 
 import { firestore, auth } from "database/firebase";
-import { useDocument } from "hooks";
 
 import lodash from "lodash";
 
@@ -19,10 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { Spinner, Radio, Textarea, Input, Select } from "components";
 
-function Account() {
-  const [user, loading, error] = useDocument(
-    firestore.collection("participants").doc(auth.currentUser.uid)
-  );
+function Account({ user }) {
 
   const [initial, setInitial] = useState({});
   const [personal, setPersonal] = useState({});
@@ -62,14 +58,7 @@ function Account() {
       });
   };
 
-  if (loading || !user) return <Spinner />;
-
-  if (error)
-    return (
-      <Heading size="lg" mb="25px">
-        Error!
-      </Heading>
-    );
+  if (!user) return <Spinner />;
 
   return (
     <>

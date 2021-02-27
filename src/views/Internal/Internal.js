@@ -4,7 +4,7 @@ import { Box, Flex } from "@chakra-ui/react";
 import { Page } from "components";
 
 import { auth, firestore } from "database/firebase";
-import { useDocument } from "hooks";
+import { useDocument, useCollection } from "hooks";
 
 import Sidebar from "./Sidebar";
 
@@ -16,19 +16,29 @@ import Account from "views/Internal/Account/Account"
 function Internal() {
   const { uid } = auth.currentUser;
   const [user] = useDocument(firestore.collection("participants").doc(uid));
+  const [studies] = useCollection(firestore.collection("studies"));
+
+  const pages = [
+    { path: "/", component: <FindStudies studies={studies}/> },
+    { path: "/settings", component: <Settings /> },
+    { path: "/search", component: <FindStudies studies={studies}/> },
+    { path: "/notifications", component: <Notifications /> },
+    { path: "/account", component: <Account user={user}/> },
+  ];
+
 
   return (
     <Flex bg="#f8f9fa">
       <Sidebar />
       <Box ml="280px" w="100%" minH="100vh">
-        <Page isLoading={!user}>
+        <Page isLoading={!(user && studies)}>
           <Switch>
-            <Route exact path="/" component={FindStudies} />
-            <Route exact path="/search" component={FindStudies} />
-            <Route exact path="/notifications" component={Notifications} />
-            <Route exact path="/settings" component={Settings} />
-            <Route exact path="/account" component={Account} />
-            <Redirect to="/" />
+            {pages.map(({ path, component }, index) => (
+              <Route exact path={path} key={index}>
+                {component}
+              </Route>
+            ))}
+            <Redirect to={"/"} />
           </Switch>
         </Page>
       </Box>
