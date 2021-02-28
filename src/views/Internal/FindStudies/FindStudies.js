@@ -37,10 +37,6 @@ function FindStudies({ user }) {
 
   const {isOpen, onOpen, onClose} = useDisclosure()
 
-  const [user, loading2, error2] = useDocument(
-    firestore.collection("participants").doc(auth.currentUser.uid)
-  );
-
   const [filter, setFilter] = useState({});
 
   useEffect(() => {
@@ -73,8 +69,8 @@ function FindStudies({ user }) {
     setFilter(user.filter)
   }
 
-  if (loading || loading2) return <Spinner />;
-  if (error || error2) return <div>There was an error loading your studies...</div>;
+  if (loading) return <Spinner />;
+  if (error) return <div>There was an error loading your studies...</div>;
 
   return (
     <>
