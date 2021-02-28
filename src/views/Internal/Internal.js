@@ -16,12 +16,11 @@ import Account from "views/Internal/Account/Account"
 function Internal() {
   const { uid } = auth.currentUser;
   const [user] = useDocument(firestore.collection("participants").doc(uid));
-  const [studies] = useCollection(firestore.collection("studies"));
 
   const pages = [
-    { path: "/", component: <FindStudies studies={studies}/> },
+    { path: "/", component: <FindStudies user={user}/> },
     { path: "/settings", component: <Settings /> },
-    { path: "/search", component: <FindStudies studies={studies}/> },
+    { path: "/search", component: <FindStudies user={user}/> },
     { path: "/notifications", component: <Notifications /> },
     { path: "/account", component: <Account user={user}/> },
   ];
@@ -31,7 +30,7 @@ function Internal() {
     <Flex bg="#f8f9fa">
       <Sidebar />
       <Box ml="280px" w="100%" minH="100vh">
-        <Page isLoading={!(user && studies)}>
+        <Page isLoading={!(user)}>
           <Switch>
             {pages.map(({ path, component }, index) => (
               <Route exact path={path} key={index}>
