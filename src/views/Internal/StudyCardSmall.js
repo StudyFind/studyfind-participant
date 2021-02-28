@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { Link } from "react-router-dom";
-import { Box, Flex, Icon, Heading, Text, Stack, Tag, TagLabel } from "@chakra-ui/react";
+import { Box, Flex, HStack, Icon, Heading, Text, Stack, Tag, TagLabel, Button } from "@chakra-ui/react";
 import { FaBookmark } from "react-icons/fa";
 
 function StudyCardSmall({ study }) {
@@ -13,7 +13,12 @@ function StudyCardSmall({ study }) {
           <Text color="gray.400" fontSize="sm">
             {study.id}
           </Text>
+          <HStack>
+            <Link to={`/study/${study.id}/questionnaire`}>
+            <Button colorScheme='green'>Enroll</Button>
+            </Link>
           <Icon color="gray.300" as={FaBookmark} size="sm" />
+          </HStack>
         </Flex>
         <Title size="sm" mt="5px">
           {study.title}

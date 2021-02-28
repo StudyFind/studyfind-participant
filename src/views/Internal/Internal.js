@@ -12,19 +12,25 @@ import Settings from "views/Internal/Settings/Settings";
 import FindStudies from "views/Internal/FindStudies/FindStudies";
 import Notifications from "views/Internal/Notifications/Notifications";
 import Account from "views/Internal/Account/Account"
+import ViewStudy from "views/Internal/ViewStudy/ViewStudy"
+import Questionnaire from "views/Internal/ViewStudy/Questionnaire"
 
 function Internal() {
   const { uid } = auth.currentUser;
   const [user] = useDocument(firestore.collection("participants").doc(uid));
+  const [studies] = useCollection(
+    firestore.collection("studies")
+  );
 
   const pages = [
-    { path: "/", component: <FindStudies user={user}/> },
-    { path: "/settings", component: <Settings /> },
-    { path: "/search", component: <FindStudies user={user}/> },
-    { path: "/notifications", component: <Notifications /> },
+    { path: "/", component: <FindStudies user={user} />},
+    { path: "/search", component: <FindStudies user={user} />},
+    { path: "/notifications", component: <Notifications />},
+    { path: "/settings", component: <Settings />},
+    { path: "/study/:nctID", component: <ViewStudy studies={studies} /> },
     { path: "/account", component: <Account user={user}/> },
-  ];
-
+    { path: "/study/:nctID/questionnaire", component: <Questionnaire studies={studies} />}
+  ]
 
   return (
     <Flex bg="#f8f9fa">
