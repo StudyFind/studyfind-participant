@@ -1,5 +1,10 @@
 import React from "react";
-import { FormControl, Select, FormLabel, FormErrorMessage } from "@chakra-ui/react";
+import {
+  FormControl,
+  Select,
+  FormLabel,
+  FormErrorMessage,
+} from "@chakra-ui/react";
 
 function Field({
   name,
@@ -30,6 +35,7 @@ function Field({
         bg="white"
         textTransform="capitalize"
       >
+        <option value=""></option>
         {options.map((option, index) => (
           <option key={index} value={option}>
             {option}
