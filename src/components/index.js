@@ -10,3 +10,4 @@ export { default as Message } from "./Message";
 export { default as Page } from "./Page";
 export { default as FileInput } from "./FileInput";
 export { default as List } from "./List";
+export { default as Radio } from "./Radio"

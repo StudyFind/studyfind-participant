@@ -11,9 +11,9 @@ import Sidebar from "./Sidebar";
 import Settings from "views/Internal/Settings/Settings";
 import FindStudies from "views/Internal/FindStudies/FindStudies";
 import Notifications from "views/Internal/Notifications/Notifications";
+import Account from "views/Internal/Account/Account"
 import ViewStudy from "views/Internal/ViewStudy/ViewStudy"
 import Questionnaire from "views/Internal/ViewStudy/Questionnaire"
-
 
 function Internal() {
   const { uid } = auth.currentUser;
@@ -23,11 +23,12 @@ function Internal() {
   );
 
   const pages = [
-    { path: "/", component: <FindStudies />},
-    { path: "/search", component: <FindStudies />},
+    { path: "/", component: <FindStudies user={user} />},
+    { path: "/search", component: <FindStudies user={user} />},
     { path: "/notifications", component: <Notifications />},
     { path: "/settings", component: <Settings />},
     { path: "/study/:nctID", component: <ViewStudy studies={studies} /> },
+    { path: "/account", component: <Account user={user}/> },
     { path: "/study/:nctID/questionnaire", component: <Questionnaire studies={studies} />}
   ]
 
@@ -35,14 +36,14 @@ function Internal() {
     <Flex bg="#f8f9fa">
       <Sidebar />
       <Box ml="280px" w="100%" minH="100vh">
-        <Page isLoading={!user}>
+        <Page isLoading={!(user)}>
           <Switch>
             {pages.map(({ path, component }, index) => (
               <Route exact path={path} key={index}>
                 {component}
               </Route>
             ))}
-            <Redirect to="/" />
+            <Redirect to={"/"} />
           </Switch>
         </Page>
       </Box>
