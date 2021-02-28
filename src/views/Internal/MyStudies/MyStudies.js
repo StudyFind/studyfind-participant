@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 
 import { auth, firestore } from "database/firebase";
@@ -6,8 +6,20 @@ import { useDocument, useCollection } from "hooks";
 
 import { Spinner } from "components";
 
-import { Heading, Box, Badge } from "@chakra-ui/react";
+import { Heading, Box, Badge, Button, Input, useDisclosure } from "@chakra-ui/react";
 import { FaCalendar, FaClock } from "react-icons/fa";
+
+
+import {
+  Flex,
+  Text,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerHeader,
+  DrawerBody,
+  DrawerCloseButton,
+} from "@chakra-ui/react";
 
 
 const studies1 = [
@@ -21,7 +33,7 @@ const studies1 = [
     name: "study number two",
     status: "screened",
     meetings: "tuesday 11am",
-    reminders: "none",
+    reminders: "insert reminder here!",
     survey: "completed"},
     {id: 35467,
     name: "study number three",
@@ -47,6 +59,11 @@ const statusColors = {
 
 function MyStudies({ user }) {
 
+  const {isOpen, onOpen, onClose} = useDisclosure();
+
+  const [count, setCount] = useState("");
+
+
   const [studies, loading, error] = useCollection(
     firestore.collection("studies").where("nctID", "in", user.enrolled)
   );
@@ -59,6 +76,7 @@ function MyStudies({ user }) {
         Error!
       </Heading>
     );
+
 
 
   console.log(studies);
@@ -96,10 +114,13 @@ function MyStudies({ user }) {
     <tr>{study.id}</tr>)}
     </td>
 
-    <td >
+    <div  style={{width: "30ch",  overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis", wordBreak: "keep-all"}}>
+    <td  >
     {studies.map((study) =>
-    <tr>{study.title}</tr>)}
+    <tr >{study.title}</tr>)}
     </td>
+    </div>
+
 
     <td >
     {studies1.map((study) =>
@@ -117,12 +138,15 @@ function MyStudies({ user }) {
 
     <td >
     {studies1.map((study) =>
-    <tr><button style={{display: "flex", gridGap: "5px"}}><FaCalendar /> {study.meetings}</button></tr>)}
+    <tr><button onClick={() => {onOpen(); setCount(study.meetings)}}
+    style={{display: "flex", gridGap: "5px"}}
+    >
+    <FaCalendar /> {study.meetings}</button></tr>)}
     </td>
 
     <td >
     {studies1.map((study) =>
-    <tr ><button><FaClock /></button></tr>)}
+    <tr ><button onClick={() => {onOpen(); setCount(study.reminders)}}><FaClock /></button></tr>)}
     </td>
 
     <td >
@@ -138,10 +162,36 @@ function MyStudies({ user }) {
 
 
     </Box>
+    <Drawer size="md" placement="right" onClose={onClose} isOpen={isOpen}>
+      <DrawerOverlay />
+      <DrawerContent>
+        <DrawerHeader borderBottomWidth="1px">
+          <Flex align="center" justify="space-between">
+            <div>
+              <Heading size="md" textTransform="capitalize">
+                Reminders:
+              </Heading>
+            </div>
+            <DrawerCloseButton position="static" />
+          </Flex>
+        </DrawerHeader>
+        <DrawerBody p="25px" bg="#f8f9fa">
+          <Flex gridGap="10px" py="20px">
+          {count}
+        </Flex>
+        </DrawerBody>
+      </DrawerContent>
+    </Drawer>
 
     </div>
-  )
-}
+  );
+
+
+
+
+
+};
+
 
 
 const Row = styled.div`
