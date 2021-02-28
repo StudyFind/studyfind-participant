@@ -29,7 +29,7 @@ import { FaSearch, FaFilter, FaLocationArrow, FaThLarge } from "react-icons/fa";
 import AutoScroll from "./AutoScroll";
 import StudyCardSmall from "views/Internal/StudyCardSmall";
 
-function FindStudies() {
+function FindStudies({ user }) {
   const [inputs, setInputs] = useState({ search: "" });
   const [studies, loading, error] = useCollection(
     firestore.collection("studies").where("published", "==", true)

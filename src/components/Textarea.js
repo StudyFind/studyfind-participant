@@ -1,12 +1,27 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Text, FormControl, Textarea, FormLabel, FormErrorMessage } from "@chakra-ui/react";
+import {
+  Text,
+  FormControl,
+  Textarea,
+  FormLabel,
+  FormErrorMessage,
+} from "@chakra-ui/react";
 
-function Field({ name, value, label, height, placeholder, limit, error, onChange }) {
+function Field({
+  name,
+  value,
+  label,
+  height,
+  placeholder,
+  limit,
+  error,
+  onChange,
+}) {
   const [count, setCount] = useState();
 
   useEffect(() => {
-    setCount(value && value.length);
+    setCount(value ? value.length : 0);
   }, [value]);
 
   const handleChange = (e) => {
@@ -24,7 +39,7 @@ function Field({ name, value, label, height, placeholder, limit, error, onChange
         placeholder={placeholder}
         onChange={handleChange}
         style={{ minHeight: 0 }}
-        bg="white"
+        bg={error ? "red.100" : "white"}
       />
       <Bottom>
         <Error>{error}</Error>

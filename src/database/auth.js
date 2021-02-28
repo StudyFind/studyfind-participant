@@ -1,24 +1,40 @@
 import { auth, firestore } from "./firebase";
+import moment from "moment-timezone";
 import errors from "./errors";
 
-const getErrorMessage = ({ code }) => ({ email: "", password: "", ...errors[code] });
+const getErrorMessage = ({ code }) => ({
+  email: "",
+  password: "",
+  ...errors[code],
+});
 
 const forgotPassword = async (email) => auth.sendPasswordResetEmail(email);
 
 const signup = async (name, email, password) => {
   try {
     const { user } = await auth.createUserWithEmailAndPassword(email, password);
-    await firestore.collection("participants").doc(user.uid).set({
-      name: name,
-      birthdate: "",
-      enrolled: [],
-      filter: {'control_no': true, 'control_yes': true, 'enrolled': true, 'interventional': true, 'observational': true, 'saved': true},
-      location: {},
-      preferences: {'location': true},
-      saved: [],
-      preferredTimezone: ""
-    });
-
+    await firestore
+      .collection("participants")
+      .doc(user.uid)
+      .set({
+        name,
+        sex: "",
+        birthdate: "",
+        timezone: moment.tz.guess(),
+        availability: "",
+        enrolled: [],
+        saved: [],
+        filter: {
+          control_no: true,
+          control_yes: true,
+          enrolled: true,
+          interventional: true,
+          observational: true,
+          saved: true,
+        },
+        preferences: { location: true },
+        location: {},
+      });
     localStorage.setItem("exists", true);
     return user;
   } catch (error) {
