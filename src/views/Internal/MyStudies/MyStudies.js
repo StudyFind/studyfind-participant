@@ -4,65 +4,23 @@ import styled from "styled-components";
 import { auth, firestore } from "database/firebase";
 import { useDocument, useCollection } from "hooks";
 
-import { Spinner } from "components";
+import { Message, Spinner } from "components";
 
 import { Heading, Box, Badge, Button, Input, useDisclosure } from "@chakra-ui/react";
-import { FaCalendar, FaClock } from "react-icons/fa";
 
-
-import {
-  Flex,
-  Text,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerHeader,
-  DrawerBody,
-  DrawerCloseButton,
-} from "@chakra-ui/react";
-
-
-const studies1 = [
-    {id: 12345,
-    name: "study number one",
-    status: "accepted",
-    meetings: "monday 11am",
-    reminders: "none",
-    survey: "not applicable"},
-    {id: 23456,
-    name: "study number two",
-    status: "screened",
-    meetings: "tuesday 11am",
-    reminders: "insert reminder here!",
-    survey: "completed"},
-    {id: 35467,
-    name: "study number three",
-    status: "consented",
-    meetings: "monday 11am",
-    reminders: "none",
-    survey: "completed"},
-    {id: 45678,
-    name: "study number four",
-    status: "rejected",
-    meetings: "none",
-    reminders: "none",
-    survey: "not applicable"},
-];
-
-const statusColors = {
-    interested: "gray",
-    screened: "purple",
-    consented: "cyan",
-    accepted: "green",
-    rejected: "red",
-  };
+import StudyDrawer from "./StudyDrawer";
+import StudiesRow from "./StudiesRow";
+import Meetings from "./Meetings/Meetings";
+import Reminders from "./Reminders/Reminders";
+import Eligibility from "./Eligibility/Eligibility";
 
 function MyStudies({ user }) {
 
   const {isOpen, onOpen, onClose} = useDisclosure();
 
-  const [count, setCount] = useState("");
+  const [drawer, setDrawer] = useState({ action: "", study: {} });
 
+  const { uid } = auth.currentUser;
 
   const [studies, loading, error] = useCollection(
     firestore.collection("studies").where("nctID", "in", user.enrolled)
@@ -77,133 +35,67 @@ function MyStudies({ user }) {
       </Heading>
     );
 
+  const handleDrawer = (action, studyID, responses) => {
+    const study = studies.find((study) => study.id === studyID) || {
+      meetings: [],
+      reminders: [],
+      questions: [],
+    };
+    setDrawer({ action, study, responses });
+    onOpen();
+  };
 
-
-  console.log(studies);
-  if(studies){
-  	console.log(studies[0]);
-  }
-
-
-  return (
-    <div>
-
-    <Heading size="lg" mb="25px">
-      My Studies
-    </Heading>
-
-    <Box borderWidth="1px" rounded="md" bg="white">
-
-
-<Row>
-
-<table style={{width: "100%", align: "left"}}>
-
-<tr >
-    <th style={{textAlign: "left", paddingBottom: "5px"}}>Study ID</th>
-    <th style={{textAlign: "left",  paddingBottom: "5px"}}>Study Name</th>
-    <th style={{textAlign: "left",  paddingBottom: "5px"}}>Status</th>
-    <th style={{textAlign: "left",  paddingBottom: "5px"}}>Scheduled Meetings</th>
-    <th style={{textAlign: "left",  paddingBottom: "5px"}}>Reminders</th>
-    <th style={{textAlign: "left",  paddingBottom: "5px"}}>Screening Survey</th>
-</tr>
-
-
-    <td>
-    {studies.map((study) =>
-    <tr>{study.id}</tr>)}
-    </td>
-
-    <div  style={{width: "30ch",  overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis", wordBreak: "keep-all"}}>
-    <td  >
-    {studies.map((study) =>
-    <tr >{study.title}</tr>)}
-    </td>
-    </div>
-
-
-    <td >
-    {studies1.map((study) =>
-      <tr>
-    <Badge
-        size="sm"
-        cursor="pointer"
-        colorScheme={statusColors[study.status]}
-      >
-      {study.status}
-     </Badge>
-    </tr>)}
-
-    </td>
-
-    <td >
-    {studies1.map((study) =>
-    <tr><button onClick={() => {onOpen(); setCount(study.meetings)}}
-    style={{display: "flex", gridGap: "5px"}}
-    >
-    <FaCalendar /> {study.meetings}</button></tr>)}
-    </td>
-
-    <td >
-    {studies1.map((study) =>
-    <tr ><button onClick={() => {onOpen(); setCount(study.reminders)}}><FaClock /></button></tr>)}
-    </td>
-
-    <td >
-    {studies1.map((study) =>
-    <tr><button>{study.survey}</button></tr>)}
-    </td>
-
-
-</table>
-
-
-</Row>
-
-
+  const EMPTY = (
+    <Box h="500px">
+      <Message
+        type="neutral"
+        title="My Studies"
+        description="You have not enrolled in any studies yet!"
+      />
     </Box>
-    <Drawer size="md" placement="right" onClose={onClose} isOpen={isOpen}>
-      <DrawerOverlay />
-      <DrawerContent>
-        <DrawerHeader borderBottomWidth="1px">
-          <Flex align="center" justify="space-between">
-            <div>
-              <Heading size="md" textTransform="capitalize">
-                Reminders:
-              </Heading>
-            </div>
-            <DrawerCloseButton position="static" />
-          </Flex>
-        </DrawerHeader>
-        <DrawerBody p="25px" bg="#f8f9fa">
-          <Flex gridGap="10px" py="20px">
-          {count}
-        </Flex>
-        </DrawerBody>
-      </DrawerContent>
-    </Drawer>
-
-    </div>
   );
 
+  const LIST = (
+    <>
+      <Head>
+        <Heading fontSize="28px">Studies</Heading>
+      </Head>
+      <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
+        {studies && studies.length
+          ? studies.map((study, index) => (
+              <StudiesRow key={index} study={study} handleDrawer={handleDrawer} uid={uid} />
+            ))
+          : EMPTY}
+      </Box>
+      <StudyDrawer
+        action={drawer.action}
+        studyID={drawer.study.id}
+        onClose={onClose}
+        isOpen={isOpen}
+      >
+        {drawer.action === "meetings" && (
+          <Meetings study={drawer.study} />
+        )}
+        {drawer.action === "reminders" && (
+          <Reminders study={drawer.study} />
+        )}
+        {drawer.action === "eligibility survey" && (
+          <Eligibility study={drawer.study} responses={drawer.responses}/>
+        )}
+      </StudyDrawer>
+    </>
+  );
 
-
-
-
+  return LIST;
 };
 
 
 
-const Row = styled.div`
-
-  grid-gap: 10px;
-  padding: 15px;
-
-  border-bottom: 1px solid #f1f2f3;
-
-  &:last-child {
-    border-bottom: none;
-  }
+const Head = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
 `;
 
 
