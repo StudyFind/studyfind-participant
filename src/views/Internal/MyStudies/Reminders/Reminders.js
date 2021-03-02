@@ -131,6 +131,15 @@ function Reminders({ study }) {
     return allTimes;
   };
 
+  const handleConfirm = (reminder) => {
+    firestore
+      .collection("reminders")
+      .doc(reminder.id)
+      .update({
+        confirmedByParticipant: true
+      });
+  };
+
   if (loading) return <Spinner />;
   if (error) return <RemindersError />;
 
@@ -140,6 +149,7 @@ function Reminders({ study }) {
       formatDate={formatDate}
       getDaysFromOffsets={getDaysFromOffsets}
       getTimesFromOffsets={getTimesFromOffsets}
+      handleConfirm={handleConfirm}
     />
   );
 }

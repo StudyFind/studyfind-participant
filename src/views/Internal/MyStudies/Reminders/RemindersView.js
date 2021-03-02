@@ -1,6 +1,7 @@
 import React from "react";
 import moment from "moment";
 import styled from "styled-components";
+
 import {
   Heading,
   Box,
@@ -21,6 +22,7 @@ function RemindersView({
   formatDate,
   getDaysFromOffsets,
   getTimesFromOffsets,
+  handleConfirm
 }) {
   const weekdayAcronyms = ["S", "M", "T", "W", "T", "F", "S"];
 
@@ -50,6 +52,21 @@ function RemindersView({
                   <TagLabel>{moment(time, ["HH:mm"]).format("hh:mma")}</TagLabel>
                 </Tag>
               ))}
+            </Flex>
+            <Flex justify="space-between" align="center" mt="16px">
+              <Flex gridGap="4px">
+                {reminder.confirmedByParticipant?
+                  (<Button colorScheme="green">
+                    {"Confirmed"}
+                   </Button>
+                  ) : (
+                  <Button colorScheme="blue" onClick={() => handleConfirm(reminder)}>
+                    {"Confirm"}
+                  </Button>
+                  )
+                  }
+              </Flex>
+              <Text color="gray.500" fontSize="0.9rem" fontStyle="italic"></Text>
             </Flex>
           </Box>
         ))}

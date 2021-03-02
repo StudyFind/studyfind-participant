@@ -3,7 +3,6 @@ import React from "react";
 import { Tag, Text, Box, Grid } from "@chakra-ui/react";
 
 function Eligibility({ study, responses }) {
-  console.log(responses);
   return (
     <Grid gap="15px">
       {study.questions && study.questions.length

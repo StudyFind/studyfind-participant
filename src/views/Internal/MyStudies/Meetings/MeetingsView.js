@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { format } from "functions";
-import { Heading, Box, Grid, Flex, IconButton, Text } from "@chakra-ui/react";
+import { Heading, Box, Grid, Flex, IconButton, Text, Button } from "@chakra-ui/react";
 import { FaPencilAlt, FaTrashAlt, FaExternalLinkAlt, FaPlusCircle } from "react-icons/fa";
 
-function MeetingsView({ meetings }) {
+function MeetingsView({ meetings, handleConfirm }) {
   const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
     const [hours, minutes] = [date.getHours(), date.getMinutes()];
@@ -30,6 +30,21 @@ function MeetingsView({ meetings }) {
                 </Text>
               </Flex>
             </ExternalLink>
+            <Flex justify="space-between" align="center" mt="16px">
+              <Flex gridGap="4px">
+                {meeting.confirmedByParticipant?
+                  (<Button colorScheme="green">
+                    {"Confirmed"}
+                   </Button>
+                  ) : (
+                  <Button colorScheme="blue" onClick={() => handleConfirm(meeting)}>
+                    {"Confirm"}
+                  </Button>
+                  )
+                  }
+              </Flex>
+              <Text color="gray.500" fontSize="0.9rem" fontStyle="italic"></Text>
+            </Flex>
           </Box>
         ))}
     </Grid>

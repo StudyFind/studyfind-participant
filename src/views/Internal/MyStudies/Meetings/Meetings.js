@@ -19,11 +19,20 @@ function Meetings({ study }) {
       .orderBy("time", "desc")
   );
 
+  const handleConfirm = (meeting) => {
+    firestore
+      .collection("meetings")
+      .doc(meeting.id)
+      .update({
+        confirmedByParticipant: true
+      });
+  };
+
   if (loading) return <Spinner />;
   if (error) return <MeetingsError />;
 
   return(
-    <MeetingsView meetings={meetings} />
+    <MeetingsView meetings={meetings} handleConfirm={handleConfirm} />
   );
 }
 
