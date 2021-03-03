@@ -5,7 +5,7 @@ import styled from "styled-components";
 import StudyFindLogo from "images/logo.png";
 
 import { Box, Heading, Flex, Text, Avatar } from "@chakra-ui/react";
-import { FaSearch, FaBell, FaCog, FaUserCircle } from "react-icons/fa";
+import { FaSearch, FaBell, FaCog, FaUserCircle, FaList } from "react-icons/fa";
 
 function Sidebar({ user }) {
   const location = useLocation();
@@ -15,6 +15,8 @@ function Sidebar({ user }) {
     { name: "Notifications", path: "/notifications", icon: <FaBell /> },
     { name: "Settings", path: "/settings", icon: <FaCog /> },
     { name: "Account", path: "/account", icon: <FaUserCircle /> },
+    { name: "My Studies", path: "/MyStudies", icon: <FaList /> },
+
   ];
 
   return (

@@ -5,7 +5,7 @@ import StudyFindLogo from "images/logo.png";
 
 import { Box, Heading, Flex, Text } from "components";
 
-import { FaBell, FaSearch, FaCog, FaUserCircle, FaLocationArrow } from "react-icons/fa";
+import { FaBell, FaSearch, FaCog, FaUserCircle, FaLocationArrow, FaList } from "react-icons/fa";
 import { Avatar, Tooltip } from "@chakra-ui/react";
 
 function Header() {
