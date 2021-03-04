@@ -14,7 +14,7 @@ import Meetings from "./Meetings/Meetings";
 import Reminders from "./Reminders/Reminders";
 import Eligibility from "./Eligibility/Eligibility";
 
-function MyStudies({ user }) {
+function MyStudies({ user, studies }) {
 
   const {isOpen, onOpen, onClose} = useDisclosure();
 
@@ -22,18 +22,9 @@ function MyStudies({ user }) {
 
   const { uid } = auth.currentUser;
 
-  const [studies, loading, error] = useCollection(
-    firestore.collection("studies").where("nctID", "in", user.enrolled)
-  );
+  if (!user || !studies) return <Spinner />;
 
-  if (loading || !user || !studies) return <Spinner />;
-
-  if (error)
-    return (
-      <Heading size="lg" mb="25px">
-        Error!
-      </Heading>
-    );
+  const enrolledStudies = studies.filter((study) => user.enrolled.includes(study.id));
 
   const handleDrawer = (action, studyID, responses) => {
     const study = studies.find((study) => study.id === studyID) || {
@@ -58,11 +49,11 @@ function MyStudies({ user }) {
   const LIST = (
     <>
       <Head>
-        <Heading fontSize="28px">Studies</Heading>
+        <Heading fontSize="28px">My Studies</Heading>
       </Head>
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
-        {studies && studies.length
-          ? studies.map((study, index) => (
+        {enrolledStudies && enrolledStudies.length
+          ? enrolledStudies.map((study, index) => (
               <StudiesRow key={index} study={study} handleDrawer={handleDrawer} uid={uid} />
             ))
           : EMPTY}

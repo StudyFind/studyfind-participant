@@ -33,7 +33,7 @@ function Internal() {
     { path: "/study/:nctID", component: <ViewStudy studies={studies} /> },
     { path: "/account", component: <Account user={user}/> },
     { path: "/study/:nctID/questionnaire", component: <Questionnaire studies={studies} />},
-    { path: "/mystudies", component: <MyStudies user={user} /> }
+    { path: "/mystudies", component: <MyStudies user={user} studies={studies}/> }
   ];
 
   return (
