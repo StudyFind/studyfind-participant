@@ -34,7 +34,7 @@ function Locations({ study }) {
       <Message
         type="failure"
         title="No locations"
-        description="Your study does not have any locations listed!"
+        description="This study does not have any locations listed!"
       />
     </Box>
   );
