@@ -15,7 +15,7 @@ function StudyCardSmall({ study }) {
           </Text>
           <HStack>
             <Link to={`/study/${study.id}/questionnaire`}>
-            <Button colorScheme='green'>Enroll</Button>
+            <Button h={7} colorScheme='green'>Enroll</Button>
             </Link>
           <Icon color="gray.300" as={FaBookmark} size="sm" />
           </HStack>
