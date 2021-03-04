@@ -8,6 +8,7 @@ import { Spinner } from "components";
 
 import { Text, Avatar, Badge, IconButton, Tooltip } from "@chakra-ui/react";
 import { FaClock, FaCalendar, FaClipboard } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function StudiesRow({ study, handleDrawer, uid }) {
   const statusColors = {
@@ -29,7 +30,7 @@ function StudiesRow({ study, handleDrawer, uid }) {
         Unable to load study!
       </Text>
     );
-    }
+  }
 
   return (
     <Row>
@@ -40,12 +41,16 @@ function StudiesRow({ study, handleDrawer, uid }) {
         bg="blue.500"
         name={study.id}
       />
-      <Text fontWeight="500">
-        {study.id}
-      </Text>
-      <Text fontWeight="500" overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis" wordBreak="keep-all" mr="auto">
-        {study.title}
-      </Text>
+      <Link to={`/study/${study.id}`}>
+        <Text fontWeight="500">
+          {study.id}
+        </Text>
+      </Link>
+        <Text fontWeight="500" overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis" wordBreak="keep-all" mr="auto">
+          <Link to={`/study/${study.id}`}>
+            {study.title}
+          </Link>
+        </Text>
       <Badge
         size="sm"
         colorScheme={statusColors[participantData["status"]]}
