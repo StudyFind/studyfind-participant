@@ -37,9 +37,9 @@ function Questionnaire({ studies, user }) {
 
     useEffect(() => {
       if (study) {
-          let answers = {}
+          let answers = []
           Object.entries(study.questions).map((v, i) => {
-            answers = {...answers, [i]: ""}
+            answers[i] = "";
           })
           const randomName = uniqueNamesGenerator({ dictionaries: [adjectives, colors, animals] })
           setResponses(answers)
@@ -48,12 +48,13 @@ function Questionnaire({ studies, user }) {
     }, [study])
 
     const handleResponseChange = (i, val) => {
-      setResponses(prev => ({...prev, [i]: val}))
+      let updatedResponses = [...responses];
+      updatedResponses[i] = val;
+      setResponses(updatedResponses);
     }
 
-    // This is really nasty mapping, surely theres a better way to do this
     const handleSave = () => {
-      const update = {...initial, responses: [Object.entries(responses).map((v, i) => (v[1]))][0]};
+      const update = {...initial, responses: responses};
       user.enrolled.push(nctID);
         firestore
         .collection(`studies/${nctID}/participants`)
