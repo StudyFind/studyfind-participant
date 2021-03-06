@@ -53,12 +53,19 @@ function Questionnaire({ studies, user }) {
 
     // This is really nasty mapping, surely theres a better way to do this
     const handleSave = () => {
-      const update = {...initial, responses: [Object.entries(responses).map((v, i) => (v[1]))][0]}
+      const update = {...initial, responses: [Object.entries(responses).map((v, i) => (v[1]))][0]};
+      user.enrolled.push(nctID);
         firestore
         .collection(`studies/${nctID}/participants`)
         .doc(user.id)
         .set({
           ...update
+        })
+        firestore
+        .collection(`participants`)
+        .doc(user.id)
+        .update({
+          ...user
         })
     }
 
