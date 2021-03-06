@@ -4,7 +4,7 @@ import { firestore, auth } from "database/firebase";
 import { useCollection, useDocument } from "hooks";
 
 import { Spinner, Input } from "components";
-import { 
+import {
   Grid,
   Box,
   Flex,
@@ -23,6 +23,9 @@ import {
   FormControl,
   FormLabel,
   Switch,
+  Tag,
+  TagLabel,
+  TagCloseButton,
  } from "@chakra-ui/react";
 import { FaSearch, FaFilter, FaLocationArrow, FaThLarge } from "react-icons/fa";
 
@@ -31,6 +34,7 @@ import StudyCardSmall from "views/Internal/StudyCardSmall";
 
 function FindStudies({ user }) {
   const [inputs, setInputs] = useState({ search: "" });
+  const [conditions, setConditions] = useState([]);
   const [studies, loading, error] = useCollection(
     firestore.collection("studies").where("published", "==", true)
   );
@@ -68,6 +72,32 @@ function FindStudies({ user }) {
   const handleCancel = () => {
     setFilter(user.filter)
   }
+
+  const handleConditions = (type, value) => {
+    setConditions((prevState) => {
+      let conditions = [...prevState];
+      switch (type) {
+        case "add":
+          conditions.push(value);
+          break;
+        case "remove":
+          conditions = conditions.filter((condition) => condition !== value);
+          break;
+        case "clear":
+          conditions = [];
+          break;
+      }
+      return conditions;
+    });
+  }
+
+  const CLEAR_ALL = (
+    <Box onClick={() => handleConditions("clear")}>
+      <Tag m="3px" size="md">
+        <TagLabel>Clear all</TagLabel>
+      </Tag>
+    </Box>
+  );
 
   if (loading) return <Spinner />;
   if (error) return <div>There was an error loading your studies...</div>;
@@ -110,13 +140,24 @@ function FindStudies({ user }) {
           </Button>
         </Flex>
       </Flex>
+      <Flex m="5px">
+        {conditions &&
+          conditions.map((condition, index) => (
+            <Tag m="3px" key={index} variant="solid" size="md" colorScheme="blue">
+              <TagLabel>{condition}</TagLabel>
+              <TagCloseButton onClick={() => handleConditions("remove", condition)} />
+            </Tag>
+          ))
+        }
+        {conditions.length > 3 ? CLEAR_ALL : <div></div>}
+      </ Flex>
       {studies && (
         <Grid gap="25px" templateColumns="1fr 1fr">
-          {studies.map((study, index) => (
-            <StudyCardSmall key={index} study={study} />
+          {studies.filter(study => conditions.filter(x => !(new Set(study.conditions)).has(x)).length === 0).map((study, index) => (
+            <StudyCardSmall conditions={conditions} handleConditions={handleConditions} key={index} study={study} />
           ))}
         </Grid>
-      )}    
+      )}
       <Drawer size="md" placement="right" onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay />
       <DrawerContent>

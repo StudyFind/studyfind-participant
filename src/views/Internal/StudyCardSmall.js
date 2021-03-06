@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Box, Flex, Icon, Heading, Text, Stack, Tag, TagLabel } from "@chakra-ui/react";
 import { FaBookmark } from "react-icons/fa";
 
-function StudyCardSmall({ study }) {
+function StudyCardSmall({ study, conditions, handleConditions }) {
   return (
     <Link to={`/study/${study.id}`}>
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white" p="20px" w="100%" h="270px">
@@ -21,9 +21,15 @@ function StudyCardSmall({ study }) {
         <Conditions spacing={0} isInline mt="6px">
           {study.conditions &&
             study.conditions.map((condition, index) => (
-              <Tag key={index} variant="solid" size="sm" colorScheme="blue">
-                <TagLabel>{condition}</TagLabel>
-              </Tag>
+              <Box key={index} onClick={(event) => {
+                  event.preventDefault();
+                  handleConditions(conditions.includes(condition) ? "remove" : "add", condition)
+                }
+              }>
+                <Tag variant="solid" size="sm" colorScheme={conditions.includes(condition) ? "gray" : "blue"}>
+                  <TagLabel>{condition}</TagLabel>
+                </Tag>
+              </Box>
             ))}
         </Conditions>
         <Description color="gray.500" my="10px">
