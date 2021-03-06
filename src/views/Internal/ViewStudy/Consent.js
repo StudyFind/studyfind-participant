@@ -35,12 +35,9 @@ function ConsentViewer({ study, setEdit }) {
     <Box h="500px">
       <Message
         type="neutral"
-        title="Upload consent form"
+        title="No consent form"
         description="The consent form allows participants to know details and risks of the research study and makes them aware of what they're signing up for"
       >
-        <Button colorScheme="blue" onClick={() => setEdit(true)}>
-          Upload Consent Form
-        </Button>
       </Message>
     </Box>
   );
