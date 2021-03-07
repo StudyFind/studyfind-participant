@@ -245,9 +245,9 @@ function FindStudies({ user }) {
         {conditions.length > 3 ? CLEAR_ALL : <div></div>}
       </ Flex>
       {filteredStudies && (
-        <Grid gap="25px" templateColumns="1fr 1fr">
+        <Grid gap="25px" templateColumns="1fr">
           {filteredStudies.map((study, index) => (
-            <StudyCardSmall conditions={conditions} handleConditions={handleConditions} key={index} study={study} />
+            <StudyCardSmall conditions={conditions} handleConditions={handleConditions} key={index} study={study} user={user}/>
           ))}
         </Grid>
       )}
@@ -267,7 +267,7 @@ function FindStudies({ user }) {
         <DrawerBody p="25px" bg="#f8f9fa">
         <Grid gap="20px">
         <Box bg="white" borderWidth="1px" rounded="md" p="20px" w="100%">
-            {Object.entries(filter).map((p, i) => (
+            { filter && Object.entries(filter).map((p, i) => (
               <FormControl key={i} display="flex" alignItems="center">
                 <Switch
                   name={p[0]}

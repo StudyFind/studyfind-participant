@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import { Box, Flex, HStack, Icon, Heading, Text, Stack, Tag, TagLabel, Button } from "@chakra-ui/react";
 import { FaBookmark } from "react-icons/fa";
 
-function StudyCardSmall({ study, conditions, handleConditions }) {
+
+function StudyCardSmall({ study, conditions, handleConditions, user }) {
   return (
     <Link to={`/study/${study.id}`}>
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white" p="20px" w="100%" h="270px">
@@ -14,10 +15,7 @@ function StudyCardSmall({ study, conditions, handleConditions }) {
             {study.id}
           </Text>
           <HStack>
-            <Link to={`/study/${study.id}/questionnaire`}>
-            <Button colorScheme='green'>Enroll</Button>
-            </Link>
-          <Icon color="gray.300" as={FaBookmark} size="sm" />
+            <Icon color="gray.300" as={FaBookmark} size="sm" />
           </HStack>
         </Flex>
         <Title size="sm" mt="5px">
@@ -40,6 +38,22 @@ function StudyCardSmall({ study, conditions, handleConditions }) {
         <Description color="gray.500" my="10px">
           {study.description}
         </Description>
+        <Flex justifyContent="flex-end" gridGap="8px" mb="8px">
+          <HStack>
+            <Link to={`/study/${study.id}`}>
+              <Button h={7} colorScheme='gray'>Details</Button>
+            </Link>
+            { user.enrolled && user.enrolled.includes(study.id)?
+              (
+                <Button h={7} colorScheme='green' disabled>Enrolled</Button>
+              ) : (
+                  <Link to={`/study/${study.id}/questionnaire`}>
+                  <Button h={7} colorScheme='blue'>Enroll</Button>
+                  </Link>
+              )
+            }
+          </HStack>
+        </Flex>
       </Box>
     </Link>
   );
@@ -69,6 +83,7 @@ const Description = styled(Text)`
   text-overflow: ellipsis;
   display: -webkit-box;
   max-height: 100%; /* fallback */
+  height: 100px;
   -webkit-line-clamp: 5; /* number of lines to show */
   -webkit-box-orient: vertical;
 `;

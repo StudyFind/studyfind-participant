@@ -46,7 +46,7 @@ function StudiesRow({ study, handleDrawer, uid }) {
           {study.id}
         </Text>
       </Link>
-        <Text fontWeight="500" overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis" wordBreak="keep-all" mr="auto">
+        <Text fontWeight="500" width= "50ch" overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis" wordBreak="keep-all" mr="auto">
           <Link to={`/study/${study.id}`}>
             {study.title}
           </Link>
