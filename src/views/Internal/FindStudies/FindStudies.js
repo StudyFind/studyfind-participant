@@ -4,7 +4,7 @@ import { firestore, auth } from "database/firebase";
 import { useCollection, useDocument } from "hooks";
 
 import { Spinner, Input } from "components";
-import { 
+import {
   Grid,
   Box,
   Flex,
@@ -23,14 +23,19 @@ import {
   FormControl,
   FormLabel,
   Switch,
+  Tag,
+  TagLabel,
+  TagCloseButton,
  } from "@chakra-ui/react";
 import { FaSearch, FaFilter, FaLocationArrow, FaThLarge } from "react-icons/fa";
 
 import AutoScroll from "./AutoScroll";
 import StudyCardSmall from "views/Internal/StudyCardSmall";
+import { functions } from "lodash";
 
 function FindStudies({ user }) {
   const [inputs, setInputs] = useState({ search: "" });
+  const [conditions, setConditions] = useState([]);
   const [studies, loading, error] = useCollection(
     firestore.collection("studies").where("published", "==", true)
   );
@@ -69,8 +74,126 @@ function FindStudies({ user }) {
     setFilter(user.filter)
   }
 
+  const handleConditions = (type, value) => {
+    setConditions((prevState) => {
+      let conditions = [...prevState];
+      switch (type) {
+        case "add":
+          conditions.push(value);
+          break;
+        case "remove":
+          conditions = conditions.filter((condition) => condition !== value);
+          break;
+        case "clear":
+          conditions = [];
+          break;
+      }
+      return conditions;
+    });
+  }
+
+  const calculateAge = birthdate => {
+    // accepts birthdate in form MM/DD/YYYY
+    if(birthdate) {
+      const birthDay = parseInt(birthdate.substring(3, 5));
+      const birthMonth = parseInt(birthdate.substring(0, 2));
+      const birthYear = parseInt(birthdate.substring(6));
+
+      const today = new Date();
+
+      const currentDay = today.getDate();
+      const currentMonth = today.getMonth() + 1;
+      const currentYear = today.getFullYear();
+
+      return (currentYear - birthYear) - (birthMonth > currentMonth) - (birthMonth === currentMonth && (birthDay > currentDay));
+    }
+  }
+
+  const filterFunctions = {
+    age: (user, study) => {
+      if(user.birthdate) {
+        const { minAge, maxAge } = study
+        const age = calculateAge(user.birthdate)
+        return minAge <= age && age <= maxAge
+      }
+      return true
+    },
+
+    sex: (user, study) => {
+      if(user.sex) {
+        return [user.sex, 'All'].includes(study.sex)
+      }
+      return true
+    },
+
+    saved: (user, studies) => {
+      return studies.filter(study => user.saved.includes(study.nctID))
+    },
+
+    removeEnrolled: (user, studies) => {
+      return studies.filter(study => !user.enrolled.includes(study.nctID))
+    },
+
+    screened: (user, studies) => {
+      return studies.filter(study => filterFunctions.age(user, study) && filterFunctions.sex(user, study))
+    },
+
+    removeObservational: (studies) => {
+      return studies.filter(study => study.type !== 'Observational')
+    },
+
+    removeInterventional: (studies) => {
+      return studies.filter(study => study.type !== 'Interventional')
+    },
+
+    search: (search, studies) => {
+      if(search) {
+        return studies.filter(study => {
+          const searchInput = search.trim().toLowerCase()
+          return study.title.toLowerCase().includes(searchInput)
+        })
+      }
+      return studies
+    },
+
+    conditions: (conditions, studies) => {
+      if(conditions.length) {
+        return studies.filter(study => {
+          for(let condition of conditions) {
+            if(!study.conditions.includes(condition)) {
+              return false
+            }
+          }
+          return true
+        })
+      }
+      return studies
+    },
+  };
+
+  const filterStudies = (studies) => {
+    let filteredStudies = [...studies];
+    if(!filter.enrolled) filteredStudies = filterFunctions.removeEnrolled(user, filteredStudies);
+    if(!filter.observational) filteredStudies = filterFunctions.removeObservational(filteredStudies);
+    if(!filter.interventional) filteredStudies = filterFunctions.removeInterventional(filteredStudies);
+    filteredStudies = filterFunctions.conditions(conditions, filteredStudies);
+    filteredStudies = filterFunctions.screened(user, filteredStudies);
+    filteredStudies = filterFunctions.search(inputs.search, filteredStudies);
+    return filteredStudies;
+  };
+
+  const CLEAR_ALL = (
+    <Box onClick={() => handleConditions("clear")}>
+      <Tag m="3px" size="md">
+        <TagLabel>Clear all</TagLabel>
+      </Tag>
+    </Box>
+  );
+
   if (loading) return <Spinner />;
-  if (error) return <div>There was an error loading your studies...</div>;
+  if (error || !user || !studies) return <div>There was an error loading your studies...</div>;
+
+  const filteredStudies = filterStudies(studies);
 
   return (
     <>
@@ -110,13 +233,24 @@ function FindStudies({ user }) {
           </Button>
         </Flex>
       </Flex>
-      {studies && (
+      <Flex m="5px">
+        {conditions &&
+          conditions.map((condition, index) => (
+            <Tag m="3px" key={index} variant="solid" size="md" colorScheme="facebook">
+              <TagLabel>{condition}</TagLabel>
+              <TagCloseButton onClick={() => handleConditions("remove", condition)} />
+            </Tag>
+          ))
+        }
+        {conditions.length > 3 ? CLEAR_ALL : <div></div>}
+      </ Flex>
+      {filteredStudies && (
         <Grid gap="25px" templateColumns="1fr">
-          {studies.map((study, index) => (
-            <StudyCardSmall key={index} study={study} user={user}/>
+          {filteredStudies.map((study, index) => (
+            <StudyCardSmall conditions={conditions} handleConditions={handleConditions} key={index} study={study} user={user}/>
           ))}
         </Grid>
-      )}    
+      )}
       <Drawer size="md" placement="right" onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay />
       <DrawerContent>
