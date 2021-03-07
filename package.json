@@ -27,6 +27,7 @@
     "react-scripts": "3.4.3",
     "styled-components": "^5.2.0",
     "syllable": "^4.1.0",
+    "unique-names-generator": "^4.4.0",
     "validator": "^13.5.2"
   },
   "scripts": {
