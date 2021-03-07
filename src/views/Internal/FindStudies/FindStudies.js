@@ -191,7 +191,7 @@ function FindStudies({ user }) {
   );
 
   if (loading) return <Spinner />;
-  if (error || !user || !studies) return <div>There was an error loading your studies...</div>;
+  if (error || !user || !studies || !filter) return <div>There was an error loading your studies...</div>;
 
   const filteredStudies = filterStudies(studies);
 
