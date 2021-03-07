@@ -31,6 +31,7 @@ import { FaSearch, FaFilter, FaLocationArrow, FaThLarge } from "react-icons/fa";
 
 import AutoScroll from "./AutoScroll";
 import StudyCardSmall from "views/Internal/StudyCardSmall";
+import { functions } from "lodash";
 
 function FindStudies({ user }) {
   const [inputs, setInputs] = useState({ search: "" });
@@ -91,6 +92,96 @@ function FindStudies({ user }) {
     });
   }
 
+  const calculateAge = birthdate => {
+    // accepts birthdate in form MM/DD/YYYY
+    if(birthdate) {
+      const birthDay = parseInt(birthdate.substring(3, 5));
+      const birthMonth = parseInt(birthdate.substring(0, 2));
+      const birthYear = parseInt(birthdate.substring(6));
+
+      const today = new Date();
+
+      const currentDay = today.getDate();
+      const currentMonth = today.getMonth() + 1;
+      const currentYear = today.getFullYear();
+
+      return (currentYear - birthYear) - (birthMonth > currentMonth) - (birthMonth === currentMonth && (birthDay > currentDay));
+    }
+  }
+
+  const filterFunctions = {
+    age: (user, study) => {
+      if(user.birthdate) {
+        const { minAge, maxAge } = study
+        const age = calculateAge(user.birthdate)
+        return minAge <= age && age <= maxAge
+      }
+      return true
+    },
+
+    sex: (user, study) => {
+      if(user.sex) {
+        return [user.sex, 'All'].includes(study.sex)
+      }
+      return true
+    },
+
+    saved: (user, studies) => {
+      return studies.filter(study => user.saved.includes(study.nctID))
+    },
+
+    removeEnrolled: (user, studies) => {
+      return studies.filter(study => !user.enrolled.includes(study.nctID))
+    },
+
+    screened: (user, studies) => {
+      return studies.filter(study => filterFunctions.age(user, study) && filterFunctions.sex(user, study))
+    },
+
+    removeObservational: (studies) => {
+      return studies.filter(study => study.type !== 'Observational')
+    },
+
+    removeInterventional: (studies) => {
+      return studies.filter(study => study.type !== 'Interventional')
+    },
+
+    search: (search, studies) => {
+      if(search) {
+        return studies.filter(study => {
+          const searchInput = search.trim().toLowerCase()
+          return study.title.toLowerCase().includes(searchInput)
+        })
+      }
+      return studies
+    },
+
+    conditions: (conditions, studies) => {
+      if(conditions.length) {
+        return studies.filter(study => {
+          for(let condition of conditions) {
+            if(!study.conditions.includes(condition)) {
+              return false
+            }
+          }
+          return true
+        })
+      }
+      return studies
+    },
+  };
+
+  const filterStudies = (studies) => {
+    let filteredStudies = [...studies];
+    if(!filter.enrolled) filteredStudies = filterFunctions.removeEnrolled(user, filteredStudies);
+    if(!filter.observational) filteredStudies = filterFunctions.removeObservational(filteredStudies);
+    if(!filter.interventional) filteredStudies = filterFunctions.removeInterventional(filteredStudies);
+    filteredStudies = filterFunctions.conditions(conditions, filteredStudies);
+    filteredStudies = filterFunctions.screened(user, filteredStudies);
+    filteredStudies = filterFunctions.search(inputs.search, filteredStudies);
+    return filteredStudies;
+  };
+
   const CLEAR_ALL = (
     <Box onClick={() => handleConditions("clear")}>
       <Tag m="3px" size="md">
@@ -100,7 +191,9 @@ function FindStudies({ user }) {
   );
 
   if (loading) return <Spinner />;
-  if (error) return <div>There was an error loading your studies...</div>;
+  if (error || !user || !studies) return <div>There was an error loading your studies...</div>;
+
+  const filteredStudies = filterStudies(studies);
 
   return (
     <>
@@ -143,7 +236,7 @@ function FindStudies({ user }) {
       <Flex m="5px">
         {conditions &&
           conditions.map((condition, index) => (
-            <Tag m="3px" key={index} variant="solid" size="md" colorScheme="blue">
+            <Tag m="3px" key={index} variant="solid" size="md" colorScheme="facebook">
               <TagLabel>{condition}</TagLabel>
               <TagCloseButton onClick={() => handleConditions("remove", condition)} />
             </Tag>
@@ -151,9 +244,9 @@ function FindStudies({ user }) {
         }
         {conditions.length > 3 ? CLEAR_ALL : <div></div>}
       </ Flex>
-      {studies && (
+      {filteredStudies && (
         <Grid gap="25px" templateColumns="1fr 1fr">
-          {studies.filter(study => conditions.filter(x => !(new Set(study.conditions)).has(x)).length === 0).map((study, index) => (
+          {filteredStudies.map((study, index) => (
             <StudyCardSmall conditions={conditions} handleConditions={handleConditions} key={index} study={study} />
           ))}
         </Grid>

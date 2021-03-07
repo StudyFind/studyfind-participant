@@ -31,7 +31,7 @@ function StudyCardSmall({ study, conditions, handleConditions }) {
                   handleConditions(conditions.includes(condition) ? "remove" : "add", condition)
                 }
               }>
-                <Tag variant="solid" size="sm" colorScheme={conditions.includes(condition) ? "gray" : "blue"}>
+                <Tag variant="solid" size="sm" colorScheme={conditions.includes(condition) ? "facebook" : "blue"}>
                   <TagLabel>{condition}</TagLabel>
                 </Tag>
               </Box>
