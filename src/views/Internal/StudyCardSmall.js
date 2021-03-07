@@ -36,7 +36,7 @@ function StudyCardSmall({ study, user }) {
             <Link to={`/study/${study.id}`}>
               <Button h={7} colorScheme='gray'>Details</Button>
             </Link>
-            { user.enrolled.includes(study.id)?
+            { user.enrolled && user.enrolled.includes(study.id)?
               (
                 <Button h={7} colorScheme='green' disabled>Enrolled</Button>
               ) : (
