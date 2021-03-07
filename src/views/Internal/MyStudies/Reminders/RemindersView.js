@@ -49,7 +49,7 @@ function RemindersView({
             <Flex gridGap="8px" my="8px">
               {getTimesFromOffsets(reminder.times).map((time, index) => (
                 <Tag key={index} colorScheme="blue">
-                  <TagLabel>{moment(time, ["HH:mm"]).format("hh:mma")}</TagLabel>
+                  <TagLabel>{moment(time, ["HH:mm"]).format("hh:mma")} UTC</TagLabel>
                 </Tag>
               ))}
             </Flex>

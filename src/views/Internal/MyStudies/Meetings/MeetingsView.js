@@ -10,7 +10,7 @@ function MeetingsView({ meetings, handleConfirm }) {
     const [hours, minutes] = [date.getHours(), date.getMinutes()];
     const formattedDate = format.date(date);
     const formattedTime = format.time(`${hours}:${minutes}`);
-    return `${formattedDate} at ${formattedTime}`;
+    return `${formattedDate} at ${formattedTime} UTC`;
   };
 
   return (

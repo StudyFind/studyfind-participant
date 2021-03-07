@@ -93,11 +93,11 @@ function FindStudies({ user }) {
   }
 
   const calculateAge = birthdate => {
-    // accepts birthdate in form MM/DD/YYYY
+    // accepts birthdate in form YYYY/MM/DD
     if(birthdate) {
-      const birthDay = parseInt(birthdate.substring(3, 5));
-      const birthMonth = parseInt(birthdate.substring(0, 2));
-      const birthYear = parseInt(birthdate.substring(6));
+      const birthDay = parseInt(birthdate.substring(8));
+      const birthMonth = parseInt(birthdate.substring(5, 7));
+      const birthYear = parseInt(birthdate.substring(0,4));
 
       const today = new Date();
 
@@ -112,7 +112,9 @@ function FindStudies({ user }) {
   const filterFunctions = {
     age: (user, study) => {
       if(user.birthdate) {
-        const { minAge, maxAge } = study
+        const ageRange = study.age && study.age.split("-");
+        const minAge = parseInt(ageRange[0]);
+        const maxAge = parseInt(ageRange[1]);
         const age = calculateAge(user.birthdate)
         return minAge <= age && age <= maxAge
       }
