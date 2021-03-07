@@ -10,7 +10,7 @@ import Locations from "./Locations";
 import Consent from "./Consent";
 
 
-function ViewStudy({ studies }) {
+function ViewStudy({ studies, user }) {
   const { nctID } = useParams();
   const findStudy = () => studies && studies.find((study) => study.id === nctID);
   const [study, setStudy] = useState(findStudy());
@@ -40,7 +40,7 @@ function ViewStudy({ studies }) {
       </TabList>
       <TabPanels>
         <TabPanel pt="1px">
-          <Details study={study} />
+          <Details study={study} user={user}/>
         </TabPanel>
         <TabPanel pt="1px">
           <Locations study={study} />

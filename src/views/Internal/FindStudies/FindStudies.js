@@ -111,9 +111,9 @@ function FindStudies({ user }) {
         </Flex>
       </Flex>
       {studies && (
-        <Grid gap="25px" templateColumns="1fr 1fr">
+        <Grid gap="25px" templateColumns="1fr">
           {studies.map((study, index) => (
-            <StudyCardSmall key={index} study={study} />
+            <StudyCardSmall key={index} study={study} user={user}/>
           ))}
         </Grid>
       )}    

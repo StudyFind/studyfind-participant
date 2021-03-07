@@ -5,18 +5,26 @@ import { Link } from "react-router-dom";
 import { Heading, Button, Flex } from "@chakra-ui/react";
 import StudyCardLarge from "views/Internal/StudyCardLarge";
 
-function DetailsView({ study, setEdit }) {
+function DetailsView({ study, user }) {
   return (
     <>
       <Flex justify="space-between" align="center" mb="25px">
         <Heading size="lg" my="8px">
           Details
         </Heading>
-        <Link to={`/study/${study.id}/questionnaire`}>
-        <Button colorScheme="green">
-          Enroll
-        </Button>
-        </Link>
+        { user.enrolled.includes(study.id)?
+          (
+            <Button colorScheme="green" disabled>
+              Enrolled
+            </Button>
+          ) : (
+          <Link to={`/study/${study.id}/questionnaire`}>
+            <Button colorScheme="blue">
+              Enroll
+            </Button>
+          </Link>
+          )
+        }
       </Flex>
       <StudyCardLarge study={study} />
     </>

@@ -30,7 +30,7 @@ function Internal() {
     { path: "/search", component: <FindStudies user={user} />},
     { path: "/notifications", component: <Notifications />},
     { path: "/settings", component: <Settings />},
-    { path: "/study/:nctID", component: <ViewStudy studies={studies} /> },
+    { path: "/study/:nctID", component: <ViewStudy studies={studies} user={user}/> },
     { path: "/account", component: <Account user={user}/> },
     { path: "/study/:nctID/questionnaire", component: <Questionnaire studies={studies} user={user} />},
     { path: "/mystudies", component: <MyStudies user={user} studies={studies}/> }
