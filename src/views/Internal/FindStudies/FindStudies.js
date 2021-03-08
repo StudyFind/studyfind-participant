@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { firestore, auth } from "database/firebase";
 import { useCollection, useDocument } from "hooks";
 
-import { Spinner, Input } from "components";
+import { Spinner, Input, Message } from "components";
 import {
   Grid,
   Box,
@@ -44,9 +44,12 @@ function FindStudies({ user }) {
 
   const [filter, setFilter] = useState({});
 
+  const [saved, setSaved] = useState([]);
+
   useEffect(() => {
     if (user) {
       setFilter(user.filter)
+      setSaved(user.saved)
       console.log(filter)
       console.log(auth.currentUser.uid)
     }
@@ -92,6 +95,25 @@ function FindStudies({ user }) {
     });
   }
 
+  const handleBookmark = (type,studyID) => {
+    let savedStudies = [...user.saved];
+    switch (type) {
+      case "add":
+        savedStudies.push(studyID);
+        break;
+      case "remove":
+        savedStudies = savedStudies.filter((study) => study !== studyID);
+        break;
+    }
+    firestore
+    .collection("participants")
+    .doc(user.id)
+    .update({
+      saved: savedStudies,
+    });
+    setSaved(savedStudies);
+  } 
+
   const calculateAge = birthdate => {
     // accepts birthdate in form YYYY/MM/DD
     if(birthdate) {
@@ -132,20 +154,20 @@ function FindStudies({ user }) {
       return studies.filter(study => user.saved.includes(study.nctID))
     },
 
-    removeEnrolled: (user, studies) => {
-      return studies.filter(study => !user.enrolled.includes(study.nctID))
+    enrolled: (user, studies) => {
+      return studies.filter(study => user.enrolled.includes(study.nctID))
     },
 
     screened: (user, studies) => {
       return studies.filter(study => filterFunctions.age(user, study) && filterFunctions.sex(user, study))
     },
 
-    removeObservational: (studies) => {
-      return studies.filter(study => study.type !== 'Observational')
+    observational: (studies) => {
+      return studies.filter(study => study.type === 'Observational')
     },
 
-    removeInterventional: (studies) => {
-      return studies.filter(study => study.type !== 'Interventional')
+    interventional: (studies) => {
+      return studies.filter(study => study.type === 'Interventional')
     },
 
     search: (search, studies) => {
@@ -175,11 +197,12 @@ function FindStudies({ user }) {
 
   const filterStudies = (studies) => {
     let filteredStudies = [...studies];
-    if(!filter.enrolled) filteredStudies = filterFunctions.removeEnrolled(user, filteredStudies);
-    if(!filter.observational) filteredStudies = filterFunctions.removeObservational(filteredStudies);
-    if(!filter.interventional) filteredStudies = filterFunctions.removeInterventional(filteredStudies);
+    if(filter.enrolled) filteredStudies = filterFunctions.enrolled(user, filteredStudies);
+    if(filter.saved) filteredStudies = filterFunctions.saved(user, filteredStudies);
+    if(!filter.enrolled && !filter.saved) filteredStudies = filterFunctions.screened(user, filteredStudies);
+    if(filter.observational) filteredStudies = filterFunctions.observational(filteredStudies);
+    if(filter.interventional) filteredStudies = filterFunctions.interventional(filteredStudies);
     filteredStudies = filterFunctions.conditions(conditions, filteredStudies);
-    filteredStudies = filterFunctions.screened(user, filteredStudies);
     filteredStudies = filterFunctions.search(inputs.search, filteredStudies);
     return filteredStudies;
   };
@@ -192,8 +215,19 @@ function FindStudies({ user }) {
     </Box>
   );
 
+  const EMPTY = (
+    <Box h="500px">
+      <Message
+        type="neutral"
+        title="Find Studies"
+        description="No studies to display. Try changing your search filters for better results!"
+      />
+    </Box>
+  );
+
   if (loading) return <Spinner />;
-  if (error || !user || !studies || !filter) return <div>There was an error loading your studies...</div>;
+  if (error) return <div>There was an error loading your studies...</div>;
+  if (!user || !studies || !filter) return EMPTY;
 
   const filteredStudies = filterStudies(studies);
 
@@ -246,13 +280,14 @@ function FindStudies({ user }) {
         }
         {conditions.length > 3 ? CLEAR_ALL : <div></div>}
       </ Flex>
-      {filteredStudies && (
+      {filteredStudies && filteredStudies.length
+        ? (
         <Grid gap="25px" templateColumns="1fr">
           {filteredStudies.map((study, index) => (
-            <StudyCardSmall conditions={conditions} handleConditions={handleConditions} key={index} study={study} user={user}/>
+            <StudyCardSmall conditions={conditions} handleConditions={handleConditions} key={index} study={study} user={user} handleBookmark={handleBookmark}/>
           ))}
         </Grid>
-      )}
+        ) : EMPTY}
       <Drawer size="md" placement="right" onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay />
       <DrawerContent>
