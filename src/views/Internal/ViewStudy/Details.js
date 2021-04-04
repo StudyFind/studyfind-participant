@@ -12,6 +12,7 @@ function DetailsView({ study, user }) {
         <Heading size="lg" my="8px">
           Details
         </Heading>
+
         { user.enrolled.includes(study.id)?
           (
             <Button colorScheme="green" disabled>
@@ -25,8 +26,16 @@ function DetailsView({ study, user }) {
           </Link>
           )
         }
+
       </Flex>
       <StudyCardLarge study={study} />
+      <br/>
+      <Link to={`/search`}>
+      <Button colorScheme="blue" float="right">
+      Back
+      </Button>
+      </Link>
+
     </>
   );
 }
