@@ -13,6 +13,7 @@ import StudiesRow from "./StudiesRow";
 import Meetings from "./Meetings/Meetings";
 import Reminders from "./Reminders/Reminders";
 import Eligibility from "./Eligibility/Eligibility";
+import Messages from "./Messages/Messages";
 
 function MyStudies({ user, studies }) {
 
@@ -64,6 +65,9 @@ function MyStudies({ user, studies }) {
         onClose={onClose}
         isOpen={isOpen}
       >
+        {drawer.action === "messages" && (
+          <Messages study={drawer.study} participant={{id: uid}}/>
+        )}
         {drawer.action === "meetings" && (
           <Meetings study={drawer.study} />
         )}

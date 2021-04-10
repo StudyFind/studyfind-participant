@@ -27,7 +27,7 @@ function RemindersView({
   const weekdayAcronyms = ["S", "M", "T", "W", "T", "F", "S"];
 
   return (
-    <Grid gap="15px">
+    <Grid p="25px" gap="15px">
       {reminders &&
         reminders.map((reminder, index) => (
           <Box key={index} borderWidth="1px" bg="white" rounded="md" p="15px">

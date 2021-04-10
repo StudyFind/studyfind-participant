@@ -14,7 +14,7 @@ function MeetingsView({ meetings, handleConfirm }) {
   };
 
   return (
-    <Grid gap="15px">
+    <Grid p="25px" gap="15px">
       {meetings &&
         meetings.map((meeting, index) => (
           <Box key={index} borderWidth="1px" bg="white" rounded="md" p="15px">
