@@ -7,7 +7,7 @@ import { HiOutlineCheckCircle, HiCheckCircle } from "react-icons/hi";
 
 function Message({ message, messagesRef, isUser }) {
   useEffect(() => {
-    if (!isUser) messagesRef.doc(message.id).update({ read: true });
+    if (!isUser && !message.read) messagesRef.doc(message.id).update({ read: true });
   }, []);
 
   return (

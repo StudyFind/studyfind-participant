@@ -52,6 +52,7 @@ function MessageInput({ autoscroll, messagesRef }) {
           autoComplete="off"
         />
         <IconButton
+          type="submit"
           color="gray.500"
           bg="white"
           icon={<FaPaperPlane />}
