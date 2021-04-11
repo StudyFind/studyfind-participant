@@ -108,9 +108,9 @@ function MessageList({ autoscroll, messagesRef }, ref) {
       </Flex>
       <Flex direction="column" overflowY="scroll" gridGap="8px" p="20px" ref={listRef}>
         {messages &&
-          messages.map((message, i) => (
+          messages.map((message) => (
             <Message
-              key={i}
+              key={message.id}
               message={message}
               messagesRef={messagesRef}
               isUser={message.user === auth.currentUser.uid}
