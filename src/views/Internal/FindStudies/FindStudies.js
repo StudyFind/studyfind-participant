@@ -30,11 +30,13 @@ import {
 import { FaSearch, FaFilter, FaLocationArrow, FaThLarge } from "react-icons/fa";
 
 import AutoScroll from "./AutoScroll";
+import MapView from "./MapView"
 import StudyCardSmall from "views/Internal/StudyCardSmall";
 import { functions } from "lodash";
 
 function FindStudies({ user }) {
   const [inputs, setInputs] = useState({ search: "" });
+  const [mapView, setView] = useState(false)
   const [conditions, setConditions] = useState([]);
   const [studies, loading, error] = useCollection(
     firestore.collection("studies").where("published", "==", true)
@@ -44,11 +46,24 @@ function FindStudies({ user }) {
 
   const [filter, setFilter] = useState({});
 
+  const [localized, setLocalized] = useState(false)
+
+  const [location, setLocation] = useState()
+
   useEffect(() => {
     if (user) {
       setFilter(user.filter)
       console.log(filter)
       console.log(auth.currentUser.uid)
+    }
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        setLocation({zoom: 11, center: {lat: position.coords.latitude, lng: position.coords.longitude}})
+        setLocalized(true)
+        console.log("Longitude is :", position.coords.longitude);
+      });
+    } else {
+      console.log("nope")
     }
   }, [user]);
 
@@ -190,8 +205,8 @@ function FindStudies({ user }) {
     </Box>
   );
 
-  if (loading) return <Spinner />;
-  if (error || !user || !studies) return <div>There was an error loading your studies...</div>;
+  if (loading && !localized) return <Spinner />;
+  if (error || !user.enrolled || !studies) return <div>There was an error loading your studies...</div>;
 
   const filteredStudies = filterStudies(studies);
 
@@ -213,6 +228,7 @@ function FindStudies({ user }) {
           <Flex>
             <Tooltip label="Map View">
               <IconButton
+                onClick={() => setView(true)}
                 color="gray.500"
                 borderTopRightRadius="0"
                 borderBottomRightRadius="0"
@@ -221,6 +237,7 @@ function FindStudies({ user }) {
             </Tooltip>
             <Tooltip label="Grid View">
               <IconButton
+                onClick={() => setView(false)}
                 color="gray.500"
                 borderTopLeftRadius="0"
                 borderBottomLeftRadius="0"
@@ -233,6 +250,10 @@ function FindStudies({ user }) {
           </Button>
         </Flex>
       </Flex>
+      {mapView ? (
+      <MapView loc={location} user={user} conditions={conditions} handleConditions={handleConditions} studies={filteredStudies}/>
+      ) : (
+      <>
       <Flex m="5px">
         {conditions &&
           conditions.map((condition, index) => (
@@ -250,6 +271,8 @@ function FindStudies({ user }) {
             <StudyCardSmall conditions={conditions} handleConditions={handleConditions} key={index} study={study} user={user}/>
           ))}
         </Grid>
+      )}
+      </>
       )}
       <Drawer size="md" placement="right" onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay />
@@ -295,7 +318,7 @@ function FindStudies({ user }) {
         </DrawerBody>
       </DrawerContent>
     </Drawer>
-      <AutoScroll />
+    {mapView ? (<></>) : (<AutoScroll />)}
     </>
   );
 }
