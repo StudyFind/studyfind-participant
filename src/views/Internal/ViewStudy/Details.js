@@ -1,11 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import { Heading, Button, Flex } from "@chakra-ui/react";
 import StudyCardLarge from "views/Internal/StudyCardLarge";
 
 function DetailsView({ study, user }) {
+  const history = useHistory();
+
   return (
     <>
       <Flex justify="space-between" align="center" mb="25px">
@@ -30,13 +32,14 @@ function DetailsView({ study, user }) {
       </Flex>
       <StudyCardLarge study={study} />
       <br/>
-      <Link to={`/search`}>
-      <Button colorScheme="blue" float="right">
+
+
+      <Button onClick = {history.goBack} colorScheme="blue" float="right" >
       Back
       </Button>
-      </Link>
 
-    </>
+      </>
+
   );
 }
 
