@@ -309,6 +309,8 @@ function FindStudies({ user }) {
           ))}
         </Grid>
         ) : EMPTY}
+      </>
+      )}
       <Drawer size="md" placement="right" onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay />
       <DrawerContent>
