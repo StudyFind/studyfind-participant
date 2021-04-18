@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 import { Link } from "react-router-dom";
-import { Box, Flex, HStack, Icon, Heading, Text, Stack, Tag, TagLabel, Button } from "@chakra-ui/react";
+import { Box, Flex, HStack, Icon, Heading, Text, Stack, Tag, TagLabel, Button, IconButton } from "@chakra-ui/react";
 import { FaBookmark } from "react-icons/fa";
 
 
-function StudyCardSmall({ study, conditions, handleConditions, user }) {
+function StudyCardSmall({ study, conditions, handleConditions, user, handleBookmark }) {
   return (
     <Link to={`/study/${study.id}`}>
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white" p="20px" w="100%" h="270px">
@@ -15,7 +15,18 @@ function StudyCardSmall({ study, conditions, handleConditions, user }) {
             {study.id}
           </Text>
           <HStack>
-            <Icon color="gray.300" as={FaBookmark} size="sm" />
+            {user.saved && user.saved.includes(study.id) ? 
+              (
+                <IconButton color="yellow.300" as={FaBookmark} size="xs" variant="link" onClick={(event) => {
+                  event.preventDefault();
+                  handleBookmark("remove", study.id)
+                }}/>
+              ) : (
+                <IconButton color="gray.300" as={FaBookmark} size="xs" variant="link" onClick={(event) => {
+                  event.preventDefault();
+                  handleBookmark("add", study.id)
+                }}/>
+              )}
           </HStack>
         </Flex>
         <Title size="sm" mt="5px">

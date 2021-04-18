@@ -40,6 +40,7 @@ function StudiesRow({ study, handleDrawer, uid }) {
         w="30px"
         bg="blue.500"
         name={study.id}
+        color="white"
       />
       <Link to={`/study/${study.id}`}>
         <Text fontWeight="500">
