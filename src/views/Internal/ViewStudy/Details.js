@@ -15,7 +15,7 @@ function DetailsView({ study, user }) {
         { user.enrolled.includes(study.id)?
           (
             <Button colorScheme="green" disabled>
-              Enrolled
+              Submitted!
             </Button>
           ) : (
           <Link to={`/study/${study.id}/questionnaire`}>
