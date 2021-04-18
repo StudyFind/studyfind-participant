@@ -39,7 +39,7 @@ function FindStudies({ user }) {
   const [mapView, setView] = useState(false)
   const [conditions, setConditions] = useState([]);
   const [studies, loading, error] = useCollection(
-    firestore.collection("studies").where("published", "==", true)
+    firestore.collection("studies").where("published", "==", true).where("activated", "==", true)
   );
 
   const {isOpen, onOpen, onClose} = useDisclosure()
@@ -185,6 +185,14 @@ function FindStudies({ user }) {
       return studies.filter(study => study.type === 'Interventional')
     },
 
+    controlYes: (studies) => {
+      return studies.filter(study => study.control === 'Yes')
+    },
+
+    controlNo: (studies) => {
+      return studies.filter(study => study.control === 'No')
+    },
+
     search: (search, studies) => {
       if(search) {
         return studies.filter(study => {
@@ -217,6 +225,8 @@ function FindStudies({ user }) {
     if(!filter.enrolled && !filter.saved) filteredStudies = filterFunctions.screened(user, filteredStudies);
     if(filter.observational) filteredStudies = filterFunctions.observational(filteredStudies);
     if(filter.interventional) filteredStudies = filterFunctions.interventional(filteredStudies);
+    if(filter.control_yes) filteredStudies = filterFunctions.controlYes(filteredStudies);
+    if(filter.control_no) filteredStudies = filterFunctions.controlNo(filteredStudies);
     filteredStudies = filterFunctions.conditions(conditions, filteredStudies);
     filteredStudies = filterFunctions.search(inputs.search, filteredStudies);
     return filteredStudies;
