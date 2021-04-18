@@ -22,7 +22,7 @@ import {
 
 function Questionnaire({ studies, user }) {
 
-    const { uniqueNamesGenerator, adjectives, colors, animals } = require('unique-names-generator')
+    const { uniqueNamesGenerator, adjectives, colors, animals, NumberDictionary } = require('unique-names-generator')
     const { nctID } = useParams();
     const findStudy = () => studies && studies.find((study) => study.id === nctID);
     const [study, setStudy] = useState(findStudy());
@@ -41,9 +41,13 @@ function Questionnaire({ studies, user }) {
           Object.entries(study.questions).map((v, i) => {
             answers[i] = "";
           })
-          const randomName = uniqueNamesGenerator({ dictionaries: [adjectives, colors, animals] })
+          const numberDictionary = NumberDictionary.generate({ min: 10000, max: 99999 });
+          const randomName = uniqueNamesGenerator({ dictionaries: [adjectives, colors, animals], style: 'capital', length: 3 });
+          const fakeName = randomName.split("_").map( (randomWord) => {
+            return randomWord[0];
+          }).join("") + numberDictionary.toString();
           setResponses(answers)
-          setInitial({fakename: randomName, responses: answers, status: "interested"})
+          setInitial({fakename: fakeName, responses: answers, status: "interested"})
       }
     }, [study])
 
