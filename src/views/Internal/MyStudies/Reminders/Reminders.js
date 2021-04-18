@@ -9,6 +9,9 @@ import RemindersView from "./RemindersView";
 import RemindersError from "./RemindersError";
 
 function Reminders({ study }) {
+
+  const moment = require('moment');
+
   const defaultInputs = {
     title: "",
     weekdays: [false, false, false, false, false, false, false],
@@ -72,27 +75,7 @@ function Reminders({ study }) {
   };
 
   const formatDate = (date) => {
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-
-    const converted = date.toDate();
-    const month = converted.getMonth();
-    const day = converted.getDate();
-    const year = converted.getFullYear();
-
-    return `${months[month]} ${day}, ${year}`;
+    return moment(date).format('MMMM D, YYYY'); 
   };
 
   const convertDate = (date) => {
