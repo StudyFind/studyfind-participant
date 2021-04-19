@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import firebase from "firebase";
 import { auth, firestore } from "database/firebase";
 import { useCollection } from "hooks";
+import { UserContext } from "context";
 
 import { Spinner } from "components"
 
@@ -9,6 +10,7 @@ import RemindersView from "./RemindersView";
 import RemindersError from "./RemindersError";
 
 function Reminders({ study }) {
+  const user = useContext(UserContext);
 
   const moment = require('moment');
 
@@ -75,7 +77,7 @@ function Reminders({ study }) {
   };
 
   const formatDate = (date) => {
-    return moment(date).format('MMMM D, YYYY'); 
+    return moment(date).tz(user.timezone).format('MMMM D, YYYY'); 
   };
 
   const convertDate = (date) => {
