@@ -30,20 +30,23 @@ import {
 import { FaSearch, FaFilter, FaLocationArrow, FaThLarge } from "react-icons/fa";
 
 import AutoScroll from "./AutoScroll";
+import MapView from "./MapView"
 import StudyCardSmall from "views/Internal/StudyCardSmall";
 import { functions } from "lodash";
 
-function FindStudies({ user }) {
+function FindStudies({ user, studies }) {
   const [inputs, setInputs] = useState({ search: "" });
+  const [mapView, setView] = useState(false)
   const [conditions, setConditions] = useState([]);
-  const [studies, loading, error] = useCollection(
-    firestore.collection("studies").where("published", "==", true)
-  );
 
   const {isOpen, onOpen, onClose} = useDisclosure()
 
   const [filter, setFilter] = useState({});
 
+  const [localized, setLocalized] = useState(false)
+
+  const [location, setLocation] = useState()
+  
   const [saved, setSaved] = useState([]);
 
   useEffect(() => {
@@ -52,6 +55,15 @@ function FindStudies({ user }) {
       setSaved(user.saved)
       console.log(filter)
       console.log(auth.currentUser.uid)
+    }
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        setLocation({zoom: 11, center: {lat: position.coords.latitude, lng: position.coords.longitude}})
+        setLocalized(true)
+        console.log("Longitude is :", position.coords.longitude);
+      });
+    } else {
+      console.log("nope")
     }
   }, [user]);
 
@@ -170,6 +182,14 @@ function FindStudies({ user }) {
       return studies.filter(study => study.type === 'Interventional')
     },
 
+    controlYes: (studies) => {
+      return studies.filter(study => study.control === 'Yes')
+    },
+
+    controlNo: (studies) => {
+      return studies.filter(study => study.control === 'No')
+    },
+
     search: (search, studies) => {
       if(search) {
         return studies.filter(study => {
@@ -193,15 +213,27 @@ function FindStudies({ user }) {
       }
       return studies
     },
+
+    published: (studies) => {
+      return studies.filter(study => study.published === true)
+    },
+
+    activated: (studies) => {
+      return studies.filter(study => study.activated === true)
+    },
   };
 
   const filterStudies = (studies) => {
     let filteredStudies = [...studies];
+    filteredStudies = filterFunctions.published(filteredStudies);
+    filteredStudies = filterFunctions.activated(filteredStudies);
     if(filter.enrolled) filteredStudies = filterFunctions.enrolled(user, filteredStudies);
     if(filter.saved) filteredStudies = filterFunctions.saved(user, filteredStudies);
     if(!filter.enrolled && !filter.saved) filteredStudies = filterFunctions.screened(user, filteredStudies);
     if(filter.observational) filteredStudies = filterFunctions.observational(filteredStudies);
     if(filter.interventional) filteredStudies = filterFunctions.interventional(filteredStudies);
+    if(filter.control_yes) filteredStudies = filterFunctions.controlYes(filteredStudies);
+    if(filter.control_no) filteredStudies = filterFunctions.controlNo(filteredStudies);
     filteredStudies = filterFunctions.conditions(conditions, filteredStudies);
     filteredStudies = filterFunctions.search(inputs.search, filteredStudies);
     return filteredStudies;
@@ -225,8 +257,8 @@ function FindStudies({ user }) {
     </Box>
   );
 
-  if (loading) return <Spinner />;
-  if (error) return <div>There was an error loading your studies...</div>;
+  if (!localized) return <Spinner />;
+  // if (error) return <div>There was an error loading your studies...</div>;
   if (!user || !studies || !filter) return EMPTY;
 
   const filteredStudies = filterStudies(studies);
@@ -249,6 +281,7 @@ function FindStudies({ user }) {
           <Flex>
             <Tooltip label="Map View">
               <IconButton
+                onClick={() => setView(true)}
                 color="gray.500"
                 borderTopRightRadius="0"
                 borderBottomRightRadius="0"
@@ -257,6 +290,7 @@ function FindStudies({ user }) {
             </Tooltip>
             <Tooltip label="Grid View">
               <IconButton
+                onClick={() => setView(false)}
                 color="gray.500"
                 borderTopLeftRadius="0"
                 borderBottomLeftRadius="0"
@@ -269,6 +303,10 @@ function FindStudies({ user }) {
           </Button>
         </Flex>
       </Flex>
+      {mapView ? (
+      <MapView loc={location} user={user} conditions={conditions} handleConditions={handleConditions} studies={filteredStudies}/>
+      ) : (
+      <>
       <Flex m="5px">
         {conditions &&
           conditions.map((condition, index) => (
@@ -288,6 +326,8 @@ function FindStudies({ user }) {
           ))}
         </Grid>
         ) : EMPTY}
+      </>
+      )}
       <Drawer size="md" placement="right" onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay />
       <DrawerContent>
@@ -332,7 +372,7 @@ function FindStudies({ user }) {
         </DrawerBody>
       </DrawerContent>
     </Drawer>
-      <AutoScroll />
+    {mapView ? (<></>) : (<AutoScroll />)}
     </>
   );
 }

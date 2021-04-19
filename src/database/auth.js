@@ -32,7 +32,7 @@ const signup = async (name, email, password) => {
           observational: false,
           saved: false,
         },
-        preferences: { location: true },
+        preferences: { location: true, autodetectTimezone: true },
         location: {},
       });
     localStorage.setItem("exists", true);

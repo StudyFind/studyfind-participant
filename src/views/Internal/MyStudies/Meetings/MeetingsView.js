@@ -4,17 +4,23 @@ import { format } from "functions";
 import { Heading, Box, Grid, Flex, IconButton, Text, Button } from "@chakra-ui/react";
 import { FaPencilAlt, FaTrashAlt, FaExternalLinkAlt, FaPlusCircle } from "react-icons/fa";
 
-function MeetingsView({ meetings, handleConfirm }) {
+function MeetingsView({ meetings, handleConfirm, user }) {
+
+  const moment = require('moment');
+  require('moment-timezone');
+
   const formatTimestamp = (timestamp) => {
-    const date = new Date(timestamp);
+    const convertedTimestamp = moment.utc(timestamp).tz(user.timezone).format('YYYY-MM-DD hh:mm A');
+    const timezoneAbbreviation = moment.tz(user.timezone).zoneAbbr();
+    const date = new Date(convertedTimestamp);
     const [hours, minutes] = [date.getHours(), date.getMinutes()];
     const formattedDate = format.date(date);
     const formattedTime = format.time(`${hours}:${minutes}`);
-    return `${formattedDate} at ${formattedTime} UTC`;
+    return `${formattedDate} at ${formattedTime} ${timezoneAbbreviation}`;
   };
 
   return (
-    <Grid gap="15px">
+    <Grid p="25px" gap="15px">
       {meetings &&
         meetings.map((meeting, index) => (
           <Box key={index} borderWidth="1px" bg="white" rounded="md" p="15px">

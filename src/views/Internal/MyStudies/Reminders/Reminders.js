@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import firebase from "firebase";
 import { auth, firestore } from "database/firebase";
 import { useCollection } from "hooks";
+import { UserContext } from "context";
 
 import { Spinner } from "components"
 
@@ -9,6 +10,10 @@ import RemindersView from "./RemindersView";
 import RemindersError from "./RemindersError";
 
 function Reminders({ study }) {
+  const user = useContext(UserContext);
+
+  const moment = require('moment');
+
   const defaultInputs = {
     title: "",
     weekdays: [false, false, false, false, false, false, false],
@@ -38,9 +43,11 @@ function Reminders({ study }) {
 
   const getDayIndexFromOffset = (offset) => {
     const offsetHour = convertEpochToHMS(offset);
-    return Math.floor(offsetHour.hour / 24);
+    const tzOffset = moment.tz(moment.utc(), user.timezone).utcOffset() / 60;
+    return Math.floor((offsetHour.hour + tzOffset) / 24);
   };
 
+  //are dates in utc?
   const getDaysFromOffsets = (offsets) => {
     const weekdaysBoolean = [false, false, false, false, false, false, false];
 
@@ -56,6 +63,7 @@ function Reminders({ study }) {
     const allTimes = [];
     const numberOfDaysSelected = getDaysFromOffsets(offsets).filter((value) => value).length;
 
+    //why / numberOfDaysSelected ?
     for (let i = 0; i < offsets.length / numberOfDaysSelected; i++) {
       const thisHour = convertEpochToHMS(offsets[i]).hour % 24;
       const thisMinute = convertEpochToHMS(offsets[i]).minute;
@@ -72,64 +80,44 @@ function Reminders({ study }) {
   };
 
   const formatDate = (date) => {
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-
-    const converted = date.toDate();
-    const month = converted.getMonth();
-    const day = converted.getDate();
-    const year = converted.getFullYear();
-
-    return `${months[month]} ${day}, ${year}`;
+    return moment(date).tz(user.timezone).format('MMMM D, YYYY');
   };
 
-  const convertDate = (date) => {
-    const converted = date.toDate();
-    const month = converted.getMonth() + 1;
-    const day = converted.getDate();
-    const year = converted.getFullYear();
-    let returnedDate;
-    if (month < 10) {
-      if (day < 10) {
-        return `${year}-0${month}-0${day}`;
-      } else {
-        return `${year}-0${month}-${day}`;
-      }
-    } else {
-      if (day < 10) {
-        return `${year}-${month}-0${day}`;
-      } else {
-        return `${year}-${month}-${day}`;
-      }
-    }
-  };
-
-  const convertToTimes = () => {
-    var allTimes = [];
-    const weekdayBoolean = inputs.weekdays;
-    for (const weekday in weekdayBoolean) {
-      if (weekdayBoolean[weekday]) {
-        inputs.times.map((time, index) => {
-          const [hour, min] = time.split(":");
-          const thisTime = ((parseInt(hour) + 24 * weekday) * 60 + parseInt(min)) * 60 * 1000;
-          allTimes.push(thisTime);
-        });
-      }
-    }
-    return allTimes;
-  };
+  // const convertDate = (date) => {
+  //   const converted = date.toDate();
+  //   const month = converted.getMonth() + 1;
+  //   const day = converted.getDate();
+  //   const year = converted.getFullYear();
+  //   let returnedDate;
+  //   if (month < 10) {
+  //     if (day < 10) {
+  //       return `${year}-0${month}-0${day}`;
+  //     } else {
+  //       return `${year}-0${month}-${day}`;
+  //     }
+  //   } else {
+  //     if (day < 10) {
+  //       return `${year}-${month}-0${day}`;
+  //     } else {
+  //       return `${year}-${month}-${day}`;
+  //     }
+  //   }
+  // };
+  //
+  // const convertToTimes = () => {
+  //   var allTimes = [];
+  //   const weekdayBoolean = inputs.weekdays;
+  //   for (const weekday in weekdayBoolean) {
+  //     if (weekdayBoolean[weekday]) {
+  //       inputs.times.map((time, index) => {
+  //         const [hour, min] = time.split(":");
+  //         const thisTime = ((parseInt(hour) + 24 * weekday) * 60 + parseInt(min)) * 60 * 1000;
+  //         allTimes.push(thisTime);
+  //       });
+  //     }
+  //   }
+  //   return allTimes;
+  // };
 
   const handleConfirm = (reminder) => {
     firestore

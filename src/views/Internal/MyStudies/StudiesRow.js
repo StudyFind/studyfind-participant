@@ -7,7 +7,7 @@ import { useDocument, useCollection } from "hooks";
 import { Spinner } from "components";
 
 import { Text, Avatar, Badge, IconButton, Tooltip } from "@chakra-ui/react";
-import { FaClock, FaCalendar, FaClipboard } from "react-icons/fa";
+import { FaClock, FaCalendar, FaClipboard, FaComment } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 function StudiesRow({ study, handleDrawer, uid }) {
@@ -21,7 +21,7 @@ function StudiesRow({ study, handleDrawer, uid }) {
 
   const [participantData, loading, error] = useDocument(firestore.collection("studies").doc(study.id).collection("participants").doc(uid));
 
-  if (loading || !participantData) return <Spinner />; 
+  if (loading || !participantData) return <></>;
 
   if (error){
     console.log(participantData);
@@ -59,6 +59,15 @@ function StudiesRow({ study, handleDrawer, uid }) {
         {participantData["status"]}
       </Badge>
       <Buttons>
+        <Tooltip label="Messages">
+          <IconButton
+            color="gray.400"
+            size="sm"
+            bg="transparent"
+            icon={<FaComment />}
+            onClick={() => handleDrawer("messages", study.id)}
+          />
+        </Tooltip>
         <Tooltip label="Meetings">
           <IconButton
             color="gray.400"

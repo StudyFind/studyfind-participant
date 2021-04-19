@@ -56,7 +56,7 @@ function StudyCardSmall({ study, conditions, handleConditions, user, handleBookm
             </Link>
             { user.enrolled && user.enrolled.includes(study.id)?
               (
-                <Button h={7} colorScheme='green' disabled>Enrolled</Button>
+                <Button h={7} colorScheme='green' disabled>Submitted!</Button>
               ) : (
                   <Link to={`/study/${study.id}/questionnaire`}>
                   <Button h={7} colorScheme='blue'>Enroll</Button>

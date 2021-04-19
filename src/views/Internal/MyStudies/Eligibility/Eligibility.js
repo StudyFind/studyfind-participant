@@ -4,7 +4,7 @@ import { Tag, Text, Box, Grid } from "@chakra-ui/react";
 
 function Eligibility({ study, responses }) {
   return (
-    <Grid gap="15px">
+    <Grid p="25px" gap="15px">
       {study.questions && study.questions.length
         ? study.questions.map((question, index) => (
             <Box borderWidth="1px" bg="white" rounded="md" p="10px" key={index}>

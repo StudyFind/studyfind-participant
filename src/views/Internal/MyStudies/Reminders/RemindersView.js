@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import moment from "moment";
 import styled from "styled-components";
+import { UserContext } from "context";
 
 import {
   Heading,
@@ -24,10 +25,12 @@ function RemindersView({
   getTimesFromOffsets,
   handleConfirm
 }) {
+  const user = useContext(UserContext);
+
   const weekdayAcronyms = ["S", "M", "T", "W", "T", "F", "S"];
 
   return (
-    <Grid gap="15px">
+    <Grid p="25px" gap="15px">
       {reminders &&
         reminders.map((reminder, index) => (
           <Box key={index} borderWidth="1px" bg="white" rounded="md" p="15px">
@@ -49,7 +52,7 @@ function RemindersView({
             <Flex gridGap="8px" my="8px">
               {getTimesFromOffsets(reminder.times).map((time, index) => (
                 <Tag key={index} colorScheme="blue">
-                  <TagLabel>{moment(time, ["HH:mm"]).format("hh:mma")} UTC</TagLabel>
+                  <TagLabel>{moment(time, ["HH:mm"]).tz(user.timezone).format("hh:mma")}</TagLabel>
                 </Tag>
               ))}
             </Flex>
