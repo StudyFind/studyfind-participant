@@ -15,28 +15,31 @@ function DetailsView({ study, user }) {
           Details
         </Heading>
 
-        { user.enrolled.includes(study.id)?
-          (
-            <Button colorScheme="green" disabled>
-              Enrolled
-            </Button>
-          ) : (
-          <Link to={`/study/${study.id}/questionnaire`}>
-            <Button colorScheme="blue">
-              Enroll
-            </Button>
-          </Link>
-          )
-        }
+        <Flex justify="flex-end" align="center">
+
+          <Button onClick = {history.goBack} colorScheme="blue" mr="5px">
+            Back
+          </Button>
+
+          { user.enrolled.includes(study.id)?
+            (
+              <Button colorScheme="green" disabled>
+                Enrolled
+              </Button>
+            ) : (
+            <Link to={`/study/${study.id}/questionnaire`}>
+              <Button colorScheme="blue">
+                Enroll
+              </Button>
+            </Link>
+            )
+          }
+
+        </Flex>
 
       </Flex>
       <StudyCardLarge study={study} />
       <br/>
-
-
-      <Button onClick = {history.goBack} colorScheme="blue" float="right" >
-      Back
-      </Button>
 
       </>
 
