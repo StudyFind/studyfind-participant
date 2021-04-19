@@ -21,7 +21,7 @@ function StudiesRow({ study, handleDrawer, uid }) {
 
   const [participantData, loading, error] = useDocument(firestore.collection("studies").doc(study.id).collection("participants").doc(uid));
 
-  if (loading || !participantData) return <Spinner />;
+  if (loading || !participantData) return <></>;
 
   if (error){
     console.log(participantData);
