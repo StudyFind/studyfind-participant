@@ -7,7 +7,7 @@ import { useCollection } from "hooks";
 import MeetingsView from "./MeetingsView";
 import MeetingsError from "./MeetingsError";
 
-function Meetings({ study }) {
+function Meetings({ study, user }) {
 
   const { uid } = auth.currentUser;
 
@@ -32,7 +32,7 @@ function Meetings({ study }) {
   if (error) return <MeetingsError />;
 
   return(
-    <MeetingsView meetings={meetings} handleConfirm={handleConfirm} />
+    <MeetingsView meetings={meetings} handleConfirm={handleConfirm} user={user} />
   );
 }
 

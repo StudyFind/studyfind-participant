@@ -69,7 +69,7 @@ function MyStudies({ user, studies }) {
           <Messages study={drawer.study} participant={{id: uid}}/>
         )}
         {drawer.action === "meetings" && (
-          <Meetings study={drawer.study} />
+          <Meetings study={drawer.study} user={user}/>
         )}
         {drawer.action === "reminders" && (
           <Reminders study={drawer.study} />
