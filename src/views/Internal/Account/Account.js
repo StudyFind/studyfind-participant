@@ -15,6 +15,8 @@ import {
   Switch,
   Button,
   Divider,
+  Checkbox,
+  Text
 } from "@chakra-ui/react";
 import { Spinner, Radio, Textarea, Input, Select } from "components";
 
@@ -29,6 +31,7 @@ function Account({ user }) {
       birthdate: user.birthdate,
       timezone: user.timezone,
       availability: user.availability,
+      preferences: user.preferences,
     };
 
     setPersonal(userInitial);
@@ -43,6 +46,11 @@ function Account({ user }) {
 
   const handlePersonalChange = (name, value) => {
     setPersonal((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handlePreferencesToggle = (e) => {
+    const { name, checked } = e.target;
+    setPersonal((prev) => ({ ...prev, preferences: {...prev.preferences, [name]: checked} }));
   };
 
   const handleCancel = () => {
@@ -98,13 +106,33 @@ function Account({ user }) {
               value={personal.birthdate}
               onChange={handlePersonalChange}
             />
-            <Select
-              name="timezone"
-              label="Timezone"
-              value={personal.timezone}
-              options={moment.tz.names()}
-              onChange={handlePersonalChange}
-            />
+            <Grid gap="25px">
+              <Select
+                label="Timezone Location"
+                name="timezone"
+                options={moment.tz.zonesForCountry("US")}
+                value={personal.timezone}
+                onChange={handlePersonalChange}
+              />
+              <Checkbox
+                mt="1px"
+                size="md"
+                name="autodetectTimezone"
+                isChecked={personal.preferences && personal.preferences.autodetectTimezone}
+                onChange={handlePreferencesToggle}
+                alignItems="flex-start"
+              >
+                <Grid gap="2px">
+                  <Heading size="sm" mt="-1px">
+                    Auto Detect Timezone
+                  </Heading>
+                  <Text fontSize="sm">
+                    Automatically detects and updates your local timezone each time
+                    you use StudyFind
+                  </Text>
+                </Grid>
+              </Checkbox>
+            </Grid>
             <Textarea
               label="Availability"
               name="availability"
