@@ -34,13 +34,10 @@ import MapView from "./MapView"
 import StudyCardSmall from "views/Internal/StudyCardSmall";
 import { functions } from "lodash";
 
-function FindStudies({ user }) {
+function FindStudies({ user, studies }) {
   const [inputs, setInputs] = useState({ search: "" });
   const [mapView, setView] = useState(false)
   const [conditions, setConditions] = useState([]);
-  const [studies, loading, error] = useCollection(
-    firestore.collection("studies").where("published", "==", true).where("activated", "==", true)
-  );
 
   const {isOpen, onOpen, onClose} = useDisclosure()
 
@@ -216,10 +213,20 @@ function FindStudies({ user }) {
       }
       return studies
     },
+
+    published: (studies) => {
+      return studies.filter(study => study.published === true)
+    },
+
+    activated: (studies) => {
+      return studies.filter(study => study.activated === true)
+    },
   };
 
   const filterStudies = (studies) => {
     let filteredStudies = [...studies];
+    filteredStudies = filterFunctions.published(filteredStudies);
+    filteredStudies = filterFunctions.activated(filteredStudies);
     if(filter.enrolled) filteredStudies = filterFunctions.enrolled(user, filteredStudies);
     if(filter.saved) filteredStudies = filterFunctions.saved(user, filteredStudies);
     if(!filter.enrolled && !filter.saved) filteredStudies = filterFunctions.screened(user, filteredStudies);
@@ -250,8 +257,8 @@ function FindStudies({ user }) {
     </Box>
   );
 
-  if (loading && !localized) return <Spinner />;
-  if (error) return <div>There was an error loading your studies...</div>;
+  if (!localized) return <Spinner />;
+  // if (error) return <div>There was an error loading your studies...</div>;
   if (!user || !studies || !filter) return EMPTY;
 
   const filteredStudies = filterStudies(studies);

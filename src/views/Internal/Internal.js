@@ -26,8 +26,8 @@ function Internal() {
   );
 
   const pages = [
-    { path: "/", component: <FindStudies user={user} />},
-    { path: "/search", component: <FindStudies user={user} />},
+    { path: "/", component: <FindStudies user={user} studies={studies}/>},
+    { path: "/search", component: <FindStudies user={user} studies={studies}/>},
     { path: "/notifications", component: <Notifications />},
     { path: "/settings", component: <Settings />},
     { path: "/study/:nctID", component: <ViewStudy studies={studies} user={user}/> },
