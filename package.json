@@ -36,7 +36,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "postinstall": "(cd functions && npm install);",
-    "deploy": "firebase deploy",
+    "deploy": "yarn run build && firebase deploy",
     "serve": "firebase serve",
     "emulate": "firebase emulators:start",
     "test": "jest test --passWithNoTests",
