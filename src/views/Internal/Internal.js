@@ -24,17 +24,6 @@ function Internal() {
     firestore.collection("studies")
   );
 
-  const pages = [
-    { path: "/", component: <FindStudies user={user} studies={studies}/>},
-    { path: "/search", component: <FindStudies user={user} studies={studies}/>},
-    { path: "/notifications", component: <Notifications />},
-    { path: "/settings", component: <Settings />},
-    { path: "/study/:nctID", component: <ViewStudy studies={studies} user={user}/> },
-    { path: "/account", component: <Account user={user}/> },
-    { path: "/study/:nctID/questionnaire", component: <Questionnaire studies={studies} user={user} />},
-    { path: "/mystudies", component: <MyStudies user={user} studies={studies}/> }
-  ];
-
   return (
     <Flex>
       <UserContext.Provider value={user}>
@@ -43,11 +32,14 @@ function Internal() {
           <Box ml="280px" w="100%" minH="100vh">
             <Page isLoading={!(user && studies)}>
               <Switch>
-                {pages.map(({ path, component }, index) => (
-                  <Route exact path={path} key={index}>
-                    {component}
-                  </Route>
-                ))}
+                <Route exact path="/" component={FindStudies} />
+                <Route path="/search" component={FindStudies} />
+                <Route path="/notifications" component={Notifications} />
+                <Route path="/settings" component={Settings} />
+                <Route path="/study/:nctID" component={ViewStudy} />
+                <Route path="/account" component={Account} />
+                <Route path="/study/:nctID/questionnaire" component={Questionnaire} />
+                <Route path="/mystudies" component={MyStudies} />
                 <Redirect to={"/"} />
               </Switch>
             </Page>

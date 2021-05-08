@@ -1,6 +1,7 @@
-import React, {useState} from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 
+import { UserContext, StudiesContext } from "context";
 import { auth, firestore } from "database/firebase";
 import { useDocument, useCollection } from "hooks";
 
@@ -15,7 +16,9 @@ import Reminders from "./Reminders/Reminders";
 import Eligibility from "./Eligibility/Eligibility";
 import Messages from "./Messages/Messages";
 
-function MyStudies({ user, studies }) {
+function MyStudies() {
+  const user = useContext(UserContext);
+  const studies = useContext(StudiesContext);
 
   const {isOpen, onOpen, onClose} = useDisclosure();
 

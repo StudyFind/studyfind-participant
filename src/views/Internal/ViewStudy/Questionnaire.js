@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
+
+import { UserContext, StudiesContext } from "context";
 import { Spinner } from "components"
 import { useDocument } from "hooks"
 import { auth, firestore } from "database/firebase";
@@ -20,7 +22,9 @@ import {
 } from "@chakra-ui/react";
 
 
-function Questionnaire({ studies, user }) {
+function Questionnaire() {
+    const user = useContext(UserContext);
+    const studies = useContext(StudiesContext);
 
     const { uniqueNamesGenerator, adjectives, colors, animals, NumberDictionary } = require('unique-names-generator')
     const { nctID } = useParams();
@@ -28,7 +32,7 @@ function Questionnaire({ studies, user }) {
     const [study, setStudy] = useState(findStudy());
     const [responses, setResponses] = useState()
     const [initial, setInitial] = useState()
-  
+
     useEffect(() => {
       if (studies) {
         setStudy(findStudy());

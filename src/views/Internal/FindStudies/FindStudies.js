@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import { firestore, auth } from "database/firebase";
 import { useCollection, useDocument } from "hooks";
+import { UserContext, StudiesContext } from "context";
 
 import { Spinner, Input, Message } from "components";
 import {
@@ -34,7 +35,10 @@ import MapView from "./MapView"
 import StudyCardSmall from "views/Internal/StudyCardSmall";
 import { functions } from "lodash";
 
-function FindStudies({ user, studies }) {
+function FindStudies() {
+  const user = useContext(UserContext);
+  const studies = useContext(StudiesContext);
+
   const [inputs, setInputs] = useState({ search: "" });
   const [mapView, setView] = useState(false)
   const [conditions, setConditions] = useState([]);
@@ -46,7 +50,7 @@ function FindStudies({ user, studies }) {
   const [localized, setLocalized] = useState(false)
 
   const [location, setLocation] = useState()
-  
+
   const [saved, setSaved] = useState([]);
 
   useEffect(() => {
@@ -124,7 +128,7 @@ function FindStudies({ user, studies }) {
       saved: savedStudies,
     });
     setSaved(savedStudies);
-  } 
+  }
 
   const calculateAge = birthdate => {
     // accepts birthdate in form YYYY/MM/DD

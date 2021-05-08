@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
+
+import { UserContext, StudiesContext } from "context";
 
 import { Message } from "components";
 import { Tabs, Tab, TabList, TabPanels, TabPanel, Flex } from "@chakra-ui/react";
@@ -10,7 +12,10 @@ import Locations from "./Locations";
 import Consent from "./Consent";
 
 
-function ViewStudy({ studies, user }) {
+function ViewStudy() {
+  const user = useContext(UserContext);
+  const studies = useContext(StudiesContext);
+
   const { nctID } = useParams();
   const findStudy = () => studies && studies.find((study) => study.id === nctID);
   const [study, setStudy] = useState(findStudy());

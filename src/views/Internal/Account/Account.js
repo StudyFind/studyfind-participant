@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import moment from "moment-timezone";
 
+import { UserContext } from "context";
 import { firestore, auth } from "database/firebase";
 
 import lodash from "lodash";
@@ -20,7 +21,8 @@ import {
 } from "@chakra-ui/react";
 import { Spinner, Radio, Textarea, Input, Select } from "components";
 
-function Account({ user }) {
+function Account() {
+  const user = useContext(UserContext);
 
   const [initial, setInitial] = useState({});
   const [personal, setPersonal] = useState({});
