@@ -18,7 +18,7 @@ import MyStudies from "views/Internal/MyStudies/MyStudies";
 import { UserContext, StudiesContext } from "context";
 
 function Internal() {
-  const { uid } = auth.currentUser;
+  const { uid, email } = auth.currentUser;
   const [user] = useDocument(firestore.collection("participants").doc(uid));
 
   const [studies] = useCollection(
@@ -40,7 +40,7 @@ function Internal() {
     <Flex bg="#f8f9fa">
       <UserContext.Provider value={user}>
         <StudiesContext.Provider value={studies}>
-          <Sidebar />
+          <Sidebar name={user && user.name} email={email}/>
           <Box ml="280px" w="100%" minH="100vh">
             <Page isLoading={!(user)}>
               <Switch>

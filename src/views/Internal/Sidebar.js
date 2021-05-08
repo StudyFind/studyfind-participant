@@ -1,14 +1,29 @@
 import React from "react";
-import { auth } from "database/firebase";
-import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
+
+import { useLocation } from "react-router-dom";
+
+import { Link } from "components";
+import { Box, Flex, Grid, Heading, Text, Image, Avatar } from "@chakra-ui/react";
+
+import {
+  FaSearch,
+  FaBell,
+  FaCog,
+  FaUserCircle,
+  FaList,
+} from "react-icons/fa";
+
 import StudyFindLogo from "images/logo.png";
 
-import { Box, Heading, Flex, Text, Avatar } from "@chakra-ui/react";
-import { FaSearch, FaBell, FaCog, FaUserCircle, FaList } from "react-icons/fa";
+function Sidebar({ name, email }) {
+  const { pathname } = useLocation();
 
-function Sidebar({ user }) {
-  const location = useLocation();
+  const isSelected = (path) => {
+    const pagename = path.split("/")[1];
+    const truename = pathname.split("/")[1];
+    return pagename === truename;
+  };
 
   const links = [
     { name: "Search", path: "/search", icon: <FaSearch /> },
@@ -16,62 +31,42 @@ function Sidebar({ user }) {
     { name: "Settings", path: "/settings", icon: <FaCog /> },
     { name: "Account", path: "/account", icon: <FaUserCircle /> },
     { name: "My Studies", path: "/MyStudies", icon: <FaList /> },
-
   ];
 
   return (
-    <Fixed bg="blue.900">
-      <Logo to="/#">
-        <LogoIcon src={StudyFindLogo} />
-        <LogoName fontSize="1.5rem" color="white">
+    <Flex direction="column" w="280px" h="100vh" position="fixed" bg="blue.900" zIndex="100">
+      <LogoLink to="/" isWrapper>
+        <Image h="1.75rem" mr="10px" src={StudyFindLogo} />
+        <Heading fontSize="1.5rem" color="white">
           StudyFind
-        </LogoName>
-      </Logo>
-      <Links>
-        {links.map((link, index) => (
-          <NavLink key={index} to={link.path} selected={location.pathname === link.path}>
+        </Heading>
+      </LogoLink>
+      <Grid mb="auto">
+        {links.map((link, i) => (
+          <NavLink key={i} to={link.path} selected={isSelected(link.path)} isWrapper>
             {link.icon}
             {link.name}
           </NavLink>
         ))}
-      </Links>
+      </Grid>
       <Box p="15px">
         <Flex rounded="md" align="center">
-          <Avatar
-            name={user && user.name}
-            bg="blue.500"
-            color="white"
-            h="42px"
-            w="42px"
-            mr="10px"
-          />
-          <Info>
-            <Text fontSize="0.9rem" color="white" fontWeight="500" isTruncated maxWidth="100px">
-              {user ? user.name : "Your Account"}
+          <Avatar name={name} bg="blue.500" color="white" h="42px" w="42px" mr="10px" />
+          <Box>
+            <Text fontSize="0.9rem" color="white" fontWeight="500" isTruncated maxWidth="180px">
+              {name}
             </Text>
-            <Text fontSize="0.9rem" color="gray.500" isTruncated maxWidth="180px">
-              {auth.currentUser.email}
+            <Text fontSize="0.9rem" color="gray.400" isTruncated maxWidth="180px">
+              {email}
             </Text>
-          </Info>
+          </Box>
         </Flex>
       </Box>
-    </Fixed>
+    </Flex>
   );
 }
 
-const Fixed = styled(Box)`
-  width: 280px;
-  height: 100vh;
-  background: #2b6cb0;
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  z-index: 100;
-`;
-
-const Info = styled.div``;
-
-const Logo = styled(Link)`
+const LogoLink = styled(Link)`
   all: unset;
   cursor: pointer;
   display: flex;
@@ -80,31 +75,17 @@ const Logo = styled(Link)`
   padding: 20px;
 `;
 
-const LogoIcon = styled.img`
-  height: 1.75rem;
-  margin-right: 10px;
-`;
-
-const LogoName = styled(Heading)``;
-
-const Links = styled.div`
-  display: grid;
-  margin-bottom: auto;
-`;
-
 const NavLink = styled(Link)`
-  padding: 25px 20px;
+  padding: 20px;
   display: flex;
   grid-gap: 12px;
   align-items: center;
   color: rgb(255, 255, 255, 0.5);
   font-size: 16px;
   font-weight: 600;
-
   &:hover {
     color: white;
   }
-
   ${(props) =>
     props.selected &&
     `
