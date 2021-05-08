@@ -1,28 +1,28 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
+import { Link } from "components";
 import { Heading, Button, Text } from "@chakra-ui/react";
 
 import Background from "images/microscope.jpg";
 
 function Hero() {
   return (
-    <Box>
+    <Container>
       <Heading size="2xl" lineHeight="1.25">
         We help you find relevant
         <Text color="blue.500">research studies</Text>
       </Heading>
-      <Link to="/auth">
+      <Link to="/auth" isWrapper>
         <Button size="lg" colorScheme="blue">
           Start Now
         </Button>
       </Link>
-    </Box>
+    </Container>
   );
 }
 
-const Box = styled.section`
+const Container = styled.section`
   height: 100vh;
   padding: 50px;
   display: flex;

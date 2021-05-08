@@ -16,8 +16,16 @@ function DeleteAccount() {
     <Box w="350px" bg="white" borderWidth="1px" rounded="md">
       <AuthForm onSubmit={() => handleSubmit(inputs.email, inputs.password)}>
         <AuthHeading color="red.500">Delete Account</AuthHeading>
-        <AuthEmail value={inputs.email} error={errors.email} onChange={handleChange} />
-        <AuthPassword value={inputs.password} error={errors.password} onChange={handleChange} />
+        <AuthEmail
+          value={inputs.email}
+          error={errors.email}
+          onChange={handleChange}
+        />
+        <AuthPassword
+          value={inputs.password}
+          error={errors.password}
+          onChange={handleChange}
+        />
         <AuthButton loading={loading} colorScheme="red">
           Confirm Delete Account
         </AuthButton>
