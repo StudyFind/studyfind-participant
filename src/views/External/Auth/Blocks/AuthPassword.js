@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Input } from "components";
 import { Button } from "@chakra-ui/react";
 
-function Password({ name, placeholder, value, error, onChange }) {
+function AuthPassword({ name, placeholder, value, error, onChange }) {
   const [show, setShow] = useState(false);
   const handleToggle = () => setShow((show) => !show);
 
@@ -25,4 +25,4 @@ function Password({ name, placeholder, value, error, onChange }) {
   );
 }
 
-export default Password;
+export default AuthPassword;

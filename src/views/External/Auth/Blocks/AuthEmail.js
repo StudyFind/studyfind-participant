@@ -1,7 +1,7 @@
 import React from "react";
 import { Input } from "components";
 
-function Email({ value, error, onChange }) {
+function AuthEmail({ value, error, onChange }) {
   return (
     <Input
       size="lg"
@@ -15,4 +15,4 @@ function Email({ value, error, onChange }) {
   );
 }
 
-export default Email;
+export default AuthEmail;

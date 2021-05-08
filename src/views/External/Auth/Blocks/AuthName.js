@@ -1,7 +1,7 @@
 import React from "react";
 import { Input } from "components";
 
-function Name({ value, error, onChange }) {
+function AuthName({ value, error, onChange }) {
   return (
     <Input
       size="lg"
@@ -14,4 +14,4 @@ function Name({ value, error, onChange }) {
   );
 }
 
-export default Name;
+export default AuthName;

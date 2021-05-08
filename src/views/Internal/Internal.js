@@ -1,10 +1,11 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { Box, Flex } from "@chakra-ui/react";
-import { Page } from "components";
+import { UserContext, StudiesContext } from "context";
 
 import { auth, firestore } from "database/firebase";
 import { useDocument, useCollection } from "hooks";
+import { Page } from "components";
 
 import Sidebar from "./Sidebar";
 import Settings from "views/Internal/Settings/Settings";
@@ -14,8 +15,6 @@ import Account from "views/Internal/Account/Account"
 import ViewStudy from "views/Internal/ViewStudy/ViewStudy"
 import Questionnaire from "views/Internal/ViewStudy/Questionnaire"
 import MyStudies from "views/Internal/MyStudies/MyStudies";
-
-import { UserContext, StudiesContext } from "context";
 
 function Internal() {
   const { uid, email } = auth.currentUser;
@@ -37,12 +36,12 @@ function Internal() {
   ];
 
   return (
-    <Flex bg="#f8f9fa">
+    <Flex>
       <UserContext.Provider value={user}>
         <StudiesContext.Provider value={studies}>
           <Sidebar name={user && user.name} email={email}/>
           <Box ml="280px" w="100%" minH="100vh">
-            <Page isLoading={!(user)}>
+            <Page isLoading={!(user && studies)}>
               <Switch>
                 {pages.map(({ path, component }, index) => (
                   <Route exact path={path} key={index}>

@@ -3,11 +3,25 @@ import React from "react";
 import { useAuthForm } from "hooks";
 import { forgotPassword } from "database/auth";
 
-import { Form, Heading, Email, Button, TabLink } from "views/External/Auth/Blocks";
+import {
+  AuthForm,
+  AuthHeading,
+  AuthEmail,
+  AuthButton,
+  AuthTabLink,
+} from "views/External/Auth/Blocks";
+
 import { Message } from "components";
 
 function ForgotPassword({ setTab }) {
-  const { inputs, errors, success, loading, handleChange, handleSubmit } = useAuthForm({
+  const {
+    inputs,
+    errors,
+    success,
+    loading,
+    handleChange,
+    handleSubmit,
+  } = useAuthForm({
     initial: { email: "" },
     onSubmit: forgotPassword,
   });
@@ -15,23 +29,27 @@ function ForgotPassword({ setTab }) {
   if (success) {
     return (
       <Message
-        type="success"
+        status="success"
         title="Email Sent!"
         description="Check your email for a password reset link"
-        padding="40px 30px"
+        padding="40px 60px"
       >
-        <TabLink onClick={() => setTab("login")}> Back to login </TabLink>
+        <AuthTabLink onClick={() => setTab("login")}>Back to login</AuthTabLink>
       </Message>
     );
   }
 
   return (
-    <Form onSubmit={() => handleSubmit(inputs.email)}>
-      <Heading>Forgot Password</Heading>
-      <Email value={inputs.email} error={errors.email} onChange={handleChange} />
-      <Button loading={loading}>Request Password Reset Email</Button>
-      <TabLink onClick={() => setTab("login")}>Back to login</TabLink>
-    </Form>
+    <AuthForm onSubmit={() => handleSubmit(inputs.email)}>
+      <AuthHeading>Forgot Password</AuthHeading>
+      <AuthEmail
+        value={inputs.email}
+        error={errors.email}
+        onChange={handleChange}
+      />
+      <AuthButton loading={loading}>Request Password Reset Email</AuthButton>
+      <AuthTabLink onClick={() => setTab("login")}>Back to login</AuthTabLink>
+    </AuthForm>
   );
 }
 

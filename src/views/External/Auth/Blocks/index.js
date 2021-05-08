@@ -1,7 +1,7 @@
-export { default as Form } from "./Form";
-export { default as Heading } from "./Heading";
-export { default as Name } from "./Name";
-export { default as Email } from "./Email";
-export { default as Password } from "./Password";
-export { default as Button } from "./Button";
-export { default as TabLink } from "./TabLink";
+export { default as AuthForm } from "./AuthForm";
+export { default as AuthHeading } from "./AuthHeading";
+export { default as AuthName } from "./AuthName";
+export { default as AuthEmail } from "./AuthEmail";
+export { default as AuthPassword } from "./AuthPassword";
+export { default as AuthButton } from "./AuthButton";
+export { default as AuthTabLink } from "./AuthTabLink";

@@ -10,7 +10,7 @@ function Form({ tab, setTab }) {
     login: <Login setTab={setTab} />,
     signup: <Signup setTab={setTab} />,
     forgotPassword: <ForgotPassword setTab={setTab} />,
-    resetPassword: <ResetPassword setTab={setTab} />,
+    // resetPassword: <ResetPassword setTab={setTab} />,
   }[tab];
 }
 

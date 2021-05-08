@@ -3,11 +3,27 @@ import React from "react";
 import { useAuthForm } from "hooks";
 import { signup } from "database/auth";
 
-import { Form, Heading, Name, Email, Password, Button, TabLink } from "views/External/Auth/Blocks";
+import {
+  AuthForm,
+  AuthHeading,
+  AuthName,
+  AuthEmail,
+  AuthPassword,
+  AuthButton,
+  AuthTabLink,
+} from "views/External/Auth/Blocks";
+
 import { Message } from "components";
 
-function Login({ setTab }) {
-  const { inputs, errors, success, loading, handleChange, handleSubmit } = useAuthForm({
+function Signup({ setTab }) {
+  const {
+    inputs,
+    errors,
+    success,
+    loading,
+    handleChange,
+    handleSubmit,
+  } = useAuthForm({
     initial: { name: "", email: "", password: "" },
     onSubmit: signup,
   });
@@ -15,26 +31,42 @@ function Login({ setTab }) {
   if (success) {
     return (
       <Message
-        type="success"
+        status="success"
         title="Account Created!"
         description="Check your email for a verification link"
         padding="40px 30px"
       >
-        <TabLink onClick={() => setTab("login")}> Back to login </TabLink>
+        <AuthTabLink onClick={() => setTab("login")}>Back to login</AuthTabLink>
       </Message>
     );
   }
 
   return (
-    <Form onSubmit={() => handleSubmit(inputs.name, inputs.email, inputs.password)}>
-      <Heading>Create Account!</Heading>
-      <Name value={inputs.name} error={errors.name} onChange={handleChange} />
-      <Email value={inputs.email} error={errors.email} onChange={handleChange} />
-      <Password value={inputs.password} error={errors.password} onChange={handleChange} />
-      <Button loading={loading}>Sign up</Button>
-      <TabLink onClick={() => setTab("login")}>Have an account?</TabLink>
-    </Form>
+    <AuthForm
+      onSubmit={() => handleSubmit(inputs.name, inputs.email, inputs.password)}
+    >
+      <AuthHeading>Create Account!</AuthHeading>
+      <AuthName
+        value={inputs.name}
+        error={errors.name}
+        onChange={handleChange}
+      />
+      <AuthEmail
+        value={inputs.email}
+        error={errors.email}
+        onChange={handleChange}
+      />
+      <AuthPassword
+        value={inputs.password}
+        error={errors.password}
+        onChange={handleChange}
+      />
+      <AuthButton loading={loading}>Sign up</AuthButton>
+      <AuthTabLink onClick={() => setTab("login")}>
+        Have an account?
+      </AuthTabLink>
+    </AuthForm>
   );
 }
 
-export default Login;
+export default Signup;

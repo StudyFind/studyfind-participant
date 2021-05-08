@@ -3,7 +3,7 @@ import React from "react";
 import { useAuthForm } from "hooks";
 import { changePassword } from "database/auth";
 
-import { Form, Heading, Password, Button } from "views/External/Auth/Blocks";
+import { AuthForm, AuthHeading, AuthPassword, AuthButton } from "views/External/Auth/Blocks";
 import { Box } from "@chakra-ui/react";
 import { Message } from "components";
 
@@ -27,23 +27,23 @@ function ChangePassword() {
 
   return (
     <Box w="350px" bg="white" borderWidth="1px" rounded="md">
-      <Form onSubmit={() => handleSubmit(inputs.password, inputs.newPassword)}>
-        <Heading>Change Password</Heading>
-        <Password
+      <AuthForm onSubmit={() => handleSubmit(inputs.password, inputs.newPassword)}>
+        <AuthHeading>Change Password</AuthHeading>
+        <AuthPassword
           value={inputs.password}
           placeholder="Old Password"
           error={errors.password}
           onChange={handleChange}
         />
-        <Password
+        <AuthPassword
           name="newPassword"
           placeholder="New Password"
           value={inputs.newPassword}
           error={errors.newPassword}
           onChange={handleChange}
         />
-        <Button loading={loading}>Confirm Change Password</Button>
-      </Form>
+        <AuthButton loading={loading}>Confirm Change Password</AuthButton>
+      </AuthForm>
     </Box>
   );
 }
