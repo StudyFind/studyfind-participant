@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { format } from "functions";
+import { datetime } from "functions";
 import { Heading, Box, Grid, Flex, IconButton, Text, Button } from "@chakra-ui/react";
 import { FaPencilAlt, FaTrashAlt, FaExternalLinkAlt, FaPlusCircle } from "react-icons/fa";
 
@@ -10,12 +10,10 @@ function MeetingsView({ meetings, handleConfirm, user }) {
   require('moment-timezone');
 
   const formatTimestamp = (timestamp) => {
-    const convertedTimestamp = moment.utc(timestamp).tz(user.timezone).format('YYYY-MM-DD hh:mm A');
+    const convertedTimestamp = moment.utc(timestamp).tz(user.timezone);
     const timezoneAbbreviation = moment.tz(user.timezone).zoneAbbr();
-    const date = new Date(convertedTimestamp);
-    const [hours, minutes] = [date.getHours(), date.getMinutes()];
-    const formattedDate = format.date(date);
-    const formattedTime = format.time(`${hours}:${minutes}`);
+    const formattedDate = datetime.getFriendlyDate(convertedTimestamp);
+    const formattedTime = datetime.get12HourTime(convertedTimestamp);
     return `${formattedDate} at ${formattedTime} ${timezoneAbbreviation}`;
   };
 
