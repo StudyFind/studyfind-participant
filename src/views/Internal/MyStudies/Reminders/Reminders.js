@@ -45,7 +45,7 @@ function Reminders({ study }) {
     const offsetHour = convertEpochToHMS(offset);
     const tzOffset = moment.tz(moment.utc(), user.timezone).utcOffset() / 60;
     var correctedHour = offsetHour.hour + tzOffset;
-    if (correctedHour <= 0) {
+    if (correctedHour < 0) {
       correctedHour = correctedHour + 168 //168 hours in a week
     }
     return Math.floor(correctedHour / 24);
