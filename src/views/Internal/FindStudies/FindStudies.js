@@ -307,31 +307,33 @@ function FindStudies() {
           </Button>
         </Flex>
       </Flex>
+
       {mapView ? (
-      <MapView loc={location} user={user} conditions={conditions} handleConditions={handleConditions} studies={filteredStudies}/>
+        <MapView loc={location} user={user} conditions={conditions} handleConditions={handleConditions} studies={filteredStudies}/>
       ) : (
-      <>
-      <Flex m="5px">
-        {conditions &&
-          conditions.map((condition, index) => (
-            <Tag m="3px" key={index} variant="solid" size="md" colorScheme="facebook">
-              <TagLabel>{condition}</TagLabel>
-              <TagCloseButton onClick={() => handleConditions("remove", condition)} />
-            </Tag>
-          ))
-        }
-        {conditions.length > 3 ? CLEAR_ALL : <div></div>}
-      </ Flex>
-      {filteredStudies && filteredStudies.length
-        ? (
-        <Grid gap="25px" templateColumns="1fr">
-          {filteredStudies.map((study, index) => (
-            <StudyCardSmall conditions={conditions} handleConditions={handleConditions} key={index} study={study} user={user} handleBookmark={handleBookmark}/>
-          ))}
-        </Grid>
-        ) : EMPTY}
-      </>
+        <>
+          <Flex m="5px">
+            {conditions &&
+              conditions.map((condition, index) => (
+                <Tag m="3px" key={index} variant="solid" size="md" colorScheme="facebook">
+                  <TagLabel>{condition}</TagLabel>
+                  <TagCloseButton onClick={() => handleConditions("remove", condition)} />
+                </Tag>
+              ))
+            }
+            {conditions.length > 3 ? CLEAR_ALL : <div></div>}
+          </ Flex>
+          {filteredStudies && filteredStudies.length
+            ? (
+            <Grid gap="25px" templateColumns="1fr">
+              {filteredStudies.map((study, index) => (
+                <StudyCardSmall conditions={conditions} handleConditions={handleConditions} key={index} study={study} user={user} handleBookmark={handleBookmark}/>
+              ))}
+            </Grid>
+            ) : EMPTY}
+        </>
       )}
+
       <Drawer size="md" placement="right" onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay />
       <DrawerContent>

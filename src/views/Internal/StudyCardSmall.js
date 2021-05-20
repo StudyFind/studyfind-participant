@@ -15,7 +15,7 @@ function StudyCardSmall({ study, conditions, handleConditions, user, handleBookm
             {study.id}
           </Text>
           <HStack>
-            {user.saved && user.saved.includes(study.id) ? 
+            {user.saved && user.saved.includes(study.id) ?
               (
                 <IconButton color="yellow.300" as={FaBookmark} size="xs" variant="link" onClick={(event) => {
                   event.preventDefault();
@@ -32,7 +32,7 @@ function StudyCardSmall({ study, conditions, handleConditions, user, handleBookm
         <Title size="sm" mt="5px">
           {study.title}
         </Title>
-        <Conditions spacing={0} isInline mt="6px">
+        <Conditions spacing={0} isInline="true" mt="6px">
           {study.conditions &&
             study.conditions.map((condition, index) => (
               <Box key={index} onClick={(event) => {
@@ -71,7 +71,6 @@ function StudyCardSmall({ study, conditions, handleConditions, user, handleBookm
 }
 
 const Conditions = styled(Stack)`
-  display: grid;
   grid-gap: 4px;
   flex-wrap: wrap;
   height: 24px;

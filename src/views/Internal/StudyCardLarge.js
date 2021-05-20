@@ -15,14 +15,14 @@ function StudyCardLarge({ study }) {
       <Heading size="md" mt="5px">
         {study.title}
       </Heading>
-      <Conditions spacing={1} isInline mt="6px">
+      <Stack spacing={1} isInline mt="6px">
         {study.conditions &&
           study.conditions.map((condition, index) => (
             <Condition key={index} variant="solid" size="sm" colorScheme="blue">
               <TagLabel>{condition}</TagLabel>
             </Condition>
           ))}
-      </Conditions>
+      </Stack>
       <Text color="gray.500" my="15px">
         {study.description}
       </Text>
@@ -64,10 +64,6 @@ function StudyCardLarge({ study }) {
     </Box>
   );
 }
-
-const Conditions = styled(Stack)`
-  display: grid;
-`;
 
 const Condition = styled(Tag)``;
 
