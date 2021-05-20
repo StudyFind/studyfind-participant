@@ -4,7 +4,7 @@ import { Box, Flex } from "@chakra-ui/react";
 import { Page } from "components";
 
 import { auth, firestore } from "database/firebase";
-import { useDocument, useCollection } from "hooks";
+import { useDocument, useCollection, useDetectTimezone } from "hooks";
 
 import Sidebar from "./Sidebar";
 import Settings from "views/Internal/Settings/Settings";
@@ -20,10 +20,9 @@ import { UserContext, StudiesContext } from "context";
 function Internal() {
   const { uid } = auth.currentUser;
   const [user] = useDocument(firestore.collection("participants").doc(uid));
+  const [studies] = useCollection(firestore.collection("studies"));
 
-  const [studies] = useCollection(
-    firestore.collection("studies")
-  );
+  useDetectTimezone(user);
 
   const pages = [
     { path: "/", component: <FindStudies user={user} studies={studies}/>},
