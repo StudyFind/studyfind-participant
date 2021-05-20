@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 
-import { Heading, Button, Flex } from "@chakra-ui/react";
+import { Heading, Button, IconButton, Flex, Spacer } from "@chakra-ui/react";
+import { FaChevronLeft } from "react-icons/fa";
 import StudyCardLarge from "views/Internal/StudyCardLarge";
 
 function DetailsView({ study, user }) {
@@ -10,16 +11,21 @@ function DetailsView({ study, user }) {
 
   return (
     <>
-      <Flex justify="space-between" align="center" mb="25px">
+      <Flex align="center" mt="10px" mb="25px">
+        <IconButton
+          onClick={history.goBack}
+          colorScheme="blue"
+          mr="5px"
+          icon={<FaChevronLeft/>}
+        />
+
         <Heading size="lg" my="8px">
           Details
         </Heading>
 
-        <Flex justify="flex-end" align="center">
+        <Spacer/>
 
-          <Button onClick = {history.goBack} colorScheme="blue" mr="5px">
-            Back
-          </Button>
+        <Flex>
 
           { user.enrolled.includes(study.id)?
             (

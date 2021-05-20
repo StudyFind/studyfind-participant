@@ -54,7 +54,7 @@ function Sidebar({ name, email }) {
           <Avatar name={name} bg="blue.500" color="white" h="42px" w="42px" mr="10px" />
           <Box>
             <Text fontSize="0.9rem" color="white" fontWeight="500" isTruncated maxWidth="180px">
-              {name}
+              Logged in as: {name}
             </Text>
             <Text fontSize="0.9rem" color="gray.400" isTruncated maxWidth="180px">
               {email}
