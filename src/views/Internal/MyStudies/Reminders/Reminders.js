@@ -44,10 +44,13 @@ function Reminders({ study }) {
   const getDayIndexFromOffset = (offset) => {
     const offsetHour = convertEpochToHMS(offset);
     const tzOffset = moment.tz(moment.utc(), user.timezone).utcOffset() / 60;
-    return Math.floor((offsetHour.hour + tzOffset) / 24);
+    var correctedHour = offsetHour.hour + tzOffset;
+    if (correctedHour <= 0) {
+      correctedHour = correctedHour + 168 //168 hours in a week
+    }
+    return Math.floor(correctedHour / 24);
   };
 
-  //are dates in utc?
   const getDaysFromOffsets = (offsets) => {
     const weekdaysBoolean = [false, false, false, false, false, false, false];
 
