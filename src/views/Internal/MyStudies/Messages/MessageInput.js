@@ -26,8 +26,8 @@ function MessageInput({ autoscroll, messagesRef }) {
       user: auth.currentUser.uid,
     };
 
-    setMessage("");
     messagesRef.add(data).then(() => {
+      setMessage("");
       autoscroll();
     });
   };

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import moment from "moment";
 
 import { Flex, Text, Icon } from "@chakra-ui/react";
-import { HiOutlineCheckCircle, HiCheckCircle } from "react-icons/hi";
+import { HiCheckCircle } from "react-icons/hi";
 
 function Message({ message, messagesRef, isUser }) {
   useEffect(() => {
@@ -22,12 +22,12 @@ function Message({ message, messagesRef, isUser }) {
         >
           {message.text}
         </Text>
-        <Meta pt="4px" align="center" gridGap="4px" justify={`flex-${isUser ? "end" : "start"}`}>
+        <Meta pt="4px" align="center" gridGap="2px" justify={`flex-${isUser ? "end" : "start"}`}>
           {isUser && (
             <Icon
               fontSize="12px"
               color={message.read ? "green.500" : "gray.500"}
-              as={message.read ? HiCheckCircle : HiOutlineCheckCircle}
+              as={HiCheckCircle}
             />
           )}
           <Text fontSize="xs" color="gray.500" fontWeight="500">
