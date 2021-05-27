@@ -1,18 +1,16 @@
-import React, { useState, useEffect, useContext } from "react";
-import firebase from "firebase";
+import React, { useState, useContext } from "react";
+import moment from "moment";
 import { auth, firestore } from "database/firebase";
 import { useCollection } from "hooks";
 import { UserContext } from "context";
 
-import { Spinner } from "components"
+import { Spinner } from "components";
 
 import RemindersView from "./RemindersView";
 import RemindersError from "./RemindersError";
 
 function Reminders({ study }) {
   const user = useContext(UserContext);
-
-  const moment = require('moment');
 
   const defaultInputs = {
     title: "",
@@ -28,7 +26,6 @@ function Reminders({ study }) {
     .collection("reminders")
     .where("participantID", "==", uid)
     .where("studyID", "==", study.id);
-
 
   const [reminders, loading, error] = useCollection(fittedRemindersRef);
 
@@ -64,7 +61,9 @@ function Reminders({ study }) {
 
   const getTimesFromOffsets = (offsets) => {
     const allTimes = [];
-    const numberOfDaysSelected = getDaysFromOffsets(offsets).filter((value) => value).length;
+    const numberOfDaysSelected = getDaysFromOffsets(offsets).filter(
+      (value) => value
+    ).length;
 
     //why / numberOfDaysSelected ?
     for (let i = 0; i < offsets.length / numberOfDaysSelected; i++) {
@@ -83,7 +82,7 @@ function Reminders({ study }) {
   };
 
   const formatDate = (date) => {
-    return moment(date).tz(user.timezone).format('MMMM D, YYYY');
+    return moment(date).tz(user.timezone).format("MMMM D, YYYY");
   };
 
   // const convertDate = (date) => {
@@ -123,12 +122,9 @@ function Reminders({ study }) {
   // };
 
   const handleConfirm = (reminder) => {
-    firestore
-      .collection("reminders")
-      .doc(reminder.id)
-      .update({
-        confirmedByParticipant: true
-      });
+    firestore.collection("reminders").doc(reminder.id).update({
+      confirmedByParticipant: true,
+    });
   };
 
   if (loading) return <Spinner />;
