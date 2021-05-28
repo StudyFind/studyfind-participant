@@ -40,12 +40,7 @@ function Reminders({ study }) {
 
   const getDayIndexFromOffset = (offset) => {
     const offsetHour = convertEpochToHMS(offset);
-    const tzOffset = moment.tz(moment.utc(), user.timezone).utcOffset() / 60;
-    var correctedHour = offsetHour.hour + tzOffset;
-    if (correctedHour < 0) {
-      correctedHour = correctedHour + 168 //168 hours in a week
-    }
-    return Math.floor(correctedHour / 24);
+    return Math.floor(offsetHour.hour / 24);
   };
 
   const getDaysFromOffsets = (offsets) => {
@@ -65,8 +60,7 @@ function Reminders({ study }) {
       (value) => value
     ).length;
 
-    //why / numberOfDaysSelected ?
-    for (let i = 0; i < offsets.length / numberOfDaysSelected; i++) {
+    for (let i = 0; i < offsets.length; i++) {
       const thisHour = convertEpochToHMS(offsets[i]).hour % 24;
       const thisMinute = convertEpochToHMS(offsets[i]).minute;
       let newTime;
