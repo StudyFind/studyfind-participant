@@ -1,6 +1,7 @@
 import { auth, firestore } from "./firebase";
 import moment from "moment-timezone";
 import errors from "./errors";
+import { setParticipantClaim } from "./cloud";
 
 const getErrorMessage = ({ code }) => ({
   email: "",
@@ -13,28 +14,50 @@ const forgotPassword = async (email) => auth.sendPasswordResetEmail(email);
 const signup = async (name, email, password) => {
   try {
     const { user } = await auth.createUserWithEmailAndPassword(email, password);
-    await firestore
-      .collection("participants")
-      .doc(user.uid)
-      .set({
-        name,
-        sex: "",
-        birthdate: "",
-        timezone: moment.tz.guess(),
-        availability: "",
-        enrolled: [],
-        saved: [],
-        filter: {
-          control_no: false,
-          control_yes: false,
-          enrolled: false,
-          interventional: false,
-          observational: false,
-          saved: false,
-        },
-        preferences: { location: true, autodetectTimezone: true },
-        location: {},
-      });
+
+    await Promise.all([
+      setParticipantClaim(),
+      user.sendEmailVerification(),
+      firestore
+        .collection("participants")
+        .doc(user.uid)
+        .set({
+          name,
+          timezone: moment.tz.guess(),
+          sex: "",
+          birthdate: "",
+          preferences: {
+            location: {},
+            notifications: {
+              email: false,
+              phone: false,
+              categories: {
+                account: true,
+                status: true, // changes to study status
+                reminders: true,
+                meetings: true,
+                messages: true,
+              },
+            },
+            timezone: {
+              autodetect: true,
+            },
+          },
+          availability: "",
+          enrolled: [],
+          saved: [],
+          filter: {
+            control_no: false,
+            control_yes: false,
+            enrolled: false,
+            interventional: false,
+            observational: false,
+            saved: false,
+          },
+          location: {},
+        }),
+    ]);
+
     localStorage.setItem("exists", true);
     return user;
   } catch (error) {
