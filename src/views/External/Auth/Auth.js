@@ -6,15 +6,7 @@ import Tabs from "./Tabs";
 import Form from "./Form";
 
 function Auth() {
-  const getDefaultTab = () => {
-    const url = new URL(window.location.href);
-    const mode = url.searchParams.get("mode");
-    const accountExists = localStorage.getItem("exists") === "true";
-
-    return mode || (accountExists ? "login" : "signup");
-  };
-
-  const [tab, setTab] = useState(getDefaultTab());
+  const [tab, setTab] = useState(localStorage.getItem("exists") === "true" ? "login" : "signup");
 
   return (
     <Flex justify="center" align="center" h="100vh">

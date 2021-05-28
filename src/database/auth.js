@@ -89,16 +89,6 @@ const deleteUser = async (email, password) => {
 
 // ========================== PASSWORD UPDATES ========================== //
 
-const resetPassword = async (actionCode, password) => {
-  try {
-    const email = await auth.verifyPasswordResetCode(actionCode);
-    await auth.confirmPasswordReset(actionCode, password);
-    return signin(email, password);
-  } catch (error) {
-    throw getErrorMessage(error);
-  }
-};
-
 const changePassword = async (password, newPassword) => {
   try {
     const { email } = await auth.currentUser;
@@ -113,7 +103,6 @@ export {
   // DATA //
   deleteUser,
   forgotPassword,
-  resetPassword,
   changePassword,
   // AUTH //
   signin,
