@@ -1,16 +1,15 @@
 import React from "react";
+import moment from "moment";
+import "moment-timezone";
 import styled from "styled-components";
+
 import { datetime } from "functions";
-import { Heading, Box, Grid, Flex, IconButton, Text, Button } from "@chakra-ui/react";
-import { FaPencilAlt, FaTrashAlt, FaExternalLinkAlt, FaPlusCircle } from "react-icons/fa";
+import { Heading, Box, Grid, Flex, Text, Button } from "@chakra-ui/react";
+import { FaExternalLinkAlt } from "react-icons/fa";
 
 function MeetingsView({ meetings, handleConfirm, user }) {
-
-  const moment = require('moment');
-  require('moment-timezone');
-
   const formatTimestamp = (timestamp) => {
-    const convertedTimestamp = moment.utc(timestamp).tz(user.timezone);
+    const convertedTimestamp = moment.utc(timestamp).tz(user.timezone).format("YYYY-MM-DD hh:mm A");
     const timezoneAbbreviation = moment.tz(user.timezone).zoneAbbr();
     const formattedDate = datetime.getFriendlyDate(convertedTimestamp);
     const formattedTime = datetime.get12HourTime(convertedTimestamp);
@@ -36,16 +35,13 @@ function MeetingsView({ meetings, handleConfirm, user }) {
             </ExternalLink>
             <Flex justify="space-between" align="center" mt="16px">
               <Flex gridGap="4px">
-                {meeting.confirmedByParticipant?
-                  (<Button colorScheme="green">
-                    {"Confirmed"}
-                   </Button>
-                  ) : (
+                {meeting.confirmedByParticipant ? (
+                  <Button colorScheme="green">{"Confirmed"}</Button>
+                ) : (
                   <Button colorScheme="blue" onClick={() => handleConfirm(meeting)}>
                     {"Confirm"}
                   </Button>
-                  )
-                  }
+                )}
               </Flex>
               <Text color="gray.500" fontSize="0.9rem" fontStyle="italic"></Text>
             </Flex>
