@@ -5,14 +5,7 @@ import { useLocation } from "react-router-dom";
 
 import { Link } from "components";
 import { Box, Flex, Grid, Heading, Text, Image, Avatar } from "@chakra-ui/react";
-
-import {
-  FaSearch,
-  FaBell,
-  FaCog,
-  FaUserCircle,
-  FaList,
-} from "react-icons/fa";
+import { FaSearch, FaBell, FaCog, FaUserCircle, FaClipboard } from "react-icons/fa";
 
 import StudyFindLogo from "images/logo.png";
 
@@ -30,7 +23,7 @@ function Sidebar({ name, email }) {
     { name: "Notifications", path: "/notifications", icon: <FaBell /> },
     { name: "Settings", path: "/settings", icon: <FaCog /> },
     { name: "Account", path: "/account", icon: <FaUserCircle /> },
-    { name: "My Studies", path: "/MyStudies", icon: <FaList /> },
+    { name: "My Studies", path: "/MyStudies", icon: <FaClipboard /> },
   ];
 
   return (
@@ -54,7 +47,7 @@ function Sidebar({ name, email }) {
           <Avatar name={name} bg="blue.500" color="white" h="42px" w="42px" mr="10px" />
           <Box>
             <Text fontSize="0.9rem" color="white" fontWeight="500" isTruncated maxWidth="180px">
-              Logged in as: {name}
+              {name}
             </Text>
             <Text fontSize="0.9rem" color="gray.400" isTruncated maxWidth="180px">
               {email}

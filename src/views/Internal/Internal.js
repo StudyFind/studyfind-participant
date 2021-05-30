@@ -35,11 +35,11 @@ function Internal() {
                 <Route path="/search" component={FindStudies} />
                 <Route path="/notifications" component={Notifications} />
                 <Route path="/settings" component={Settings} />
+                <Route path="/study/:nctID/screening" component={Questionnaire} />
                 <Route path="/study/:nctID" component={ViewStudy} />
                 <Route path="/account" component={Account} />
-                <Route path="/study/:nctID/questionnaire" component={Questionnaire} />
                 <Route path="/mystudies" component={MyStudies} />
-                <Redirect to={"/"} />
+                <Redirect to="/" />
               </Switch>
             </Page>
           </Box>
