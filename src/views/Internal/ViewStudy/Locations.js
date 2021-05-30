@@ -1,9 +1,9 @@
 import React from "react";
-import { Flex, Heading, Text, OrderedList, ListItem, Box } from "@chakra-ui/react";
-import { Message } from "components";
+import { Flex, Heading, OrderedList, ListItem, Box } from "@chakra-ui/react";
+import { Link, Message } from "components";
 
 function Locations({ study }) {
-  return study && study.locations && study.locations.length ? (
+  return study?.locations?.length ? (
     <>
       <Flex justify="space-between" align="center" my="15px" h="40px">
         <Heading fontSize="28px">Locations</Heading>
@@ -12,17 +12,12 @@ function Locations({ study }) {
         <OrderedList>
           {study.locations.map((location, index) => {
             const address = `${location.localLocation.trim()}, ${location.nationalLocation.trim()}`;
+            const cleaned = address.trim().split(" ").join("+");
+            const url = `https://www.google.com/maps?saddr=My+Location&daddr=${cleaned}`;
+
             return (
               <ListItem key={index} my="4px">
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={`https://www.google.com/maps?saddr=My+Location&daddr=${
-                    address && address.trim().split(" ").join("+")
-                  }`}
-                >
-                  <Text color="blue.500">{address}</Text>
-                </a>
+                <Link to={url}>{address}</Link>
               </ListItem>
             );
           })}
@@ -32,7 +27,7 @@ function Locations({ study }) {
   ) : (
     <Box h="500px">
       <Message
-        type="failure"
+        status="failure"
         title="No locations"
         description="This study does not have any locations listed!"
       />

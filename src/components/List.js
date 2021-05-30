@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { Box } from "@chakra-ui/react";
 
-function List({ children }) {
+function List({ children, ...rest }) {
   return (
-    <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
+    <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white" {...rest}>
       {children}
     </Box>
   );
