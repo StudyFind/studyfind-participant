@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { auth, firestore } from "database/firebase";
-import { Spinner } from "components"
 import { useCollection } from "hooks";
 
+import { Spinner } from "components"
 import MeetingsView from "./MeetingsView";
 import MeetingsError from "./MeetingsError";
 
-function Meetings({ study, user }) {
-
+function Meetings({ study }) {
   const { uid } = auth.currentUser;
 
   const [meetings, loading, error] = useCollection(
@@ -32,7 +31,7 @@ function Meetings({ study, user }) {
   if (error) return <MeetingsError />;
 
   return(
-    <MeetingsView meetings={meetings} handleConfirm={handleConfirm} user={user} />
+    <MeetingsView meetings={meetings} handleConfirm={handleConfirm} />
   );
 }
 
