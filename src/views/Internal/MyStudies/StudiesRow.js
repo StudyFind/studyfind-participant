@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components";
 
 import { firestore } from "database/firebase";
-import { useDocument, useCollection } from "hooks";
+import { useDocument } from "hooks";
 
 import { Spinner } from "components";
 
 import { Text, Avatar, Badge, IconButton, Tooltip } from "@chakra-ui/react";
 import { FaClock, FaCalendar, FaClipboard, FaComment } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link } from "components";
 
 function StudiesRow({ study, handleDrawer, uid }) {
   const statusColors = {
@@ -23,7 +23,7 @@ function StudiesRow({ study, handleDrawer, uid }) {
 
   if (loading || !participantData) return <></>;
 
-  if (error){
+  if (error) {
     console.log(participantData);
     return (
       <Text size="lg" mb="25px">

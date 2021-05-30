@@ -2,11 +2,7 @@ import React, { useState, useContext } from "react";
 import styled from "styled-components";
 
 import { UserContext, StudiesContext } from "context";
-import { auth, firestore } from "database/firebase";
-import { useDocument, useCollection } from "hooks";
-
 import { Message, Spinner } from "components";
-
 import { Heading, Box, Badge, Button, Input, useDisclosure } from "@chakra-ui/react";
 
 import StudyDrawer from "./StudyDrawer";
@@ -21,13 +17,7 @@ function MyStudies() {
   const studies = useContext(StudiesContext);
 
   const {isOpen, onOpen, onClose} = useDisclosure();
-
   const [drawer, setDrawer] = useState({ action: "", study: {} });
-
-  const { uid } = auth.currentUser;
-
-  if (!user || !studies) return <Spinner />;
-
   const enrolledStudies = studies.filter((study) => user.enrolled.includes(study.id));
 
   const handleDrawer = (action, studyID, responses) => {
@@ -40,27 +30,29 @@ function MyStudies() {
     onOpen();
   };
 
-  const EMPTY = (
-    <Box h="500px">
-      <Message
-        type="neutral"
-        title="My Studies"
-        description="You have not enrolled in any studies yet!"
-      />
-    </Box>
-  );
+  if (!user || !studies) return <Spinner />;
 
-  const LIST = (
+  if (!enrolledStudies || !enrolledStudies.length) {
+    return (
+      <Box h="500px">
+        <Message
+          type="neutral"
+          title="My Studies"
+          description="You have not enrolled in any studies yet!"
+        />
+      </Box>
+    )
+  };
+
+  return (
     <>
       <Head>
         <Heading fontSize="28px">My Studies</Heading>
       </Head>
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
-        {enrolledStudies && enrolledStudies.length
-          ? enrolledStudies.map((study, index) => (
-              <StudiesRow key={index} study={study} handleDrawer={handleDrawer} uid={uid} />
-            ))
-          : EMPTY}
+        {enrolledStudies?.map((study, index) => (
+          <StudiesRow key={index} study={study} handleDrawer={handleDrawer} uid={user.id} />
+        ))}
       </Box>
       <StudyDrawer
         action={drawer.action}
@@ -69,7 +61,7 @@ function MyStudies() {
         isOpen={isOpen}
       >
         {drawer.action === "messages" && (
-          <Messages study={drawer.study} participant={{id: uid}}/>
+          <Messages study={drawer.study} participant={{id: user.id}}/>
         )}
         {drawer.action === "meetings" && (
           <Meetings study={drawer.study} user={user}/>
@@ -83,8 +75,6 @@ function MyStudies() {
       </StudyDrawer>
     </>
   );
-
-  return LIST;
 };
 
 
