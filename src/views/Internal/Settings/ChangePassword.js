@@ -29,7 +29,7 @@ function ChangePassword() {
     return (
       <Box p="40px 50px" w="350px" bg="white" borderWidth="1px" rounded="md">
         <Message
-          type="success"
+          status="success"
           title="Password Changed!"
           description="You can now use your new password to log in"
         />

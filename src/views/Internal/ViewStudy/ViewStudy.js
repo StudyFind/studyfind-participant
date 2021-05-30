@@ -28,7 +28,7 @@ function ViewStudy() {
 
   const MISSING = (
     <Message
-      type="failure"
+      status="failure"
       title="Study not found!"
       description={`The study ${nctID} could not be found in the StudyFind database. Please
   ensure that it has been successfully created by following all directions in the study

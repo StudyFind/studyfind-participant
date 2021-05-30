@@ -4,7 +4,7 @@ import { Message } from "components";
 function RemindersError() {
   return (
     <Message
-      type="failure"
+      status="failure"
       title="Connection Error"
       description="We could not load your reminders"
     />

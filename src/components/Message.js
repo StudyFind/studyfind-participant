@@ -1,25 +1,15 @@
 import React from "react";
-
 import { Heading, Text, Box, Center, Flex } from "@chakra-ui/react";
 import { FaTimesCircle, FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 
-function Message({ type, title, description, children, ...rest }) {
-  const status = {
-    success: {
-      icon: FaCheckCircle,
-      color: "green",
-    },
-    neutral: {
-      icon: FaExclamationCircle,
-      color: "blue",
-    },
-    failure: {
-      icon: FaTimesCircle,
-      color: "red",
-    },
+function Message({ status, title, description, children, ...rest }) {
+  const statuses = {
+    success: { icon: FaCheckCircle, color: "green" },
+    neutral: { icon: FaExclamationCircle, color: "blue" },
+    failure: { icon: FaTimesCircle, color: "red" },
   };
 
-  const { icon, color } = status[type] || status["neutral"];
+  const { icon, color } = statuses[status] || statuses["neutral"];
 
   return (
     <Flex direction="column" justify="center" align="center" h="100%" w="100%" {...rest}>

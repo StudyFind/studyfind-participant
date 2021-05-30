@@ -254,7 +254,7 @@ function FindStudies() {
   const EMPTY = (
     <Box h="500px">
       <Message
-        type="neutral"
+        status="neutral"
         title="Find Studies"
         description="No studies to display. Try changing your search filters for better results!"
       />
