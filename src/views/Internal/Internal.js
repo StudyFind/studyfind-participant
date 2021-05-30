@@ -38,7 +38,7 @@ function Internal() {
                 <Route path="/study/:nctID" component={ViewStudy} />
                 <Route path="/account" component={Account} />
                 <Route path="/study/:nctID/questionnaire" component={Questionnaire} />
-                <Route path="/mystudies" component={MyStudies} />
+                <Route path="/mystudies/:studyID?/:action?" component={MyStudies} />
                 <Redirect to={"/"} />
               </Switch>
             </Page>
