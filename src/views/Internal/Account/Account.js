@@ -2,23 +2,11 @@ import React, { useState, useEffect, useContext } from "react";
 import moment from "moment-timezone";
 
 import { UserContext } from "context";
-import { firestore, auth } from "database/firebase";
+import { firestore } from "database/firebase";
 
 import lodash from "lodash";
 
-import {
-  FormControl,
-  FormLabel,
-  Heading,
-  Box,
-  Flex,
-  Grid,
-  Switch,
-  Button,
-  Divider,
-  Checkbox,
-  Text
-} from "@chakra-ui/react";
+import { Heading, Box, Flex, Grid, Button, Divider, Checkbox, Text } from "@chakra-ui/react";
 import { Spinner, Radio, Textarea, Input, Select } from "components";
 
 function Account() {
@@ -52,7 +40,7 @@ function Account() {
 
   const handlePreferencesToggle = (e) => {
     const { name, checked } = e.target;
-    setPersonal((prev) => ({ ...prev, preferences: {...prev.preferences, [name]: checked} }));
+    setPersonal((prev) => ({ ...prev, preferences: { ...prev.preferences, [name]: checked } }));
   };
 
   const handleCancel = () => {
@@ -64,7 +52,7 @@ function Account() {
       .collection("participants")
       .doc(user.id)
       .update({
-        ...personal
+        ...personal,
       });
   };
 
@@ -76,9 +64,7 @@ function Account() {
         <Heading size="lg" my="8px">
           Welcome Back, {user.name.split(" ")[0]}
         </Heading>
-        {!(
-          lodash.isEqual(personal, initial)
-        ) && (
+        {!lodash.isEqual(personal, initial) && (
           <Flex gridGap="10px">
             <Button color="gray.500" onClick={handleCancel}>
               Cancel
@@ -129,8 +115,8 @@ function Account() {
                     Auto Detect Timezone
                   </Heading>
                   <Text fontSize="sm">
-                    Automatically detects and updates your local timezone each time
-                    you use StudyFind
+                    Automatically detects and updates your local timezone each time you use
+                    StudyFind
                   </Text>
                 </Grid>
               </Checkbox>

@@ -8,7 +8,7 @@ import { Box, Flex, Heading } from "@chakra-ui/react";
 import { Message, Spinner } from "components";
 
 function ConsentViewer({ study }) {
-  const [value, loading, error] = useDownloadURL(storage.ref(`consent/${study.id}.pdf`));
+  const [value, loading] = useDownloadURL(storage.ref(`consent/${study.id}.pdf`));
 
   if (loading) {
     return (
