@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Flex, Tooltip, IconButton } from "@chakra-ui/react";
-import { FaLocationArrow, FaThLarge } from "react-icons/fa";
+import { FaThLarge, FaMapMarkerAlt } from "react-icons/fa";
 
 function ViewMode({ view, setView }) {
   return (
@@ -21,7 +21,7 @@ function ViewMode({ view, setView }) {
         </Tooltip>
         <Tooltip label="Map View">
           <IconButton
-            icon={<FaLocationArrow />}
+            icon={<FaMapMarkerAlt />}
             color={view === "map" ? "blue.500" : "gray.500"}
             bg={view === "map" ? "blue.100" : "gray.100"}
             _hover={view === "map" ? "blue.100" : "gray.100"}

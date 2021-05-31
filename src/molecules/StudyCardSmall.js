@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import { firestore } from "database/firebase";
+import { auth, firestore } from "database/firebase";
 import { UserContext } from "context";
 
 import { Box, Flex, Heading, Text, Button, Icon, Tooltip } from "@chakra-ui/react";
@@ -11,6 +11,7 @@ import StudyConditions from "./StudyConditions";
 
 function StudyCardSmall({ study, conditions, handleAddCondition }) {
   const user = useContext(UserContext);
+  const verified = auth.currentUser.emailVerified;
 
   const handleBookmark = () => {
     const hasBeenSaved = user.saved.includes(study.id);
@@ -69,11 +70,15 @@ function StudyCardSmall({ study, conditions, handleAddCondition }) {
             Details
           </Button>
         </Link>
-        <Link to={isEnrolled ? "" : `/study/${study.id}/screening`} isWrapper>
-          <Button size="sm" colorScheme={isEnrolled ? "green" : "blue"}>
-            {isEnrolled ? "Enrolled" : "Enroll"}
-          </Button>
-        </Link>
+        <Tooltip label={!verified && "You must verify your email before enrolling for studies"}>
+          <Box>
+            <Link to={isEnrolled ? "" : `/study/${study.id}/screening`} isWrapper>
+              <Button size="sm" colorScheme={isEnrolled ? "green" : "blue"} isDisabled={!verified}>
+                {isEnrolled ? "Enrolled" : "Enroll"}
+              </Button>
+            </Link>
+          </Box>
+        </Tooltip>
       </Flex>
     </Flex>
   );
