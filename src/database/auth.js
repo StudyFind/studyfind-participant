@@ -77,7 +77,7 @@ const signin = async (email, password) => {
 
 const signout = async () => auth.signOut();
 
-const deleteUser = async (email, password) => {
+const deleteAccount = async (email, password) => {
   auth
     .signInWithEmailAndPassword(email, password)
     .then(({ user }) => {
@@ -101,7 +101,7 @@ const changePassword = async (password, newPassword) => {
 
 export {
   // DATA //
-  deleteUser,
+  deleteAccount,
   forgotPassword,
   changePassword,
   // AUTH //
