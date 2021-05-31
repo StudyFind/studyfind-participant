@@ -10,7 +10,7 @@ function StudyConditions({ conditions, filterConditions, handleAddCondition }) {
           size="sm"
           variant="solid"
           cursor="pointer"
-          colorScheme={filterConditions.includes(condition) ? "green" : "blue"}
+          colorScheme={filterConditions?.includes(condition) ? "green" : "blue"}
           onClick={() => handleAddCondition(condition)}
         >
           <TagLabel>{condition}</TagLabel>

@@ -23,11 +23,14 @@ const signup = async (name, email, password) => {
         .doc(user.uid)
         .set({
           name,
-          timezone: moment.tz.guess(),
           sex: "",
           birthdate: "",
+          availability: "",
+          timezone: moment.tz.guess(),
+          location: {},
+          enrolled: [],
+          saved: [],
           preferences: {
-            location: {},
             notifications: {
               email: false,
               phone: false,
@@ -39,22 +42,13 @@ const signup = async (name, email, password) => {
                 messages: true,
               },
             },
+            location: {
+              autodetect: true,
+            },
             timezone: {
               autodetect: true,
             },
           },
-          availability: "",
-          enrolled: [],
-          saved: [],
-          filter: {
-            control_no: false,
-            control_yes: false,
-            enrolled: false,
-            interventional: false,
-            observational: false,
-            saved: false,
-          },
-          location: {},
         }),
     ]);
 
@@ -77,7 +71,7 @@ const signin = async (email, password) => {
 
 const signout = async () => auth.signOut();
 
-const deleteUser = async (email, password) => {
+const deleteAccount = async (email, password) => {
   auth
     .signInWithEmailAndPassword(email, password)
     .then(({ user }) => {
@@ -101,7 +95,7 @@ const changePassword = async (password, newPassword) => {
 
 export {
   // DATA //
-  deleteUser,
+  deleteAccount,
   forgotPassword,
   changePassword,
   // AUTH //

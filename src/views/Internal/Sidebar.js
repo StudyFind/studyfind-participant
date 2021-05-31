@@ -22,7 +22,7 @@ function Sidebar({ name, email }) {
     { name: "Find Studies", path: "/search", icon: <FaSearch /> },
     { name: "My Studies", path: "/MyStudies", icon: <FaClipboard /> },
     { name: "Notifications", path: "/notifications", icon: <FaBell /> },
-    { name: "Account", path: "/account", icon: <FaUserCircle /> },
+    { name: "Account", path: "/account/profile", icon: <FaUserCircle /> },
   ];
 
   return (

@@ -8,6 +8,7 @@ import { useDocument, useCollection, useDetectTimezone } from "hooks";
 import { Page } from "components";
 
 import Sidebar from "./Sidebar";
+import Verification from "views/Internal/Verification/Verification";
 import FindStudies from "views/Internal/FindStudies/FindStudies";
 import Notifications from "views/Internal/Notifications/Notifications";
 import Account from "views/Internal/Account/Account";
@@ -16,7 +17,7 @@ import Screening from "views/Internal/ViewStudy/Screening";
 import MyStudies from "views/Internal/MyStudies/MyStudies";
 
 function Internal() {
-  const { uid, email } = auth.currentUser;
+  const { uid, email, emailVerified } = auth.currentUser;
   const [user] = useDocument(firestore.collection("participants").doc(uid));
   const [studies] = useCollection(firestore.collection("studies"));
 
@@ -27,15 +28,21 @@ function Internal() {
       <UserContext.Provider value={user}>
         <StudiesContext.Provider value={studies}>
           <Sidebar name={user && user.name} email={email} />
-          <Box ml="280px" w="100%" minH="100vh">
+          <Box
+            ml="280px"
+            w="100%"
+            minH={emailVerified ? "100vh" : "calc(100vh - 56px)"}
+            mt={emailVerified ? "" : "40px"}
+          >
+            {emailVerified || <Verification email={email} />}
             <Page isLoading={!(user && studies)}>
               <Switch>
                 <Route exact path="/" component={FindStudies} />
                 <Route path="/search" component={FindStudies} />
                 <Route path="/notifications" component={Notifications} />
-                <Route path="/study/:nctID/screening" component={Screening} />
-                <Route path="/study/:nctID" component={ViewStudy} />
-                <Route path="/account" component={Account} />
+                <Route path="/study/:studyID/screening" component={Screening} />
+                <Route path="/study/:studyID/:tab" component={ViewStudy} />
+                <Route path="/account/:tab" component={Account} />
                 <Route path="/mystudies/:studyID?/:action?" component={MyStudies} />
                 <Redirect to="/" />
               </Switch>
