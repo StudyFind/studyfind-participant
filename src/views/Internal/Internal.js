@@ -8,12 +8,11 @@ import { useDocument, useCollection, useDetectTimezone } from "hooks";
 import { Page } from "components";
 
 import Sidebar from "./Sidebar";
-import Settings from "views/Internal/Settings/Settings";
 import FindStudies from "views/Internal/FindStudies/FindStudies";
 import Notifications from "views/Internal/Notifications/Notifications";
 import Account from "views/Internal/Account/Account";
 import ViewStudy from "views/Internal/ViewStudy/ViewStudy";
-import Questionnaire from "views/Internal/ViewStudy/Questionnaire";
+import Screening from "views/Internal/ViewStudy/Screening";
 import MyStudies from "views/Internal/MyStudies/MyStudies";
 
 function Internal() {
@@ -34,12 +33,11 @@ function Internal() {
                 <Route exact path="/" component={FindStudies} />
                 <Route path="/search" component={FindStudies} />
                 <Route path="/notifications" component={Notifications} />
-                <Route path="/settings" component={Settings} />
+                <Route path="/study/:nctID/screening" component={Screening} />
                 <Route path="/study/:nctID" component={ViewStudy} />
                 <Route path="/account" component={Account} />
-                <Route path="/study/:nctID/questionnaire" component={Questionnaire} />
                 <Route path="/mystudies/:studyID?/:action?" component={MyStudies} />
-                <Redirect to={"/"} />
+                <Redirect to="/" />
               </Switch>
             </Page>
           </Box>

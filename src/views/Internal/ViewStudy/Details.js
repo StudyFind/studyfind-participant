@@ -1,62 +1,27 @@
 import React from "react";
-import styled from "styled-components";
-import { Link, useHistory } from "react-router-dom";
 
-import { Heading, Button, IconButton, Flex, Spacer } from "@chakra-ui/react";
-import { FaChevronLeft } from "react-icons/fa";
+import { Heading, Button, Flex } from "@chakra-ui/react";
+import { Link } from "components";
 import StudyCardLarge from "views/Internal/StudyCardLarge";
 
-function DetailsView({ study, user }) {
-  const history = useHistory();
-
+function Details({ study, user }) {
   return (
     <>
-      <Flex align="center" mt="10px" mb="25px">
-        <IconButton
-          onClick={history.goBack}
-          colorScheme="blue"
-          mr="5px"
-          icon={<FaChevronLeft/>}
-        />
-
-        <Heading size="lg" my="8px">
-          Details
-        </Heading>
-
-        <Spacer/>
-
-        <Flex>
-
-          { user.enrolled.includes(study.id)?
-            (
-              <Button colorScheme="green" disabled>
-                Enrolled
-              </Button>
-            ) : (
-            <Link to={`/study/${study.id}/questionnaire`}>
-              <Button colorScheme="blue">
-                Enroll
-              </Button>
-            </Link>
-            )
-          }
-
-        </Flex>
-
+      <Flex justify="space-between" align="center" my="15px" h="40px">
+        <Heading fontSize="28px">Details</Heading>
+        {user.enrolled.includes(study.id) ? (
+          <Button colorScheme="green" disabled>
+            Enrolled
+          </Button>
+        ) : (
+          <Link to={`/study/${study.id}/screening`}>
+            <Button colorScheme="blue">Enroll</Button>
+          </Link>
+        )}
       </Flex>
       <StudyCardLarge study={study} />
-      <br/>
-
-      </>
-
+    </>
   );
 }
 
-const Head = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px 0;
-`;
-
-export default DetailsView;
+export default Details;

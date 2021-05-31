@@ -1,63 +1,58 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
 import { UserContext, StudiesContext } from "context";
 
-import { Message } from "components";
-import { Tabs, Tab, TabList, TabPanels, TabPanel, Flex } from "@chakra-ui/react";
+import { Flex, Tabs, Tab, TabList, TabPanels, TabPanel } from "@chakra-ui/react";
+import { Link, Message } from "components";
+import { FaChevronLeft } from "react-icons/fa";
 
 import Details from "./Details";
 import Locations from "./Locations";
 import Consent from "./Consent";
 
-
 function ViewStudy() {
+  const { nctID } = useParams();
+
   const user = useContext(UserContext);
   const studies = useContext(StudiesContext);
 
-  const { nctID } = useParams();
-  const findStudy = () => studies && studies.find((study) => study.id === nctID);
-  const [study, setStudy] = useState(findStudy());
+  const study = studies.find((study) => study.id === nctID);
 
-  useEffect(() => {
-    if (studies) {
-      setStudy(findStudy());
-    }
-  }, [studies]);
-
-  const MISSING = (
+  return study ? (
+    <>
+      <Link to="/" isWrapper>
+        <Flex align="center" gridGap="5px" color="blue.500">
+          <FaChevronLeft /> Return to dashboard
+        </Flex>
+      </Link>
+      <Tabs colorScheme="blue" h="100%" mt="20px">
+        <TabList>
+          <TabItem>Details</TabItem>
+          <TabItem>Locations</TabItem>
+          <TabItem>Consent</TabItem>
+        </TabList>
+        <TabPanels>
+          <TabPanel pt="1px">
+            <Details study={study} user={user} />
+          </TabPanel>
+          <TabPanel pt="1px">
+            <Locations study={study} />
+          </TabPanel>
+          <TabPanel pt="1px">
+            <Consent study={study} />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+    </>
+  ) : (
     <Message
       status="failure"
       title="Study not found!"
-      description={`The study ${nctID} could not be found in the StudyFind database. Please
-  ensure that it has been successfully created by following all directions in the study
-  creation process.`}
+      description="We cannot find the study you're looking for"
     />
   );
-
-  const BODY = (
-    <Tabs colorScheme="blue" h="100%">
-      <TabList>
-        <TabItem>Details</TabItem>
-        <TabItem>Locations</TabItem>
-        <TabItem>Consent</TabItem>
-      </TabList>
-      <TabPanels>
-        <TabPanel pt="1px">
-          <Details study={study} user={user}/>
-        </TabPanel>
-        <TabPanel pt="1px">
-          <Locations study={study} />
-        </TabPanel>
-        <TabPanel pt="1px">
-          <Consent study={study} />
-        </TabPanel>
-      </TabPanels>
-    </Tabs>
-  );
-
-  return study ? BODY : MISSING;
 }
 
 const TabItem = styled(Tab)`
