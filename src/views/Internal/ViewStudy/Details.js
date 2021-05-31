@@ -2,7 +2,7 @@ import React from "react";
 
 import { Heading, Button, Flex } from "@chakra-ui/react";
 import { Link } from "components";
-import StudyCardLarge from "views/Internal/StudyCardLarge";
+import StudyCardLarge from "molecules/StudyCardLarge";
 
 function Details({ study, user }) {
   return (
