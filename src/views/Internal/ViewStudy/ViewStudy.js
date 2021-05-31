@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
+import { useTabs } from "hooks";
 
 import { UserContext, StudiesContext } from "context";
 
-import { Flex, Tabs, Tab, TabList, TabPanels, TabPanel } from "@chakra-ui/react";
+import { Flex, Tabs, Tab, TabList, TabPanels } from "@chakra-ui/react";
 import { Link, Message } from "components";
 import { FaChevronLeft } from "react-icons/fa";
 
@@ -13,12 +14,18 @@ import Locations from "./Locations";
 import Consent from "./Consent";
 
 function ViewStudy() {
-  const { nctID } = useParams();
-
   const user = useContext(UserContext);
   const studies = useContext(StudiesContext);
+  const { studyID } = useParams();
+  const study = studies.find((study) => study.id === studyID);
 
-  const study = studies.find((study) => study.id === nctID);
+  const tabs = [
+    { name: "details", content: <Details user={user} study={study} /> },
+    { name: "locations", content: <Locations study={study} /> },
+    { name: "consent", content: <Consent study={study} /> },
+  ];
+
+  const [tabIndex, setTabIndex] = useTabs(`/study/${studyID}`, tabs);
 
   return study ? (
     <>
@@ -27,23 +34,15 @@ function ViewStudy() {
           <FaChevronLeft /> Return to dashboard
         </Flex>
       </Link>
-      <Tabs colorScheme="blue" h="100%" mt="20px">
+      <Tabs colorScheme="blue" h="100%" index={tabIndex} pt="20px">
         <TabList>
-          <TabItem>Details</TabItem>
-          <TabItem>Locations</TabItem>
-          <TabItem>Consent</TabItem>
+          {tabs.map((t, i) => (
+            <TabItem key={i} className="tab" onClick={() => setTabIndex(i)}>
+              {t.name.charAt(0).toUpperCase() + t.name.slice(1)}
+            </TabItem>
+          ))}
         </TabList>
-        <TabPanels>
-          <TabPanel pt="1px">
-            <Details study={study} user={user} />
-          </TabPanel>
-          <TabPanel pt="1px">
-            <Locations study={study} />
-          </TabPanel>
-          <TabPanel pt="1px">
-            <Consent study={study} />
-          </TabPanel>
-        </TabPanels>
+        <TabPanels>{tabs[tabIndex]?.content}</TabPanels>
       </Tabs>
     </>
   ) : (

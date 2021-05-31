@@ -33,9 +33,9 @@ function Internal() {
                 <Route exact path="/" component={FindStudies} />
                 <Route path="/search" component={FindStudies} />
                 <Route path="/notifications" component={Notifications} />
-                <Route path="/study/:nctID/screening" component={Screening} />
-                <Route path="/study/:nctID" component={ViewStudy} />
-                <Route path="/account" component={Account} />
+                <Route path="/study/:studyID/screening" component={Screening} />
+                <Route path="/study/:studyID/:tab" component={ViewStudy} />
+                <Route path="/account/:tab" component={Account} />
                 <Route path="/mystudies" component={MyStudies} />
                 <Redirect to="/" />
               </Switch>
