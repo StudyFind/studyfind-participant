@@ -9,7 +9,7 @@ function VerificationWarning({ email, handleClick, loading }) {
         <Flex>
           <AlertIcon />
           <Text>
-            Please verify your email <b>{email}</b> to begin creating research studies
+            Please verify your email <b>{email}</b> to begin enrolling in research studies
           </Text>
         </Flex>
         <Button

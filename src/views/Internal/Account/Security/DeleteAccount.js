@@ -35,7 +35,7 @@ function DeleteAccount() {
     <>
       <AccountHeader
         title="Delete Account"
-        description="Deleting your account is a permenant action which will delete all your
+        description="Deleting your account is a permanent action which will delete all your
         user information and research studies"
       />
       <Form onSubmit={() => handleSubmit(inputs.email, inputs.password)}>

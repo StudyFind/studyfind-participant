@@ -14,8 +14,6 @@ import Locations from "./Locations";
 import Consent from "./Consent";
 
 function ViewStudy() {
-  const { nctID } = useParams();
-
   const user = useContext(UserContext);
   const studies = useContext(StudiesContext);
   const { studyID } = useParams();
