@@ -9,7 +9,7 @@ function Message({ status, title, description, children, ...rest }) {
     failure: { icon: FaTimesCircle, color: "red" },
   };
 
-  const { icon, color } = statuses[status] || statuses["neutral"];
+  const { icon, color } = statuses[status] || statuses.neutral;
 
   return (
     <Flex direction="column" justify="center" align="center" h="100%" w="100%" {...rest}>

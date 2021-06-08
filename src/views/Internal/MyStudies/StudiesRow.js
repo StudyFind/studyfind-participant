@@ -8,7 +8,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { Text, Avatar, Badge, Box } from "@chakra-ui/react";
 import { FaClock, FaCalendar, FaClipboard, FaComment } from "react-icons/fa";
 
-import { Spinner, Link, ActionButton } from "components";
+import { Link, ActionButton } from "components";
 import StudyDrawer from "./StudyDrawer";
 import Messages from "./Messages/Messages";
 import Meetings from "./Meetings/Meetings";
@@ -37,7 +37,9 @@ function StudiesRow({ study, uid }) {
     rejected: "red",
   };
 
-  const [participantData, loading, error] = useDocument(firestore.collection("studies").doc(study.id).collection("participants").doc(uid));
+  const [participantData, loading, error] = useDocument(
+    firestore.collection("studies").doc(study.id).collection("participants").doc(uid)
+  );
 
   if (loading || !participantData) return <></>;
 
@@ -52,45 +54,40 @@ function StudiesRow({ study, uid }) {
 
   return (
     <Row>
-      <Avatar
-        size="1rem"
-        h="30px"
-        w="30px"
-        bg="blue.500"
-        name={study.id}
-        color="white"
-      />
+      <Avatar size="1rem" h="30px" w="30px" bg="blue.500" name={study.id} color="white" />
       <Text fontWeight="500">
-        <Link to={`/study/${study.id}`}>
-          {study.id}
-        </Link>
+        <Link to={`/study/${study.id}`}>{study.id}</Link>
       </Text>
-      <Text fontWeight="500" width= "50ch" overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis" wordBreak="keep-all" mr="auto">
-        <Link to={`/study/${study.id}`}>
-          {study.title}
-        </Link>
-      </Text>
-      <Badge
-        size="sm"
-        colorScheme={statusColors[participantData.status]}
+      <Text
+        fontWeight="500"
+        width="50ch"
+        overflow="hidden"
+        whiteSpace="nowrap"
+        textOverflow="ellipsis"
+        wordBreak="keep-all"
+        mr="auto"
       >
+        <Link to={`/study/${study.id}`}>{study.title}</Link>
+      </Text>
+      <Badge size="sm" colorScheme={statusColors[participantData.status]}>
         {participantData.status}
       </Badge>
       <Buttons>
         <ActionButton hint="Messages" icon={<FaComment />} onClick={() => handleOpen("messages")} />
-        <ActionButton hint="Meetings" icon={<FaCalendar />} onClick={() => handleOpen("meetings")} />
+        <ActionButton
+          hint="Meetings"
+          icon={<FaCalendar />}
+          onClick={() => handleOpen("meetings")}
+        />
         <ActionButton hint="Reminders" icon={<FaClock />} onClick={() => handleOpen("reminders")} />
-        <ActionButton hint="Reminders" icon={<FaClipboard />} onClick={() => handleOpen("eligibility")} />
+        <ActionButton
+          hint="Reminders"
+          icon={<FaClipboard />}
+          onClick={() => handleOpen("eligibility")}
+        />
       </Buttons>
-      <StudyDrawer
-        action={action}
-        studyID={study.id}
-        onClose={handleClose}
-        isOpen={isOpen}
-      >
-        {action === "messages" && (
-          <Messages study={study} participant={{id: uid}}/>
-        )}
+      <StudyDrawer action={action} studyID={study.id} onClose={handleClose} isOpen={isOpen}>
+        {action === "messages" && <Messages study={study} participant={{ id: uid }} />}
         {action === "meetings" && (
           <Box p="25px">
             <Meetings study={study} />
@@ -103,7 +100,7 @@ function StudiesRow({ study, uid }) {
         )}
         {action === "eligibility" && (
           <Box p="25px">
-            <Eligibility study={study} responses={participantData.responses}/>
+            <Eligibility study={study} responses={participantData.responses} />
           </Box>
         )}
       </StudyDrawer>

@@ -26,8 +26,8 @@ function useTabs(root, tabs) {
 
   useEffect(() => {
     const url = history.location.pathname;
-    const rootPath = url.slice(0, root?.length);
-    const restPath = url.slice(2 + root?.length + tab?.length);
+    const rootPath = url.slice(0, root.length);
+    const restPath = url.slice(2 + root.length + tab.length);
     const tabName = tabs[tabIndex]?.name;
 
     if (root !== rootPath) {

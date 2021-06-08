@@ -3,18 +3,28 @@ import moment from "moment";
 import styled from "styled-components";
 import { UserContext } from "context";
 
-import { Heading, Box, Grid, Flex, IconButton, Button, Text, Tag, TagLabel } from "@chakra-ui/react";
+import {
+  Heading,
+  Box,
+  Grid,
+  Flex,
+  IconButton,
+  Button,
+  Text,
+  Tag,
+  TagLabel,
+} from "@chakra-ui/react";
 import { FaPlusCircle, FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 
 import { helpers } from "functions";
-import RemindersCard from "./RemindersCard"
+import RemindersCard from "./RemindersCard";
 
 function RemindersView({
   reminders,
   formatDate,
   getDaysFromOffsets,
   getTimesFromOffsets,
-  handleConfirm
+  handleConfirm,
 }) {
   const user = useContext(UserContext);
 
@@ -24,7 +34,7 @@ function RemindersView({
     <Grid gap="15px">
       {reminders &&
         reminders.map((reminder, i) => (
-          <RemindersCard index={i} reminder={reminder} handleConfirm={handleConfirm} />
+          <RemindersCard key={i} index={i} reminder={reminder} handleConfirm={handleConfirm} />
         ))}
     </Grid>
   );

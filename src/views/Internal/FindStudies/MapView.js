@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import GoogleMapReact from "google-map-react";
 import StudyCardSmall from "molecules/StudyCardSmall";
 import { Spinner } from "components";
@@ -7,12 +7,12 @@ import { Box, Grid } from "@chakra-ui/react";
 
 function MapView({ loc, user, studies, conditions, handleConditions }) {
   const [location, setLocation] = useState(loc);
-  const [selected, setSelected] = useState();
+  const [selected, setSelected] = useState(null);
 
   useEffect(() => setLocation(loc), [loc]);
 
   const handleClick = (studyID) => {
-    const study = studies.find((study) => study.id == studyID);
+    const study = studies.find((study) => study.id === studyID);
     const { locations } = study;
 
     if (locations) {
@@ -38,7 +38,7 @@ function MapView({ loc, user, studies, conditions, handleConditions }) {
         >
           {studies.map((study) => {
             if (study.locations.length === 0) {
-              return;
+              return null;
             }
 
             const lat = study.locations[0].latitude;

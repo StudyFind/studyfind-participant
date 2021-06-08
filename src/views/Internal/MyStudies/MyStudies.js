@@ -24,8 +24,8 @@ function MyStudies() {
           description="You have not enrolled in any studies yet!"
         />
       </Box>
-    )
-  };
+    );
+  }
 
   return (
     <>
@@ -39,7 +39,7 @@ function MyStudies() {
       </Box>
     </>
   );
-};
+}
 
 const Head = styled.div`
   display: flex;
