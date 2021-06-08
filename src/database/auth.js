@@ -29,23 +29,24 @@ const signup = async (name, email, password) => {
         .doc(user.uid)
         .set({
           name,
+          timezone,
           sex: "",
           birthdate: "",
           availability: "",
-          timezone,
           location: {},
           enrolled: [],
           saved: [],
           preferences: {
-            location: {
+            timezone: {
               autodetect: true,
             },
-            timezone: {
+            location: {
               autodetect: true,
             },
             notifications: {
               email: false,
               phone: false,
+              toast: false,
               categories: {
                 account: true,
                 status: true, // changes to study status
