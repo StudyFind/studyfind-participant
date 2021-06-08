@@ -1,7 +1,7 @@
+import { datetime } from "functions";
+
 import { Box, Flex, Heading, Text, Button } from "@chakra-ui/react";
 import { FaExternalLinkAlt } from "react-icons/fa";
-
-import { datetime } from "functions";
 import { Link } from "components";
 
 function MeetingsCard({ meeting, handleConfirm }) {

@@ -43,7 +43,6 @@ function StudiesRow({ study, uid }) {
   if (loading || !participantData) return <></>;
 
   if (error) {
-    console.log(participantData);
     return (
       <Text size="lg" mb="25px">
         Unable to load study!
