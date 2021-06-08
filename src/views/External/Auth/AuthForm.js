@@ -2,7 +2,7 @@ import Login from "./Forms/Login";
 import Signup from "./Forms/Signup";
 import ForgotPassword from "./Forms/ForgotPassword";
 
-function Form({ tab, setTab }) {
+function AuthForm({ tab, setTab }) {
   return {
     login: <Login setTab={setTab} />,
     signup: <Signup setTab={setTab} />,
@@ -10,4 +10,4 @@ function Form({ tab, setTab }) {
   }[tab];
 }
 
-export default Form;
+export default AuthForm;

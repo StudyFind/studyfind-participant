@@ -1,39 +1,22 @@
-import { useAuthForm } from "hooks";
 import { signin } from "database/auth";
-
-import {
-  AuthForm,
-  AuthHeading,
-  AuthEmail,
-  AuthPassword,
-  AuthButton,
-  AuthTabLink,
-} from "views/External/Auth/Blocks";
+import { useAuthForm } from "hooks";
+import { EmailInput, PasswordInput } from "components";
+import { Auth } from "molecules";
 
 function Login({ setTab }) {
-  const { inputs, errors, loading, handleChange, handleSubmit } = useAuthForm({
+  const { input, loading, handleSubmit } = useAuthForm({
     initial: { email: "", password: "" },
     onSubmit: signin,
   });
 
   return (
-    <AuthForm onSubmit={() => handleSubmit(inputs.email, inputs.password)}>
-      <AuthHeading>Welcome Back!</AuthHeading>
-      <AuthEmail
-        value={inputs.email}
-        error={errors.email}
-        onChange={handleChange}
-      />
-      <AuthPassword
-        value={inputs.password}
-        error={errors.password}
-        onChange={handleChange}
-      />
-      <AuthButton loading={loading}>Login</AuthButton>
-      <AuthTabLink onClick={() => setTab("forgotPassword")}>
-        Forgot Password?
-      </AuthTabLink>
-    </AuthForm>
+    <Auth.Form onSubmit={handleSubmit}>
+      <Auth.Heading>Welcome Back!</Auth.Heading>
+      <Auth.Input as={EmailInput} placeholder="Email" {...input("email")} />
+      <Auth.Input as={PasswordInput} placeholder="Password" {...input("password")} />
+      <Auth.Button loading={loading}>Login</Auth.Button>
+      <Auth.TabLink onClick={() => setTab("forgotPassword")}>Forgot Password?</Auth.TabLink>
+    </Auth.Form>
   );
 }
 

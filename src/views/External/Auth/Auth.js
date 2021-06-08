@@ -1,19 +1,20 @@
 import { useState } from "react";
-import { Card } from "components";
-import { Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 
-import Tabs from "./Tabs";
-import Form from "./Form";
+import AuthTabs from "./AuthTabs";
+import AuthForm from "./AuthForm";
 
 function Auth() {
-  const [tab, setTab] = useState(localStorage.getItem("exists") === "true" ? "login" : "signup");
+  const exists = localStorage.getItem("exists");
+  const defaultTab = exists === "true" ? "login" : "signup";
+  const [tab, setTab] = useState(defaultTab);
 
   return (
     <Flex justify="center" align="center" h="100vh">
-      <Card w="350px" bg="#f8f9fa">
-        <Tabs tab={tab} setTab={setTab} />
-        <Form tab={tab} setTab={setTab} />
-      </Card>
+      <Box rounded="md" borderWidth="1px" w="350px" bg="#f8f9fa">
+        <AuthTabs tab={tab} setTab={setTab} />
+        <AuthForm tab={tab} setTab={setTab} />
+      </Box>
     </Flex>
   );
 }

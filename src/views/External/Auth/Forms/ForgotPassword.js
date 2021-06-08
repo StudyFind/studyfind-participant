@@ -1,25 +1,11 @@
-import { useAuthForm } from "hooks";
 import { forgotPassword } from "database/auth";
+import { useAuthForm } from "hooks";
 
-import {
-  AuthForm,
-  AuthHeading,
-  AuthEmail,
-  AuthButton,
-  AuthTabLink,
-} from "views/External/Auth/Blocks";
-
-import { Message } from "components";
+import { Message, EmailInput } from "components";
+import { Auth } from "molecules";
 
 function ForgotPassword({ setTab }) {
-  const {
-    inputs,
-    errors,
-    success,
-    loading,
-    handleChange,
-    handleSubmit,
-  } = useAuthForm({
+  const { input, loading, success, handleSubmit } = useAuthForm({
     initial: { email: "" },
     onSubmit: forgotPassword,
   });
@@ -32,22 +18,18 @@ function ForgotPassword({ setTab }) {
         description="Check your email for a password reset link"
         padding="40px 60px"
       >
-        <AuthTabLink onClick={() => setTab("login")}>Back to login</AuthTabLink>
+        <Auth.TabLink onClick={() => setTab("login")}>Back to login</Auth.TabLink>
       </Message>
     );
   }
 
   return (
-    <AuthForm onSubmit={() => handleSubmit(inputs.email)}>
-      <AuthHeading>Forgot Password</AuthHeading>
-      <AuthEmail
-        value={inputs.email}
-        error={errors.email}
-        onChange={handleChange}
-      />
-      <AuthButton loading={loading}>Request Password Reset Email</AuthButton>
-      <AuthTabLink onClick={() => setTab("login")}>Back to login</AuthTabLink>
-    </AuthForm>
+    <Auth.Form onSubmit={handleSubmit}>
+      <Auth.Heading>Forgot Password</Auth.Heading>
+      <Auth.Input as={EmailInput} placeholder="Email" {...input("email")} />
+      <Auth.Button loading={loading}>Send Password Reset Email</Auth.Button>
+      <Auth.TabLink onClick={() => setTab("login")}>Back to login</Auth.TabLink>
+    </Auth.Form>
   );
 }
 

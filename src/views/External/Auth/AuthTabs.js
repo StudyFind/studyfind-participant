@@ -1,15 +1,19 @@
 import styled from "styled-components";
 import { Flex } from "@chakra-ui/react";
 
-function Tabs({ tab, setTab }) {
+function AuthTabs({ tab, setTab }) {
+  const tabs = [
+    { value: "signup", label: "Sign up" },
+    { value: "login", label: "Login" },
+  ];
+
   return (
     <Flex borderBottom="1px solid #e7eaf3">
-      <Tab selected={tab === "signup"} onClick={() => setTab("signup")}>
-        Sign up
-      </Tab>
-      <Tab selected={tab === "login"} onClick={() => setTab("login")}>
-        Login
-      </Tab>
+      {tabs.map((t) => (
+        <Tab key={t.value} selected={t.value === tab} onClick={() => setTab(t.value)}>
+          {t.label}
+        </Tab>
+      ))}
     </Flex>
   );
 }
@@ -38,4 +42,4 @@ const Tab = styled.button`
   `}
 `;
 
-export default Tabs;
+export default AuthTabs;
