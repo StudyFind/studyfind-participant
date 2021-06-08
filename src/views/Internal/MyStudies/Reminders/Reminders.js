@@ -24,12 +24,7 @@ function Reminders({ study }) {
   if (loading) return <Spinner />;
   if (error) return <RemindersError />;
 
-  return (
-    <RemindersView
-      reminders={reminders}
-      handleConfirm={handleConfirm}
-    />
-  );
+  return <RemindersView reminders={reminders} handleConfirm={handleConfirm} />;
 }
 
 export default Reminders;

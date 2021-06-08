@@ -3,33 +3,12 @@ import moment from "moment";
 import styled from "styled-components";
 import { UserContext } from "context";
 
-import {
-  Heading,
-  Box,
-  Grid,
-  Flex,
-  IconButton,
-  Button,
-  Text,
-  Tag,
-  TagLabel,
-} from "@chakra-ui/react";
+import { Grid } from "@chakra-ui/react";
 import { FaPlusCircle, FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 
-import { helpers } from "functions";
 import RemindersCard from "./RemindersCard";
 
-function RemindersView({
-  reminders,
-  formatDate,
-  getDaysFromOffsets,
-  getTimesFromOffsets,
-  handleConfirm,
-}) {
-  const user = useContext(UserContext);
-
-  const weekdayAcronyms = ["S", "M", "T", "W", "T", "F", "S"];
-
+function RemindersView({ reminders, handleConfirm }) {
   return (
     <Grid gap="15px">
       {reminders &&

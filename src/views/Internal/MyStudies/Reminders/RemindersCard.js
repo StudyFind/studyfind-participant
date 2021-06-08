@@ -33,9 +33,7 @@ function RemindersCard({ reminder, handleConfirm }) {
       <Flex justify="space-between" align="center" mt="16px">
         <Flex gridGap="4px">
           {reminder.confirmedByParticipant ? (
-            <Button colorScheme="green">
-              {"Confirmed"}
-            </Button>
+            <Button colorScheme="green">{"Confirmed"}</Button>
           ) : (
             <Button colorScheme="blue" onClick={() => handleConfirm(reminder)}>
               {"Confirm"}
