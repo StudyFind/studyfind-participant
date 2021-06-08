@@ -31,12 +31,10 @@ function useTabs(root, tabs) {
     const tabName = tabs[tabIndex]?.name;
 
     if (root !== rootPath) {
-      console.error("Root path does not match url path");
       return;
     }
 
     if (tabName === undefined) {
-      console.error("Tabs name is invalid");
       return;
     }
 

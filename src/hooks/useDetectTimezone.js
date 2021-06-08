@@ -7,7 +7,7 @@ function useDetectTimezone(user) {
   useEffect(() => {
     if (user) {
       const timezone = user.timezone;
-      const preference = user.preferences?.autodetectTimezone;
+      const preference = user.preferences?.timezone?.autodetect;
 
       moment.tz.setDefault(timezone);
 
