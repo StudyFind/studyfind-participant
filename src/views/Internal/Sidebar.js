@@ -44,9 +44,6 @@ function Sidebar({ name, email }) {
         <Flex rounded="md" align="center">
           <Avatar name={name} bg="blue.500" color="white" h="42px" w="42px" mr="10px" />
           <Box>
-            <Text fontSize="0.7rem" color="gray.400" isTruncated maxWidth="180px">
-              Logged in as:
-            </Text>
             <Text fontSize="0.9rem" color="white" fontWeight="500" isTruncated maxWidth="180px">
               {name}
             </Text>
