@@ -1,11 +1,14 @@
-import { Switch, Route, Redirect } from "react-router-dom";
-import { Box, Flex } from "@chakra-ui/react";
-import { UserContext, StudiesContext } from "context";
+import { useState } from "react";
 
 import { auth, firestore } from "database/firebase";
 import { useDocument, useCollection, useDetectTimezone } from "hooks";
+import { UserContext, StudiesContext } from "context";
+
+import { Switch, Route, Redirect } from "react-router-dom";
+import { Box, Flex } from "@chakra-ui/react";
 import { Page } from "components";
 
+import Confirm from "./Confirm";
 import Sidebar from "./Sidebar";
 import Verification from "views/Internal/Verification/Verification";
 import FindStudies from "views/Internal/FindStudies/FindStudies";
@@ -17,8 +20,13 @@ import MyStudies from "views/Internal/MyStudies/MyStudies";
 
 function Internal() {
   const { uid, email, emailVerified } = auth.currentUser;
-  const [user] = useDocument(firestore.collection("participants").doc(uid));
-  const [studies] = useCollection(firestore.collection("studies"));
+
+  const userRef = firestore.collection("researchers").doc(uid);
+  const studiesRef = firestore.collection("studies");
+
+  const [user] = useDocument(userRef);
+  const [studies] = useCollection(studiesRef);
+  const [confirm, setConfirm] = useState(null);
 
   useDetectTimezone(user);
 

@@ -4,7 +4,7 @@ import { storage } from "database/firebase";
 import { useDownloadURL } from "react-firebase-hooks/storage";
 
 import { Box, Flex, Heading } from "@chakra-ui/react";
-import { Message, Spinner } from "components";
+import { Message, Loader } from "components";
 
 function ConsentViewer({ study }) {
   const [value, loading] = useDownloadURL(storage.ref(`consent/${study.id}.pdf`));
@@ -12,7 +12,7 @@ function ConsentViewer({ study }) {
   if (loading) {
     return (
       <Box h="500px" w="100%">
-        <Spinner />
+        <Loader />
       </Box>
     );
   }

@@ -1,4 +1,4 @@
-import { TextInput, FormControl } from "@chakra-ui/react";
+import { Input, FormControl } from "@chakra-ui/react";
 import { Label, Error } from "./helpers";
 
 export const EmailInput = ({ name, value, error, label, placeholder, onChange, ...rest }) => {
@@ -9,7 +9,7 @@ export const EmailInput = ({ name, value, error, label, placeholder, onChange, .
   return (
     <FormControl isInvalid={error}>
       <Label label={label} />
-      <TextInput
+      <Input
         w="100%"
         autoComplete="email"
         placeholder={placeholder}

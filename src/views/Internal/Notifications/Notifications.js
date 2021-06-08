@@ -1,4 +1,4 @@
-import { Heading, Spinner, Box } from "@chakra-ui/react";
+import { Heading, Loader, Box } from "@chakra-ui/react";
 import Notification from "./Notification";
 
 function Notifications() {
@@ -33,7 +33,7 @@ function Notifications() {
     },
   ];
 
-  const LOAD = <Spinner />;
+  const LOAD = <Loader />;
 
   const BODY = (
     <>

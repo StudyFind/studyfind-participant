@@ -1,4 +1,4 @@
-import { TextInput, FormControl } from "@chakra-ui/react";
+import { Input, FormControl } from "@chakra-ui/react";
 import { Label, Error } from "./helpers";
 
 export const TextInput = ({ name, value, error, label, placeholder, onChange, ...rest }) => {
@@ -9,7 +9,7 @@ export const TextInput = ({ name, value, error, label, placeholder, onChange, ..
   return (
     <FormControl isInvalid={!!error}>
       <Label label={label} />
-      <TextInput
+      <Input
         w="100%"
         placeholder={placeholder}
         _placeholder={{ color: error && "gray.500" }}

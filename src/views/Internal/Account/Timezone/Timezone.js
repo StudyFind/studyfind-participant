@@ -33,7 +33,7 @@ function Timezone({ inputs, handleChange, handleTimezone }) {
           }
         >
           <Box>
-            <Select
+            <SelectInput
               label="Timezone Location"
               name="timezone"
               options={options}

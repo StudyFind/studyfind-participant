@@ -5,7 +5,7 @@ import { useParams, useHistory } from "react-router-dom";
 
 import { auth, firestore } from "database/firebase";
 import { UserContext, StudiesContext } from "context";
-import { List, Spinner } from "components";
+import { List, Loader } from "components";
 
 import { Grid, Flex, Heading, Radio, RadioGroup, Text, Button } from "@chakra-ui/react";
 
@@ -54,7 +54,7 @@ function Screening() {
       .update({ enrolled: user.enrolled.concat(studyID) });
   };
 
-  if (!study || !responses) return <Spinner />;
+  if (!study || !responses) return <Loader />;
 
   return (
     <>

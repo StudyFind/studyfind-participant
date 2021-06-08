@@ -5,12 +5,12 @@ import Logo from "images/logo.png";
 function Loading() {
   return (
     <Flex h="100vh" w="100vw" justify="center" align="center">
-      <Spinner src={Logo} />
+      <Loader src={Logo} />
     </Flex>
   );
 }
 
-const Spinner = styled(Image)`
+const Loader = styled(Image)`
   width: 50px;
   @-webkit-keyframes rotate-center {
     0% {
