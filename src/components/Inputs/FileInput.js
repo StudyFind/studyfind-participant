@@ -1,4 +1,4 @@
-import { Input, FormControl } from "@chakra-ui/react";
+import { TextInput, FormControl } from "@chakra-ui/react";
 import { Label, Error } from "./helpers";
 
 export const FileInput = ({ name, error, label, onChange, ...rest }) => {
@@ -9,7 +9,7 @@ export const FileInput = ({ name, error, label, onChange, ...rest }) => {
   return (
     <FormControl isInvalid={error}>
       <Label label={label} />
-      <Input
+      <TextInput
         type="file"
         p="4px !important"
         w="100%"

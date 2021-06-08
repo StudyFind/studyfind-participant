@@ -7,6 +7,8 @@ export { Loader } from "./Loader";
 export { Message } from "./Message";
 export { ConfirmationStatus } from "./ConfirmationStatus";
 
+export { Radio } from "./Radio";
+
 // INPUTS
 export { TextInput } from "./Inputs/TextInput";
 export { LinkInput } from "./Inputs/LinkInput";

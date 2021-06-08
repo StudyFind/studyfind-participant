@@ -1,4 +1,4 @@
-import { Input, FormControl } from "@chakra-ui/react";
+import { TextInput, FormControl } from "@chakra-ui/react";
 import { Label, Error } from "./helpers";
 
 export const DateInput = ({ name, value, error, label, onChange, ...rest }) => {
@@ -9,7 +9,7 @@ export const DateInput = ({ name, value, error, label, onChange, ...rest }) => {
   return (
     <FormControl isInvalid={error}>
       <Label label={label} />
-      <Input
+      <TextInput
         type="date"
         w="100%"
         bg={error ? "red.100" : ""}
