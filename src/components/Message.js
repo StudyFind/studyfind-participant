@@ -1,33 +1,48 @@
-import { Heading, Text, Box, Center, Flex } from "@chakra-ui/react";
+import { Heading, Text, Box, Icon, Center, Flex } from "@chakra-ui/react";
 import { FaTimesCircle, FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 
-function Message({ status, title, description, children, ...rest }) {
+export const Message = ({ status, title, description, children, renderBackground, ...rest }) => {
   const statuses = {
-    success: { icon: FaCheckCircle, color: "green" },
-    neutral: { icon: FaExclamationCircle, color: "blue" },
-    failure: { icon: FaTimesCircle, color: "red" },
+    success: {
+      icon: FaCheckCircle,
+      color: "green",
+    },
+    neutral: {
+      icon: FaExclamationCircle,
+      color: "blue",
+    },
+    failure: {
+      icon: FaTimesCircle,
+      color: "red",
+    },
   };
 
   const { icon, color } = statuses[status] || statuses.neutral;
 
   return (
-    <Flex direction="column" justify="center" align="center" h="100%" w="100%" {...rest}>
+    <Flex
+      direction="column"
+      justify="center"
+      align="center"
+      h="100%"
+      w="100%"
+      p="30px"
+      rounded="md"
+      bg={renderBackground && `${color}.50`}
+      borderColor={renderBackground && `${color}.400`}
+      borderWidth={renderBackground && "1px"}
+      {...rest}
+    >
       <Center maxW="400px">
         <Flex direction="column" align="center" textAlign="center">
-          <Box as={icon} size="48px" color={`${color}.400`} />
-          <Flex justify="center" align="center" gridGap="10px">
-            <Heading size="lg" mt="20px" mb="10px">
-              {title}
-            </Heading>
-          </Flex>
-          <Text mb="15px" color="gray.500">
-            {description}
-          </Text>
-          {children}
+          <Icon as={icon} h="36px" w="36px" color={`${color}.400`} />
+          <Heading fontSize="24px" mt="12px" mb="6px">
+            {title}
+          </Heading>
+          <Text color="gray.500">{description}</Text>
+          {children && <Box mt="15px">{children}</Box>}
         </Flex>
       </Center>
     </Flex>
   );
-}
-
-export default Message;
+};

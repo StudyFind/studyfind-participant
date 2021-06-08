@@ -1,19 +1,14 @@
-function Form({ children, spacing, onSubmit, ...props }) {
-  const handleEnter = (event) => {
-    event.preventDefault();
-
-    if (document.activeElement) {
-      document.activeElement.blur();
-    }
-
-    onSubmit();
+export const Form = ({ children, onSubmit, ...rest }) => {
+  const handleEnter = (e) => {
+    e.preventDefault();
+    onSubmit(e);
   };
 
   return (
-    <form onSubmit={handleEnter} {...props}>
+    <form onSubmit={handleEnter} {...rest}>
       {children}
     </form>
   );
-}
+};
 
 export default Form;

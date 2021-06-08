@@ -1,23 +1,19 @@
 import styled from "styled-components";
 import { Box } from "@chakra-ui/react";
 
-function List({ children, ...rest }) {
-  return (
-    <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white" {...rest}>
-      {children}
-    </Box>
-  );
-}
+const List = ({ children }) => (
+  <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
+    {children}
+  </Box>
+);
 
-List.Row = styled.div`
-  display: flex;
-  align-items: center;
-  grid-gap: 10px;
-  padding: 10px;
+const ListRow = styled(Box)`
   border-bottom: 1px solid #f1f2f3;
   &:last-child {
     border-bottom: none;
   }
 `;
 
-export default List;
+List.Row = ListRow;
+
+export { List };
