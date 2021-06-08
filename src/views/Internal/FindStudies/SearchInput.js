@@ -1,10 +1,10 @@
 import { Icon } from "@chakra-ui/react";
-import { Input } from "components";
+import { TextInput } from "components";
 import { FaSearch } from "react-icons/fa";
 
 function SearchInput({ value, onChange }) {
   return (
-    <Input
+    <TextInput
       name="search"
       value={value}
       onChange={onChange}

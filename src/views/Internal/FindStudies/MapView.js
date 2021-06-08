@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import GoogleMapReact from "google-map-react";
 import StudyCardSmall from "molecules/StudyCardSmall";
-import { Spinner } from "components";
+import { Loader } from "components";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { Box, Grid } from "@chakra-ui/react";
 
@@ -25,7 +25,7 @@ function MapView({ loc, user, studies, conditions, handleConditions }) {
     }
   };
 
-  if (!location) return <Spinner />;
+  if (!location) return <Loader />;
 
   return (
     // Important! Always set the container height explicitly
