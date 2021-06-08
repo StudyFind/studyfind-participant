@@ -1,4 +1,4 @@
-import React, { useEffect, forwardRef } from "react";
+import { useEffect, forwardRef } from "react";
 import { useRealtimePagination } from "hooks";
 
 import { auth } from "database/firebase";

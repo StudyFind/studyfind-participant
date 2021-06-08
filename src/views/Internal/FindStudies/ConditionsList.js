@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Box, Flex, Heading, Tag, TagLabel, TagCloseButton } from "@chakra-ui/react";
 
 function ConditionsList({ conditions, handleDeleteCondition, handleClearConditions }) {

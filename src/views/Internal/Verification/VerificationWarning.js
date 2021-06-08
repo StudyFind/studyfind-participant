@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Flex, Text, Alert, AlertIcon, Button } from "@chakra-ui/react";
 
 function VerificationWarning({ email, handleClick, loading }) {

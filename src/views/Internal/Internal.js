@@ -1,4 +1,3 @@
-import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { Box, Flex } from "@chakra-ui/react";
 import { UserContext, StudiesContext } from "context";

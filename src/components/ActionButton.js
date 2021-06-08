@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Tooltip, IconButton } from "@chakra-ui/react";
 
 function ActionButton({ icon, hint, color, onClick }) {

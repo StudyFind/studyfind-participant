@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Grid, Heading, Text } from "@chakra-ui/react";
 
 function AccountHeader({ title, description }) {

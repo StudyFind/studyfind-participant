@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Flex, Text, Avatar } from "@chakra-ui/react";
 
 function StudyResearcher({ researcher }) {

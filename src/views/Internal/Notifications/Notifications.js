@@ -1,4 +1,3 @@
-import React from "react";
 import { Heading, Spinner, Box } from "@chakra-ui/react";
 import Notification from "./Notification";
 

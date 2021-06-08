@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import $ from "jquery";
 
 import { FaArrowUp } from "react-icons/fa";

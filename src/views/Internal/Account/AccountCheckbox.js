@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Grid, Heading, Text, Checkbox } from "@chakra-ui/react";
 
 function AccountCheckbox({ name, value, title, description, onChange }) {

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 import { useAuthForm } from "hooks";
 import { changePassword } from "database/auth";

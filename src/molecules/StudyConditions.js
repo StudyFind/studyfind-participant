@@ -1,4 +1,3 @@
-import React from "react";
 import { Flex, Tag, TagLabel } from "@chakra-ui/react";
 
 function StudyConditions({ conditions, filterConditions, handleAddCondition }) {

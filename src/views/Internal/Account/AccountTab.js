@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Button, Text } from "@chakra-ui/react";
 
 function AccountTab({ icon, name, selected, onClick }) {

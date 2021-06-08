@@ -1,5 +1,3 @@
-import React from "react";
-
 import StudyGrid from "./StudyGrid";
 import AutoScroll from "./AutoScroll";
 

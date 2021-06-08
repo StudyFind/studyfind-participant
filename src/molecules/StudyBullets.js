@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Grid } from "@chakra-ui/react";
 import { FaVenusMars, FaBirthdayCake, FaHeart } from "react-icons/fa";
 

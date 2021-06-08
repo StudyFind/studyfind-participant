@@ -1,4 +1,3 @@
-import React from "react";
 import { Input, FormControl, FormErrorMessage, Progress } from "@chakra-ui/react";
 
 function FileInput({ loading, status, error, accept, onChange }) {

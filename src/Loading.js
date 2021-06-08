@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { Flex, Image } from "@chakra-ui/react";
 import Logo from "images/logo.png";

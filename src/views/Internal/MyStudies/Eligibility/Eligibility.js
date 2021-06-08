@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Text, Box, Grid } from "@chakra-ui/react";
 
 function Eligibility({ study, responses }) {

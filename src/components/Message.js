@@ -1,4 +1,3 @@
-import React from "react";
 import { Heading, Text, Box, Center, Flex } from "@chakra-ui/react";
 import { FaTimesCircle, FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 

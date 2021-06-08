@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { customAlphabet } from "nanoid/non-secure";
 
 import { useParams, useHistory } from "react-router-dom";
