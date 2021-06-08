@@ -1,5 +1,5 @@
 import { Grid } from "@chakra-ui/react";
-import { Input, Radio, Textarea } from "components";
+import { TextInput, Radio, TextareaInput } from "components";
 
 import AccountHeader from "../AccountHeader";
 
@@ -15,17 +15,20 @@ function Profile({ inputs, handleChange }) {
           label="Biological Sex"
           name="sex"
           value={inputs.sex}
-          options={["Male", "Female"]}
+          options={[
+            { label: "Male", value: "Male" },
+            { label: "Female", value: "Female" },
+          ]}
           onChange={handleChange}
         />
-        <Input
+        <TextInput
           type="date"
           name="birthdate"
           label="Birthdate"
           value={inputs.birthdate}
           onChange={handleChange}
         />
-        <Textarea
+        <TextareaInput
           label="Availability"
           name="availability"
           limit={500}

@@ -13,13 +13,13 @@ function Methods({ notifications, handleNotifications }) {
         value={notifications?.email}
         onChange={handleNotifications}
       />
-      <AccountCheckbox
+      {/* <AccountCheckbox
         title="Receive Website Notifications"
         description="Shows notifications to you while you're logged into your account"
         name="toast"
         value={notifications?.toast}
         onChange={handleNotifications}
-      />
+      /> */}
     </Grid>
   );
 }

@@ -1,12 +1,17 @@
 import moment from "moment-timezone";
 
 import { Box, Grid, Tooltip } from "@chakra-ui/react";
-import { Select } from "components";
+import { SelectInput } from "components";
 
 import AccountHeader from "../AccountHeader";
 import AccountCheckbox from "../AccountCheckbox";
 
-function Timezone({ inputs, handleChange, handleTimezoneAutodetect }) {
+function Timezone({ inputs, handleChange, handleTimezone }) {
+  const options = moment.tz.zonesForCountry("US").map((timezone) => ({
+    label: timezone,
+    value: timezone,
+  }));
+
   return (
     <>
       <AccountHeader
@@ -19,9 +24,7 @@ function Timezone({ inputs, handleChange, handleTimezoneAutodetect }) {
           description="Automatically detects and updates your local timezone each time you use StudyFind"
           name="timezone"
           value={inputs.preferences.timezone.autodetect}
-          onChange={() =>
-            handleTimezoneAutodetect("autodetect", !inputs.preferences.timezone.autodetect)
-          }
+          onChange={() => handleTimezone("autodetect", !inputs?.preferences?.timezone?.autodetect)}
         />
         <Tooltip
           label={
@@ -33,7 +36,7 @@ function Timezone({ inputs, handleChange, handleTimezoneAutodetect }) {
             <Select
               label="Timezone Location"
               name="timezone"
-              options={moment.tz.zonesForCountry("US")}
+              options={options}
               value={inputs.timezone}
               onChange={handleChange}
               isDisabled={inputs.preferences.timezone.autodetect}

@@ -1,8 +1,8 @@
-import { useState, useContext, useEffect } from "react";
 import lodash from "lodash";
 
 import { toasts } from "templates";
 import { useTabs } from "hooks";
+import { useState, useContext, useEffect } from "react";
 
 import { signout } from "database/auth";
 import { UserContext } from "context";
@@ -30,14 +30,11 @@ function Account() {
 
   const deepcopy = (object) => JSON.parse(JSON.stringify(object));
 
-  console.table([user.preferences.notifications, inputs.preferences.notifications]);
-  console.log(isDifferent);
-
   const handleChange = (name, value) => {
     setInputs((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleTimezoneAutodetect = (name, value) => {
+  const handleTimezone = (name, value) => {
     setInputs((prev) => {
       const updated = deepcopy(prev);
       updated.preferences.timezone[name] = value;
@@ -45,7 +42,7 @@ function Account() {
     });
   };
 
-  const handleNotificationPreferences = (name, value) => {
+  const handleNotifications = (name, value) => {
     setInputs((prev) => {
       const updated = deepcopy(prev);
       updated.preferences.notifications[name] = value;
@@ -53,7 +50,7 @@ function Account() {
     });
   };
 
-  const handleNotificationCategories = (name, value) => {
+  const handleCategories = (name, value) => {
     setInputs((prev) => {
       const updated = deepcopy(prev);
       updated.preferences.notifications.categories[name] = value;
@@ -87,11 +84,7 @@ function Account() {
       name: "timezone",
       icon: <FaMapMarkedAlt />,
       content: (
-        <Timezone
-          inputs={inputs}
-          handleChange={handleChange}
-          handleTimezoneAutodetect={handleTimezoneAutodetect}
-        />
+        <Timezone inputs={inputs} handleChange={handleChange} handleTimezone={handleTimezone} />
       ),
     },
     {
@@ -100,8 +93,8 @@ function Account() {
       content: (
         <Notifications
           inputs={inputs}
-          handleNotificationPreferences={handleNotificationPreferences}
-          handleNotificationCategories={handleNotificationCategories}
+          handleNotifications={handleNotifications}
+          handleCategories={handleCategories}
         />
       ),
     },
