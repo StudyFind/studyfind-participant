@@ -4,7 +4,7 @@ import { useRealtimePagination } from "hooks";
 import { auth } from "database/firebase";
 
 import { Box, Text, Flex, Button } from "@chakra-ui/react";
-import { Spinner } from "components";
+import { Loader } from "components";
 
 import Disclaimer from "./Disclaimer";
 import Message from "./Message";
@@ -12,20 +12,14 @@ import Message from "./Message";
 function MessageList({ autoscroll, messagesRef }, ref) {
   const MESSAGES_PER_REQUEST = 15;
 
-  const [
-    messages,
-    loading,
-    error,
-    handleFetchAdditional,
-    additionalLoading,
-    fetchedAll,
-  ] = useRealtimePagination(messagesRef.orderBy("time", "desc"), MESSAGES_PER_REQUEST);
+  const [messages, loading, error, handleFetchAdditional, additionalLoading, fetchedAll] =
+    useRealtimePagination(messagesRef.orderBy("time", "desc"), MESSAGES_PER_REQUEST);
 
   useEffect(() => {
     !loading && autoscroll();
   }, [loading]);
 
-  if (loading) return <Spinner />;
+  if (loading) return <Loader />;
   if (error) return <Text>Error: {JSON.stringify(error)}</Text>;
 
   return (

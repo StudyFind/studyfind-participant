@@ -1,7 +1,7 @@
 import { auth, firestore } from "database/firebase";
 import { useCollection } from "hooks";
 
-import { Spinner } from "components";
+import { Loader } from "components";
 import RemindersView from "./RemindersView";
 import RemindersError from "./RemindersError";
 
@@ -21,7 +21,7 @@ function Reminders({ study }) {
     });
   };
 
-  if (loading) return <Spinner />;
+  if (loading) return <Loader />;
   if (error) return <RemindersError />;
 
   return <RemindersView reminders={reminders} handleConfirm={handleConfirm} />;
