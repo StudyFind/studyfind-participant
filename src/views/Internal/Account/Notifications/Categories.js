@@ -18,14 +18,14 @@ function Categories({ categories, handleCategories }) {
           onChange={handleCategories}
         />
         <AccountToggle
-          label="Studies"
-          name="studies"
+          label="Status"
+          name="status"
           value={categories?.status}
           onChange={handleCategories}
         />
         <AccountToggle
-          label="Participants"
-          name="participants"
+          label="Reminders"
+          name="reminders"
           value={categories?.reminders}
           onChange={handleCategories}
         />
