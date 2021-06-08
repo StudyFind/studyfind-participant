@@ -1,19 +1,25 @@
-import { auth, firestore } from "./firebase";
+import { auth, firestore } from "database/firebase";
+import { setParticipantClaim } from "database/cloud";
+
+import errors from "database/errors";
 import moment from "moment-timezone";
-import errors from "./errors";
-import { setParticipantClaim } from "./cloud";
 
-const getErrorMessage = ({ code }) => ({
-  email: "",
-  password: "",
-  ...errors[code],
-});
+const getErrorMessage = ({ code }) => {
+  return { email: "", password: "", ...errors[code] };
+};
 
-const forgotPassword = async (email) => auth.sendPasswordResetEmail(email);
+const setLocalUserExists = () => {
+  localStorage.setItem("exists", true);
+};
+
+const setLocalUserDelete = () => {
+  localStorage.setItem("exists", false);
+};
 
 const signup = async (name, email, password) => {
   try {
     const { user } = await auth.createUserWithEmailAndPassword(email, password);
+    const timezone = moment.tz.guess();
 
     await Promise.all([
       setParticipantClaim(),
@@ -26,11 +32,17 @@ const signup = async (name, email, password) => {
           sex: "",
           birthdate: "",
           availability: "",
-          timezone: moment.tz.guess(),
+          timezone,
           location: {},
           enrolled: [],
           saved: [],
           preferences: {
+            location: {
+              autodetect: true,
+            },
+            timezone: {
+              autodetect: true,
+            },
             notifications: {
               email: false,
               phone: false,
@@ -42,18 +54,11 @@ const signup = async (name, email, password) => {
                 messages: true,
               },
             },
-            location: {
-              autodetect: true,
-            },
-            timezone: {
-              autodetect: true,
-            },
           },
         }),
     ]);
 
-    localStorage.setItem("exists", true);
-    return user;
+    setLocalUserExists();
   } catch (error) {
     throw getErrorMessage(error);
   }
@@ -61,27 +66,33 @@ const signup = async (name, email, password) => {
 
 const signin = async (email, password) => {
   try {
-    const { user } = await auth.signInWithEmailAndPassword(email, password);
-    localStorage.setItem("exists", true);
-    return user;
+    await auth.signInWithEmailAndPassword(email, password);
+    setLocalUserExists();
   } catch (error) {
     throw getErrorMessage(error);
   }
 };
 
-const signout = async () => auth.signOut();
+const signout = async () => {
+  return auth.signOut();
+};
 
 const deleteAccount = async (email, password) => {
-  auth
-    .signInWithEmailAndPassword(email, password)
-    .then(({ user }) => {
-      user.delete();
-      localStorage.setItem("exists", false);
-    })
-    .catch(getErrorMessage);
+  try {
+    const { user } = await auth.signInWithEmailAndPassword(email, password);
+    await firestore.collection("researchers").doc(user.uid).delete();
+    await user.delete();
+    setLocalUserDelete();
+  } catch (error) {
+    throw getErrorMessage(error);
+  }
 };
 
 // ========================== PASSWORD UPDATES ========================== //
+
+const forgotPassword = async (email) => {
+  return auth.sendPasswordResetEmail(email);
+};
 
 const changePassword = async (password, newPassword) => {
   try {

@@ -1,4 +1,8 @@
 export default {
+  // ======================= //
+  // ======AUTH ERRORS====== //
+  // ======================= //
+
   // COMMON
   "auth/invalid-email": { email: "Email is invalid" },
 
@@ -23,7 +27,10 @@ export default {
     email: "The action link is invalid",
     password: "The action link is invalid",
   },
-  "auth/argument-error": {
-    password: "Invalid link",
-  },
+  "auth/argument-error": { password: "Invalid link" },
+
+  // ============================ //
+  // ======FIRESTORE ERRORS====== //
+  // ============================ //
+  "firestore/permission-denied": { error: "permission denied" },
 };
