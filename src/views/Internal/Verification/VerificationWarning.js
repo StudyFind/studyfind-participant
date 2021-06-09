@@ -1,6 +1,23 @@
+import { useState } from "react";
+
+import { auth } from "database/firebase";
+
 import { Flex, Text, Alert, AlertIcon, Button } from "@chakra-ui/react";
 
-function VerificationWarning({ email, handleClick, loading }) {
+function VerificationWarning({ setState }) {
+  const { email } = auth.currentUser;
+
+  const [loading, setLoading] = useState(false);
+
+  const handleClick = () => {
+    setLoading(true);
+    auth.currentUser
+      .sendEmailVerification()
+      .then(() => setState("success"))
+      .catch(() => setState("failure"))
+      .finally(() => setLoading(false));
+  };
+
   return (
     <Alert status="warning" position="fixed" top="0" zIndex="100">
       <Flex w="calc(100% - 280px)" justify="space-between" align="center" wrap="wrap">
