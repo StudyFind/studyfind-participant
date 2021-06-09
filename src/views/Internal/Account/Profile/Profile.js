@@ -15,10 +15,7 @@ function Profile({ inputs, handleChange }) {
           label="Biological Sex"
           name="sex"
           value={inputs.sex}
-          options={[
-            { label: "Male", value: "Male" },
-            { label: "Female", value: "Female" },
-          ]}
+          options={["Male", "Female"]}
           onChange={handleChange}
         />
         <TextInput
