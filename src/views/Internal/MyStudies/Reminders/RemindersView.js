@@ -1,10 +1,4 @@
-import { useContext } from "react";
-import moment from "moment";
-import styled from "styled-components";
-import { UserContext } from "context";
-
 import { Grid } from "@chakra-ui/react";
-import { FaPlusCircle, FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 
 import RemindersCard from "./RemindersCard";
 
