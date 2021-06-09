@@ -1,54 +1,45 @@
-import { Heading, Loader, Box } from "@chakra-ui/react";
-import Notification from "./Notification";
+import { auth, firestore } from "database/firebase";
+import { useRealtimePagination } from "hooks";
+
+import { Heading } from "@chakra-ui/react";
+import { Loader } from "components";
+
+import NotificationList from "./NotificationList";
+import NotificationsEmpty from "./NotificationsEmpty";
 
 function Notifications() {
-  const loading = false;
-  const notifications = [
-    {
-      title: "Accepted to Research Study!",
-      description:
-        "A new participant Amazing Alpaca showed interest in your study titled blah blah blah",
-      type: "interest",
-      timestamp: 1606778762,
-    },
-    {
-      title: "Alexis Hudson messaged you from study NCT04316676!",
-      description:
-        "A new participant Mindful Monkey showed interest in your study titled blah blah blah",
-      type: "message",
-      timestamp: 1606778762,
-    },
-    {
-      title: "You have participated in 25 studies!",
-      description: "Your study titled blah blah blah recruited 50 participants in total",
-      type: "milestone",
-      timestamp: 1606778762,
-    },
-    {
-      title: "Appointment Reminder",
-      description:
-        "This is to remind you about your call with Alexis Hudson at 11:00pm on Sunday, October 31st",
-      type: "reminder",
-      timestamp: 1606778762,
-    },
-  ];
+  const { uid } = auth.currentUser;
 
-  const LOAD = <Loader />;
+  const NOTIFICATIONS_PER_REQUEST = 10;
+  const notificationsRef = firestore
+    .collection("participants")
+    .doc(uid)
+    .collection("notifications")
+    .orderBy("time", "desc");
 
-  const BODY = (
+  const [notifications, loading, error, handleFetchAdditional, additionalLoading, fetchedAll] =
+    useRealtimePagination(notificationsRef, NOTIFICATIONS_PER_REQUEST);
+
+  if (loading) return <Loader />;
+  if (error) return <div>Error :(</div>;
+
+  return (
     <>
       <Heading size="lg" mb="25px">
         Notifications
       </Heading>
-      <Box borderWidth="1px" rounded="md" bg="white">
-        {notifications.map((notification, index) => (
-          <Notification key={index} notification={notification} />
-        ))}
-      </Box>
+      {notifications.length ? (
+        <NotificationList
+          notifications={notifications}
+          fetchedAll={fetchedAll}
+          additionalLoading={additionalLoading}
+          handleFetchAdditional={handleFetchAdditional}
+        />
+      ) : (
+        <NotificationsEmpty />
+      )}
     </>
   );
-
-  return loading ? LOAD : BODY;
 }
 
 export default Notifications;

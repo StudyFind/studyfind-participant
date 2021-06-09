@@ -1,17 +1,9 @@
-import {
-  FaUser,
-  FaUsers,
-  FaCalendar,
-  FaClipboard,
-  FaQuestionCircle,
-  FaTimesCircle,
-} from "react-icons/fa";
+import { FaUser, FaUsers, FaCalendar, FaClipboard, FaTimesCircle } from "react-icons/fa";
 
 const createAccount = () => ({
   title: "Welcome to StudyFind",
-  description:
-    "We're glad to have you on board! Click here to fetch your studies from clinicaltrials.gov and add them to your StudyFind account.",
-  link: "/welcome",
+  description: "We're glad to have you on board! Click here to start finding studies.",
+  link: "/search",
   color: "green",
   icon: FaUser,
 });
