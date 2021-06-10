@@ -29,6 +29,7 @@ function Profile({ inputs, handleChange }) {
           label="Availability"
           name="availability"
           limit={500}
+          height="100px"
           value={inputs.availability}
           onChange={handleChange}
           placeholder="Put a little something about your weekly availability"
