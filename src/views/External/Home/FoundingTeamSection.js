@@ -45,7 +45,7 @@ function FoundingTeamSection() {
         <Text color="green.400">About Us</Text>
       </Heading>
       <Text fontSize="lg">
-        StudyFind was founded by three co-foundrs who wanted to participate in
+        StudyFind was founded by three co-founders who wanted to participate in
         clinical research trials but couldn't readily access and communicate
         with researchers!
         <br />
