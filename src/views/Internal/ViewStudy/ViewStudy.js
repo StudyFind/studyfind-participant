@@ -1,58 +1,57 @@
-import React, { useState, useEffect } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
+import { useTabs } from "hooks";
 
-import { Message } from "components";
-import { Tabs, Tab, TabList, TabPanels, TabPanel, Flex } from "@chakra-ui/react";
+import { UserContext, StudiesContext } from "context";
+
+import { Flex, Tabs, Tab, TabList, TabPanels } from "@chakra-ui/react";
+import { Link, Message } from "components";
+import { FaChevronLeft } from "react-icons/fa";
 
 import Details from "./Details";
 import Locations from "./Locations";
 import Consent from "./Consent";
 
+function ViewStudy() {
+  const user = useContext(UserContext);
+  const studies = useContext(StudiesContext);
+  const { studyID } = useParams();
+  const study = studies.find((study) => study.id === studyID);
 
-function ViewStudy({ studies, user }) {
-  const { nctID } = useParams();
-  const findStudy = () => studies && studies.find((study) => study.id === nctID);
-  const [study, setStudy] = useState(findStudy());
+  const tabs = [
+    { name: "details", content: <Details user={user} study={study} /> },
+    { name: "locations", content: <Locations study={study} /> },
+    { name: "consent", content: <Consent study={study} /> },
+  ];
 
-  useEffect(() => {
-    if (studies) {
-      setStudy(findStudy());
-    }
-  }, [studies]);
+  const [tabIndex, setTabIndex] = useTabs(`/study/${studyID}`, tabs);
 
-  const MISSING = (
+  return study ? (
+    <>
+      <Link to="/" isWrapper>
+        <Flex align="center" gridGap="5px" color="blue.500">
+          <FaChevronLeft /> Return to dashboard
+        </Flex>
+      </Link>
+      <Tabs colorScheme="blue" h="100%" index={tabIndex} pt="20px">
+        <TabList>
+          {tabs.map((t, i) => (
+            <TabItem key={i} className="tab" onClick={() => setTabIndex(i)}>
+              {t.name.charAt(0).toUpperCase() + t.name.slice(1)}
+            </TabItem>
+          ))}
+        </TabList>
+        <TabPanels>{tabs[tabIndex]?.content}</TabPanels>
+      </Tabs>
+    </>
+  ) : (
     <Message
-      type="failure"
+      status="failure"
       title="Study not found!"
-      description={`The study ${nctID} could not be found in the StudyFind database. Please
-  ensure that it has been successfully created by following all directions in the study
-  creation process.`}
+      description="We cannot find the study you're looking for"
     />
   );
-
-  const BODY = (
-    <Tabs colorScheme="blue" h="100%">
-      <TabList>
-        <TabItem>Details</TabItem>
-        <TabItem>Locations</TabItem>
-        <TabItem>Consent</TabItem>
-      </TabList>
-      <TabPanels>
-        <TabPanel pt="1px">
-          <Details study={study} user={user}/>
-        </TabPanel>
-        <TabPanel pt="1px">
-          <Locations study={study} />
-        </TabPanel>
-        <TabPanel pt="1px">
-          <Consent study={study} />
-        </TabPanel>
-      </TabPanels>
-    </Tabs>
-  );
-
-  return study ? BODY : MISSING;
 }
 
 const TabItem = styled(Tab)`

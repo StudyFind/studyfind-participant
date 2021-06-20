@@ -1,5 +1,4 @@
-import React from "react";
-import { Text, Flex, Icon } from "@chakra-ui/react";
+import { Text, Icon } from "@chakra-ui/react";
 import { FaExclamationCircle } from "react-icons/fa";
 
 function Disclaimer() {

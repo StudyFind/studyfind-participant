@@ -1,4 +1,3 @@
-import React from "react";
 import { NavHashLink as HashLink } from "react-router-hash-link";
 import { Heading, Flex, Box, Image } from "@chakra-ui/react";
 import SFLogo from "images/logo.png";

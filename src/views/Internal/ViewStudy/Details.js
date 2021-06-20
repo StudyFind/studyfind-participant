@@ -1,56 +1,35 @@
-import React from "react";
-import styled from "styled-components";
-import { Link, useHistory } from "react-router-dom";
+import { auth } from "database/firebase";
+import { Box, Flex, Heading, Button, Tooltip } from "@chakra-ui/react";
+import { Link } from "components";
 
-import { Heading, Button, Flex } from "@chakra-ui/react";
-import StudyCardLarge from "views/Internal/StudyCardLarge";
+import StudyCardLarge from "molecules/StudyCardLarge";
 
-function DetailsView({ study, user }) {
-  const history = useHistory();
+function Details({ study, user }) {
+  const verified = auth.currentUser.emailVerified;
 
   return (
     <>
-      <Flex justify="space-between" align="center" mb="25px">
-        <Heading size="lg" my="8px">
-          Details
-        </Heading>
-
-        <Flex justify="flex-end" align="center">
-
-          <Button onClick = {history.goBack} colorScheme="blue" mr="5px">
-            Back
+      <Flex justify="space-between" align="center" my="15px" h="40px">
+        <Heading fontSize="28px">Details</Heading>
+        {user.enrolled.includes(study.id) ? (
+          <Button colorScheme="green" disabled>
+            Enrolled
           </Button>
-
-          { user.enrolled.includes(study.id)?
-            (
-              <Button colorScheme="green" disabled>
-                Enrolled
-              </Button>
-            ) : (
-            <Link to={`/study/${study.id}/questionnaire`}>
-              <Button colorScheme="blue">
-                Enroll
-              </Button>
-            </Link>
-            )
-          }
-
-        </Flex>
-
+        ) : (
+          <Tooltip label={!verified && "You must verify your email before enrolling for studies"}>
+            <Box>
+              <Link to={`/study/${study.id}/screening`}>
+                <Button colorScheme="blue" isDisabled={!verified}>
+                  Enroll
+                </Button>
+              </Link>
+            </Box>
+          </Tooltip>
+        )}
       </Flex>
       <StudyCardLarge study={study} />
-      <br/>
-
-      </>
-
+    </>
   );
 }
 
-const Head = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px 0;
-`;
-
-export default DetailsView;
+export default Details;

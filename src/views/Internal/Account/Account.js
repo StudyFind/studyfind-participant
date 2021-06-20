@@ -1,148 +1,147 @@
-import React, { useState, useEffect } from "react";
-import moment from "moment-timezone";
-
-import { firestore, auth } from "database/firebase";
-
 import lodash from "lodash";
 
-import {
-  FormControl,
-  FormLabel,
-  Heading,
-  Box,
-  Flex,
-  Grid,
-  Switch,
-  Button,
-  Divider,
-  Checkbox,
-  Text
-} from "@chakra-ui/react";
-import { Spinner, Radio, Textarea, Input, Select } from "components";
+import { toasts } from "templates";
+import { useTabs } from "hooks";
+import { useState, useContext, useEffect } from "react";
 
-function Account({ user }) {
+import { signout } from "database/auth";
+import { UserContext } from "context";
+import { firestore } from "database/firebase";
 
-  const [initial, setInitial] = useState({});
-  const [personal, setPersonal] = useState({});
+import { Flex, Grid, Heading, Button, Divider, useToast } from "@chakra-ui/react";
+import { FaDoorOpen, FaUser, FaMapMarkedAlt, FaBell, FaShieldAlt } from "react-icons/fa";
 
-  const resetUser = () => {
-    const userInitial = {
-      sex: user.sex,
-      birthdate: user.birthdate,
-      timezone: user.timezone,
-      availability: user.availability,
-      preferences: user.preferences,
-    };
+import Profile from "./Profile/Profile";
+import Timezone from "./Timezone/Timezone";
+import Notifications from "./Notifications/Notifications";
+import Security from "./Security/Security";
 
-    setPersonal(userInitial);
-    setInitial(userInitial);
+import AccountTab from "./AccountTab";
+import AccountButtons from "./AccountButtons";
+
+function Account() {
+  const toast = useToast();
+  const user = useContext(UserContext);
+
+  const [inputs, setInputs] = useState(user);
+  const [loading, setLoading] = useState(false);
+
+  const isDifferent = !lodash.isEqual(user, inputs);
+
+  const deepcopy = (object) => JSON.parse(JSON.stringify(object));
+
+  const handleChange = (name, value) => {
+    setInputs((prev) => ({ ...prev, [name]: value }));
   };
 
-  useEffect(() => {
-    if (user) {
-      resetUser();
-    }
-  }, [user]);
-
-  const handlePersonalChange = (name, value) => {
-    setPersonal((prev) => ({ ...prev, [name]: value }));
+  const handleTimezone = (name, value) => {
+    setInputs((prev) => {
+      const updated = deepcopy(prev);
+      updated.preferences.timezone[name] = value;
+      return updated;
+    });
   };
 
-  const handlePreferencesToggle = (e) => {
-    const { name, checked } = e.target;
-    setPersonal((prev) => ({ ...prev, preferences: {...prev.preferences, [name]: checked} }));
+  const handleNotifications = (name, value) => {
+    setInputs((prev) => {
+      const updated = deepcopy(prev);
+      updated.preferences.notifications[name] = value;
+      return updated;
+    });
+  };
+
+  const handleCategories = (name, value) => {
+    setInputs((prev) => {
+      const updated = deepcopy(prev);
+      updated.preferences.notifications.categories[name] = value;
+      return updated;
+    });
   };
 
   const handleCancel = () => {
-    resetUser();
+    setInputs(user);
   };
 
   const handleUpdate = () => {
+    setLoading(true);
+
     firestore
       .collection("participants")
       .doc(user.id)
-      .update({
-        ...personal
-      });
+      .update(inputs)
+      .then(() => toast(toasts.updatedAccount))
+      .catch(() => toast(toasts.connectionError))
+      .finally(() => setLoading(false));
   };
 
-  if (!user) return <Spinner />;
+  const tabs = [
+    {
+      name: "profile",
+      icon: <FaUser />,
+      content: <Profile inputs={inputs} handleChange={handleChange} />,
+    },
+    {
+      name: "timezone",
+      icon: <FaMapMarkedAlt />,
+      content: (
+        <Timezone inputs={inputs} handleChange={handleChange} handleTimezone={handleTimezone} />
+      ),
+    },
+    {
+      name: "notifications",
+      icon: <FaBell />,
+      content: (
+        <Notifications
+          inputs={inputs}
+          handleNotifications={handleNotifications}
+          handleCategories={handleCategories}
+        />
+      ),
+    },
+    {
+      name: "security",
+      icon: <FaShieldAlt />,
+      content: <Security />,
+    },
+  ];
+
+  const [tabIndex, setTabIndex] = useTabs("/account", tabs);
+
+  useEffect(() => {
+    !loading && handleCancel();
+  }, [tabIndex, loading]);
 
   return (
     <>
       <Flex justify="space-between" align="center" mb="25px">
-        <Heading size="lg" my="8px">
-          Welcome Back, {user.name.split(" ")[0]}
-        </Heading>
-        {!(
-          lodash.isEqual(personal, initial)
-        ) && (
-          <Flex gridGap="10px">
-            <Button color="gray.500" onClick={handleCancel}>
-              Cancel
-            </Button>
-            <Button colorScheme="green" onClick={handleUpdate}>
-              Save Changes
-            </Button>
-          </Flex>
-        )}
+        <Heading size="lg">Account</Heading>
+        <Button colorScheme="red" onClick={signout} leftIcon={<FaDoorOpen />}>
+          Sign out
+        </Button>
       </Flex>
-      <Flex gridGap="30px">
-        <Box bg="white" borderWidth="1px" rounded="md" p="20px" w="100%">
-          <Heading size="md">Personal Info</Heading>
-          <Divider my="15px" />
-          <Grid gap="25px">
-            <Radio
-              label="Biological Sex"
-              name="sex"
-              value={personal.sex}
-              options={["Male", "Female"]}
-              onChange={handlePersonalChange}
+      <Divider />
+      <Flex gridGap="50px">
+        <Grid gap="10px" maxH="0" w="180px" my="30px">
+          {tabs.map((t, i) => (
+            <AccountTab
+              key={i}
+              name={t.name}
+              icon={t.icon}
+              selected={tabIndex === i}
+              onClick={() => setTabIndex(i)}
             />
-            <Input
-              type="date"
-              name="birthdate"
-              label="Birthdate"
-              value={personal.birthdate}
-              onChange={handlePersonalChange}
+          ))}
+        </Grid>
+        <Grid gap="30px" py="30px" w="360px">
+          {tabs[tabIndex]?.content}
+          {isDifferent && (
+            <AccountButtons
+              loading={loading}
+              handleCancel={handleCancel}
+              handleUpdate={handleUpdate}
             />
-            <Grid gap="25px">
-              <Select
-                label="Timezone Location"
-                name="timezone"
-                options={moment.tz.zonesForCountry("US")}
-                value={personal.timezone}
-                onChange={handlePersonalChange}
-              />
-              <Checkbox
-                mt="1px"
-                size="md"
-                name="autodetectTimezone"
-                isChecked={personal.preferences && personal.preferences.autodetectTimezone}
-                onChange={handlePreferencesToggle}
-                alignItems="flex-start"
-              >
-                <Grid gap="2px">
-                  <Heading size="sm" mt="-1px">
-                    Auto Detect Timezone
-                  </Heading>
-                  <Text fontSize="sm">
-                    Automatically detects and updates your local timezone each time
-                    you use StudyFind
-                  </Text>
-                </Grid>
-              </Checkbox>
-            </Grid>
-            <Textarea
-              label="Availability"
-              name="availability"
-              value={personal.availability}
-              limit={500}
-              onChange={handlePersonalChange}
-              placeholder="Put a little something about your weekly availability"
-            />
-          </Grid>
-        </Box>
+          )}
+        </Grid>
       </Flex>
     </>
   );

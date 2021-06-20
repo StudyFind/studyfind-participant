@@ -1,14 +1,7 @@
-import React from "react";
 import styled from "styled-components";
-import {
-  Flex,
-  Button,
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-} from "@chakra-ui/react";
+import { Flex, Button, FormControl, FormLabel, FormErrorMessage } from "@chakra-ui/react";
 
-function Radio({ name, value, options, onChange, label, error }) {
+export const Radio = ({ name, value, options, onChange, label, error }) => {
   return (
     <FormControl isInvalid={error}>
       {label && <FormLabel>{label}</FormLabel>}
@@ -32,7 +25,7 @@ function Radio({ name, value, options, onChange, label, error }) {
       {error && <FormErrorMessage>{error}</FormErrorMessage>}
     </FormControl>
   );
-}
+};
 
 const Options = styled(Flex)`
   & > button {
@@ -48,5 +41,3 @@ const Options = styled(Flex)`
     }
   }
 `;
-
-export default Radio;

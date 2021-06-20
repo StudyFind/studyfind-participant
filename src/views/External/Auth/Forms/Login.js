@@ -1,24 +1,22 @@
-import React from "react";
-
-import { useAuthForm } from "hooks";
 import { signin } from "database/auth";
-
-import { Form, Heading, Email, Password, Button, TabLink } from "views/External/Auth/Blocks";
+import { useAuthForm } from "hooks";
+import { EmailInput, PasswordInput } from "components";
+import { Auth } from "molecules";
 
 function Login({ setTab }) {
-  const { inputs, errors, loading, handleChange, handleSubmit } = useAuthForm({
+  const { input, loading, handleSubmit } = useAuthForm({
     initial: { email: "", password: "" },
     onSubmit: signin,
   });
 
   return (
-    <Form onSubmit={() => handleSubmit(inputs.email, inputs.password)}>
-      <Heading>Welcome Back!</Heading>
-      <Email value={inputs.email} error={errors.email} onChange={handleChange} />
-      <Password value={inputs.password} error={errors.password} onChange={handleChange} />
-      <Button loading={loading}>Login</Button>
-      <TabLink onClick={() => setTab("forgotPassword")}>Forgot Password?</TabLink>
-    </Form>
+    <Auth.Form onSubmit={handleSubmit}>
+      <Auth.Heading>Welcome Back!</Auth.Heading>
+      <Auth.Input as={EmailInput} placeholder="Email" {...input("email")} />
+      <Auth.Input as={PasswordInput} placeholder="Password" {...input("password")} />
+      <Auth.Button loading={loading}>Login</Auth.Button>
+      <Auth.TabLink onClick={() => setTab("forgotPassword")}>Forgot Password?</Auth.TabLink>
+    </Auth.Form>
   );
 }
 

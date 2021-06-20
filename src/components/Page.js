@@ -1,13 +1,8 @@
-import React from "react";
 import { Box } from "@chakra-ui/react";
-import { Spinner } from "components";
+import { Loader } from "components";
 
-function Page({ children, isLoading, ...rest }) {
-  return (
-    <Box p="40px" h="100%" bg="#f8f9fa" {...rest}>
-      {isLoading ? <Spinner /> : children}
-    </Box>
-  );
-}
-
-export default Page;
+export const Page = ({ children, isLoading }) => (
+  <Box p="40px" h="100%" bg="#f8f9fa">
+    {isLoading ? <Loader /> : children}
+  </Box>
+);

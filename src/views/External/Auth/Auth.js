@@ -1,27 +1,20 @@
-import React, { useState } from "react";
-import { Card } from "components";
-import { Flex } from "@chakra-ui/react";
+import { useState } from "react";
+import { Box, Flex } from "@chakra-ui/react";
 
-import Tabs from "./Tabs";
-import Form from "./Form";
+import AuthTabs from "./AuthTabs";
+import AuthForm from "./AuthForm";
 
 function Auth() {
-  const getDefaultTab = () => {
-    const url = new URL(window.location.href);
-    const mode = url.searchParams.get("mode");
-    const accountExists = localStorage.getItem("exists") === "true";
-
-    return mode || (accountExists ? "login" : "signup");
-  };
-
-  const [tab, setTab] = useState(getDefaultTab());
+  const exists = localStorage.getItem("exists");
+  const defaultTab = exists === "true" ? "login" : "signup";
+  const [tab, setTab] = useState(defaultTab);
 
   return (
     <Flex justify="center" align="center" h="100vh">
-      <Card w="350px" bg="#f8f9fa">
-        <Tabs tab={tab} setTab={setTab} />
-        <Form tab={tab} setTab={setTab} />
-      </Card>
+      <Box rounded="md" borderWidth="1px" w="350px" bg="#f8f9fa">
+        <AuthTabs tab={tab} setTab={setTab} />
+        <AuthForm tab={tab} setTab={setTab} />
+      </Box>
     </Flex>
   );
 }

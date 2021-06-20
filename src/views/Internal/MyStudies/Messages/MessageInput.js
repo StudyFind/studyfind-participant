@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import moment from "moment";
 
 import { auth } from "database/firebase";
 
 import { Flex, IconButton } from "@chakra-ui/react";
-import { Form, Input } from "components";
+import { Form, TextInput } from "components";
 import { FaPaperPlane } from "react-icons/fa";
 
 function MessageInput({ autoscroll, messagesRef }) {
@@ -26,8 +26,8 @@ function MessageInput({ autoscroll, messagesRef }) {
       user: auth.currentUser.uid,
     };
 
-    setMessage("");
     messagesRef.add(data).then(() => {
+      setMessage("");
       autoscroll();
     });
   };
@@ -43,7 +43,7 @@ function MessageInput({ autoscroll, messagesRef }) {
         p="10px"
         gridGap="10px"
       >
-        <Input
+        <TextInput
           value={message}
           onChange={handleChange}
           placeholder="Type your message here..."

@@ -1,14 +1,11 @@
-import React, { useState } from "react";
-
 import { auth, firestore } from "database/firebase";
-import { Spinner } from "components"
 import { useCollection } from "hooks";
 
+import { Loader } from "components";
 import MeetingsView from "./MeetingsView";
 import MeetingsError from "./MeetingsError";
 
-function Meetings({ study, user }) {
-
+function Meetings({ study }) {
   const { uid } = auth.currentUser;
 
   const [meetings, loading, error] = useCollection(
@@ -20,20 +17,15 @@ function Meetings({ study, user }) {
   );
 
   const handleConfirm = (meeting) => {
-    firestore
-      .collection("meetings")
-      .doc(meeting.id)
-      .update({
-        confirmedByParticipant: true
-      });
+    firestore.collection("meetings").doc(meeting.id).update({
+      confirmedByParticipant: true,
+    });
   };
 
-  if (loading) return <Spinner />;
+  if (loading) return <Loader />;
   if (error) return <MeetingsError />;
 
-  return(
-    <MeetingsView meetings={meetings} handleConfirm={handleConfirm} user={user} />
-  );
+  return <MeetingsView meetings={meetings} handleConfirm={handleConfirm} />;
 }
 
 export default Meetings;

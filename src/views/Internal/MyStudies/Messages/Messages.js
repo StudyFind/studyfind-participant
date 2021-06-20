@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 
 import { firestore } from "database/firebase";
 
@@ -7,10 +7,10 @@ import MessageInput from "./MessageInput";
 
 function Messages({ study, participant }) {
   const dummy = useRef();
-  const nctID = study.id;
+
   const messagesRef = firestore
     .collection("studies")
-    .doc(nctID)
+    .doc(study.id)
     .collection("participants")
     .doc(participant.id)
     .collection("messages");
