@@ -54,7 +54,7 @@ function StudiesRow({ study, uid }) {
     <Row>
       <Avatar size="1rem" h="30px" w="30px" bg="blue.500" name={study.id} color="white" />
       <Text fontWeight="500">
-        <Link to={`/study/${study.id}`}>{study.id}</Link>
+        <Link to={`/study/${study.id}/details`}>{study.id}</Link>
       </Text>
       <Text
         fontWeight="500"

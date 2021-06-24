@@ -34,24 +34,22 @@ function Screening() {
     });
   };
 
-  const handleSave = () => {
+  const handleSubmit = async () => {
     const nanoid = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ", 10);
 
-    firestore.collection
-      .collection("studies")
-      .doc(studyID)
-      .collection("participants")
-      .doc(user.id)
-      .set({
-        fakename: nanoid(),
-        timezone: user.timezone,
-        responses,
-      });
+    await firestore.collection("studies").doc(studyID).collection("participants").doc(user.id).set({
+      fakename: nanoid(),
+      timezone: user.timezone,
+      responses,
+      status: "interested",
+    });
 
-    firestore
+    await firestore
       .collection("participants")
       .doc(user.id)
       .update({ enrolled: user.enrolled.concat(studyID) });
+
+    history.push(`/study/${studyID}/details`);
   };
 
   if (!study || !responses) return <Loader />;
@@ -79,7 +77,11 @@ function Screening() {
         <Button variant="outline" color="gray.500" onClick={history.goBack}>
           Back
         </Button>
-        <Button colorScheme="green" onClick={handleSave}>
+        <Button
+          colorScheme="green"
+          onClick={handleSubmit}
+          isDisabled={user.enrolled.includes(study.id)}
+        >
           Submit
         </Button>
       </Flex>
