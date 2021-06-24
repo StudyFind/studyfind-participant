@@ -47,6 +47,7 @@ function FindStudies() {
         const updated = prev.conditions.concat(condition);
         return { ...prev, conditions: updated };
       }
+      return prev;
     });
   };
 
@@ -62,6 +63,10 @@ function FindStudies() {
   };
 
   const isValidAge = (studyAgeRange, userBirthdate) => {
+    if(!studyAgeRange || !userBirthdate) {
+      return true;
+    }
+    
     const [minAge, maxAge] = studyAgeRange.split("-");
     const userAge = moment().diff(userBirthdate, "years");
     return minAge <= userAge && userAge <= maxAge;
