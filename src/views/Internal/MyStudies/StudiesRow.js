@@ -5,7 +5,7 @@ import { useDocument } from "hooks";
 import { useParams, useHistory } from "react-router-dom";
 
 import { Text, Avatar, Badge, Box } from "@chakra-ui/react";
-import { FaClock, FaCalendar, FaClipboard, FaComment } from "react-icons/fa";
+import { FaClock, FaCalendar, FaClipboard, FaComment, FaQuestion } from "react-icons/fa";
 
 import { Link, ActionButton } from "components";
 import StudyDrawer from "./StudyDrawer";
@@ -13,8 +13,9 @@ import Messages from "./Messages/Messages";
 import Meetings from "./Meetings/Meetings";
 import Reminders from "./Reminders/Reminders";
 import Eligibility from "./Eligibility/Eligibility";
+import Surveys from "./Surveys/Surveys";
 
-function StudiesRow({ study, uid }) {
+function StudiesRow({ study, user }) {
   const history = useHistory();
   const { studyID, action } = useParams();
 
@@ -37,7 +38,7 @@ function StudiesRow({ study, uid }) {
   };
 
   const [participantData, loading, error] = useDocument(
-    firestore.collection("studies").doc(study.id).collection("participants").doc(uid)
+    firestore.collection("studies").doc(study.id).collection("participants").doc(user.id)
   );
 
   if (loading || !participantData) return <></>;
@@ -79,13 +80,14 @@ function StudiesRow({ study, uid }) {
         />
         <ActionButton hint="Reminders" icon={<FaClock />} onClick={() => handleOpen("reminders")} />
         <ActionButton
-          hint="Reminders"
+          hint="Eligibility"
           icon={<FaClipboard />}
           onClick={() => handleOpen("eligibility")}
         />
+        <ActionButton hint="Surveys" icon={<FaQuestion />} onClick={() => handleOpen("surveys")} />
       </Buttons>
       <StudyDrawer action={action} studyID={study.id} onClose={handleClose} isOpen={isOpen}>
-        {action === "messages" && <Messages study={study} participant={{ id: uid }} />}
+        {action === "messages" && <Messages study={study} participant={user} />}
         {action === "meetings" && (
           <Box p="25px">
             <Meetings study={study} />
@@ -101,6 +103,7 @@ function StudiesRow({ study, uid }) {
             <Eligibility study={study} responses={participantData.responses} />
           </Box>
         )}
+        {action === "surveys" && <Surveys study={study} />}
       </StudyDrawer>
     </Row>
   );

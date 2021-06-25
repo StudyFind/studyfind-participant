@@ -32,7 +32,7 @@ function MyStudies() {
       </Head>
       <Box borderWidth="1px" rounded="md" overflow="hidden" bg="white">
         {enrolled?.map((study) => (
-          <StudiesRow key={study.id} study={study} uid={user.id} />
+          <StudiesRow key={study.id} study={study} user={user} />
         ))}
       </Box>
     </>

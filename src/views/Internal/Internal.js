@@ -52,7 +52,7 @@ function Internal() {
                   <Route path="/study/:studyID/screening" component={Screening} />
                   <Route path="/study/:studyID/:tab" component={ViewStudy} />
                   <Route path="/account/:tab" component={Account} />
-                  <Route path="/mystudies/:studyID?/:action?" component={MyStudies} />
+                  <Route path="/mystudies/:studyID?/:action?/:actionID?" component={MyStudies} />
                   <Redirect to="/" />
                 </Switch>
               </Page>
