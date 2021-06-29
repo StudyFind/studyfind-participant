@@ -22,6 +22,7 @@ function Internal() {
   const { uid, email, emailVerified } = auth.currentUser;
 
   const userRef = firestore.collection("participants").doc(uid);
+  const [range, setRange] = useState(50)
   const studiesRef = firestore.collection("studies");
 
   const [user] = useDocument(userRef);
@@ -33,7 +34,7 @@ function Internal() {
   return (
     <Flex>
       <UserContext.Provider value={user}>
-        <StudiesContext.Provider value={studies}>
+        <StudiesContext.Provider value={{studies: studies, range: range, setRange: setRange}}>
           <ConfirmContext.Provider value={setConfirm}>
             <Sidebar name={user?.name} email={email} />
             <Box

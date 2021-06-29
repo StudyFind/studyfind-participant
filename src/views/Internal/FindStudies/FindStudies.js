@@ -2,7 +2,16 @@ import { useState, useEffect, useContext } from "react";
 import moment from "moment";
 
 import { UserContext, StudiesContext } from "context";
-import { Flex, Heading } from "@chakra-ui/react";
+import { 
+  Flex, 
+  Heading,
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
+  Box,
+  Text
+} from "@chakra-ui/react";
 
 import ViewMode from "./ViewMode";
 import SearchInput from "./SearchInput";
@@ -13,7 +22,7 @@ import MapView from "./MapView";
 
 function FindStudies() {
   const user = useContext(UserContext);
-  const studies = useContext(StudiesContext);
+  const { studies, range, setRange } = useContext(StudiesContext);
 
   const [view, setView] = useState("grid");
   const [location, setLocation] = useState();
@@ -24,12 +33,14 @@ function FindStudies() {
     interventional: false,
     hideEnrolled: false,
     hideSaved: false,
+    range: false,
     conditions: [],
   });
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       console.log(position.coords);
+      console.log(user.timezone)
       setLocation({
         lat: position.coords.latitude,
         lng: position.coords.longitude,
@@ -121,6 +132,32 @@ function FindStudies() {
       </Flex>
 
       <FilterList filters={filters} handleFilters={handleFilters} />
+
+      {filters.range ? (
+      <Box
+        size="sm"
+        color={`grey.500`}
+        bg={`grey.100`}
+        borderColor={`grey.300`}
+        borderRadius={'10px'}
+        borderWidth="1px"
+        padding={'10px'}
+        mb='25px'
+        >
+        <Text>Showing studies {range} {user.timezone.split('/')[0] === "America" ? "mi" : "km"} away</Text>
+        <Slider  
+          aria-label="slider-ex-1" min={0} 
+          max={100} 
+          defaultValue={range}
+          onChange={val => {setRange(val)}}
+        >
+          <SliderTrack>
+            <SliderFilledTrack />
+          </SliderTrack>
+          <SliderThumb />
+        </Slider>
+        </Box>
+        ) : (<></>)}
 
       <ConditionsList
         conditions={filters.conditions}
