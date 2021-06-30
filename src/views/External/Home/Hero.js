@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { HashLink } from "react-router-hash-link";
 
-import { Heading, Button, Text, Flex } from "@chakra-ui/react";
+import {
+  Heading,
+  Button,
+  Text,
+  Flex,
+  useMediaQuery,
+  Image,
+} from "@chakra-ui/react";
 
 import Background from "images/web-hero-background.svg";
 import SearchBar from "images/search-bar.gif";
@@ -10,7 +17,7 @@ import SearchBar from "images/search-bar.gif";
 function Hero() {
   return (
     <Box>
-      <Flex
+      <SearchGif
         direction="row"
         justify="center"
         style={{
@@ -19,18 +26,18 @@ function Hero() {
         }}
       >
         <HashLink smooth to={"/#search"}>
-          <img src={SearchBar} width="600vh" />
+          <img src={SearchBar} />
         </HashLink>
-      </Flex>
-      <Heading size="2xl" lineHeight="1.25">
-        <Text color="green.400">Sign up</Text>
-        <Text color="blue.500">For Clinical Trials with a</Text>
-        <Text color="blue.500">Simple Click of a Button</Text>
-      </Heading>
+      </SearchGif>
+      <ResponsiveHeading lineHeight="1.25">
+        <Text color="#00C9A6">Sign up</Text>
+        <Text color="#387DFF">For Clinical Trials with a</Text>
+        <Text color="#387DFF">Simple Click of a Button</Text>
+        <Text id="search"></Text>
+      </ResponsiveHeading>
     </Box>
   );
 }
-
 const Box = styled.section`
   height: 100vh;
   padding: 50px;
@@ -44,9 +51,46 @@ const Box = styled.section`
   background-repeat: no-repeat;
   background-position: right top;
 
-  @media only screen and (max-width: 600px) {
-    padding: 30px;
+  @media (min-aspect-ratio: 8/10) and (max-aspect-ratio: 1/1) {
+    padding: 60px 30px 30px 30px;
     grid-gap: 30px;
+    background-size: 150vw;
+  }
+
+  @media (max-aspect-ratio: 8/10) {
+    padding: 60px 30px 30px 30px;
+    grid-gap: 30px;
+    background-size: 200vw;
+  }
+
+  @media (max-aspect-ratio: 47/100) {
+    padding: 60px 25px 25px 25px;
+    grid-gap: 25px;
+    background-size: 300vw;
+  }
+`;
+
+const ResponsiveHeading = styled(Heading)`
+  font-size: 50px !important;
+
+  @media (min-aspect-ratio: 8/10) and (max-aspect-ratio: 1/1) {
+    font-size: 40px !important;
+  }
+
+  @media (max-aspect-ratio: 8/10) {
+    font-size: 7vw !important;
+  }
+
+  @media (max-aspect-ratio: 47/100) {
+    font-size: 7vw !important;
+  }
+`;
+
+const SearchGif = styled(Flex)`
+  width: 75%;
+
+  @media (max-aspect-ratio: 8/10) {
+    width: 90%;
   }
 `;
 

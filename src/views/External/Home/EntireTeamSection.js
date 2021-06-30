@@ -1,47 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { HashLink } from "react-router-hash-link";
 
 import { Heading, Button, Text, Flex } from "@chakra-ui/react";
 
 function EntireTeamSection() {
+  let [oneButton, setOneButton] = useState(false);
+
+  const handleClick = () => {
+    setOneButton(!oneButton);
+  };
+
   return (
-    <Box>
-      <Heading size="2xl" lineHeight="1.25">
-        <Text color="blue.500">Meet The Entire Team below:</Text>
-      </Heading>
-      <Flex
-        direction="row"
-        justify="center"
-        align="center"
-        style={{
-          gridGap: "200px",
-        }}
+    <div
+      style={{
+        height: "20vw",
+        padding: "50px",
+        display: "flex",
+        gridGap: "100px",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center",
+        backgroundColor: "#f8f9fb",
+      }}
+    >
+      <Button
+        variant="solid"
+        padding="4%"
+        bgColor="#387DFF"
+        textColor="#ffffff"
+        _hover={{ bgColor: "#2D65CC" }}
+        _active={{ bgColor: "#1C3F80" }}
+        onClick={handleClick}
       >
-        <div
-          style={{
-            width: "20vw",
-          }}
-        >
-          <HashLink to={"/team#board"}>
-            <Heading size="xl" lineHeight="1.25">
-              <Text color="blue.500">National Advisory Board</Text>
-            </Heading>
-          </HashLink>
-        </div>
-        <div
-          style={{
-            width: "20vw",
-          }}
-        >
-          <HashLink to={"/team#interns"}>
-            <Heading size="xl" lineHeight="1.25">
-              <Text color="green.400">Entire Team</Text>
-            </Heading>
-          </HashLink>
-        </div>
-      </Flex>
-    </Box>
+        <Heading size="xl" lineHeight="1.25">
+          <Text>Meet The Entire Team</Text>
+        </Heading>
+      </Button>
+    </div>
   );
 }
 
