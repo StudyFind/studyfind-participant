@@ -1,4 +1,4 @@
-import { TextInput, FormControl } from "@chakra-ui/react";
+import { Input, FormControl } from "@chakra-ui/react";
 import { Label, Error } from "./helpers";
 
 export const PhoneInput = ({ name, value, error, label, placeholder, onChange, ...rest }) => {
@@ -27,7 +27,7 @@ export const PhoneInput = ({ name, value, error, label, placeholder, onChange, .
   return (
     <FormControl isInvalid={!!error}>
       <Label label={label} />
-      <TextInput
+      <Input
         w="100%"
         bg={error ? "red.100" : ""}
         placeholder={placeholder || ""}
