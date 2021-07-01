@@ -22,18 +22,18 @@ function External() {
   const [studies] = useCollection(studiesRef);
   const [confirm, setConfirm] = useState(null);
 
+  console.log(studiesRef);
+  console.log(studies);
+
   return (
     <StudiesContext.Provider value={studies}>
       <ConfirmContext.Provider value={setConfirm}>
-        {confirm && <Confirm {...confirm} handleClose={() => setConfirm(null)} />}
-        <Page isLoading={!studies}>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/auth" component={Auth} />
-            <Route exact path="/team" component={Team} />
-            <Redirect to="/" />
-          </Switch>
-        </Page>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/auth" component={Auth} />
+          <Route exact path="/team" component={Team} />
+          <Redirect to="/" />
+        </Switch>
         </ConfirmContext.Provider>
     </StudiesContext.Provider>
   );
