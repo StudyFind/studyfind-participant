@@ -34,7 +34,7 @@ function External() {
           <Route exact path="/team" component={Team} />
           <Redirect to="/" />
         </Switch>
-        </ConfirmContext.Provider>
+      </ConfirmContext.Provider>
     </StudiesContext.Provider>
   );
 }
