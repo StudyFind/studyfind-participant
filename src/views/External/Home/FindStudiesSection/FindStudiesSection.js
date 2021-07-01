@@ -18,6 +18,8 @@ function FindStudiesSection() {
   const user = useContext(UserContext);
   const studies = useContext(StudiesContext);
 
+  console.log(studies);
+
   const [view, setView] = useState("map");
   const [location, setLocation] = useState();
   const [filters, setFilters] = useState({
