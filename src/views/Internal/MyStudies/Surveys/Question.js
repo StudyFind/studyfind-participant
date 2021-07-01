@@ -1,25 +1,36 @@
-import { useState } from "react";
-
 import { Text, Box, Flex } from "@chakra-ui/react";
-import { TextareaInput } from "components/Inputs/TextareaInput";
+import {
+  TextareaInput,
+  RadioInput,
+  MultiselectInput,
+  SelectInput,
+  TextInput,
+  EmailInput,
+  PhoneInput,
+  FileInput,
+  LinkInput,
+  DateInput,
+} from "components";
+import {
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+} from "@chakra-ui/react";
 
-function Question({ index, question, handleChange }) {
-  const responseFormats = {
-    "short answer": "",
-    "long answer": "",
-    "multiple choice": null,
-    checkboxes: null, //TODO
-    dropdown: null,
-    number: null,
-    email: "",
-    phone: "",
-    file: "",
-    link: "",
-    date: "",
-    time: null,
+function Question({ index, question, response, handleChange }) {
+  const { prompt, type, options, constraints } = question;
+
+  const transformOptions = (options) => {
+    return options.filter((o) => o.length > 0).map((o) => ({ value: o, label: o }));
   };
 
-  const [response, setResponse] = useState(responseFormats[question.type]);
+  const handleNumberChange = (valueAsNumber) => {
+    handleChange(index, valueAsNumber);
+  };
+
+  //TODO errors constraints
 
   return (
     <Box borderWidth="1px" bg="white" rounded="md" p="15px">
@@ -27,15 +38,89 @@ function Question({ index, question, handleChange }) {
         <Text fontSize="xs" color="gray.500">
           {"Question " + (index + 1)}
         </Text>
-        {question?.constraints?.required && (
+        {constraints?.required && (
           <Text align="flex-end" fontSize="xs" as="i" color="gray.500">
-            required
+            Required
           </Text>
         )}
       </Flex>
-      <Text>{question.prompt}</Text>
-      {["short answer", "long answer"].includes(question.type) && (
-        <TextareaInput name="response" label="Response" value={response} />
+      <Text mb="10px">{prompt}</Text>
+      {["short answer", "long answer"].includes(type) && (
+        <TextareaInput
+          name={index}
+          value={response}
+          placeholder={"Respond"}
+          onChange={handleChange}
+        />
+      )}
+      {type === "multiple choice" && (
+        <RadioInput
+          name={index}
+          value={response}
+          options={transformOptions(options)}
+          onChange={handleChange}
+        />
+      )}
+      {type === "checkboxes" && (
+        <MultiselectInput
+          name={index}
+          value={response}
+          label={"TODO"}
+          options={transformOptions(options)}
+          onChange={handleChange}
+        />
+      )}
+      {type === "dropdown" && (
+        <SelectInput
+          name={index}
+          value={response}
+          options={transformOptions(options)}
+          onChange={handleChange}
+        />
+      )}
+      {type === "number" && (
+        <NumberInput
+          step={constraints?.numberInterval}
+          min={constraints?.numberMin}
+          max={constraints?.numberMax}
+          value={response}
+          onChange={handleNumberChange}
+        >
+          <NumberInputField />
+          <NumberInputStepper>
+            <NumberIncrementStepper />
+            <NumberDecrementStepper />
+          </NumberInputStepper>
+        </NumberInput>
+      )}
+      {type === "email" && (
+        <EmailInput
+          name={index}
+          value={response}
+          placeholder={"Enter an email"}
+          onChange={handleChange}
+        />
+      )}
+      {type === "phone" && (
+        <PhoneInput
+          name={index}
+          value={response}
+          placeholder={"Enter a phone number"}
+          onChange={handleChange}
+        />
+      )}
+      {type === "file" && <Text>TODO remember timestamp store path</Text>}
+      {type === "link" && (
+        <LinkInput
+          name={index}
+          value={response}
+          placeholder={"Enter a link"}
+          onChange={handleChange}
+        />
+      )}
+      {type === "date" && <DateInput name={index} value={response} onChange={handleChange} />}
+      {type === "time" && ( //not utc timestamp b/c can have time w/o date
+        <TextInput name={index} type="time" value={response} onChange={handleChange} />
       )}
     </Box>
   );
