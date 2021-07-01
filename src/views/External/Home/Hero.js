@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { HashLink } from "react-router-hash-link";
 
@@ -17,16 +17,9 @@ import SearchBar from "images/search-bar.gif";
 function Hero() {
   return (
     <Box>
-      <SearchGif
-        direction="row"
-        justify="center"
-        style={{
-          padding: "50px",
-          width: "100%",
-        }}
-      >
+      <SearchGif>
         <HashLink smooth to={"/#search"}>
-          <img src={SearchBar} />
+          <img src={SearchBar} width="100%" />
         </HashLink>
       </SearchGif>
       <ResponsiveHeading lineHeight="1.25">
@@ -88,9 +81,14 @@ const ResponsiveHeading = styled(Heading)`
 
 const SearchGif = styled(Flex)`
   width: 75%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 50px;
+  width: 75vw;
 
-  @media (max-aspect-ratio: 8/10) {
-    width: 90%;
+  @media (max-width: 625px) {
+    width: 100vw;
   }
 `;
 

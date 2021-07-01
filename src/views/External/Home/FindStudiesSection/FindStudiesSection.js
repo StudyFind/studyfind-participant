@@ -162,6 +162,10 @@ const Box = styled.section`
     padding: 30px;
     grid-gap: 30px;
   }
+
+  @media (min-aspect-ratio: 6/10) and (max-aspect-ratio: 1/1) {
+    height: 80vh;
+  }
 `;
 
 // const Box = styled.section`

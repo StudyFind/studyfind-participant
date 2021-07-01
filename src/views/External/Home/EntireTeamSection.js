@@ -27,7 +27,7 @@ function EntireTeamSection() {
     >
       <Button
         variant="solid"
-        padding="4%"
+        padding="3.5vh"
         bgColor="#387DFF"
         textColor="#ffffff"
         _hover={{ bgColor: "#2D65CC" }}

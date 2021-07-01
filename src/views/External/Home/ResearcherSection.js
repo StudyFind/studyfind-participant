@@ -1,84 +1,121 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { HashLink } from "react-router-hash-link";
 
 import { Heading, Button, Text, useMediaQuery } from "@chakra-ui/react";
 
-import ResearcherImage from "images/researcher.svg";
-import Background from "images/researcher-hero.svg";
-import Pixel from "images/pixel.svg";
+import CompactResearcher from "images/compact-researcher.svg";
+import Researcher from "images/researcher-hero.svg";
 
 import Footer from "./Footer";
 
 function ResearcherSection() {
-  let isCompact = useMediaQuery("(max-width: 750px)");
-  let image;
+  const [isTablet, setIsTablet] = useState(false);
+  const [is1000, setIs1000] = useState(false);
 
-  useEffect(() => {
-    if (isCompact) {
-      image = <img src={ResearcherImage} />;
+  // identify if window is compact
+  const handleWindowSizeChange = () => {
+    if (window.innerWidth < 800) {
+      setIs1000(false);
+      setIsTablet(true);
+    } else if (window.innerWidth < 1000) {
+      setIsTablet(false);
+      setIs1000(true);
     } else {
-      image = <img src="" />;
+      setIs1000(false);
+      setIsTablet(false);
     }
+  };
+
+  // check for window size change
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
   });
+
+  // update if the window is compact
+  useEffect(() => {
+    handleWindowSizeChange();
+  }, []);
 
   return (
     <>
-      <Box>
-        {image}
-        <HeadingTextBox>
-          <Heading size="2xl" lineHeight="1.25">
-            <Text color="#00C9A6">To access our</Text>
-            <Text color="#387DFF">Researcher Portal Click Below</Text>
-            <HashLink to="/auth">
-              <Button
-                size="lg"
-                marginTop="2vh"
-                bgColor="#00C9A6"
-                textColor="#ffffff"
-                _hover={{ bgColor: "#00967D" }}
-                _active={{ bgColor: "#004A3E" }}
-              >
-                Click Here &gt;&gt;
-              </Button>
-            </HashLink>
-          </Heading>
-        </HeadingTextBox>
-      </Box>
+      <Flex
+        direction={isTablet ? "column-reverse" : "row"}
+        justify={isTablet ? "space-evenly" : "space-between"}
+        align="center"
+        height={isTablet ? "50vh" : "90vh"}
+      >
+        <Box>
+          <HeadingTextBox>
+            <Heading size={is1000 ? "xl" : "2xl"} lineHeight="1.25">
+              <Text color="#00C9A6">To access our</Text>
+              <Text color="#387DFF">Researcher Portal Click Below</Text>
+              <HashLink to="/auth">
+                <Button
+                  size="lg"
+                  marginTop="2vh"
+                  bgColor="#00C9A6"
+                  textColor="#ffffff"
+                  _hover={{ bgColor: "#00967D" }}
+                  _active={{ bgColor: "#004A3E" }}
+                >
+                  Click Here &gt;&gt;
+                </Button>
+              </HashLink>
+            </Heading>
+          </HeadingTextBox>
+        </Box>
+        <picture width="650vw">
+          <source
+            media="(max-width: 800px)"
+            srcSet={CompactResearcher}
+            width="500vw"
+          />
+          <img src={Researcher} />
+        </picture>
+      </Flex>
       <Footer />
     </>
   );
 }
 
 const Box = styled.section`
-  height: 95vh;
-  padding: 50px;
+  padding: 50px 0px 50px 50px;
   display: flex;
-  grid-gap: 60px;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  background: url(${Background});
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: right;
 
-  @media only screen and (max-width: 1060px) {
+  @media only screen and (max-width: 800px) {
     padding: 30px;
     grid-gap: 30px;
-    background-size: 500px;
-  }
-
-  @media only screen and (max-width: 750px) {
-    background: none;
+    margin-top: -50px;
   }
 `;
 
 const HeadingTextBox = styled.section`
-  width: 40vw;
-
-  @media only screen and (max-width: 750px) {
+  @media only screen and (max-width: 800px) {
     width: 100%;
+  }
+`;
+
+const Flex = styled.section`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 90vh;
+
+  @media only screen and (max-width: 800px) {
+    flex-direction: column-reverse;
+    justify-content: space-evenly;
+  }
+
+  @media only screen and (max-aspect-ratio: 8/10) and (min-aspect-ratio: 7/10) and (min-height: 1000px) {
+    height: 50vh;
   }
 `;
 
