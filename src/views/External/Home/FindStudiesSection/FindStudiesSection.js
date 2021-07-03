@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 
 import { Flex, Heading, Button, Text } from "@chakra-ui/react";
+import { Spinner } from "components";
 
 import moment from "moment";
 
@@ -20,6 +21,7 @@ function FindStudiesSection() {
 
   console.log(studies);
 
+  const [isLoaded, setIsLoaded] = useState(true);
   const [view, setView] = useState("map");
   const [location, setLocation] = useState();
   const [filters, setFilters] = useState({
@@ -33,6 +35,7 @@ function FindStudiesSection() {
   });
 
   useEffect(() => {
+    setIsLoaded(false);
     navigator.geolocation.getCurrentPosition((position) => {
       console.log(position.coords);
       setLocation({
@@ -66,58 +69,65 @@ function FindStudiesSection() {
     setFilters((prev) => ({ ...prev, conditions: [] }));
   };
 
-  const isValidAge = (studyAgeRange, userBirthdate) => {
-    const [minAge, maxAge] = studyAgeRange.split("-");
-    const userAge = moment().diff(userBirthdate, "years");
-    return minAge <= userAge && userAge <= maxAge;
-  };
-
-  // const filter = (studies) => {
-  //   return studies.filter((study) => {
-  //     // ========== MANDATORY ==========
-  //     if (!study.published) return false;
-  //     if (!study.activated) return false;
-  //     if (![user.sex, "All"].includes(study.sex)) return false;
-  //     if (!isValidAge(study.age, user.birthdate)) return false;
-
-  //     // ========== OPTIONAL ==========
-
-  //     // FILTERS
-  //     // show only "Accepts Healthy Volunteers" where control === "Yes"
-  //     if (filters.control && study.control !== "Yes") return false;
-  //     if (filters.observational && study.type === "Observational") return false;
-  //     if (filters.interventional && study.type === "Interventional")
-  //       return false;
-  //     if (filters.hideEnrolled && user.enrolled.includes(study.id))
-  //       return false;
-  //     if (filters.hideSaved && user.saved.includes(study.id)) return false;
-
-  //     if (filters.search) {
-  //       const cleanedSearch = filters.search.trim().toLowerCase();
-  //       const cleanedTitle = study.title.toLowerCase();
-  //       const match = cleanedTitle.includes(cleanedSearch);
-
-  //       if (!match) {
-  //         return false;
-  //       }
-  //     }
-
-  //     // CONDITIONS
-  //     if (filters.conditions.length) {
-  //       const intersection = study.conditions.filter((value) =>
-  //         filters.conditions.includes(value)
-  //       );
-
-  //       if (!intersection.length) {
-  //         return false;
-  //       }
-  //     }
-  //     return true;
-  //   });
+  // const isValidAge = (studyAgeRange, userBirthdate) => {
+  //   const [minAge, maxAge] = studyAgeRange.split("-");
+  //   const userAge = moment().diff(userBirthdate, "years");
+  //   return minAge <= userAge && userAge <= maxAge;
   // };
 
+  const filter = (studies) => {
+    return studies.filter((study) => {
+      // ========== MANDATORY ==========
+      if (!study.published) return false;
+      if (!study.activated) return false;
+      // if (![user.sex, "All"].includes(study.sex)) return false;
+      // if (!isValidAge(study.age, user.birthdate)) return false;
+
+      // ========== OPTIONAL ==========
+
+      // FILTERS
+      // show only "Accepts Healthy Volunteers" where control === "Yes"
+      if (filters.control && study.control !== "Yes") return false;
+      if (filters.observational && study.type === "Observational") return false;
+      if (filters.interventional && study.type === "Interventional")
+        return false;
+      // if (filters.hideEnrolled && user.enrolled.includes(study.id))
+      //   return false;
+      // if (filters.hideSaved && user.saved.includes(study.id)) return false;
+
+      if (filters.search) {
+        const cleanedSearch = filters.search.trim().toLowerCase();
+        const cleanedTitle = study.title.toLowerCase();
+        const match = cleanedTitle.includes(cleanedSearch);
+
+        if (!match) {
+          return false;
+        }
+      }
+
+      // CONDITIONS
+      if (filters.conditions.length) {
+        const intersection = study.conditions.filter((value) =>
+          filters.conditions.includes(value)
+        );
+
+        if (!intersection.length) {
+          return false;
+        }
+      }
+      return true;
+    });
+  };
+
   // const filteredStudies = filter(studies);
-  const filteredStudies = [];
+  let filteredStudies = studies;
+
+  useEffect(() => {
+    if (studies !== undefined && studies.length > 0) {
+      filteredStudies = filter(studies);
+      setIsLoaded(true);
+    }
+  });
 
   return (
     <Box>
@@ -137,19 +147,23 @@ function FindStudiesSection() {
         handleClearConditions={handleClearConditions}
       /> */}
 
-      {view === "grid" ? (
-        <GridView
-          conditions={filters.conditions}
-          filteredStudies={filteredStudies}
-          handleAddCondition={handleAddCondition}
-        />
+      {isLoaded ? (
+        view === "grid" ? (
+          <GridView
+            conditions={filters.conditions}
+            filteredStudies={filteredStudies}
+            handleAddCondition={handleAddCondition}
+          />
+        ) : (
+          <MapView
+            loc={location}
+            user={user}
+            conditions={filters.conditions}
+            studies={filteredStudies}
+          />
+        )
       ) : (
-        <MapView
-          loc={location}
-          user={user}
-          conditions={filters.conditions}
-          studies={filteredStudies}
-        />
+        <Spinner />
       )}
     </Box>
   );

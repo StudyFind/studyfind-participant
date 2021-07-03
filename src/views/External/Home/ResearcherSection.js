@@ -12,18 +12,26 @@ import Footer from "./Footer";
 function ResearcherSection() {
   const [isTablet, setIsTablet] = useState(false);
   const [is1000, setIs1000] = useState(false);
+  const [isCompact, setIsCompact] = useState(false);
 
   // identify if window is compact
   const handleWindowSizeChange = () => {
-    if (window.innerWidth < 800) {
+    if (window.innerWidth < 300) {
       setIs1000(false);
-      setIsTablet(true);
-    } else if (window.innerWidth < 1000) {
       setIsTablet(false);
+      setIsCompact(true);
+    } else if (window.innerWidth < 800) {
+      setIsTablet(true);
+      setIs1000(false);
+      setIsCompact(false);
+    } else if (window.innerWidth < 1000) {
       setIs1000(true);
+      setIsTablet(false);
+      setIsCompact(false);
     } else {
       setIs1000(false);
       setIsTablet(false);
+      setIsCompact(false);
     }
   };
 
@@ -50,7 +58,10 @@ function ResearcherSection() {
       >
         <Box>
           <HeadingTextBox>
-            <Heading size={is1000 ? "xl" : "2xl"} lineHeight="1.25">
+            <Heading
+              size={is1000 ? "xl" : isCompact ? "lg" : "2xl"}
+              lineHeight="1.25"
+            >
               <Text color="#00C9A6">To access our</Text>
               <Text color="#387DFF">Researcher Portal Click Below</Text>
               <HashLink to="/auth">
@@ -74,7 +85,7 @@ function ResearcherSection() {
             srcSet={CompactResearcher}
             width="500vw"
           />
-          <img src={Researcher} />
+          <img src={Researcher} width="680vw" />
         </picture>
       </Flex>
       <Footer />

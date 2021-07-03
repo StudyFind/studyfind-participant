@@ -17,11 +17,13 @@ import SearchBar from "images/search-bar.gif";
 function Hero() {
   return (
     <Box>
-      <SearchGif>
+      <SearchGifBox>
         <HashLink smooth to={"/#search"}>
-          <img src={SearchBar} width="100%" />
+          <SearchBarImage>
+            <img src={SearchBar} width="100%" />
+          </SearchBarImage>
         </HashLink>
-      </SearchGif>
+      </SearchGifBox>
       <ResponsiveHeading lineHeight="1.25">
         <Text color="#00C9A6">Sign up</Text>
         <Text color="#387DFF">For Clinical Trials with a</Text>
@@ -79,16 +81,29 @@ const ResponsiveHeading = styled(Heading)`
   }
 `;
 
-const SearchGif = styled(Flex)`
-  width: 75%;
+const SearchGifBox = styled(Flex)`
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
   padding: 50px;
-  width: 75vw;
 
   @media (max-width: 625px) {
-    width: 100vw;
+    padding: 10% 0%;
+  }
+`;
+
+const SearchBarImage = styled.section`
+  width: 70%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+  margin: 0% 15%;
+
+  @media (max-width: 625px) {
+    width: 100%;
+    margin: 0%;
   }
 `;
 

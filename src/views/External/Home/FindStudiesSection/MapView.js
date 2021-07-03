@@ -7,7 +7,7 @@ import { Box, Grid, useMediaQuery } from "@chakra-ui/react";
 
 function MapView({ loc, user, studies, conditions, handleConditions }) {
   const [location, setLocation] = useState(loc);
-  const [selected, setSelected] = useState(true);
+  const [selected, setSelected] = useState(false);
   const [isCompact, setIsCompact] = useState(false);
 
   // identify if window is compact
@@ -64,7 +64,7 @@ function MapView({ loc, user, studies, conditions, handleConditions }) {
       }}
     >
       {studies.map((study) => {
-        if (study.locations.length === 0) {
+        if (study.locations === undefined || study.locations.length === 0) {
           return null;
         }
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { HashLink } from "react-router-hash-link";
 
@@ -10,6 +10,44 @@ function EntireTeamSection() {
   const handleClick = () => {
     setOneButton(!oneButton);
   };
+
+  const [isTablet, setIsTablet] = useState(false);
+  const [isPhone, setIsPhone] = useState(false);
+  const [isCompact, setIsCompact] = useState(false);
+
+  // identify if window is compact
+  const handleWindowSizeChange = () => {
+    if (window.innerWidth < 300) {
+      setIsPhone(false);
+      setIsTablet(false);
+      setIsCompact(true);
+    } else if (window.innerWidth < 450) {
+      setIsTablet(false);
+      setIsPhone(true);
+      setIsCompact(false);
+    } else if (window.innerWidth < 800) {
+      setIsPhone(false);
+      setIsTablet(true);
+      setIsCompact(false);
+    } else {
+      setIsPhone(false);
+      setIsTablet(false);
+      setIsCompact(false);
+    }
+  };
+
+  // check for window size change
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  });
+
+  // update if the window is compact
+  useEffect(() => {
+    handleWindowSizeChange();
+  }, []);
 
   return (
     <div
@@ -34,7 +72,10 @@ function EntireTeamSection() {
         _active={{ bgColor: "#1C3F80" }}
         onClick={handleClick}
       >
-        <Heading size="xl" lineHeight="1.25">
+        <Heading
+          size={isCompact ? "sm" : isPhone ? "md" : "xl"}
+          lineHeight="1.25"
+        >
           <Text>Meet The Entire Team</Text>
         </Heading>
       </Button>
