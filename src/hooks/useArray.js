@@ -27,6 +27,10 @@ function useArray(initial) {
     setArray([]);
   };
 
+  const updateArray = (arr) => {
+    setArray(arr);
+  };
+
   return [
     array,
     {
@@ -36,6 +40,7 @@ function useArray(initial) {
       deleteItem,
       clearArray,
       resetArray,
+      updateArray,
     },
   ];
 }

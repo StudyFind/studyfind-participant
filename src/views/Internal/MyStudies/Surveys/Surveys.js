@@ -1,4 +1,4 @@
-import { firestore } from "database/firebase";
+import { auth, firestore } from "database/firebase";
 
 import { useCollection } from "hooks";
 import { useParams, useHistory } from "react-router-dom";
@@ -14,10 +14,17 @@ function Surveys({ study }) {
   const { actionID } = useParams();
 
   const surveysRef = firestore.collection("studies").doc(study.id).collection("surveys");
-  const [surveys, loading] = useCollection(surveysRef);
+  const [surveys, loading] = useCollection(surveysRef); //order by time
 
-  const handleSelectSurvey = (id) => {
-    history.push(`/MyStudies/${study.id}/surveys/${id}`);
+  const responsesRef = firestore
+    .collection("studies")
+    .doc(study.id)
+    .collection("participants")
+    .doc(auth.currentUser.uid)
+    .collection("surveyResponses");
+
+  const handleSelectSurvey = (surveyID) => {
+    history.push(`/MyStudies/${study.id}/surveys/${surveyID}`);
   };
 
   const handleCloseSurvey = () => {
@@ -42,12 +49,13 @@ function Surveys({ study }) {
 
   return !actionID ? (
     <Box p="25px">
-      <SurveyList surveys={surveys} setSurvey={handleSelectSurvey} />
+      <SurveyList surveys={surveys} responsesRef={responsesRef} setSurvey={handleSelectSurvey} />
     </Box>
   ) : (
     <Box p="25px">
       <SurveyRespond
         survey={surveys.find((s) => s.id === actionID)}
+        responsesRef={responsesRef}
         handleCloseSurvey={handleCloseSurvey}
       />
     </Box>

@@ -1,14 +1,14 @@
-import { List } from "components";
+import { Grid } from "@chakra-ui/react";
 
 import SurveyCard from "./SurveyCard";
 
-function SurveyList({ surveys, setSurvey }) {
+function SurveyList({ surveys, responsesRef, setSurvey }) {
   return (
-    <List>
+    <Grid gridGap="10px">
       {surveys?.map((s, i) => (
-        <SurveyCard key={i} survey={s} setSurvey={setSurvey} />
+        <SurveyCard key={i} survey={s} responsesRef={responsesRef} setSurvey={setSurvey} />
       ))}
-    </List>
+    </Grid>
   );
 }
 

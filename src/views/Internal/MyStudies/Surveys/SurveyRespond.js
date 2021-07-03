@@ -1,16 +1,15 @@
-import { auth, firestore } from "database/firebase";
+import { useEffect } from "react";
+import moment from "moment";
 
-import { Flex, Button, Heading, Grid } from "@chakra-ui/react";
-import { useArray } from "hooks";
-import { Form } from "components";
+import { Flex, Button, Heading, Grid, Text } from "@chakra-ui/react";
+import { useArray, useDocument } from "hooks";
+import { Form, Loader } from "components";
 
 import Question from "./Question";
-import { useParams } from "react-router-dom";
 
-function SurveyRespond({ survey, handleCloseSurvey }) {
-  const { studyID, actionID } = useParams();
-
-  const init = new Array(survey.questions.length);
+function SurveyRespond({ survey, responsesRef, handleCloseSurvey }) {
+  const [responseDoc, loading, error] = useDocument(responsesRef.doc(survey.id));
+  const init = Array(survey.questions.length);
   const [responses, setResponses] = useArray(init.fill(""));
 
   const handleChange = (index, value) => {
@@ -18,16 +17,19 @@ function SurveyRespond({ survey, handleCloseSurvey }) {
   };
 
   const handleSubmit = async () => {
-    await firestore
-      .collection("studies")
-      .doc(studyID)
-      .collection("participants")
-      .doc(auth.currentUser.uid)
-      .collection("surveyResponses")
-      .doc(actionID)
-      .set({ responses });
+    await responsesRef.doc(survey.id).set({
+      responses,
+      time: moment().utc().valueOf(),
+    });
     handleCloseSurvey();
   };
+
+  useEffect(() => {
+    responseDoc?.responses && setResponses.updateArray(responseDoc.responses);
+  }, [responseDoc]);
+
+  if (loading) return <Loader />;
+  if (error) return <Text>err</Text>;
 
   return (
     <Form onSubmit={handleSubmit}>
