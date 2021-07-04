@@ -13,10 +13,10 @@ function FilterList({ filters, handleFilters }) {
           Accepts Healthy Volunteers
         </FilterToggle>
         <FilterToggle name="observational" value={filters.observational} onChange={handleFilters}>
-          Hide Observational Studies
+          Observational Studies
         </FilterToggle>
         <FilterToggle name="interventional" value={filters.interventional} onChange={handleFilters}>
-          Hide Interventional Studies
+          Interventional Studies
         </FilterToggle>
         <FilterToggle name="hideEnrolled" value={filters.hideEnrolled} onChange={handleFilters}>
           Hide Enrolled Studies

@@ -29,7 +29,6 @@ function FindStudies() {
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
-      console.log(position.coords);
       setLocation({
         lat: position.coords.latitude,
         lng: position.coords.longitude,
@@ -63,10 +62,10 @@ function FindStudies() {
   };
 
   const isValidAge = (studyAgeRange, userBirthdate) => {
-    if(!studyAgeRange || !userBirthdate) {
+    if (!studyAgeRange || !userBirthdate) {
       return true;
     }
-    
+
     const [minAge, maxAge] = studyAgeRange.split("-");
     const userAge = moment().diff(userBirthdate, "years");
     return minAge <= userAge && userAge <= maxAge;
@@ -85,8 +84,8 @@ function FindStudies() {
       // FILTERS
       // show only "Accepts Healthy Volunteers" where control === "Yes"
       if (filters.control && study.control !== "Yes") return false;
-      if (filters.observational && study.type === "Observational") return false;
-      if (filters.interventional && study.type === "Interventional") return false;
+      if (filters.observational && study.type !== "Observational") return false;
+      if (filters.interventional && study.type !== "Interventional") return false;
       if (filters.hideEnrolled && user.enrolled.includes(study.id)) return false;
       if (filters.hideSaved && user.saved.includes(study.id)) return false;
 
