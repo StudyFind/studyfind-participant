@@ -1,4 +1,6 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { auth, storage } from "database/firebase";
 import moment from "moment";
 
 import { Flex, Button, Heading, Grid, Text } from "@chakra-ui/react";
@@ -8,19 +10,42 @@ import { Form, Loader } from "components";
 import Question from "./Question";
 
 function SurveyRespond({ survey, responsesRef, handleCloseSurvey }) {
+  const uid = auth.currentUser.uid;
+  const { studyID, actionID } = useParams();
+
   const [responseDoc, loading, error] = useDocument(responsesRef.doc(survey.id));
   const init = Array(survey.questions.length);
   const [responses, setResponses] = useArray(init.fill(""));
+
+  const [files, setFiles] = useState([]);
 
   const handleChange = (index, value) => {
     setResponses.updateItem(value, index);
   };
 
+  const handleFiles = (index, name, file) => {
+    setFiles((prev) => [...prev, { index, name, file }]);
+  };
+
   const handleSubmit = async () => {
-    await responsesRef.doc(survey.id).set({
-      responses,
-      time: moment().utc().valueOf(),
+    const submitTime = moment().utc().valueOf();
+    const refPath = `study/${studyID}/participants/${uid}/surveyResponses/${actionID}/`;
+
+    files.forEach((file) => {
+      handleChange(file.index, `${refPath + file.name + submitTime}`);
     });
+
+    await Promise.all([
+      files.forEach((file) => {
+        const ref = storage.ref(responses[file.index]);
+        ref.put(file.file);
+      }),
+      responsesRef.doc(survey.id).set({
+        responses,
+        time: submitTime,
+      }),
+    ]);
+
     handleCloseSurvey();
   };
 
@@ -45,6 +70,7 @@ function SurveyRespond({ survey, responsesRef, handleCloseSurvey }) {
             question={q}
             response={responses[i]}
             handleChange={handleChange}
+            handleFiles={handleFiles}
           />
         ))}
       </Grid>

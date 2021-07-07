@@ -1,4 +1,13 @@
-import { Text, Box, Flex } from "@chakra-ui/react";
+import {
+  Text,
+  Box,
+  Flex,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+} from "@chakra-ui/react";
 import {
   TextareaInput,
   RadioInput,
@@ -11,15 +20,8 @@ import {
   LinkInput,
   DateInput,
 } from "components";
-import {
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-} from "@chakra-ui/react";
 
-function Question({ index, question, response, handleChange }) {
+function Question({ index, question, response, handleChange, handleFiles }) {
   const { prompt, type, options, constraints } = question;
 
   const transformOptions = (options) => {
@@ -28,6 +30,11 @@ function Question({ index, question, response, handleChange }) {
 
   const handleNumberChange = (valueAsNumber) => {
     handleChange(index, valueAsNumber);
+  };
+
+  const handleSelect = (index, file) => {
+    const name = file?.name || "";
+    handleFiles(index, name, file);
   };
 
   //TODO errors constraints
@@ -109,7 +116,9 @@ function Question({ index, question, response, handleChange }) {
           onChange={handleChange}
         />
       )}
-      {type === "file" && <Text>TODO remember timestamp store path</Text>}
+      {type === "file" && (
+        <FileInput name={index} onChange={handleSelect} accept="application/pdf" />
+      )}
       {type === "link" && (
         <LinkInput
           name={index}

@@ -37,17 +37,19 @@ function Screening() {
   const handleSubmit = async () => {
     const nanoid = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ", 10);
 
-    await firestore.collection("studies").doc(studyID).collection("participants").doc(user.id).set({
-      fakename: nanoid(),
-      timezone: user.timezone,
-      responses,
-      status: "interested",
-    });
+    await Promise.all([
+      firestore.collection("studies").doc(studyID).collection("participants").doc(user.id).set({
+        fakename: nanoid(),
+        timezone: user.timezone,
+        responses,
+        status: "interested",
+      }),
 
-    await firestore
-      .collection("participants")
-      .doc(user.id)
-      .update({ enrolled: user.enrolled.concat(studyID) });
+      firestore
+        .collection("participants")
+        .doc(user.id)
+        .update({ enrolled: user.enrolled.concat(studyID) }),
+    ]);
 
     history.push(`/study/${studyID}/details`);
   };
