@@ -4,6 +4,7 @@ import StudyCardSmall from "molecules/StudyCardSmall";
 import { Loader } from "./Loader";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { Box, Grid, useMediaQuery } from "@chakra-ui/react";
+import styled from "styled-components";
 
 function MapView({ loc, user, studies, conditions, handleConditions }) {
   const [location, setLocation] = useState(loc);
@@ -56,12 +57,6 @@ function MapView({ loc, user, studies, conditions, handleConditions }) {
       bootstrapURLKeys={{ key: "AIzaSyAed_hgBp7VzxxTXlC9Buh9l_6gmNgNK1g" }}
       center={location}
       zoom={11}
-      onChildClick={() => {
-        if (isCompact)
-          return (
-            <StudyCardSmall position="absolute" style={{ left: "-50px" }} />
-          );
-      }}
     >
       {studies.map((study) => {
         if (study.locations === undefined || study.locations.length === 0) {
@@ -88,8 +83,29 @@ function MapView({ loc, user, studies, conditions, handleConditions }) {
   if (selected && isCompact) {
     return (
       <>
-        <Box h="68%" w="100%" rounded="lg" position="relative">
+        {/* <Box h="68%" w="100%" rounded="lg" position="relative">
           {content}
+        </Box> */}
+        <Box
+          style={{
+            width: "100%",
+            overflowX: "hidden",
+            position: "relative",
+          }}
+        >
+          <ShadowBox></ShadowBox>
+          <InnerBox>
+            <Grid gap="25px" templateRows="1fr 1fr">
+              <Box h="100%" w="100%" rounded="lg">
+                {content}
+              </Box>
+              <StudyCardSmall
+                study={selected}
+                conditions={conditions}
+                handleConditions={handleConditions}
+              />
+            </Grid>
+          </InnerBox>
         </Box>
       </>
     );
@@ -99,7 +115,11 @@ function MapView({ loc, user, studies, conditions, handleConditions }) {
         <Box h="100%" w="100%" rounded="lg">
           {content}
         </Box>
-        <StudyCardSmall />
+        <StudyCardSmall
+          study={selected}
+          conditions={conditions}
+          handleConditions={handleConditions}
+        />
       </Grid>
     );
   } else {
@@ -110,5 +130,26 @@ function MapView({ loc, user, studies, conditions, handleConditions }) {
     );
   }
 }
+
+const InnerBox = styled.section`
+  height: 65vh;
+  overflow-y: scroll;
+
+  @media (min-aspect-ratio: 6/10) and (max-aspect-ratio: 1/1) {
+    height: 50vh;
+  }
+`;
+
+const ShadowBox = styled.section`
+  position: absolute;
+  top: 65vh;
+  box-shadow: 0 0 30px #aaaaaa;
+  height: 1vh;
+  width: 100vw;
+
+  @media (min-aspect-ratio: 6/10) and (max-aspect-ratio: 1/1) {
+    top: 50vh;
+  }
+`;
 
 export default MapView;

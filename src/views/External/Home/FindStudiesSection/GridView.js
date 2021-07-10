@@ -10,7 +10,6 @@ function GridView({ conditions, filteredStudies, handleAddCondition }) {
         filteredStudies={filteredStudies}
         handleAddCondition={handleAddCondition}
       />
-      <AutoScroll />
     </>
   );
 }

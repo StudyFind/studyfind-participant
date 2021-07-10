@@ -1,7 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 
-import { Flex, Heading, Button, Text } from "@chakra-ui/react";
+import {
+  Flex,
+  Heading,
+  Button,
+  Text,
+  Box as ChakraBox,
+} from "@chakra-ui/react";
 import { Spinner } from "components";
 
 import moment from "moment";
@@ -149,11 +155,22 @@ function FindStudiesSection() {
 
       {isLoaded ? (
         view === "grid" ? (
-          <GridView
-            conditions={filters.conditions}
-            filteredStudies={filteredStudies}
-            handleAddCondition={handleAddCondition}
-          />
+          <ChakraBox
+            style={{
+              width: "100%",
+              overflowX: "hidden",
+              position: "relative",
+            }}
+          >
+            <ShadowBox></ShadowBox>
+            <InnerBox>
+              <GridView
+                conditions={filters.conditions}
+                filteredStudies={filteredStudies}
+                handleAddCondition={handleAddCondition}
+              />
+            </InnerBox>
+          </ChakraBox>
         ) : (
           <MapView
             loc={location}
@@ -181,6 +198,27 @@ const Box = styled.section`
 
   @media (min-aspect-ratio: 6/10) and (max-aspect-ratio: 1/1) {
     height: 80vh;
+  }
+`;
+
+const InnerBox = styled.section`
+  height: 55vh;
+  overflow-y: scroll;
+
+  @media (min-aspect-ratio: 6/10) and (max-aspect-ratio: 1/1) {
+    height: 50vh;
+  }
+`;
+
+const ShadowBox = styled.section`
+  position: absolute;
+  top: 55vh;
+  box-shadow: 0 0 30px #aaaaaa;
+  height: 1vh;
+  width: 100vw;
+
+  @media (min-aspect-ratio: 6/10) and (max-aspect-ratio: 1/1) {
+    top: 50vh;
   }
 `;
 

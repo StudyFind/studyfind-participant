@@ -9,9 +9,11 @@ function StudyConditions({ conditions, filterConditions, handleAddCondition }) {
           key={i}
           size="sm"
           variant="solid"
-          cursor="pointer"
-          colorScheme={filterConditions?.includes(condition) ? "green" : "blue"}
-          onClick={() => handleAddCondition(condition)}
+          // cursor="pointer"
+          bgColor="#387DFF"
+          textColor="#ffffff"
+          // _hover={{ bgColor: "#2D65CC" }}
+          // _active={{ bgColor: "#1C3F80" }}
         >
           <TagLabel>{condition}</TagLabel>
         </Tag>

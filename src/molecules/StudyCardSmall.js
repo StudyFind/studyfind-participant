@@ -19,21 +19,22 @@ import { FaBookmark } from "react-icons/fa";
 import StudyConditions from "./StudyConditions";
 
 function StudyCardSmall({ study, conditions, handleAddCondition }) {
-  const user = useContext(UserContext);
+  // const user = useContext(UserContext);
+  // const verified = auth.currentUser.emailVerified;
 
-  const handleBookmark = () => {
-    const hasBeenSaved = user.saved.includes(study.id);
-    const updatedSaved = hasBeenSaved
-      ? user.saved.filter((studyID) => studyID !== study.id)
-      : user.saved.concat(study.id);
+  // const handleBookmark = () => {
+  //   const hasBeenSaved = user.saved.includes(study.id);
+  //   const updatedSaved = hasBeenSaved
+  //     ? user.saved.filter((studyID) => studyID !== study.id)
+  //     : user.saved.concat(study.id);
 
-    console.log(updatedSaved);
+  //   console.log(updatedSaved);
 
-    firestore
-      .collection("participants")
-      .doc(user.id)
-      .update({ saved: updatedSaved });
-  };
+  //   firestore.collection("participants").doc(user.id).update({ saved: updatedSaved });
+  // };
+
+  // const isSaved = user.saved.includes(study.id);
+  // const isEnrolled = user.enrolled.includes(study.id);
 
   return (
     <Flex
@@ -44,40 +45,38 @@ function StudyCardSmall({ study, conditions, handleAddCondition }) {
       bg="white"
       w="100%"
       p="20px"
-      h="55vh"
+      h="320px"
     >
-      <Flex justify="space-between" align="center" mb="8px">
+      <Flex justify="flex-start" align="center" mb="8px">
         <Text fontSize="sm" color="gray.400">
-          Study ID
+          {study.id}
         </Text>
-        <Tooltip label="Label">
-          <Box>
-            <Icon size="xs" as={FaBookmark} color="gray.300" />
-          </Box>
-        </Tooltip>
       </Flex>
       <Heading size="sm" noOfLines={2} mb="6px">
-        Study Title
+        {study.title}
       </Heading>
-      <StudyConditions />
+      <StudyConditions
+        conditions={study.conditions}
+        filterConditions={conditions}
+        handleAddCondition={handleAddCondition}
+      />
       <Text color="gray.500" noOfLines={5} mt="10px">
-        Study Description
+        {study.description}
       </Text>
       <Flex marginTop="auto" gridGap="8px" justify="flex-end">
-        <HashLink to="/auth">
-          <Button size="sm" color="gray.600">
-            Details
-          </Button>
-        </HashLink>
-        <Tooltip label="Label">
-          <Box>
-            <HashLink to="/auth">
-              <Button size="sm" colorScheme="blue">
-                Enroll
-              </Button>
-            </HashLink>
-          </Box>
-        </Tooltip>
+        <Box>
+          <Link to="/auth" isWrapper>
+            <Button
+              size="sm"
+              bgColor="#387DFF"
+              textColor="#ffffff"
+              _hover={{ bgColor: "#2D65CC" }}
+              _active={{ bgColor: "#1C3F80" }}
+            >
+              Learn More
+            </Button>
+          </Link>
+        </Box>
       </Flex>
     </Flex>
   );

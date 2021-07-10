@@ -5,7 +5,7 @@ import { HashLink } from "react-router-hash-link";
 import { Heading, Button, Text, useMediaQuery } from "@chakra-ui/react";
 
 import CompactResearcher from "images/compact-researcher.svg";
-import Researcher from "images/researcher-hero.svg";
+import Researcher from "images/researcher.svg";
 
 import Footer from "./Footer";
 
@@ -79,13 +79,13 @@ function ResearcherSection() {
             </Heading>
           </HeadingTextBox>
         </Box>
-        <picture width="650vw">
+        <picture width="80vh">
           <source
             media="(max-width: 800px)"
             srcSet={CompactResearcher}
             width="500vw"
           />
-          <img src={Researcher} width="680vw" />
+          <img src={Researcher} width="600vh" />
         </picture>
       </Flex>
       <Footer />
