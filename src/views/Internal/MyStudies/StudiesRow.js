@@ -65,7 +65,7 @@ function StudiesRow({ study, uid }) {
         wordBreak="keep-all"
         mr="auto"
       >
-        <Link to={`/study/${study.id}`}>{study.title}</Link>
+        <Link to={`/study/${study.id}/details`}>{study.title}</Link>
       </Text>
       <Badge size="sm" colorScheme={statusColors[participantData.status]}>
         {participantData.status}
