@@ -127,6 +127,9 @@ function FindStudiesSection() {
 
   // const filteredStudies = filter(studies);
   let filteredStudies = studies;
+  if (studies !== undefined && studies.length > 0){
+    filteredStudies = filter(studies);
+  }
 
   useEffect(() => {
     if (studies !== undefined && studies.length > 0) {
