@@ -14,8 +14,7 @@ function SurveyRespond({ survey, responsesRef, handleCloseSurvey }) {
   const { studyID, actionID } = useParams();
 
   const [responseDoc, loading, error] = useDocument(responsesRef.doc(survey.id));
-  const init = Array(survey.questions.length);
-  const [responses, setResponses] = useArray(init.fill(""));
+  const [responses, setResponses] = useArray(Array(survey.questions.length));
 
   const [files, setFiles] = useState([]);
 
@@ -32,7 +31,7 @@ function SurveyRespond({ survey, responsesRef, handleCloseSurvey }) {
     const refPath = `study/${studyID}/participants/${uid}/surveyResponses/${actionID}/`;
 
     files.forEach((file) => {
-      handleChange(file.index, `${refPath + file.name + submitTime}`);
+      handleChange(file.index, `${refPath + file.name + "_" + submitTime}`);
     });
 
     await Promise.all([

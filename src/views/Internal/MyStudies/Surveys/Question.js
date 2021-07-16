@@ -1,17 +1,8 @@
-import {
-  Text,
-  Box,
-  Flex,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-} from "@chakra-ui/react";
+import { useEffect } from "react";
+import { Text, Box, Flex, Stack, Checkbox } from "@chakra-ui/react";
 import {
   TextareaInput,
   RadioInput,
-  MultiselectInput,
   SelectInput,
   TextInput,
   EmailInput,
@@ -28,14 +19,25 @@ function Question({ index, question, response, handleChange, handleFiles }) {
     return options.filter((o) => o.length > 0).map((o) => ({ value: o, label: o }));
   };
 
-  const handleNumberChange = (valueAsNumber) => {
-    handleChange(index, valueAsNumber);
+  const handleCheckbox = (optionIndex, checked) => {
+    const updated = response.values;
+    updated[optionIndex] = checked;
+    handleChange(index, { values: updated });
   };
 
-  const handleSelect = (index, file) => {
+  const handleSelectFile = (index, file) => {
     const name = file?.name || "";
     handleFiles(index, name, file);
   };
+
+  useEffect(() => {
+    if (type === "checkboxes") {
+      const values = Array(options.length);
+      handleChange(index, { values: values.fill(false) });
+    } else {
+      handleChange(index, "");
+    }
+  }, []);
 
   //TODO errors constraints
 
@@ -58,6 +60,7 @@ function Question({ index, question, response, handleChange, handleFiles }) {
           value={response}
           placeholder={"Respond"}
           onChange={handleChange}
+          limit={constraints?.characterMax}
         />
       )}
       {type === "multiple choice" && (
@@ -69,36 +72,37 @@ function Question({ index, question, response, handleChange, handleFiles }) {
         />
       )}
       {type === "checkboxes" && (
-        <MultiselectInput
-          name={index}
-          value={response}
-          label={"TODO"}
-          options={transformOptions(options)}
-          onChange={handleChange}
-        />
+        <Stack>
+          {options?.map((o, i) => (
+            <Checkbox
+              key={i}
+              isChecked={response?.values && response.values[i]}
+              onChange={(e) => handleCheckbox(i, e.target.checked)}
+            >
+              {o}
+            </Checkbox>
+          ))}
+        </Stack>
       )}
       {type === "dropdown" && (
         <SelectInput
           name={index}
           value={response}
+          placeholder="Select"
           options={transformOptions(options)}
           onChange={handleChange}
         />
       )}
       {type === "number" && (
-        <NumberInput
+        <TextInput
+          type="number"
+          name={index}
+          value={response}
+          onChange={handleChange}
           step={constraints?.numberInterval}
           min={constraints?.numberMin}
           max={constraints?.numberMax}
-          value={response}
-          onChange={handleNumberChange}
-        >
-          <NumberInputField />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        </NumberInput>
+        />
       )}
       {type === "email" && (
         <EmailInput
@@ -117,7 +121,15 @@ function Question({ index, question, response, handleChange, handleFiles }) {
         />
       )}
       {type === "file" && (
-        <FileInput name={index} onChange={handleSelect} accept="application/pdf" />
+        <FileInput
+          name={index}
+          onChange={handleSelectFile}
+          accept={`${constraints?.pdfAllowed ? "application/pdf, " : ""}${
+            constraints?.docAllowed ? "application/msword, " : ""
+          }${constraints?.jpgAllowed ? "image/jpeg, " : ""}${
+            constraints?.pngAllowed ? "image/png, " : ""
+          }`}
+        />
       )}
       {type === "link" && (
         <LinkInput
@@ -127,9 +139,25 @@ function Question({ index, question, response, handleChange, handleFiles }) {
           onChange={handleChange}
         />
       )}
-      {type === "date" && <DateInput name={index} value={response} onChange={handleChange} />}
-      {type === "time" && ( //not utc timestamp b/c can have time w/o date
-        <TextInput name={index} type="time" value={response} onChange={handleChange} />
+      {type === "date" && (
+        <DateInput
+          name={index}
+          value={response}
+          onChange={handleChange}
+          max={constraints?.dateMax}
+          min={constraints?.dateMin}
+        />
+      )}
+      {type === "time" && (
+        <TextInput
+          name={index}
+          type="time"
+          value={response}
+          onChange={handleChange}
+          max={constraints?.timeMax}
+          min={constraints?.timeMin}
+          step={parseInt(constraints?.timeInterval) * 60}
+        />
       )}
     </Box>
   );
