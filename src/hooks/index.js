@@ -6,6 +6,8 @@ export { default as useAuthForm } from "./useAuthForm";
 export { default as useSimpleForm } from "./useSimpleForm";
 export { default as useDocument } from "./useDocument";
 export { default as useCollection } from "./useCollection";
+export { default as useGeoCollection } from "./useGeoCollection"
+export { default as useDetectLocation } from "./useDetectLocation"
 export { default as useDetectTimezone } from "./useDetectTimezone";
 export { default as useNotificationToast } from "./useNotificationToast";
 export { default as useRealtimePagination } from "./useRealtimePagination";

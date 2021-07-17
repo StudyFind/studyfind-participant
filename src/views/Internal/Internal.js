@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import { auth, firestore } from "database/firebase";
-import { useDocument, useCollection, useDetectTimezone } from "hooks";
+import { auth, firestore, geostore } from "database/firebase";
+import { useDocument, useCollection, useGeoCollection, useDetectTimezone, useDetectLocation } from "hooks";
 import { UserContext, StudiesContext, ConfirmContext } from "context";
 
 import { Switch, Route, Redirect } from "react-router-dom";
@@ -22,19 +22,22 @@ function Internal() {
   const { uid, email, emailVerified } = auth.currentUser;
 
   const userRef = firestore.collection("participants").doc(uid);
-  const [range, setRange] = useState(50)
-  const studiesRef = firestore.collection("studies");
+  const [range, setRange] = useState(100)
+  // const studiesRef = firestore.collection("studies");
+  const testStudiesRef = geostore.collection("teststudies")
 
   const [user] = useDocument(userRef);
-  const [studies] = useCollection(studiesRef);
+  // const [studies] = useCollection(studiesRef);
+  const testStudies = useGeoCollection(testStudiesRef, user, range)
   const [confirm, setConfirm] = useState(null);
 
   useDetectTimezone(user);
+  useDetectLocation(user);
 
   return (
     <Flex>
       <UserContext.Provider value={user}>
-        <StudiesContext.Provider value={{studies: studies, range: range, setRange: setRange}}>
+        <StudiesContext.Provider value={{studies: testStudies, range: range, setRange: setRange}}>
           <ConfirmContext.Provider value={setConfirm}>
             <Sidebar name={user?.name} email={email} />
             <Box
@@ -45,7 +48,7 @@ function Internal() {
             >
               {emailVerified || <Verification />}
               {confirm && <Confirm {...confirm} handleClose={() => setConfirm(null)} />}
-              <Page isLoading={!(user && studies)}>
+              <Page isLoading={!(user && testStudies)}>
                 <Switch>
                   <Route exact path="/" component={FindStudies} />
                   <Route path="/search" component={FindStudies} />

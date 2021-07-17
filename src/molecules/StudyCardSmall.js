@@ -54,7 +54,8 @@ function StudyCardSmall({ study, conditions, handleAddCondition }) {
         </Tooltip>
       </Flex>
       <Heading size="sm" noOfLines={2} mb="6px">
-        {study.title}
+        {/* CHANGE BACK TO study.title */}
+        {study.name}
       </Heading>
       <StudyConditions
         conditions={study.conditions}
@@ -64,21 +65,28 @@ function StudyCardSmall({ study, conditions, handleAddCondition }) {
       <Text color="gray.500" noOfLines={5} mt="10px">
         {study.description}
       </Text>
-      <Flex marginTop="auto" gridGap="8px" justify="flex-end">
-        <Link to={`/study/${study.id}/details`} isWrapper>
-          <Button size="sm" color="gray.600">
-            Details
-          </Button>
-        </Link>
-        <Tooltip label={!verified && "You must verify your email before enrolling for studies"}>
-          <Box>
-            <Link to={isEnrolled ? "" : `/study/${study.id}/screening`} isWrapper>
-              <Button size="sm" colorScheme={isEnrolled ? "green" : "blue"} isDisabled={!verified}>
-                {isEnrolled ? "Enrolled" : "Enroll"}
-              </Button>
-            </Link>
-          </Box>
-        </Tooltip>
+      <Flex marginTop="auto" justify="space-between">
+        <Text fontSize="sm" color="gray.400">
+          {Math.trunc(study.distance / (user.timezone.split("/")[0] === "America" ? 1.609 : 1))}
+          {user.timezone.split("/")[0] === "America" ? " mi " : " km "}
+          away
+        </Text>
+        <Flex marginTop="auto" gridGap="8px" justify="flex-end">
+          <Link to={`/study/${study.id}/details`} isWrapper>
+            <Button size="sm" color="gray.600">
+              Details
+            </Button>
+          </Link>
+          <Tooltip label={!verified && "You must verify your email before enrolling for studies"}>
+            <Box>
+              <Link to={isEnrolled ? "" : `/study/${study.id}/screening`} isWrapper>
+                <Button size="sm" colorScheme={isEnrolled ? "green" : "blue"} isDisabled={!verified}>
+                  {isEnrolled ? "Enrolled" : "Enroll"}
+                </Button>
+              </Link>
+            </Box>
+          </Tooltip>
+        </Flex>
       </Flex>
     </Flex>
   );

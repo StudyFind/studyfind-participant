@@ -3,10 +3,10 @@ import GoogleMapReact from "google-map-react";
 import StudyCardSmall from "molecules/StudyCardSmall";
 import { Loader } from "components";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import { Box, Grid } from "@chakra-ui/react";
+import { Box, Grid, Text } from "@chakra-ui/react";
 
 function MapView({ loc, user, studies, conditions, handleConditions }) {
-  const [location, setLocation] = useState(loc);
+  const [location, setLocation] = useState();
   const [selected, setSelected] = useState(null);
 
   useEffect(() => setLocation(loc), [loc]);
@@ -29,7 +29,6 @@ function MapView({ loc, user, studies, conditions, handleConditions }) {
 
   return (
     // Important! Always set the container height explicitly
-    <Grid gap="25px" templateColumns="1fr 1fr">
       <Box h="320px" w="100%" rounded="lg">
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyAed_hgBp7VzxxTXlC9Buh9l_6gmNgNK1g" }}
@@ -37,12 +36,16 @@ function MapView({ loc, user, studies, conditions, handleConditions }) {
           zoom={11}
         >
           {studies.map((study) => {
-            if (study.locations.length === 0) {
-              return null;
-            }
+            // if (study.locations.length === 0) {
+            //   return null;
+            // }
 
-            const lat = study.locations[0].latitude;
-            const lng = study.locations[0].longitude;
+            // const lat = study.locations[0].latitude;
+            // const lng = study.locations[0].longitude;
+
+            const lat = study.g.geopoint.latitude
+            console.log(lat)
+            const lng = study.g.geopoint.longitude
 
             return (
               <FaMapMarkerAlt
@@ -57,15 +60,6 @@ function MapView({ loc, user, studies, conditions, handleConditions }) {
           })}
         </GoogleMapReact>
       </Box>
-      {selected && (
-        <StudyCardSmall
-          study={selected}
-          user={user}
-          conditions={conditions}
-          handleConditions={handleConditions}
-        />
-      )}
-    </Grid>
   );
 }
 

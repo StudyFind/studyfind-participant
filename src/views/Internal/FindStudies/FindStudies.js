@@ -19,13 +19,14 @@ import FilterList from "./FilterList";
 import ConditionsList from "./ConditionsList";
 import GridView from "./GridView";
 import MapView from "./MapView";
+import GoogleMapReact from "google-map-react";
 
 function FindStudies() {
   const user = useContext(UserContext);
   const { studies, range, setRange } = useContext(StudiesContext);
+  console.log("studies: ", studies)
 
   const [view, setView] = useState("grid");
-  const [location, setLocation] = useState();
   const [filters, setFilters] = useState({
     search: "",
     control: false,
@@ -36,17 +37,6 @@ function FindStudies() {
     range: false,
     conditions: [],
   });
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      console.log(position.coords);
-      console.log(user.timezone)
-      setLocation({
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      });
-    });
-  }, []);
 
   const handleFilters = (name, value) => {
     setFilters((prev) => ({ ...prev, [name]: value }));
@@ -120,6 +110,8 @@ function FindStudies() {
 
   const filteredStudies = filter(studies);
 
+  console.log("filtered Studies: ", filteredStudies)
+
   return (
     <>
       <Flex justify="space-between" align="center" mb="25px">
@@ -137,11 +129,12 @@ function FindStudies() {
       <Box
         size="sm"
         color={`grey.500`}
-        bg={`grey.100`}
+        bg={'white'}
         borderColor={`grey.300`}
         borderRadius={'10px'}
         borderWidth="1px"
         padding={'10px'}
+        width={`calc(50% - 10px)`}
         mb='25px'
         >
         <Text>Showing studies {range} {user.timezone.split('/')[0] === "America" ? "mi" : "km"} away</Text>
@@ -168,16 +161,24 @@ function FindStudies() {
       {view === "grid" ? (
         <GridView
           conditions={filters.conditions}
-          filteredStudies={filteredStudies}
+          filteredStudies={studies}
           handleAddCondition={handleAddCondition}
         />
       ) : (
         <MapView
-          loc={location}
+          loc={user.location}
           user={user}
           conditions={filters.conditions}
-          studies={filteredStudies}
+          studies={studies}
         />
+        // <Box style={{ height: '100vh', width: '100%' }} rounded="lg">
+        //   <GoogleMapReact
+        //     style={{ height: '100vh', width: '100%' }}
+        //     bootstrapURLKeys={{ key: "AIzaSyAed_hgBp7VzxxTXlC9Buh9l_6gmNgNK1g" }}
+        //     center={user.location}
+        //     zoom={11}
+        //   />
+        // </Box>
       )}
     </>
   );

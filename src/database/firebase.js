@@ -1,4 +1,5 @@
 import firebase from "firebase";
+import * as geofirestore from 'geofirestore';
 
 const app = firebase.initializeApp({
   apiKey: "AIzaSyB0_PyqZxFZm8t0jY3PAFyP8oMxFalCYGA",
@@ -13,5 +14,6 @@ const app = firebase.initializeApp({
 const auth = app.auth();
 const storage = app.storage();
 const firestore = app.firestore();
+const geostore = geofirestore.initializeApp(firestore)
 
-export { auth, storage, firestore };
+export { auth, storage, firestore, geostore };
