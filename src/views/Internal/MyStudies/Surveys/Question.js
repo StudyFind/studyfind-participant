@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Text, Box, Flex, Stack, Checkbox } from "@chakra-ui/react";
+import { Text, Box, Flex, Stack, Checkbox, FormControl } from "@chakra-ui/react";
 import {
   TextareaInput,
   RadioInput,
@@ -11,8 +11,9 @@ import {
   LinkInput,
   DateInput,
 } from "components";
+import { Error } from "components/Inputs/helpers"; //TODO checkboxesinput
 
-function Question({ index, question, response, handleChange, handleFiles }) {
+function Question({ index, question, response, error, handleChange, handleFiles }) {
   const { prompt, type, options, constraints } = question;
 
   const transformOptions = (options) => {
@@ -30,16 +31,16 @@ function Question({ index, question, response, handleChange, handleFiles }) {
     handleFiles(index, name, file);
   };
 
+  const handleIncrement = () => {}; //TODO
+
+  const handleDecrement = () => {}; //TODO
+
   useEffect(() => {
     if (type === "checkboxes") {
       const values = Array(options.length);
       handleChange(index, { values: values.fill(false) });
-    } else {
-      handleChange(index, "");
     }
   }, []);
-
-  //TODO errors constraints
 
   return (
     <Box borderWidth="1px" bg="white" rounded="md" p="15px">
@@ -58,6 +59,7 @@ function Question({ index, question, response, handleChange, handleFiles }) {
         <TextareaInput
           name={index}
           value={response}
+          error={error}
           placeholder={"Respond"}
           onChange={handleChange}
           limit={constraints?.characterMax}
@@ -67,27 +69,32 @@ function Question({ index, question, response, handleChange, handleFiles }) {
         <RadioInput
           name={index}
           value={response}
+          error={error}
           options={transformOptions(options)}
           onChange={handleChange}
         />
       )}
       {type === "checkboxes" && (
-        <Stack>
-          {options?.map((o, i) => (
-            <Checkbox
-              key={i}
-              isChecked={response?.values && response.values[i]}
-              onChange={(e) => handleCheckbox(i, e.target.checked)}
-            >
-              {o}
-            </Checkbox>
-          ))}
-        </Stack>
+        <FormControl isInvalid={!!error}>
+          <Stack>
+            {options?.map((o, i) => (
+              <Checkbox
+                key={i}
+                isChecked={response?.values && response.values[i]}
+                onChange={(e) => handleCheckbox(i, e.target.checked)}
+              >
+                {o}
+              </Checkbox>
+            ))}
+          </Stack>
+          <Error error={error} />
+        </FormControl>
       )}
       {type === "dropdown" && (
         <SelectInput
           name={index}
           value={response}
+          error={error}
           placeholder="Select"
           options={transformOptions(options)}
           onChange={handleChange}
@@ -98,16 +105,15 @@ function Question({ index, question, response, handleChange, handleFiles }) {
           type="number"
           name={index}
           value={response}
+          error={error}
           onChange={handleChange}
-          step={constraints?.numberInterval}
-          min={constraints?.numberMin}
-          max={constraints?.numberMax}
         />
       )}
       {type === "email" && (
         <EmailInput
           name={index}
           value={response}
+          error={error}
           placeholder={"Enter an email"}
           onChange={handleChange}
         />
@@ -116,13 +122,15 @@ function Question({ index, question, response, handleChange, handleFiles }) {
         <PhoneInput
           name={index}
           value={response}
+          error={error}
           placeholder={"Enter a phone number"}
           onChange={handleChange}
         />
       )}
-      {type === "file" && (
+      {type === "file" && ( //TODO view
         <FileInput
           name={index}
+          error={error}
           onChange={handleSelectFile}
           accept={`${constraints?.pdfAllowed ? "application/pdf, " : ""}${
             constraints?.docAllowed ? "application/msword, " : ""
@@ -135,6 +143,7 @@ function Question({ index, question, response, handleChange, handleFiles }) {
         <LinkInput
           name={index}
           value={response}
+          error={error}
           placeholder={"Enter a link"}
           onChange={handleChange}
         />
@@ -143,6 +152,7 @@ function Question({ index, question, response, handleChange, handleFiles }) {
         <DateInput
           name={index}
           value={response}
+          error={error}
           onChange={handleChange}
           max={constraints?.dateMax}
           min={constraints?.dateMin}
@@ -153,10 +163,8 @@ function Question({ index, question, response, handleChange, handleFiles }) {
           name={index}
           type="time"
           value={response}
+          error={error}
           onChange={handleChange}
-          max={constraints?.timeMax}
-          min={constraints?.timeMin}
-          step={parseInt(constraints?.timeInterval) * 60}
         />
       )}
     </Box>

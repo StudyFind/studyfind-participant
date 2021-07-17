@@ -1,24 +1,28 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { auth, storage } from "database/firebase";
-import moment from "moment";
 
 import { Flex, Button, Heading, Grid, Text } from "@chakra-ui/react";
 import { useArray, useDocument } from "hooks";
 import { Form, Loader } from "components";
+import { datetime } from "functions";
 
 import Question from "./Question";
+import validateForm from "./QuestionErrorHandling";
 
 function SurveyRespond({ survey, responsesRef, handleCloseSurvey }) {
   const uid = auth.currentUser.uid;
   const { studyID, actionID } = useParams();
 
-  const [responseDoc, loading, error] = useDocument(responsesRef.doc(survey.id));
-  const [responses, setResponses] = useArray(Array(survey.questions.length));
-
+  const [responseDoc, loading, error] = useDocument(responsesRef.doc(survey?.id));
+  const init = Array(survey?.questions?.length);
+  const [responses, setResponses] = useArray(init.fill(""));
   const [files, setFiles] = useState([]);
+  const [errors, setErrors] = useArray(Array(survey?.questions?.length));
+  const [submitting, setSubmitting] = useState(false);
 
   const handleChange = (index, value) => {
+    setErrors.updateItem(undefined, index);
     setResponses.updateItem(value, index);
   };
 
@@ -26,39 +30,58 @@ function SurveyRespond({ survey, responsesRef, handleCloseSurvey }) {
     setFiles((prev) => [...prev, { index, name, file }]);
   };
 
-  const handleSubmit = async () => {
-    const submitTime = moment().utc().valueOf();
+  const generateFileStoragePathAndTime = () => {
+    const submitTime = datetime.getNow();
     const refPath = `study/${studyID}/participants/${uid}/surveyResponses/${actionID}/`;
 
     files.forEach((file) => {
       handleChange(file.index, `${refPath + file.name + "_" + submitTime}`);
     });
 
-    await Promise.all([
-      files.forEach((file) => {
-        const ref = storage.ref(responses[file.index]);
-        ref.put(file.file);
-      }),
-      responsesRef.doc(survey.id).set({
-        responses,
-        time: submitTime,
-      }),
-    ]);
+    return submitTime;
+  };
 
-    handleCloseSurvey();
+  const handleSubmit = async () => {
+    setSubmitting(true);
+    validateForm(survey?.questions, responses, setErrors);
   };
 
   useEffect(() => {
     responseDoc?.responses && setResponses.updateArray(responseDoc.responses);
   }, [responseDoc]);
 
+  useEffect(async () => {
+    if (submitting) {
+      if (!errors.every((e) => typeof e === "undefined")) {
+        setSubmitting(false);
+        return;
+      }
+
+      const submitTime = generateFileStoragePathAndTime();
+
+      await Promise.all([
+        files.forEach((file) => {
+          const ref = storage.ref(responses[file.index]);
+          ref.put(file.file);
+        }),
+        responsesRef.doc(survey?.id).set({
+          responses,
+          time: submitTime,
+        }),
+      ]);
+
+      setSubmitting(false);
+      handleCloseSurvey();
+    }
+  }, [submitting, errors]);
+
   if (loading) return <Loader />;
-  if (error) return <Text>err</Text>;
+  if (error) return <Text>err</Text>; //TODO
 
   return (
     <Form onSubmit={handleSubmit}>
       <Heading size="md" mb="20px">
-        {survey.title}
+        {survey?.title}
       </Heading>
 
       <Grid gap="20px" mb="100px">
@@ -68,6 +91,7 @@ function SurveyRespond({ survey, responsesRef, handleCloseSurvey }) {
             index={i}
             question={q}
             response={responses[i]}
+            error={errors[i]}
             handleChange={handleChange}
             handleFiles={handleFiles}
           />
@@ -88,8 +112,8 @@ function SurveyRespond({ survey, responsesRef, handleCloseSurvey }) {
         <Button onClick={handleCloseSurvey} color="gray.500" variant="outline">
           Cancel
         </Button>
-        <Button type="submit" colorScheme="green">
-          Save
+        <Button isLoading={submitting} type="submit" colorScheme="green">
+          Submit
         </Button>
       </Flex>
     </Form>

@@ -36,7 +36,7 @@ function SurveyCard({ survey, responsesRef, setSurvey }) {
           colorScheme="blue"
           onClick={() => setSurvey(survey.id)}
         >
-          {responded ? "Responded" : "Respond"}
+          {responded ? "Responded" : "Respond" /*TODO disable form*/}
         </Button>
       </Flex>
     </Box>
