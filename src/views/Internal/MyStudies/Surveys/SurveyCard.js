@@ -1,7 +1,8 @@
+import { auth } from "database/firebase";
 import { useState, useEffect } from "react";
 import { Box, Heading, Text, Button, Flex } from "@chakra-ui/react";
 
-function SurveyCard({ survey, responsesRef, setSurvey }) {
+function SurveyCard({ survey, surveysRef, setSurvey }) {
   const [loading, setLoading] = useState(false);
   const [lenDisplay, setLenDisplay] = useState("");
   const [responded, setResponded] = useState(null);
@@ -16,7 +17,11 @@ function SurveyCard({ survey, responsesRef, setSurvey }) {
   useEffect(async () => {
     setLoading(true);
     getLenDisplay();
-    const docRef = await responsesRef.doc(survey.id).get();
+    const docRef = await surveysRef
+      .doc(survey.id)
+      .collection("responses")
+      .doc(auth.currentUser.uid)
+      .get();
     setResponded(docRef.exists);
     setLoading(false);
   }, []);

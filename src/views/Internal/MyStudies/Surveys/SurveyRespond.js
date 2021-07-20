@@ -10,11 +10,13 @@ import { datetime } from "functions";
 import Question from "./Question";
 import validateForm from "./QuestionErrorHandling";
 
-function SurveyRespond({ survey, responsesRef, handleCloseSurvey }) {
+function SurveyRespond({ survey, surveysRef, handleCloseSurvey }) {
   const uid = auth.currentUser.uid;
   const { studyID, actionID } = useParams();
 
-  const [responseDoc, loading, error] = useDocument(responsesRef.doc(survey?.id));
+  const [responseDoc, loading, error] = useDocument(
+    surveysRef.doc(actionID).collection("responses").doc(uid)
+  );
   const init = Array(survey?.questions?.length);
   const [responses, setResponses] = useArray(init.fill(""));
   const [files, setFiles] = useState([]);
@@ -32,7 +34,7 @@ function SurveyRespond({ survey, responsesRef, handleCloseSurvey }) {
 
   const generateFileStoragePathAndTime = () => {
     const submitTime = datetime.getNow();
-    const refPath = `study/${studyID}/participants/${uid}/surveyResponses/${actionID}/`;
+    const refPath = `study/${studyID}/surveys/${actionID}/responses/${uid}/`;
 
     files.forEach((file) => {
       handleChange(file.index, `${refPath + file.name + "_" + submitTime}`);
@@ -64,7 +66,7 @@ function SurveyRespond({ survey, responsesRef, handleCloseSurvey }) {
           const ref = storage.ref(responses[file.index]);
           ref.put(file.file);
         }),
-        responsesRef.doc(survey?.id).set({
+        surveysRef.doc(actionID).collection("responses").doc(uid).set({
           responses,
           time: submitTime,
         }),
