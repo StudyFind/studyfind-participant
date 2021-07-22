@@ -4,63 +4,49 @@ import StudyCardSmall from "molecules/StudyCardSmall";
 import { Loader } from "components";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { Box, Grid, Text } from "@chakra-ui/react";
+import React from 'react'
+import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+
+const containerStyle = {
+  width: '400px',
+  height: '400px'
+};
+
+const center = {
+  lat: -3.745,
+  lng: -38.523
+};
 
 function MapView({ loc, user, studies, conditions, handleConditions }) {
-  const [location, setLocation] = useState();
-  const [selected, setSelected] = useState(null);
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: "AIzaSyAed_hgBp7VzxxTXlC9Buh9l_6gmNgNK1g"
+  })
 
-  useEffect(() => setLocation(loc), [loc]);
+  const [map, setMap] = React.useState(null)
 
-  const handleClick = (studyID) => {
-    const study = studies.find((study) => study.id === studyID);
-    const { locations } = study;
+  const onLoad = React.useCallback(function callback(map) {
+    const bounds = new window.google.maps.LatLngBounds();
+    map.fitBounds(bounds);
+    setMap(map)
+  }, [])
 
-    if (locations) {
-      setLocation({
-        lat: locations[0].latitude,
-        lng: locations[0].longitude,
-      });
+  const onUnmount = React.useCallback(function callback(map) {
+    setMap(null)
+  }, [])
 
-      setSelected(study);
-    }
-  };
-
-  if (!location) return <Loader />;
-
-  return (
-    // Important! Always set the container height explicitly
-      <Box h="320px" w="100%" rounded="lg">
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: "AIzaSyAed_hgBp7VzxxTXlC9Buh9l_6gmNgNK1g" }}
-          center={location}
-          zoom={11}
-        >
-          {studies.map((study) => {
-            // if (study.locations.length === 0) {
-            //   return null;
-            // }
-
-            // const lat = study.locations[0].latitude;
-            // const lng = study.locations[0].longitude;
-
-            const lat = study.g.geopoint.latitude
-            console.log(lat)
-            const lng = study.g.geopoint.longitude
-
-            return (
-              <FaMapMarkerAlt
-                key={study.id}
-                lat={lat}
-                lng={lng}
-                size={30}
-                color="red"
-                onClick={() => handleClick(study.id)}
-              />
-            );
-          })}
-        </GoogleMapReact>
-      </Box>
-  );
+  return isLoaded ? (
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={center}
+        zoom={10}
+        onLoad={onLoad}
+        onUnmount={onUnmount}
+      >
+        { /* Child components, such as markers, info windows, etc. */ }
+        <></>
+      </GoogleMap>
+  ) : <></>
 }
 
-export default MapView;
+export default React.memo(MapView);
