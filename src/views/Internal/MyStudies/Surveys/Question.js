@@ -1,5 +1,15 @@
 import { useEffect } from "react";
-import { Text, Box, Flex, Stack, Checkbox, FormControl } from "@chakra-ui/react";
+import {
+  Text,
+  Box,
+  Flex,
+  Stack,
+  Checkbox,
+  FormControl,
+  ButtonGroup,
+  IconButton,
+} from "@chakra-ui/react";
+import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import {
   TextareaInput,
   RadioInput,
@@ -11,7 +21,7 @@ import {
   LinkInput,
   DateInput,
 } from "components";
-import { Error } from "components/Inputs/helpers"; //TODO checkboxesinput
+import { Error } from "components/Inputs/helpers";
 
 function Question({ index, question, response, error, handleChange, handleFiles }) {
   const { prompt, type, options, constraints } = question;
@@ -31,9 +41,33 @@ function Question({ index, question, response, error, handleChange, handleFiles 
     handleFiles(index, name, file);
   };
 
-  const handleIncrement = () => {}; //TODO
+  const handleIncrement = () => {
+    const interval = Number(constraints?.numberInterval) || 1;
+    const min = Number(constraints?.numberMin) || 0;
+    const max = Number(constraints?.numberMax) || null;
+    const resp = Number(response);
+    const higher = resp - ((resp - min) % interval) + interval;
 
-  const handleDecrement = () => {}; //TODO
+    if (!resp || resp < min) {
+      handleChange(index, String(min));
+    } else if (max && !(higher > max)) {
+      handleChange(index, String(higher));
+    }
+  };
+
+  const handleDecrement = () => {
+    const interval = Number(constraints?.numberInterval) || 1;
+    const min = Number(constraints?.numberMin) || 0;
+    const max = Number(constraints?.numberMax) || null;
+    const resp = Number(response);
+    const lower = resp - ((resp - min) % interval) - interval;
+
+    if ((max && !resp) || resp > max) {
+      handleChange(index, String(max - ((max - min) % interval)));
+    } else if (!(lower < min)) {
+      handleChange(index, String(lower));
+    }
+  };
 
   useEffect(() => {
     if (type === "checkboxes") {
@@ -101,13 +135,21 @@ function Question({ index, question, response, error, handleChange, handleFiles 
         />
       )}
       {type === "number" && (
-        <TextInput
-          type="number"
-          name={index}
-          value={response}
-          error={error}
-          onChange={handleChange}
-        />
+        <Flex>
+          <TextInput
+            type="number"
+            name={index}
+            value={response}
+            error={error}
+            placeholder={"Enter a number"}
+            onChange={handleChange}
+            roundedRight={0}
+          />
+          <ButtonGroup isAttached>
+            <IconButton icon={<AddIcon />} rounded={0} onClick={handleIncrement} />
+            <IconButton icon={<MinusIcon />} onClick={handleDecrement} />
+          </ButtonGroup>
+        </Flex>
       )}
       {type === "email" && (
         <EmailInput

@@ -1,4 +1,7 @@
-function validateForm(questions, responses, setErrors) {
+function validateForm(questions, responses, setErrors, files) {
+  const emailRegex = /^[^\s@]+@[^\s@]+$/;
+  const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+
   const hhmmToMinutes = (hhmm) => {
     const splt = hhmm.split(":");
     return 60 * Number(splt[0]) + Number(splt[1]);
@@ -20,8 +23,17 @@ function validateForm(questions, responses, setErrors) {
   };
 
   for (let i = 0; i < questions.length; i++) {
-    if (questions[i]?.constraints?.required && !responses[i]) {
-      setErrors.updateItem("This question is required.", i);
+    if (questions[i]?.constraints?.required) {
+      if (!responses[i]) {
+        setErrors.updateItem("This question is required.", i);
+        continue;
+      }
+    } else if (!responses[i]) {
+      if (questions[i]?.type === "file") {
+        if (!files.some((file) => file.index === i)) {
+          setErrors.updateItem("This question is required.", i);
+        }
+      }
       continue;
     }
 
@@ -52,12 +64,12 @@ function validateForm(questions, responses, setErrors) {
         }
       }
       if (questions[i]?.constraints?.numberInterval) {
-        const interval = Number(questions[i]?.constraints?.numberInterval);
+        const interval = Number(questions[i]?.constraints?.numberInterval) || 1;
         const min = Number(questions[i]?.constraints?.numberMin) || 0;
         const max = Number(questions[i]?.constraints?.numberMax) || null;
         const resp = Number(responses[i]);
         if ((resp - min) % interval !== 0) {
-          const lower = resp - ((resp % interval) - min);
+          const lower = resp - ((resp - min) % interval);
           if (max && lower + interval > max) {
             setErrors.updateItem(`Invalid number. The nearest valid number is ${lower}.`, i);
           } else {
@@ -68,6 +80,18 @@ function validateForm(questions, responses, setErrors) {
           }
           continue;
         }
+      }
+    }
+
+    if (questions[i]?.type === "email") {
+      if (!emailRegex.test(responses[i])) {
+        setErrors.updateItem("Please enter a valid email.", i);
+      }
+    }
+
+    if (questions[i]?.type === "link") {
+      if (!urlRegex.test(responses[i])) {
+        setErrors.updateItem("Please enter a valid url.", i);
       }
     }
 
@@ -87,20 +111,20 @@ function validateForm(questions, responses, setErrors) {
         }
       }
       if (questions[i]?.constraints?.timeInterval) {
-        const interval = parseInt(questions[i]?.constraints?.timeInterval);
+        const interval = parseInt(questions[i]?.constraints?.timeInterval) || 1;
         const min = hhmmToMinutes(questions[i]?.constraints?.timeMin) || 0;
         const max = hhmmToMinutes(questions[i]?.constraints?.timeMax) || 1440;
         const resp = hhmmToMinutes(responses[i]);
         if ((resp - min) % interval !== 0) {
-          const lower = resp - ((resp % interval) - min);
+          const lower = resp - ((resp - min) % interval);
           if (max && lower + interval > max) {
             setErrors.updateItem(
-              `Invalid number. The nearest valid number is ${minutesToHhmm(lower)}.`,
+              `Invalid time. The nearest valid time is ${minutesToHhmm(lower)}.`,
               i
             );
           } else {
             setErrors.updateItem(
-              `Invalid number. The nearest two valid numbers are ${minutesToHhmm(
+              `Invalid time. The nearest two valid times are ${minutesToHhmm(
                 lower
               )} and ${minutesToHhmm(lower + interval)}.`,
               i
