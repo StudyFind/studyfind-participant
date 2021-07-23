@@ -8,13 +8,14 @@ import { Loader, Message } from "components";
 
 import SurveyList from "./SurveyList";
 import SurveyRespond from "./SurveyRespond";
+import SurveysError from "./SurveysError";
 
 function Surveys({ study }) {
   const history = useHistory();
   const { actionID } = useParams();
 
   const surveysRef = firestore.collection("studies").doc(study.id).collection("surveys");
-  const [surveys, loading] = useCollection(surveysRef); //order by time
+  const [surveys, loading, error] = useCollection(surveysRef); //order by time
 
   const handleSelectSurvey = (surveyID) => {
     history.push(`/MyStudies/${study.id}/surveys/${surveyID}`);
@@ -32,6 +33,8 @@ function Surveys({ study }) {
     );
   }
 
+  if (error) return <SurveysError />;
+
   if (!surveys || !surveys.length) {
     return (
       <Box>
@@ -45,13 +48,11 @@ function Surveys({ study }) {
       <SurveyList surveys={surveys} surveysRef={surveysRef} setSurvey={handleSelectSurvey} />
     </Box>
   ) : (
-    <Box p="25px">
-      <SurveyRespond
-        survey={surveys.find((s) => s.id === actionID)}
-        surveysRef={surveysRef}
-        handleCloseSurvey={handleCloseSurvey}
-      />
-    </Box>
+    <SurveyRespond
+      survey={surveys.find((s) => s.id === actionID)}
+      surveysRef={surveysRef}
+      handleCloseSurvey={handleCloseSurvey}
+    />
   );
 }
 

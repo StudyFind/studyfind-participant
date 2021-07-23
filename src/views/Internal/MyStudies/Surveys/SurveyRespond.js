@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { auth, storage } from "database/firebase";
 
-import { Flex, Button, Heading, Grid, Text } from "@chakra-ui/react";
+import { Flex, Button, Heading, Grid } from "@chakra-ui/react";
 import { useArray, useDocument } from "hooks";
 import { Form, Loader } from "components";
 import { datetime } from "functions";
 
 import Question from "./Question";
 import validateForm from "./QuestionErrorHandling";
+import SurveysError from "./SurveysError";
 
 function SurveyRespond({ survey, surveysRef, handleCloseSurvey }) {
   const uid = auth.currentUser.uid;
@@ -43,9 +44,9 @@ function SurveyRespond({ survey, surveysRef, handleCloseSurvey }) {
     return submitTime;
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
+    validateForm(survey?.questions, responses, setErrors, files);
     setSubmitting(true);
-    validateForm(survey?.questions, responses, setErrors);
   };
 
   useEffect(() => {
@@ -78,15 +79,15 @@ function SurveyRespond({ survey, surveysRef, handleCloseSurvey }) {
   }, [submitting, errors]);
 
   if (loading) return <Loader />;
-  if (error) return <Text>err</Text>; //TODO
+  if (error) return <SurveysError />;
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Heading size="md" mb="20px">
+    <Form onSubmit={handleSubmit} noValidate>
+      <Heading p="25px" size="md">
         {survey?.title}
       </Heading>
 
-      <Grid gap="20px" mb="100px">
+      <Grid px="25px" gap="20px" mb="100px">
         {survey?.questions?.map((q, i) => (
           <Question
             key={i}
@@ -107,8 +108,7 @@ function SurveyRespond({ survey, surveysRef, handleCloseSurvey }) {
         position="fixed"
         bottom="0"
         borderTopWidth="1px"
-        py="15px"
-        px="40px"
+        p="15px"
         gridGap="10px"
       >
         <Button onClick={handleCloseSurvey} color="gray.500" variant="outline">
