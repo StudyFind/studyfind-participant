@@ -52,7 +52,7 @@ export const Form = ({ initial, cleared, check, onSubmit }) => {
       })
       .finally(() => {
         setLoading(false);
-        document.activeElement?.blur();
+        document.activeElement.blur();
       });
   };
 

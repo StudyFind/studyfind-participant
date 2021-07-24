@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import logo from "images/logo.jpg";
 import { Link } from "react-router-dom";

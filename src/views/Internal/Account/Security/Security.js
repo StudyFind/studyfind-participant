@@ -1,3 +1,4 @@
+import React from "react";
 import { Divider } from "@chakra-ui/react";
 
 import ChangePassword from "./ChangePassword";

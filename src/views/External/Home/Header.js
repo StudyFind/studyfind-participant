@@ -92,7 +92,7 @@ const ResponsiveBox = styled(Box)`
   top: 0;
   padding: 20px;
   width: 100vw;
-  z-index: 2;
+  z-index: 5;
 
   @media (min-aspect-ratio: 8/10) and (max-aspect-ratio: 1/1) {
     background-color: white;

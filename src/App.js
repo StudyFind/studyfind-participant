@@ -1,3 +1,4 @@
+import React from "react";
 import { auth } from "database/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 

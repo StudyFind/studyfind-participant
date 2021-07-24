@@ -1,3 +1,4 @@
+import React from "react";
 import { auth } from "database/firebase";
 
 import { Text, Alert, AlertIcon } from "@chakra-ui/react";

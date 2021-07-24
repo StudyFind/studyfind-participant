@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import GoogleMapReact from "google-map-react";
 import StudyCardSmall from "molecules/StudyCardSmall";

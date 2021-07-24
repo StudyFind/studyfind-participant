@@ -2,14 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { HashLink } from "react-router-hash-link";
 
-import {
-  Heading,
-  Button,
-  Text,
-  Flex,
-  useMediaQuery,
-  Image,
-} from "@chakra-ui/react";
+import { Heading, Button, Text, Flex, useMediaQuery, Image } from "@chakra-ui/react";
 
 import Background from "images/web-hero-background.svg";
 import SearchBar from "images/search-bar.gif";
@@ -17,13 +10,9 @@ import SearchBar from "images/search-bar.gif";
 function Hero() {
   return (
     <Box>
-      <SearchGifBox>
-        <HashLink smooth to={"/#search"}>
-          <SearchBarImage>
-            <img src={SearchBar} width="100%" />
-          </SearchBarImage>
-        </HashLink>
-      </SearchGifBox>
+      <ImageBox>
+        <img src={SearchBar} width="100%" />
+      </ImageBox>
       <ResponsiveHeading lineHeight="1.25">
         <Text color="#00C9A6">Sign up</Text>
         <Text color="#387DFF">For Clinical Trials with a</Text>
@@ -81,29 +70,10 @@ const ResponsiveHeading = styled(Heading)`
   }
 `;
 
-const SearchGifBox = styled(Flex)`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 50px;
-
+const ImageBox = styled.section`
+  margin: 5% 15%;
   @media (max-width: 625px) {
-    padding: 10% 0%;
-  }
-`;
-
-const SearchBarImage = styled.section`
-  width: 70%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  text-align: center;
-  margin: 0% 15%;
-
-  @media (max-width: 625px) {
-    width: 100%;
-    margin: 0%;
+    margin: 7% 1.5%;
   }
 `;
 

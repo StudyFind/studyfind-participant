@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Box,
-  Flex,
-  Heading,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Button,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, Menu, MenuButton, MenuItem, MenuList, Button } from "@chakra-ui/react";
 
 import FilterToggle from "./FilterToggle";
 import { ChevronDownIcon } from "@chakra-ui/icons";
@@ -47,11 +38,7 @@ function FilterList({ filters, handleFilters }) {
           </MenuButton>
           <MenuList>
             <MenuItem>
-              <FilterToggle
-                name="control"
-                value={filters.control}
-                onChange={handleFilters}
-              >
+              <FilterToggle name="control" value={filters.control} onChange={handleFilters}>
                 Accepts Healthy Volunteers
               </FilterToggle>
             </MenuItem>
@@ -77,38 +64,25 @@ function FilterList({ filters, handleFilters }) {
         </Menu>
       </Box>
     );
-  } else {
-    return (
-      <Box my="25px">
-        <Heading size="md" mb="10px">
-          Filters
-        </Heading>
-        <Flex gridGap="10px" wrap="wrap">
-          <FilterToggle
-            name="control"
-            value={filters.control}
-            onChange={handleFilters}
-          >
-            Accepts Healthy Volunteers
-          </FilterToggle>
-          <FilterToggle
-            name="observational"
-            value={filters.observational}
-            onChange={handleFilters}
-          >
-            Hide Observational Studies
-          </FilterToggle>
-          <FilterToggle
-            name="interventional"
-            value={filters.interventional}
-            onChange={handleFilters}
-          >
-            Hide Interventional Studies
-          </FilterToggle>
-        </Flex>
-      </Box>
-    );
   }
+  return (
+    <Box my="25px">
+      <Heading size="md" mb="10px">
+        Filters
+      </Heading>
+      <Flex gridGap="10px" wrap="wrap">
+        <FilterToggle name="control" value={filters.control} onChange={handleFilters}>
+          Accepts Healthy Volunteers
+        </FilterToggle>
+        <FilterToggle name="observational" value={filters.observational} onChange={handleFilters}>
+          Hide Observational Studies
+        </FilterToggle>
+        <FilterToggle name="interventional" value={filters.interventional} onChange={handleFilters}>
+          Hide Interventional Studies
+        </FilterToggle>
+      </Flex>
+    </Box>
+  );
 }
 
 export default FilterList;

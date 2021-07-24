@@ -109,7 +109,8 @@ function MapView({ loc, user, studies, conditions, handleConditions }) {
         </Box>
       </>
     );
-  } else if (selected && !isCompact) {
+  }
+  if (selected && !isCompact) {
     return (
       <Grid gap="25px" templateColumns="1fr 1fr">
         <Box h="100%" w="100%" rounded="lg">
@@ -122,13 +123,12 @@ function MapView({ loc, user, studies, conditions, handleConditions }) {
         />
       </Grid>
     );
-  } else {
-    return (
-      <Box h="68%" w="100%" rounded="lg">
-        {content}
-      </Box>
-    );
   }
+  return (
+    <Box h="68%" w="100%" rounded="lg">
+      {content}
+    </Box>
+  );
 }
 
 const InnerBox = styled.section`

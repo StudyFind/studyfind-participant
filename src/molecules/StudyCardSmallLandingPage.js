@@ -4,15 +4,7 @@ import { auth, firestore } from "database/firebase";
 import { UserContext } from "context";
 import { NavHashLink as HashLink } from "react-router-hash-link";
 
-import {
-  Box,
-  Flex,
-  Heading,
-  Text,
-  Button,
-  Icon,
-  Tooltip,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, Button, Icon, Tooltip } from "@chakra-ui/react";
 import { Link } from "components";
 import { FaBookmark } from "react-icons/fa";
 
@@ -82,4 +74,4 @@ function StudyCardSmallLandingPage({ study, conditions, handleAddCondition }) {
   );
 }
 
-export default StudyCardSmallLandingPage
+export default StudyCardSmallLandingPage;

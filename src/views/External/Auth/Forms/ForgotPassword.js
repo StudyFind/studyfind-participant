@@ -1,3 +1,4 @@
+import React from "react";
 import { forgotPassword } from "database/auth";
 import { useAuthForm } from "hooks";
 

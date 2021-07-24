@@ -1,3 +1,4 @@
+import React from "react";
 import { Text, Alert, AlertIcon } from "@chakra-ui/react";
 
 function VerificationFailure() {
