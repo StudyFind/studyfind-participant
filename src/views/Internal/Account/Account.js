@@ -9,12 +9,13 @@ import { UserContext } from "context";
 import { firestore } from "database/firebase";
 
 import { Flex, Grid, Heading, Button, Divider, useToast } from "@chakra-ui/react";
-import { FaDoorOpen, FaUser, FaMapMarkedAlt, FaBell, FaShieldAlt } from "react-icons/fa";
+import { FaDoorOpen, FaUser, FaMapMarkerAlt, FaMapMarkedAlt, FaBell, FaShieldAlt } from "react-icons/fa";
 
 import Profile from "./Profile/Profile";
 import Timezone from "./Timezone/Timezone";
 import Notifications from "./Notifications/Notifications";
 import Security from "./Security/Security";
+import Location from "./Location/Location"
 
 import AccountTab from "./AccountTab";
 import AccountButtons from "./AccountButtons";
@@ -86,6 +87,11 @@ function Account() {
       content: (
         <Timezone inputs={inputs} handleChange={handleChange} handleTimezone={handleTimezone} />
       ),
+    },
+    {
+      name: "location",
+      icon: <FaMapMarkerAlt />,
+      content: <Location />
     },
     {
       name: "notifications",
