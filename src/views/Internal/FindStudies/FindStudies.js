@@ -171,14 +171,6 @@ function FindStudies() {
           conditions={filters.conditions}
           studies={studies}
         />
-        // <Box style={{ height: '100vh', width: '100%' }} rounded="lg">
-        //   <GoogleMapReact
-        //     style={{ height: '100vh', width: '100%' }}
-        //     bootstrapURLKeys={{ key: "AIzaSyAed_hgBp7VzxxTXlC9Buh9l_6gmNgNK1g" }}
-        //     center={user.location}
-        //     zoom={11}
-        //   />
-        // </Box>
       )}
     </>
   );

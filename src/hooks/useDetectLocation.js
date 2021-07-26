@@ -3,7 +3,7 @@ import { firestore } from "database/firebase";
 
 function useDetectLocation(user) {
     useEffect(() => {
-        if (user) {
+        if (user && !user?.location) {
             navigator.geolocation.getCurrentPosition((position) => {
                 firestore.collection("participants").doc(user.id).update({
                     location: {latitude: position.coords.latitude, longitude: position.coords.longitude}
