@@ -22,6 +22,7 @@ function Location() {
             //   onChange={() => handleTimezone("autodetect", !inputs?.preferences?.timezone?.autodetect)}
             />
             <GooglePlacesAutocomplete
+                //NEED TO REFACTOR TO ACCOMMODATE FORM CONTROL
                 apiKey="AIzaSyAed_hgBp7VzxxTXlC9Buh9l_6gmNgNK1g"
                 selectProps={{placeholder: "Enter your location"}}
             />
