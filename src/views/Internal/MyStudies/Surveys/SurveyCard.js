@@ -38,10 +38,10 @@ function SurveyCard({ survey, surveysRef, setSurvey }) {
         <Button
           isLoading={loading}
           alignSelf="flex-end"
-          colorScheme="blue"
+          colorScheme={responded ? "green" : "blue"}
           onClick={() => setSurvey(survey.id)}
         >
-          {responded ? "Responded" : "Respond" /*TODO disable form*/}
+          {responded ? "Edit Response" : "Respond"}
         </Button>
       </Flex>
     </Box>

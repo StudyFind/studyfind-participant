@@ -22,31 +22,26 @@ function SurveyRespond({ survey, surveysRef, handleCloseSurvey }) {
   const [responses, setResponses] = useArray(init.fill(""));
   const [files, setFiles] = useState([]);
   const [errors, setErrors] = useArray(Array(survey?.questions?.length));
-  const [submitting, setSubmitting] = useState(false);
+  const [submitting, setSubmitting] = useState(null);
 
   const handleChange = (index, value) => {
-    setErrors.updateItem(undefined, index);
+    if (errors[index]) setErrors.updateItem(undefined, index);
     setResponses.updateItem(value, index);
   };
 
-  const handleFiles = (index, name, file) => {
-    setFiles((prev) => [...prev, { index, name, file }]);
-  };
-
-  const generateFileStoragePathAndTime = () => {
-    const submitTime = datetime.getNow();
-    const refPath = `study/${studyID}/surveys/${actionID}/responses/${uid}/`;
-
-    files.forEach((file) => {
-      handleChange(file.index, `${refPath + file.name + "_" + submitTime}`);
-    });
-
-    return submitTime;
+  const handleFiles = (index, name, file, del) => {
+    setFiles((prev) => [...prev, { index, name, file, del }]);
   };
 
   const handleSubmit = () => {
     validateForm(survey?.questions, responses, setErrors, files);
-    setSubmitting(true);
+    const submitTime = datetime.getNow();
+    const refPath = `study/${studyID}/surveys/${actionID}/responses/${uid}/`;
+    files.forEach((file) => {
+      if (file.del) handleChange(file.index, "");
+      else handleChange(file.index, `${refPath + file.name + "_" + submitTime}`);
+    });
+    setSubmitting(submitTime);
   };
 
   useEffect(() => {
@@ -56,27 +51,27 @@ function SurveyRespond({ survey, surveysRef, handleCloseSurvey }) {
   useEffect(async () => {
     if (submitting) {
       if (!errors.every((e) => typeof e === "undefined")) {
-        setSubmitting(false);
+        setSubmitting(null);
         return;
       }
 
-      const submitTime = generateFileStoragePathAndTime();
+      const ref = storage.ref(`study/${studyID}/surveys/${actionID}/responses/${uid}/`);
 
       await Promise.all([
         files.forEach((file) => {
-          const ref = storage.ref(responses[file.index]);
-          ref.put(file.file);
+          if (file.del) storage.ref(file.name).delete();
+          else ref.child(`${file.name + "_" + submitting}`).put(file.file);
         }),
         surveysRef.doc(actionID).collection("responses").doc(uid).set({
           responses,
-          time: submitTime,
+          time: submitting,
         }),
       ]);
 
-      setSubmitting(false);
+      setSubmitting(null);
       handleCloseSurvey();
     }
-  }, [submitting, errors]);
+  }, [submitting]);
 
   if (loading) return <Loader />;
   if (error) return <SurveysError />;
@@ -95,6 +90,7 @@ function SurveyRespond({ survey, surveysRef, handleCloseSurvey }) {
             question={q}
             response={responses[i]}
             error={errors[i]}
+            disable={!!submitting}
             handleChange={handleChange}
             handleFiles={handleFiles}
           />

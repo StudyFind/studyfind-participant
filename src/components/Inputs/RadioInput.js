@@ -1,7 +1,16 @@
 import { Grid, RadioGroup, Radio, FormControl } from "@chakra-ui/react";
 import { Label, Error } from "./helpers";
 
-export const RadioInput = ({ name, value, error, label, options, onChange, ...rest }) => {
+export const RadioInput = ({
+  name,
+  value,
+  error,
+  label,
+  options,
+  onChange,
+  isDisabled,
+  ...rest
+}) => {
   const handleChange = (value) => {
     onChange(name, value);
   };
@@ -12,7 +21,7 @@ export const RadioInput = ({ name, value, error, label, options, onChange, ...re
       <RadioGroup value={value} onChange={handleChange} {...rest}>
         <Grid gap="4px" alignItems="left">
           {options.map((option, i) => (
-            <Radio key={i} value={option.value}>
+            <Radio key={i} isDisabled={isDisabled} value={option.value}>
               {option.label}
             </Radio>
           ))}

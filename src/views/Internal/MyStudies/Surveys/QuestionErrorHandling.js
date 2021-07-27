@@ -24,16 +24,16 @@ function validateForm(questions, responses, setErrors, files) {
 
   for (let i = 0; i < questions.length; i++) {
     if (questions[i]?.constraints?.required) {
-      if (!responses[i]) {
+      if (questions[i]?.type === "file") {
+        if (!responses[i] || !files.some((file) => file.index === i)) {
+          setErrors.updateItem("This question is required.", i);
+          continue;
+        }
+      } else if (!responses[i]) {
         setErrors.updateItem("This question is required.", i);
         continue;
       }
     } else if (!responses[i]) {
-      if (questions[i]?.type === "file") {
-        if (!files.some((file) => file.index === i)) {
-          setErrors.updateItem("This question is required.", i);
-        }
-      }
       continue;
     }
 

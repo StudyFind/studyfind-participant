@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import { storage } from "database/firebase";
 import {
   Text,
   Box,
@@ -21,10 +22,13 @@ import {
   LinkInput,
   DateInput,
 } from "components";
+import FileCard from "./FileCard";
+import { datetime } from "functions";
 import { Error } from "components/Inputs/helpers";
 
-function Question({ index, question, response, error, handleChange, handleFiles }) {
+function Question({ index, question, response, error, disable, handleChange, handleFiles }) {
   const { prompt, type, options, constraints } = question;
+  const [viewFile, setViewFile] = useState({ name: "", link: "", date: "" });
 
   const transformOptions = (options) => {
     return options.filter((o) => o.length > 0).map((o) => ({ value: o, label: o }));
@@ -38,7 +42,24 @@ function Question({ index, question, response, error, handleChange, handleFiles 
 
   const handleSelectFile = (index, file) => {
     const name = file?.name || "";
-    handleFiles(index, name, file);
+    handleFiles(index, name, file, false);
+  };
+
+  const getFile = async () => {
+    const file = storage.ref(response);
+    const meta = await file.getMetadata();
+    const url = await file.getDownloadURL();
+    setViewFile({
+      name: file.name,
+      link: url,
+      date: datetime.getFriendlyDate(meta.timeCreated),
+    });
+  };
+
+  const handleDeleteFile = () => {
+    handleFiles(index, response, null, true);
+    handleChange(index, "");
+    setViewFile({ name: "", link: "", date: "" });
   };
 
   const handleIncrement = () => {
@@ -70,11 +91,14 @@ function Question({ index, question, response, error, handleChange, handleFiles 
   };
 
   useEffect(() => {
-    if (type === "checkboxes") {
+    if (disable) return;
+    if (type === "checkboxes" && response === "") {
       const values = Array(options.length);
       handleChange(index, { values: values.fill(false) });
+    } else if (type === "file" && response) {
+      getFile();
     }
-  }, []);
+  }, [response]);
 
   return (
     <Box borderWidth="1px" bg="white" rounded="md" p="15px">
@@ -94,6 +118,7 @@ function Question({ index, question, response, error, handleChange, handleFiles 
           name={index}
           value={response}
           error={error}
+          isDisabled={disable}
           placeholder={"Respond"}
           onChange={handleChange}
           limit={constraints?.characterMax}
@@ -104,6 +129,7 @@ function Question({ index, question, response, error, handleChange, handleFiles 
           name={index}
           value={response}
           error={error}
+          isDisabled={disable}
           options={transformOptions(options)}
           onChange={handleChange}
         />
@@ -114,6 +140,7 @@ function Question({ index, question, response, error, handleChange, handleFiles 
             {options?.map((o, i) => (
               <Checkbox
                 key={i}
+                isDisabled={disable}
                 isChecked={response?.values && response.values[i]}
                 onChange={(e) => handleCheckbox(i, e.target.checked)}
               >
@@ -129,6 +156,7 @@ function Question({ index, question, response, error, handleChange, handleFiles 
           name={index}
           value={response}
           error={error}
+          isDisabled={disable}
           placeholder="Select"
           options={transformOptions(options)}
           onChange={handleChange}
@@ -141,13 +169,19 @@ function Question({ index, question, response, error, handleChange, handleFiles 
             name={index}
             value={response}
             error={error}
+            isDisabled={disable}
             placeholder={"Enter a number"}
             onChange={handleChange}
             roundedRight={0}
           />
           <ButtonGroup isAttached>
-            <IconButton icon={<AddIcon />} rounded={0} onClick={handleIncrement} />
-            <IconButton icon={<MinusIcon />} onClick={handleDecrement} />
+            <IconButton
+              icon={<AddIcon />}
+              rounded={0}
+              isDisabled={disable}
+              onClick={handleIncrement}
+            />
+            <IconButton icon={<MinusIcon />} isDisabled={disable} onClick={handleDecrement} />
           </ButtonGroup>
         </Flex>
       )}
@@ -156,6 +190,7 @@ function Question({ index, question, response, error, handleChange, handleFiles 
           name={index}
           value={response}
           error={error}
+          isDisabled={disable}
           placeholder={"Enter an email"}
           onChange={handleChange}
         />
@@ -165,27 +200,33 @@ function Question({ index, question, response, error, handleChange, handleFiles 
           name={index}
           value={response}
           error={error}
+          isDisabled={disable}
           placeholder={"Enter a phone number"}
           onChange={handleChange}
         />
       )}
-      {type === "file" && ( //TODO view
-        <FileInput
-          name={index}
-          error={error}
-          onChange={handleSelectFile}
-          accept={`${constraints?.pdfAllowed ? "application/pdf, " : ""}${
-            constraints?.docAllowed ? "application/msword, " : ""
-          }${constraints?.jpgAllowed ? "image/jpeg, " : ""}${
-            constraints?.pngAllowed ? "image/png, " : ""
-          }`}
-        />
-      )}
+      {type === "file" &&
+        (response ? (
+          <FileCard file={viewFile} handleDelete={handleDeleteFile} />
+        ) : (
+          <FileInput
+            name={index}
+            error={error}
+            isDisabled={disable}
+            onChange={handleSelectFile}
+            accept={`${constraints?.pdfAllowed ? "application/pdf, " : ""}${
+              constraints?.docAllowed ? "application/msword, " : ""
+            }${constraints?.jpgAllowed ? "image/jpeg, " : ""}${
+              constraints?.pngAllowed ? "image/png, " : ""
+            }`}
+          />
+        ))}
       {type === "link" && (
         <LinkInput
           name={index}
           value={response}
           error={error}
+          isDisabled={disable}
           placeholder={"Enter a link"}
           onChange={handleChange}
         />
@@ -195,6 +236,7 @@ function Question({ index, question, response, error, handleChange, handleFiles 
           name={index}
           value={response}
           error={error}
+          isDisabled={disable}
           onChange={handleChange}
           max={constraints?.dateMax}
           min={constraints?.dateMin}
@@ -206,6 +248,7 @@ function Question({ index, question, response, error, handleChange, handleFiles 
           type="time"
           value={response}
           error={error}
+          isDisabled={disable}
           onChange={handleChange}
         />
       )}
