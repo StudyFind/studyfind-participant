@@ -22,6 +22,7 @@ function SurveyRespond({ survey, surveysRef, handleCloseSurvey }) {
   const [responses, setResponses] = useArray(init.fill(""));
   const [files, setFiles] = useState([]);
   const [errors, setErrors] = useArray(Array(survey?.questions?.length));
+  const [checking, setChecking] = useState(false);
   const [submitting, setSubmitting] = useState(null);
 
   const handleChange = (index, value) => {
@@ -30,31 +31,36 @@ function SurveyRespond({ survey, surveysRef, handleCloseSurvey }) {
   };
 
   const handleFiles = (index, name, file, del) => {
+    if (errors[index]) setErrors.updateItem(undefined, index);
     setFiles((prev) => [...prev, { index, name, file, del }]);
   };
 
   const handleSubmit = () => {
     validateForm(survey?.questions, responses, setErrors, files);
-    const submitTime = datetime.getNow();
-    const refPath = `study/${studyID}/surveys/${actionID}/responses/${uid}/`;
-    files.forEach((file) => {
-      if (file.del) handleChange(file.index, "");
-      else handleChange(file.index, `${refPath + file.name + "_" + submitTime}`);
-    });
-    setSubmitting(submitTime);
+    setChecking(true);
   };
 
   useEffect(() => {
     responseDoc?.responses && setResponses.updateArray(responseDoc.responses);
   }, [responseDoc]);
 
-  useEffect(async () => {
-    if (submitting) {
+  useEffect(() => {
+    if (checking) {
       if (!errors.every((e) => typeof e === "undefined")) {
-        setSubmitting(null);
+        setChecking(false);
         return;
       }
+      const submitTime = datetime.getNow();
+      const refPath = `study/${studyID}/surveys/${actionID}/responses/${uid}/`;
+      files.forEach((file) => {
+        if (!file.del) handleChange(file.index, `${refPath + file.name + "_" + submitTime}`);
+      });
+      setSubmitting(submitTime);
+    }
+  }, [checking]);
 
+  useEffect(async () => {
+    if (submitting) {
       const ref = storage.ref(`study/${studyID}/surveys/${actionID}/responses/${uid}/`);
 
       await Promise.all([
@@ -68,6 +74,7 @@ function SurveyRespond({ survey, surveysRef, handleCloseSurvey }) {
         }),
       ]);
 
+      setChecking(false);
       setSubmitting(null);
       handleCloseSurvey();
     }

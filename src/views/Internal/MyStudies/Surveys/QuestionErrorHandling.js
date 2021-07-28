@@ -25,7 +25,7 @@ function validateForm(questions, responses, setErrors, files) {
   for (let i = 0; i < questions.length; i++) {
     if (questions[i]?.constraints?.required) {
       if (questions[i]?.type === "file") {
-        if (!responses[i] || !files.some((file) => file.index === i)) {
+        if (!responses[i] && !files.some((file) => file.index === i && !file.del)) {
           setErrors.updateItem("This question is required.", i);
           continue;
         }
