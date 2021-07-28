@@ -209,17 +209,26 @@ function Question({ index, question, response, error, disable, handleChange, han
         (response ? (
           <FileCard file={viewFile} handleDelete={handleDeleteFile} />
         ) : (
-          <FileInput
-            name={index}
-            error={error}
-            isDisabled={disable}
-            onChange={handleSelectFile}
-            accept={`${constraints?.pdfAllowed ? "application/pdf, " : ""}${
-              constraints?.docAllowed ? "application/msword, " : ""
-            }${constraints?.jpgAllowed ? "image/jpeg, " : ""}${
-              constraints?.pngAllowed ? "image/png, " : ""
-            }`}
-          />
+          <>
+            <FileInput
+              name={index}
+              error={error}
+              isDisabled={disable}
+              onChange={handleSelectFile}
+              accept={`${constraints?.pdfAllowed ? "application/pdf, " : ""}${
+                constraints?.docAllowed ? "application/msword, " : ""
+              }${constraints?.jpgAllowed ? "image/jpeg, " : ""}${
+                constraints?.pngAllowed ? "image/png, " : ""
+              }`}
+            />
+            <Text fontSize="xs" as="i" color="gray.500">
+              {`Allowed types: ${constraints?.pdfAllowed ? "PDF, " : ""}${
+                constraints?.docAllowed ? "DOC, " : ""
+              }${constraints?.jpgAllowed ? "JPG, " : ""}${
+                constraints?.pngAllowed ? "PNG, " : ""
+              }`.slice(0, -2)}
+            </Text>
+          </>
         ))}
       {type === "link" && (
         <LinkInput
@@ -252,6 +261,58 @@ function Question({ index, question, response, error, disable, handleChange, han
           onChange={handleChange}
         />
       )}
+      <Stack mt="5px" spacing="xs">
+        {constraints?.characterMin && (
+          <Text fontSize="xs" as="i" color="gray.500">
+            {`Minimum characters: ${constraints?.characterMin}`}
+          </Text>
+        )}
+        {constraints?.characterMax && (
+          <Text fontSize="xs" as="i" color="gray.500">
+            {`Max characters: ${constraints?.characterMax}`}
+          </Text>
+        )}
+        {constraints?.dateMin && (
+          <Text fontSize="xs" as="i" color="gray.500">
+            {`Earliest: ${constraints?.dateMin}`}
+          </Text>
+        )}
+        {constraints?.dateMax && (
+          <Text fontSize="xs" as="i" color="gray.500">
+            {`Latest: ${constraints?.dateMax}`}
+          </Text>
+        )}
+        {constraints?.timeMin && (
+          <Text fontSize="xs" as="i" color="gray.500">
+            {`Earliest: ${constraints?.timeMin}`}
+          </Text>
+        )}
+        {constraints?.timeMax && (
+          <Text fontSize="xs" as="i" color="gray.500">
+            {`Latest: ${constraints?.timeMax}`}
+          </Text>
+        )}
+        {constraints?.timeInterval && (
+          <Text fontSize="xs" as="i" color="gray.500">
+            {`Interval (minutes): ${constraints?.timeInterval}`}
+          </Text>
+        )}
+        {constraints?.numberMin && (
+          <Text fontSize="xs" as="i" color="gray.500">
+            {`Min: ${constraints?.numberMin}`}
+          </Text>
+        )}
+        {constraints?.numberMax && (
+          <Text fontSize="xs" as="i" color="gray.500">
+            {`Max: ${constraints?.numberMax}`}
+          </Text>
+        )}
+        {constraints?.numberInterval && (
+          <Text fontSize="xs" as="i" color="gray.500">
+            {`Interval: ${constraints?.numberInterval}`}
+          </Text>
+        )}
+      </Stack>
     </Box>
   );
 }
