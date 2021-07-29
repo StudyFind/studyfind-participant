@@ -9,6 +9,7 @@ import {
   FormControl,
   ButtonGroup,
   IconButton,
+  Progress,
 } from "@chakra-ui/react";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import {
@@ -26,7 +27,16 @@ import FileCard from "./FileCard";
 import { datetime } from "functions";
 import { Error } from "components/Inputs/helpers";
 
-function Question({ index, question, response, error, disable, handleChange, handleFiles }) {
+function Question({
+  index,
+  question,
+  response,
+  error,
+  disable,
+  progress,
+  handleChange,
+  handleFiles,
+}) {
   const { prompt, type, options, constraints } = question;
   const [viewFile, setViewFile] = useState({ name: "", link: "", date: "" });
 
@@ -206,7 +216,9 @@ function Question({ index, question, response, error, disable, handleChange, han
         />
       )}
       {type === "file" &&
-        (response ? (
+        (progress ? (
+          <Progress hasStripe value={progress} colorScheme="blue" />
+        ) : response && !disable ? (
           <FileCard file={viewFile} handleDelete={handleDeleteFile} />
         ) : (
           <>

@@ -21,6 +21,7 @@ function SurveyRespond({ survey, surveysRef, handleCloseSurvey }) {
   const init = Array(survey?.questions?.length);
   const [responses, setResponses] = useArray(init.fill(""));
   const [files, setFiles] = useState([]);
+  const [progresses, setProgresses] = useState({});
   const [errors, setErrors] = useArray(Array(survey?.questions?.length));
   const [checking, setChecking] = useState(false);
   const [submitting, setSubmitting] = useState(null);
@@ -66,7 +67,17 @@ function SurveyRespond({ survey, surveysRef, handleCloseSurvey }) {
       await Promise.all([
         files.forEach((file) => {
           if (file.del) storage.ref(file.name).delete();
-          else ref.child(`${file.name + "_" + submitting}`).put(file.file);
+          else {
+            ref
+              .child(`${file.name + "_" + submitting}`)
+              .put(file.file)
+              .on("state_changed", (snapshot) => {
+                const filesize = snapshot.totalBytes;
+                const uploaded = snapshot.bytesTransferred;
+                const percent = Math.round((100 * uploaded) / filesize);
+                setProgresses((prev) => ({ ...prev, [file.index]: percent }));
+              });
+          }
         }),
         surveysRef.doc(actionID).collection("responses").doc(uid).set({
           responses,
@@ -97,7 +108,8 @@ function SurveyRespond({ survey, surveysRef, handleCloseSurvey }) {
             question={q}
             response={responses[i]}
             error={errors[i]}
-            disable={!!submitting}
+            disable={!!checking || !!submitting}
+            progress={progresses[i]}
             handleChange={handleChange}
             handleFiles={handleFiles}
           />
