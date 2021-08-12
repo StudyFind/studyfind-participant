@@ -5,6 +5,7 @@ import { Loader } from "./Loader";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { Box, Grid, useMediaQuery } from "@chakra-ui/react";
 import styled from "styled-components";
+import StudyCardSmallLandingPage from "molecules/StudyCardSmallLandingPage";
 
 function MapView({ loc, user, studies, conditions, handleConditions }) {
   const [location, setLocation] = useState(loc);
@@ -99,7 +100,7 @@ function MapView({ loc, user, studies, conditions, handleConditions }) {
               <Box h="100%" w="100%" rounded="lg">
                 {content}
               </Box>
-              <StudyCardSmall
+              <StudyCardSmallLandingPage
                 study={selected}
                 conditions={conditions}
                 handleConditions={handleConditions}
@@ -116,7 +117,7 @@ function MapView({ loc, user, studies, conditions, handleConditions }) {
         <Box h="100%" w="100%" rounded="lg">
           {content}
         </Box>
-        <StudyCardSmall
+        <StudyCardSmallLandingPage
           study={selected}
           conditions={conditions}
           handleConditions={handleConditions}
