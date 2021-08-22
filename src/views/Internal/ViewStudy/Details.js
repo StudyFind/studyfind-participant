@@ -1,3 +1,4 @@
+import React from "react";
 import { auth } from "database/firebase";
 import { Box, Flex, Heading, Button, Tooltip } from "@chakra-ui/react";
 import { Link } from "components";

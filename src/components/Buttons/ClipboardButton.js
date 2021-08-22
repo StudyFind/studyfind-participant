@@ -1,3 +1,4 @@
+import React from "react";
 import { Button, useClipboard } from "@chakra-ui/react";
 import { FaCopy, FaCheckCircle } from "react-icons/fa";
 

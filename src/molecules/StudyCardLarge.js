@@ -1,3 +1,4 @@
+import React from "react";
 import { Heading, Text, Box, Flex } from "@chakra-ui/react";
 
 import StudyBullets from "./StudyBullets";

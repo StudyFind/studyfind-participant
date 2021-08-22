@@ -1,3 +1,4 @@
+import React from "react";
 import { useContext } from "react";
 
 import { auth, firestore } from "database/firebase";
@@ -26,6 +27,7 @@ function StudyCardSmall({ study, conditions, handleAddCondition }) {
 
   const isSaved = user.saved.includes(study.id);
   const isEnrolled = user.enrolled.includes(study.id);
+  const isExternal = !('id' in study.researcher);
 
   return (
     <Flex
@@ -64,22 +66,36 @@ function StudyCardSmall({ study, conditions, handleAddCondition }) {
       <Text color="gray.500" noOfLines={5} mt="10px">
         {study.description}
       </Text>
-      <Flex marginTop="auto" gridGap="8px" justify="flex-end">
-        <Link to={`/study/${study.id}/details`} isWrapper>
-          <Button size="sm" color="gray.600">
-            Details
-          </Button>
-        </Link>
-        <Tooltip label={!verified && "You must verify your email before enrolling for studies"}>
-          <Box>
-            <Link to={isEnrolled ? "" : `/study/${study.id}/screening`} isWrapper>
-              <Button size="sm" colorScheme={isEnrolled ? "green" : "blue"} isDisabled={!verified}>
-                {isEnrolled ? "Enrolled" : "Enroll"}
-              </Button>
-            </Link>
-          </Box>
-        </Tooltip>
-      </Flex>
+      {isExternal ? (
+        <Flex marginTop="auto" gridGap="8px" justify="flex-end">
+          <Tooltip label="This is an external study from clinicaltrials.gov. Enrolling functionality currently unavailable.">
+            <Box>
+              <Link to={`https://clinicaltrials.gov/ct2/show/${study.id}`}>
+                <Button size="sm" color="gray.600">
+                  Learn More
+                </Button>
+              </Link>
+            </Box>
+          </Tooltip>
+        </Flex>
+      ) : (
+        <Flex marginTop="auto" gridGap="8px" justify="flex-end">
+          <Link to={`/study/${study.id}/details`} isWrapper>
+            <Button size="sm" color="gray.600">
+              Details
+            </Button>
+          </Link>
+          <Tooltip label={!verified && "You must verify your email before enrolling for studies"}>
+            <Box>
+              <Link to={isEnrolled ? "" : `/study/${study.id}/screening`} isWrapper>
+                <Button size="sm" colorScheme={isEnrolled ? "green" : "blue"} isDisabled={!verified}>
+                  {isEnrolled ? "Enrolled" : "Enroll"}
+                </Button>
+              </Link>
+            </Box>
+          </Tooltip>
+        </Flex>
+      )}
     </Flex>
   );
 }

@@ -1,5 +1,6 @@
+import React from "react";
 import { Grid } from "@chakra-ui/react";
-import MeetingsCard from "./MeetingsCard"
+import MeetingsCard from "./MeetingsCard";
 
 function MeetingsView({ meetings, handleConfirm }) {
   return (

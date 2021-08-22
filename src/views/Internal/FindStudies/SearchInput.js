@@ -1,3 +1,4 @@
+import React from "react";
 import { Icon } from "@chakra-ui/react";
 import { TextInput } from "components";
 import { FaSearch } from "react-icons/fa";

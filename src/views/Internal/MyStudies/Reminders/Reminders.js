@@ -1,3 +1,4 @@
+import React from "react";
 import { auth, firestore } from "database/firebase";
 import { useCollection } from "hooks";
 

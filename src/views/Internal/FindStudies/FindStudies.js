@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect, useContext } from "react";
 import moment from "moment";
 
@@ -74,8 +75,8 @@ function FindStudies() {
   const filter = (studies) => {
     return studies.filter((study) => {
       // ========== MANDATORY ==========
-      if (!study.published) return false;
-      if (!study.activated) return false;
+      if (study.researcher.id && !study.published) return false;
+      if (study.researcher.id && !study.activated) return false;
       if (![user.sex, "All"].includes(study.sex)) return false;
       if (!isValidAge(study.age, user.birthdate)) return false;
 

@@ -1,3 +1,4 @@
+import React from "react";
 import { Flex, Heading, OrderedList, ListItem, Box } from "@chakra-ui/react";
 import { Link, Message } from "components";
 

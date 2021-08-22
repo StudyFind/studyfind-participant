@@ -1,3 +1,4 @@
+import React from "react";
 import lodash from "lodash";
 
 import { toasts } from "templates";
