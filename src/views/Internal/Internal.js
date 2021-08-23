@@ -18,6 +18,7 @@ import Account from "views/Internal/Account/Account";
 import ViewStudy from "views/Internal/ViewStudy/ViewStudy";
 import Screening from "views/Internal/ViewStudy/Screening";
 import MyStudies from "views/Internal/MyStudies/MyStudies";
+import Feedback from "views/Internal/Feedback/Feedback";
 
 function Internal() {
   const { uid, email, emailVerified } = auth.currentUser;
@@ -54,6 +55,7 @@ function Internal() {
                   <Route path="/study/:studyID/:tab" component={ViewStudy} />
                   <Route path="/account/:tab" component={Account} />
                   <Route path="/mystudies/:studyID?/:action?" component={MyStudies} />
+                  <Route path="/feedback" component={Feedback} />
                   <Redirect to="/" />
                 </Switch>
               </Page>
