@@ -25,7 +25,7 @@ function Screening() {
     }
   }, [verified]);
 
-  const [responses, setResponses] = useState([]);
+  const [responses, setResponses] = useState(study?.questions?.map(() => ""));
 
   const handleResponseChange = (index, value) => {
     setResponses((prev) => {
@@ -53,7 +53,7 @@ function Screening() {
     history.push(`/study/${studyID}/details`);
   };
 
-  if (!study || !responses) return <Loader />;
+  if (!study) return <Loader />;
 
   return (
     <>

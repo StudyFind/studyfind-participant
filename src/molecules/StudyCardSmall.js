@@ -20,14 +20,12 @@ function StudyCardSmall({ study, conditions, handleAddCondition }) {
       ? user.saved.filter((studyID) => studyID !== study.id)
       : user.saved.concat(study.id);
 
-    console.log(updatedSaved);
-
     firestore.collection("participants").doc(user.id).update({ saved: updatedSaved });
   };
 
   const isSaved = user.saved.includes(study.id);
   const isEnrolled = user.enrolled.includes(study.id);
-  const isExternal = !('id' in study.researcher);
+  const isExternal = !("id" in study.researcher);
 
   return (
     <Flex
@@ -88,7 +86,11 @@ function StudyCardSmall({ study, conditions, handleAddCondition }) {
           <Tooltip label={!verified && "You must verify your email before enrolling for studies"}>
             <Box>
               <Link to={isEnrolled ? "" : `/study/${study.id}/screening`} isWrapper>
-                <Button size="sm" colorScheme={isEnrolled ? "green" : "blue"} isDisabled={!verified}>
+                <Button
+                  size="sm"
+                  colorScheme={isEnrolled ? "green" : "blue"}
+                  isDisabled={!verified}
+                >
                   {isEnrolled ? "Enrolled" : "Enroll"}
                 </Button>
               </Link>

@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 import { firestore } from "database/firebase";
@@ -13,7 +12,7 @@ import StudyDrawer from "./StudyDrawer";
 import Messages from "./Messages/Messages";
 import Meetings from "./Meetings/Meetings";
 import Reminders from "./Reminders/Reminders";
-import Eligibility from "./Eligibility/Eligibility";
+import Screening from "./Screening/Screening";
 
 function StudiesRow({ study, uid }) {
   const history = useHistory();
@@ -68,7 +67,7 @@ function StudiesRow({ study, uid }) {
       >
         <Link to={`/study/${study.id}/details`}>{study.title}</Link>
       </Text>
-      <Badge size="sm" colorScheme={statusColors[participantData.status]}>
+      <Badge ml="auto" size="sm" colorScheme={statusColors[participantData.status]}>
         {participantData.status}
       </Badge>
       <Buttons>
@@ -80,9 +79,9 @@ function StudiesRow({ study, uid }) {
         />
         <ActionButton hint="Reminders" icon={<FaClock />} onClick={() => handleOpen("reminders")} />
         <ActionButton
-          hint="Reminders"
+          hint="Screening"
           icon={<FaClipboard />}
-          onClick={() => handleOpen("eligibility")}
+          onClick={() => handleOpen("screening")}
         />
       </Buttons>
       <StudyDrawer action={action} studyID={study.id} onClose={handleClose} isOpen={isOpen}>
@@ -97,9 +96,9 @@ function StudiesRow({ study, uid }) {
             <Reminders study={study} />
           </Box>
         )}
-        {action === "eligibility" && (
+        {action === "screening" && (
           <Box p="25px">
-            <Eligibility study={study} responses={participantData.responses} />
+            <Screening study={study} responses={participantData.responses} />
           </Box>
         )}
       </StudyDrawer>
