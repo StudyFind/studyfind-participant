@@ -1,6 +1,8 @@
 import moment from "moment";
 import styled from "styled-components";
+
 import { useColor } from "hooks";
+
 import { Flex } from "@chakra-ui/react";
 
 function CalendarBody({ month, year, date, setDate }) {

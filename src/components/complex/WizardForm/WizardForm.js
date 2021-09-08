@@ -4,9 +4,7 @@ import WizardFormSteps from "./WizardFormSteps";
 import WizardFormButtons from "./WizardFormButtons";
 
 function WizardForm({ steps, loading, handleSubmit, allowSkippingSteps }) {
-  const { stepIndex, handleBack, handleNext, handleSelect } = useWizard({
-    steps,
-  });
+  const { stepIndex, handleBack, handleNext, handleSelect } = useWizard({ steps });
 
   return (
     <>

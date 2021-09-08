@@ -1,5 +1,6 @@
-import { IconButton } from "@chakra-ui/react";
 import { useColor } from "hooks";
+
+import { IconButton } from "@chakra-ui/react";
 
 function CalendarHeadButton({ icon, onClick }) {
   const color = useColor("blue.500", "blue.200");
@@ -7,7 +8,6 @@ function CalendarHeadButton({ icon, onClick }) {
 
   return (
     <IconButton
-      colorScheme=""
       color={color}
       background={background}
       size="xs"

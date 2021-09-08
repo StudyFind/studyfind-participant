@@ -5,7 +5,7 @@ function Map({ center, markers }) {
   return (
     // Important! Always set the container height explicitly
     <GoogleMapReact
-      bootstrapURLKeys={{ key: "AIzaSyAed_hgBp7VzxxTXlC9Buh9l_6gmNgNK1g" }}
+      bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAPS_KEY }}
       center={center}
       zoom={11}
     >

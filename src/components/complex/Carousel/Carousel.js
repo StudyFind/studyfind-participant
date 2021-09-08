@@ -1,5 +1,7 @@
-import { Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+
+import { Flex } from "@chakra-ui/react";
+
 import CarouselDots from "./CarouselDots";
 
 function Carousel({ items, size = "md", interval, ...rest }) {
@@ -18,11 +20,13 @@ function Carousel({ items, size = "md", interval, ...rest }) {
 
   useEffect(() => {
     if (interval) {
-      setInterval(() => {
+      const carouselInterval = setInterval(() => {
         handleNext();
       }, interval);
+
+      return () => clearInterval(carouselInterval);
     }
-  }, []);
+  }, [interval]);
 
   const handleSelect = (index) => {
     if (0 <= index && index < items.length) {

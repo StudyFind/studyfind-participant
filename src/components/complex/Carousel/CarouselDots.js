@@ -2,14 +2,7 @@ import { useColor } from "hooks";
 import { Box, HStack, Icon } from "@chakra-ui/react";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 
-function CarouselDots({
-  size,
-  itemIndex,
-  numberOfItems,
-  handleBack,
-  handleNext,
-  handleSelect,
-}) {
+function CarouselDots({ size, itemIndex, numberOfItems, handleBack, handleNext, handleSelect }) {
   const selectedColor = useColor("blue.500", "blue.400");
   const defaultColor = useColor("gray.300", "gray.700");
 
@@ -20,8 +13,8 @@ function CarouselDots({
   const arrowSizeString = `${pixelSize + 8}px`;
 
   const iconStyleProps = {
-    color: defaultColor,
     cursor: "pointer",
+    color: defaultColor,
     fontSize: arrowSizeString,
   };
 
