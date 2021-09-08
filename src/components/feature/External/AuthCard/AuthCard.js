@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useColor, useDetectDevice } from "hooks";
-import { AuthContext } from "context";
 
 import { Box } from "@chakra-ui/react";
 
@@ -8,7 +7,7 @@ import AuthTabs from "./AuthTabs";
 import AuthForm from "./AuthForm";
 import SectionWrapper from "../HomeSections/SectionWrapper";
 
-function AuthCard({ handleLogin, handleSignup, handleForgotPassword }) {
+function AuthCard() {
   const exists = localStorage.getItem("exists");
   const defaultTab = exists === "true" ? "login" : "signup";
   const [tab, setTab] = useState(defaultTab);
@@ -20,20 +19,18 @@ function AuthCard({ handleLogin, handleSignup, handleForgotPassword }) {
   const backgroundColor = useColor("white", "gray.900");
 
   return (
-    <AuthContext.Provider value={{ handleLogin, handleSignup, handleForgotPassword }}>
-      <SectionWrapper background={backgroundColor}>
-        <Box
-          width={isPhone ? "80%" : "350px"}
-          rounded="md"
-          borderWidth="1px"
-          borderColor={borderColor}
-          background={background}
-        >
-          <AuthTabs tab={tab} setTab={setTab} />
-          <AuthForm tab={tab} setTab={setTab} />
-        </Box>
-      </SectionWrapper>
-    </AuthContext.Provider>
+    <SectionWrapper background={backgroundColor}>
+      <Box
+        width={isPhone ? "80%" : "350px"}
+        rounded="md"
+        borderWidth="1px"
+        borderColor={borderColor}
+        background={background}
+      >
+        <AuthTabs tab={tab} setTab={setTab} />
+        <AuthForm tab={tab} setTab={setTab} />
+      </Box>
+    </SectionWrapper>
   );
 }
 

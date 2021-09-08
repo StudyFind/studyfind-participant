@@ -1,14 +1,13 @@
-import moment from "moment";
-
+import { datetime } from "utils";
 import { Text } from "@chakra-ui/react";
 
 function ReminderDates({ startDate, endDate }) {
-  const formattedStartDate = moment(startDate).format("LL");
-  const formattedEndDate = moment(endDate).format("LL");
+  const displayStartDate = datetime.getFriendlyDate(startDate);
+  const displayEndDate = datetime.getFriendlyDate(endDate);
 
   return (
     <Text color="gray.500" fontSize="0.9rem" marginBottom="8px">
-      {`${formattedStartDate} to ${formattedEndDate}`}
+      {displayStartDate} to {displayEndDate}
     </Text>
   );
 }

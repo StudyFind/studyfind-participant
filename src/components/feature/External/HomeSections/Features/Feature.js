@@ -6,7 +6,9 @@ function Feature({ icon, title, description }) {
 
   return (
     <Stack spacing={isPhone ? "15px" : "20px"} direction={isPhone ? "column" : "row"}>
-      <Box fontSize="6xl">{icon}</Box>
+      <Box fontSize="5xl" color="#1A202C">
+        {icon}
+      </Box>
       <Stack spacing="4px">
         <Text fontWeight="800" fontSize="lg">
           {title}

@@ -1,6 +1,6 @@
 import { ConfirmationStatus } from "components";
 
-function ReminderStatus({ confirmed }) {
+function Status({ confirmed }) {
   const { status, hint, text } = confirmed
     ? {
         status: "success",
@@ -20,4 +20,4 @@ function ReminderStatus({ confirmed }) {
   );
 }
 
-export default ReminderStatus;
+export default Status;

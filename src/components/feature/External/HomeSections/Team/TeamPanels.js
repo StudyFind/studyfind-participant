@@ -6,7 +6,12 @@ function TeamPanels({ panels }) {
   const { isPhone, responsive } = useDetectDevice();
 
   return (
-    <SimpleGrid spacing={isPhone ? "20px" : "60px"} columns={responsive([1, 2, 3])} width="100%">
+    <SimpleGrid
+      alignItems="center"
+      spacing={isPhone ? "20px" : "60px"}
+      columns={responsive([1, 3, 3])}
+      width="100%"
+    >
       {panels.map((panel, i) => (
         <TeamPanel
           key={i}

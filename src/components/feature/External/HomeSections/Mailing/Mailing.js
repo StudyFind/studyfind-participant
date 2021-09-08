@@ -64,9 +64,9 @@ function Mailing({ handleSubscribe /* `handleSubscribe` is a promise */ }) {
                 minWidth="250px"
                 marginBottom="20px"
                 textAlign="center"
-                width={isPhone ? "90%" : "75%"}
+                width="90%"
               >
-                Get feature updates in your inbox
+                Get updates in your inbox
               </Heading>
               <TextInput
                 value={email}
@@ -86,7 +86,7 @@ function Mailing({ handleSubscribe /* `handleSubscribe` is a promise */ }) {
               </Button>
               <HStack fontSize="12px" align="center" spacing="6px">
                 <Icon as={FaShieldAlt} color="green.500" />
-                <Text color="gray.500">No Spam. We&apos;ll send relevant content only.</Text>
+                <Text color="gray.500">We&apos;ll send relevant content only</Text>
               </HStack>
             </VStack>
           </Form>

@@ -1,5 +1,5 @@
 import { useColor } from "hooks";
-import { Heading, Text, Progress, Tag, Flex, Tooltip, Icon, Box, HStack } from "@chakra-ui/react";
+import { Heading, Text, Progress, Tag, Tooltip, Icon, Box, HStack } from "@chakra-ui/react";
 import { FaInfoCircle } from "react-icons/fa";
 
 function DescriptionAccessibilityScore({ score }) {

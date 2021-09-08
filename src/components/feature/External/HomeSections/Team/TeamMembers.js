@@ -3,10 +3,10 @@ import { SimpleGrid } from "@chakra-ui/react";
 import TeamMember from "./TeamMember";
 
 function TeamMembers({ founders }) {
-  const { isDesktop, responsive } = useDetectDevice();
+  const { isPhone, responsive } = useDetectDevice();
 
   return (
-    <SimpleGrid spacing={isDesktop ? "10px" : "50px"} columns={responsive([1, 2, 3])} width="100%">
+    <SimpleGrid spacing={isPhone ? "50px" : "100px"} columns={responsive([1, 2, 2])}>
       {founders.map((founder, i) => (
         <TeamMember
           key={i}

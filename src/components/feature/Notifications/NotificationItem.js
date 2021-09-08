@@ -2,15 +2,28 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useColor, useDetectDevice } from "hooks";
 
-import getNotificationTemplate from "./templates/getNotificationTemplate";
-
 import { Card, Link } from "components";
 import { Box, Flex, Text } from "@chakra-ui/react";
+import {
+  FaCalendar,
+  FaCalendarCheck,
+  FaCalendarDay,
+  FaCalendarMinus,
+  FaCalendarPlus,
+  FaCheckSquare,
+  FaClipboard,
+  FaClock,
+  FaComment,
+  FaDotCircle,
+  FaMagic,
+  FaUser,
+  FaUserClock,
+} from "react-icons/fa";
 
 import NotificationIcon from "./NotificationIcon";
 import NotificationTime from "./NotificationTime";
 
-function NotificationItem({ side, notification, handleNotificationRead }) {
+function NotificationItem({ notification, handleNotificationRead }) {
   const [initialRead] = useState(notification.read);
   /*
     ^^^^^
@@ -29,16 +42,30 @@ function NotificationItem({ side, notification, handleNotificationRead }) {
     original notification.read value would be true when the component first renders
   */
 
-  const { id, code, meta, time, read } = notification;
-  const { title, body, icon, color, link } = getNotificationTemplate({
-    code,
-    side,
-    meta,
-  });
+  const { code, time, title, body, link, read } = notification;
+
+  const { icon, color } = {
+    CREATE_ACCOUNT: { icons: <FaMagic />, color: "purple" },
+    CREATE_STUDY: { icons: <FaClipboard />, color: "green" },
+    DELETE_STUDY: { icons: <FaClipboard />, color: "red" },
+    PARTICIPANT_ENROLLED: { icons: <FaUser />, color: "teal" },
+    PARTICIPANT_CONFIRMED_MEETING: { icons: <FaCalendarCheck />, color: "teal" },
+    PARTICIPANT_CONFIRMED_REMINDER: { icons: <FaCheckSquare />, color: "teal" },
+    RESEARCHER_SENT_MESSAGE: { icons: <FaComment />, color: "teal" },
+    RESEARCHER_CREATED_MEETING: { icons: <FaCalendarPlus />, color: "green" },
+    RESEARCHER_UPDATED_MEETING: { icons: <FaCalendar />, color: "blue" },
+    RESEARCHER_DELETED_MEETING: { icons: <FaCalendarMinus />, color: "red" },
+    RESEARCHER_CREATED_REMINDER: { icons: <FaUserClock />, color: "green" },
+    RESEARCHER_UPDATED_REMINDER: { icons: <FaUserClock />, color: "blue" },
+    RESEARCHER_DELETED_REMINDER: { icons: <FaUserClock />, color: "red" },
+    RESEARCHER_CHANGED_PARTICIPANT_STATUS: { icons: <FaDotCircle />, color: "teal" },
+    MEETING_NOW: { icons: <FaCalendarDay />, color: "cyan" },
+    REMINDER_NOW: { icons: <FaClock />, color: "cyan" },
+  }[code];
 
   useEffect(() => {
     if (!initialRead) {
-      handleNotificationRead(id);
+      handleNotificationRead(notification);
     }
   }, []);
 
@@ -53,7 +80,6 @@ function NotificationItem({ side, notification, handleNotificationRead }) {
   return (
     <NotificationLink to={link}>
       <Card
-        key={notification.id}
         width="100%"
         borderColor={read ? readBorderColor : unreadBorderColor}
         background={read ? readBackgroundColor : unreadBackgroundColor}
