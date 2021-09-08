@@ -4,8 +4,13 @@ import { VStack } from "@chakra-ui/react";
 import { LoadMoreButton } from "components";
 import NotificationItem from "components/feature/Notifications/NotificationItem";
 
-function NotificationList({ notifications, fetchedAll, loadingMore, handleLoadMore }) {
-  const handleNotificationRead = (id) => {
+function NotificationList({
+  notifications,
+  fetchedAll,
+  loadingMore,
+  handleLoadMore,
+}) {
+  const handleNotificationRead = ({ id }) => {
     return notification.read(id);
   };
 
@@ -16,7 +21,6 @@ function NotificationList({ notifications, fetchedAll, loadingMore, handleLoadMo
           {notifications.map((notification) => (
             <NotificationItem
               key={notification.id}
-              side="researcher"
               notification={notification}
               handleNotificationRead={handleNotificationRead}
             />

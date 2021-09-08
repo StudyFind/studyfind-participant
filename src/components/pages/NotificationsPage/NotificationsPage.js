@@ -29,7 +29,7 @@ function Notifications() {
     error,
   } = usePagination(notificationsRef, 10);
 
-  if (loading) return <Loader />;
+  if (loading) return <Loader height="calc(100vh - 80px)" />;
   if (error) return <NotificationsError />;
 
   return (

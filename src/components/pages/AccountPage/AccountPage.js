@@ -5,7 +5,14 @@ import { getSide } from "database/getters";
 
 import { UserContext } from "context";
 
-import { FaUser, FaMapMarkedAlt, FaBell, FaShieldAlt, FaLocationArrow } from "react-icons/fa";
+import {
+  FaUser,
+  FaMapMarkedAlt,
+  FaBell,
+  FaShieldAlt,
+  FaLocationArrow,
+  FaCreditCard,
+} from "react-icons/fa";
 
 import ProfileResearcher from "./Profile/ProfileResearcher";
 import ProfileParticipant from "./Profile/ProfileParticipant";
@@ -13,6 +20,7 @@ import Notifications from "./Notifications/Notifications";
 import Timezone from "./Timezone/Timezone";
 import Location from ".//Location/Location";
 import Security from "./Security/Security";
+import Subscription from "./Subscription/Subscription";
 
 import AccountTabs from "./AccountTabs";
 
@@ -120,9 +128,22 @@ function AccountPage() {
     ),
   };
 
+  const SUBSCRIPTION = {
+    name: "Subscription",
+    link: "/account/subscription",
+    icon: <FaCreditCard />,
+    content: (
+      <Subscription
+        showButtons={false}
+        handleChangePassword={changePassword}
+        handleDeleteAccount={deleteAccount}
+      />
+    ),
+  };
+
   const tabs =
     side === "researcher"
-      ? [PROFILE, NOTIFICATIONS, TIMEZONE, SECURITY]
+      ? [PROFILE, NOTIFICATIONS, TIMEZONE, SECURITY, SUBSCRIPTION]
       : [PROFILE, NOTIFICATIONS, TIMEZONE, LOCATION, SECURITY];
 
   return <AccountTabs tabs={tabs} handleSignout={signout} />;
