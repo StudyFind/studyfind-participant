@@ -45,16 +45,24 @@ function Internal() {
               mt={emailVerified ? "" : "40px"}
             >
               {emailVerified || <Verification />}
-              {confirm && <Confirm {...confirm} handleClose={() => setConfirm(null)} />}
+              {confirm && (
+                <Confirm {...confirm} handleClose={() => setConfirm(null)} />
+              )}
               <Page isLoading={!(user && studies)}>
                 <Switch>
                   <Route exact path="/" component={FindStudies} />
                   <Route path="/search" component={FindStudies} />
                   <Route path="/notifications" component={Notifications} />
-                  <Route path="/study/:studyID/screening" component={Screening} />
+                  <Route
+                    path="/study/:studyID/screening"
+                    component={Screening}
+                  />
                   <Route path="/study/:studyID/:tab" component={ViewStudy} />
                   <Route path="/account/:tab" component={Account} />
-                  <Route path="/mystudies/:studyID?/:action?" component={MyStudies} />
+                  <Route
+                    path="/mystudies/:studyID?/:action?"
+                    component={MyStudies}
+                  />
                   <Route path="/feedback" component={Feedback} />
                   <Redirect to="/" />
                 </Switch>

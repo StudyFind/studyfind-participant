@@ -16,7 +16,6 @@ import { Page } from "components";
 import Confirm from "./Confirm";
 
 function External() {
-
   const studiesRef = firestore.collection("studies");
 
   const [studies] = useCollection(studiesRef);
