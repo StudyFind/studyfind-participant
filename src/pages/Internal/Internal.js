@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 
 import { auth, firestore } from "database/firebase";
@@ -11,14 +10,14 @@ import { Page } from "components";
 
 import Confirm from "./Confirm";
 import Sidebar from "./Sidebar";
-import Verification from "views/Internal/Verification/Verification";
-import FindStudies from "views/Internal/FindStudies/FindStudies";
-import Notifications from "views/Internal/Notifications/Notifications";
-import Account from "views/Internal/Account/Account";
-import ViewStudy from "views/Internal/ViewStudy/ViewStudy";
-import Screening from "views/Internal/ViewStudy/Screening";
-import MyStudies from "views/Internal/MyStudies/MyStudies";
-import Feedback from "views/Internal/Feedback/Feedback";
+import Verification from "pages/Internal/Verification/Verification";
+import FindStudies from "pages/Internal/FindStudies/FindStudies";
+import Notifications from "pages/Internal/Notifications/Notifications";
+import Account from "pages/Internal/Account/Account";
+import ViewStudy from "pages/Internal/ViewStudy/ViewStudy";
+import Screening from "pages/Internal/ViewStudy/Screening";
+import MyStudies from "pages/Internal/MyStudies/MyStudies";
+import Feedback from "pages/Internal/Feedback/Feedback";
 
 function Internal() {
   const { uid, email, emailVerified } = auth.currentUser;

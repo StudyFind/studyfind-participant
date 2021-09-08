@@ -1,11 +1,10 @@
-import React from "react";
 import { useState } from "react";
 
 import { Switch, Route, Redirect } from "react-router-dom";
 
-import Home from "views/External/Home/Home";
-import Auth from "views/External/Auth/Auth";
-import Team from "views/External/Home/Team";
+import Home from "pages/External/Home/Home";
+import Auth from "pages/External/Auth/Auth";
+import Team from "pages/External/Home/Team";
 
 import { firestore } from "database/firebase";
 import { useCollection } from "hooks";
