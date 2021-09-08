@@ -1,13 +1,22 @@
-import React from "react";
 import { TextInput, FormControl } from "@chakra-ui/react";
 import { Label, Error } from "./helpers";
 
-export const PhoneInput = ({ name, value, error, label, placeholder, onChange, ...rest }) => {
+export const PhoneInput = ({
+  name,
+  value,
+  error,
+  label,
+  placeholder,
+  onChange,
+  ...rest
+}) => {
   const normalizePhone = (value) => {
     const cleaned = value.replace(/\+1/, "").replace(/[^\d]/g, "");
 
     if (/(\d{3})(\d{3})(\d{1,4})/.exec(cleaned)) {
-      return cleaned.replace(/(\d{3})(\d{3})(\d{1,4})/, "+1 ($1) $2-$3").substr(0, 17);
+      return cleaned
+        .replace(/(\d{3})(\d{3})(\d{1,4})/, "+1 ($1) $2-$3")
+        .substr(0, 17);
     }
 
     if (/(\d{3})(\d{1,3})/.exec(cleaned)) {

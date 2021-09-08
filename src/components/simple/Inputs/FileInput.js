@@ -1,4 +1,3 @@
-import React from "react";
 import { Input, FormControl } from "@chakra-ui/react";
 import { Label, Error } from "./helpers";
 

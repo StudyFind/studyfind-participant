@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Input,
   FormControl,
@@ -30,7 +29,13 @@ export const TextInput = ({
       <Label label={label} />
       <InputGroup>
         {left && (
-          <InputLeftElement w={leftWidth} display="flex" alignItems="center" p="0px" h="100%">
+          <InputLeftElement
+            w={leftWidth}
+            display="flex"
+            alignItems="center"
+            p="0px"
+            h="100%"
+          >
             {left}
           </InputLeftElement>
         )}
@@ -44,7 +49,13 @@ export const TextInput = ({
           {...rest}
         />
         {right && (
-          <InputRightElement w={rightWidth} display="flex" alignItems="center" p="0px" h="100%">
+          <InputRightElement
+            w={rightWidth}
+            display="flex"
+            alignItems="center"
+            p="0px"
+            h="100%"
+          >
             {right}
           </InputRightElement>
         )}

@@ -1,4 +1,3 @@
-import React from "react";
 export const Form = ({ children, onSubmit, ...rest }) => {
   const handleEnter = (e) => {
     e.preventDefault();
@@ -13,20 +12,3 @@ export const Form = ({ children, onSubmit, ...rest }) => {
 };
 
 export default Form;
-
-// NEW IMPLEMENTATION
-
-// export const Form = ({ children, onSubmit, ...rest }) => {
-//   const handleEnter = (e) => {
-//     e.preventDefault();
-//     onSubmit(e);
-//   };
-
-//   return (
-//     <form onSubmit={handleEnter} {...rest}>
-//       {children}
-//     </form>
-//   );
-// };
-
-// export default Form;

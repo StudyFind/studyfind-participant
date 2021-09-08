@@ -1,6 +1,9 @@
-import React from "react";
 import { Icon, Flex, Tooltip } from "@chakra-ui/react";
-import { FaExclamationCircle, FaTimesCircle, FaCheckCircle } from "react-icons/fa";
+import {
+  FaExclamationCircle,
+  FaTimesCircle,
+  FaCheckCircle,
+} from "react-icons/fa";
 
 export const ConfirmationStatus = ({ children, status, hint }) => {
   const { color, icon } = {

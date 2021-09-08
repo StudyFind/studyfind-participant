@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import { Text, Flex, Textarea, FormControl } from "@chakra-ui/react";
 import { Label, Error } from "./helpers";

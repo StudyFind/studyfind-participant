@@ -1,9 +1,16 @@
-import React from "react";
 import styled from "styled-components";
 import { Flex, Button, Tooltip, FormControl } from "@chakra-ui/react";
 import { Label, Error } from "./helpers";
 
-export const MultiselectInput = ({ name, value, error, label, options, onChange, ...rest }) => {
+export const MultiselectInput = ({
+  name,
+  value,
+  error,
+  label,
+  options,
+  onChange,
+  ...rest
+}) => {
   const handleChange = (option) => {
     if (value.includes(option.value)) {
       const updated = value.filter((v) => v !== option.value);

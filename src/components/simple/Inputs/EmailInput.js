@@ -1,8 +1,15 @@
-import React from "react";
 import { Input, FormControl } from "@chakra-ui/react";
 import { Label, Error } from "./helpers";
 
-export const EmailInput = ({ name, value, error, label, placeholder, onChange, ...rest }) => {
+export const EmailInput = ({
+  name,
+  value,
+  error,
+  label,
+  placeholder,
+  onChange,
+  ...rest
+}) => {
   const handleChange = (e) => {
     onChange(name, e.target.value.trim());
   };

@@ -1,9 +1,22 @@
-import React from "react";
 import { useState } from "react";
-import { FormControl, Input, InputGroup, InputRightElement, Button } from "@chakra-ui/react";
+import {
+  FormControl,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Button,
+} from "@chakra-ui/react";
 import { Label, Error } from "./helpers";
 
-export const PasswordInput = ({ name, value, error, label, placeholder, onChange, ...rest }) => {
+export const PasswordInput = ({
+  name,
+  value,
+  error,
+  label,
+  placeholder,
+  onChange,
+  ...rest
+}) => {
   const [show, setShow] = useState(false);
 
   const handleChange = (e) => {

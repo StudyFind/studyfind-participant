@@ -1,4 +1,3 @@
-import React from "react";
 import { Button, useClipboard } from "@chakra-ui/react";
 import { FaCopy, FaCheckCircle } from "react-icons/fa";
 
@@ -23,7 +22,12 @@ export const ClipboardButton = ({ children, text, copiedText, ...rest }) => {
   }
 
   return (
-    <Button variant="outline" color="gray.500" leftIcon={<FaCopy />} onClick={onCopy}>
+    <Button
+      variant="outline"
+      color="gray.500"
+      leftIcon={<FaCopy />}
+      onClick={onCopy}
+    >
       {children}
     </Button>
   );
