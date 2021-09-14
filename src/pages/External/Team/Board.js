@@ -1,94 +1,114 @@
-import React from "react";
-import styled from "styled-components";
-import { HashLink } from "react-router-hash-link";
+import { useColor, useDetectDevice } from "hooks";
 
-import { Heading, Button, Text } from "@chakra-ui/react";
+import { Box, SimpleGrid, Heading } from "@chakra-ui/react";
 
-import Yohan from "images/yohan.png";
-import Andrew from "images/andrew.png";
-import Vir from "images/vir.png";
+import Vir from "images/advisory/vir.png";
+import Aidan from "images/advisory/aidan.jpeg";
+import Alexis from "images/advisory/alexis.png";
+import Ayesha from "images/advisory/ayesha.png";
+import Evans from "images/advisory/evans.png";
+import Gabi from "images/advisory/gabi.png";
+import Hannah from "images/advisory/hannah.png";
+import Reina from "images/advisory/reina.png";
+import Romina from "images/advisory/romina.png";
+import Steven from "images/advisory/steven.png";
+import Suraj from "images/advisory/suraj.png";
+import Talia from "images/advisory/talia.png";
+
+import TeamMember from "components/feature/External/HomeSections/Team/TeamMember";
 
 function Board() {
+  const { responsive } = useDetectDevice();
+  const background = useColor("white", "gray.900");
+
   return (
-    <Box id="board">
-      <Heading size="2xl" lineHeight="1.25">
-        <Text color="blue.500">Board</Text>
-      </Heading>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          gridGap: "50px",
-        }}
+    <Box id="board" minHeight="100vh" background={background} padding="40px">
+      <Heading
+        color="blue.500"
+        size="2xl"
+        lineHeight="1.25"
+        textAlign="center"
+        marginTop="20px"
+        marginBottom="80px"
       >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-evenly",
-          }}
-        >
-          Yohan Jhaveri
-          <img src={Yohan} width="250vh" />
-          Computer Science <br />
-          Emory University
-        </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-evenly",
-          }}
-        >
-          Andrew Garcia
-          <img src={Andrew} width="250vh" />
-          Health Policy &amp; Management <br />
-          Emory University
-        </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-evenly",
-          }}
-        >
-          Vir Mittal
-          <img src={Vir} width="250vh" />
-          Computer Science <br />
-          Emory University
-        </div>
-      </div>
-      <Heading size="2xl" lineHeight="1.25">
-        <Text color="green.400">About Us</Text>
+        National Advisory Board
       </Heading>
-      <Text fontSize="lg">
-        StudyFind was founded by three co-foundrs who wanted to participate in
-        clinical research trials but couldn&apos;t readily access and communicate
-        with researchers!
-        <br />
-        <br />
-        They set out to build a platform that caters to both Researchers and
-        Study Volunteers.
-      </Text>
+      <SimpleGrid columns={responsive([1, 2, 4])} spacingY="40px">
+        <TeamMember
+          image={Aidan}
+          name="Aidan Williams"
+          position="Medical College of Wisconsin"
+          linkedinURL="https://www.linkedin.com/in/aidan-williams-13a93a12a/"
+        />
+        <TeamMember
+          image={Alexis}
+          name="Alexis Whitmire"
+          position="Atlanta VA Medical Center"
+          linkedinURL="https://www.linkedin.com/in/alexiswhitmire/"
+        />
+        <TeamMember
+          image={Ayesha}
+          name="Ayesha Hameed"
+          position="BioPharma Informatic"
+          linkedinURL="https://www.linkedin.com/in/ayesha-hameed-20196a40/"
+        />
+        <TeamMember
+          image={Evans}
+          name="Evans Pope"
+          position="Cleveland Clinic"
+          linkedinURL="https://www.linkedin.com/in/evans-d-pope-iii-ms-4839a118/"
+        />
+        <TeamMember
+          image={Gabi}
+          name="Gabrielle Schiller"
+          position="Mount Sinai"
+          linkedinURL="https://www.linkedin.com/in/gabrielle-schiller/"
+        />
+        <TeamMember
+          image={Hannah}
+          name="Hannah Lipper"
+          position="University of Massachusetts"
+          linkedinURL="https://www.linkedin.com/in/hannah-s-lipper-mph-she-her-2190a765/"
+        />
+        <TeamMember
+          image={Reina}
+          name="Reina Factor"
+          position="UCLA"
+          linkedinURL="https://www.linkedin.com/in/reina-factor-5a5745202/"
+        />
+        <TeamMember
+          image={Romina}
+          name="Romina Nejad"
+          position="Stanford"
+          linkedinURL="https://www.linkedin.com/in/romina-nejad/"
+        />
+        <TeamMember
+          image={Steven}
+          name="Steven Choi"
+          position="ThreeWire"
+          linkedinURL="https://www.linkedin.com/in/steven-choi-3b547973/"
+        />
+        <TeamMember
+          image={Suraj}
+          name="Suraj Oomman"
+          position="UNC-Chapel Hill"
+          linkedinURL="https://www.linkedin.com/in/surajoomman/"
+        />
+        <TeamMember
+          image={Talia}
+          name="Talia Korn"
+          position="Mount Sinai"
+          linkedinURL="https://www.linkedin.com/in/talia-korn-3a28b4132/"
+        />
+        <TeamMember
+          image={Vir}
+          name="Vir Mittal"
+          position="SAP"
+          linkedinURL="https://www.linkedin.com/in/vir-m-1b1981130/"
+        />
+      </SimpleGrid>
     </Box>
   );
 }
-
-const Box = styled.section`
-  height: 100vh;
-  padding: 50px;
-  display: flex;
-  grid-gap: 20px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-
-  @media only screen and (max-width: 600px) {
-    padding: 30px;
-    grid-gap: 30px;
-  }
-`;
 
 export default Board;

@@ -22,5 +22,5 @@ export const getTimezone = () => {
 };
 
 export const getSide = () => {
-  return "researcher";
+  return "participant";
 };

@@ -1,23 +1,40 @@
-import React from "react";
+import { useColor } from "hooks";
+import { Box, Divider } from "@chakra-ui/react";
 
-import Header from "./Header";
-import Hero from "./Hero";
-import FindStudiesSection from "./FindStudiesSection/FindStudiesSection";
-import FoundingTeamSection from "./FoundingTeamSection";
-import EntireTeamSection from "./EntireTeamSection";
-import ResearcherSection from "./ResearcherSection";
+import Header from "components/feature/External/HomeSections/Header/Header";
+import Footer from "components/feature/External/HomeSections/Footer/Footer";
 
-function Home() {
+import HeroSection from "./HeroSection";
+import FeatureSection from "./FeatureSection";
+import TeamSection from "./TeamSection";
+import MailingSection from "./MailingSection";
+import PricingSection from "./PricingSection";
+
+function HomePage() {
+  const dividerColor = useColor("gray.200", "gray.600");
+
   return (
-    <div>
-      <Header />
-      <Hero />
-      <FindStudiesSection />
-      <FoundingTeamSection />
-      <EntireTeamSection />
-      <ResearcherSection />
-    </div>
+    <Box>
+      <Header logoLink="/#" buttonText="Start Free Trial" buttonLink="/auth" />
+      <HeroSection />
+      <Divider borderColor={dividerColor} />
+      <FeatureSection />
+      <Divider borderColor={dividerColor} />
+      <TeamSection />
+      <Divider borderColor={dividerColor} />
+      <PricingSection />
+      <Divider borderColor={dividerColor} />
+      <MailingSection />
+      <Divider borderColor={dividerColor} />
+      <Footer
+        links={{
+          linkedin: "https://www.linkedin.com/company/studyfind/",
+          instagram: "https://www.instagram.com/studyfindco",
+          facebook: "https://www.facebook.com/studyfindco",
+        }}
+      />
+    </Box>
   );
 }
 
-export default Home;
+export default HomePage;
