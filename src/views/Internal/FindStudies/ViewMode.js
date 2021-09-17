@@ -1,8 +1,14 @@
 import React from "react";
 import { Flex, Tooltip, IconButton } from "@chakra-ui/react";
 import { FaThLarge, FaMapMarkerAlt } from "react-icons/fa";
+import { RadioInput } from "components";
 
 function ViewMode({ view, setView }) {
+  const options = [
+    { value: "grid", label: <FaThLarge /> },
+    { vale: "map", label: <FaMapMarkerAlt /> },
+  ];
+
   return (
     <Flex gridGap="10px">
       <Flex>
@@ -33,6 +39,16 @@ function ViewMode({ view, setView }) {
       </Flex>
     </Flex>
   );
+
+  // return (
+  //   <RadioInput
+  //     name="viewMode"
+  //     label="viewMode"
+  //     options={options}
+  //     onChange={(name, val) => setView(val)}
+  //     showValueOnHover
+  //   />
+  // );
 }
 
 export default ViewMode;

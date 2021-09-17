@@ -1,22 +1,24 @@
 import React from "react";
 import { Button } from "@chakra-ui/react";
+import { ToggleInput } from "components";
 
 function FilterToggle({ children, name, value, onChange }) {
   const color = value ? "blue" : "gray";
 
   return (
-    <Button
-      size="sm"
-      color={`${color}.500`}
-      bg={`${color}.100`}
-      borderColor={`${color}.300`}
-      borderWidth="1px"
-      _hover={{ bg: `${color}.100` }}
-      _active={{ bg: `${color}.100` }}
-      onClick={() => onChange(name, !value)}
-    >
-      {children}
-    </Button>
+    // <Button
+    //   size="sm"
+    //   color={`${color}.500`}
+    //   bg={`${color}.100`}
+    //   borderColor={`${color}.300`}
+    //   borderWidth="1px"
+    //   _hover={{ bg: `${color}.100` }}
+    //   _active={{ bg: `${color}.100` }}
+    //   onClick={() => onChange(name, !value)}
+    // >
+    //   {children}
+    // </Button>
+    <ToggleInput name={name} label={children} value={value} onChange={onChange} />
   );
 }
 
