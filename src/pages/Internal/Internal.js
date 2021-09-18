@@ -16,18 +16,18 @@ import { Page } from "components";
 
 import {
   FaBell,
-  FaCalendarAlt,
-  FaPoll,
   FaCommentAlt,
   FaUserCircle,
   FaQuestionCircle,
+  FaSearch,
+  FaList,
 } from "react-icons/fa";
 
 import Sidebar from "components/feature/Sidebar/Sidebar";
 import Verification from "./Verification/Verification";
 import ViewStudy from "./ViewStudy/ViewStudy";
 import FindStudies from "./FindStudies/FindStudies";
-import MyStudies from "./MyStudies/MyStudies";
+import YourStudies from "./YourStudies/YourStudies";
 import Notifications from "./Notifications/Notifications";
 import Account from "./Account/Account";
 import Feedback from "./Feedback/Feedback";
@@ -55,9 +55,9 @@ function Internal() {
   const { isPhone } = useDetectDevice();
 
   const links = [
-    { name: "Dashboard", path: "/", icon: <FaPoll /> },
+    { name: "Find Studies", path: "/", icon: <FaSearch /> },
+    { name: "Your Studies", path: "/your-studies", icon: <FaList /> },
     { name: "Notifications", path: "/notifications", icon: <FaBell /> },
-    { name: "Schedule", path: "/schedule", icon: <FaCalendarAlt /> },
     { name: "Account", path: "/account/profile", icon: <FaUserCircle /> },
     { name: "Feedback", path: "/feedback", icon: <FaCommentAlt /> },
     { name: "FAQ", path: "/faq", icon: <FaQuestionCircle /> },
@@ -148,13 +148,12 @@ function Internal() {
             >
               <Switch>
                 <Route exact path="/" component={FindStudies} />
-                <Route path="/search" component={FindStudies} />
                 <Route path="/notifications" component={Notifications} />
                 <Route path="/study/:studyID/:tab" component={ViewStudy} />
                 <Route path="/account/:tab" component={Account} />
                 <Route
-                  path="/mystudies/:studyID?/:action?"
-                  component={MyStudies}
+                  path="/your-studies/:studyID?/:action?"
+                  component={YourStudies}
                 />
                 <Route path="/feedback" component={Feedback} />
                 <Redirect to="/" />
