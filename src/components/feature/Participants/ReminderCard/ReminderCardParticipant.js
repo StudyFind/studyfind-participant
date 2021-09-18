@@ -3,7 +3,7 @@ import ReminderDetails from "./ReminderDetails";
 import Wrapper from "../Wrapper";
 import Confirm from "../Confirm";
 
-function ReminderCardParticipant({ reminder }) {
+function ReminderCardParticipant({ reminder, handleConfirm }) {
   return (
     <Wrapper>
       <ReminderDetails
@@ -14,7 +14,7 @@ function ReminderCardParticipant({ reminder }) {
       />
       <Confirm
         confirmedByParticipant={reminder.confirmedByParticipant}
-        handleConfirm={() => console.log("confirm")}
+        handleConfirm={handleConfirm}
       />
     </Wrapper>
   );
