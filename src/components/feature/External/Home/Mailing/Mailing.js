@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useColor, useDetectDevice } from "hooks";
-import { validate } from "utils";
+import { validate } from "@studyfind/utils";
 
 import { Heading, Button, Icon, VStack, Text, HStack } from "@chakra-ui/react";
 import { Card, Form, TextInput } from "@studyfind/components";

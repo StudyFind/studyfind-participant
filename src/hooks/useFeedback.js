@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { auth, firestore } from "database/firebase";
-import moment from "moment";
+import moment from "moment-timezone";
 
 function useFeedback() {
   const [inputs, setInputs] = useState({ title: "", body: "" });
@@ -22,7 +22,9 @@ function useFeedback() {
     const time = moment().valueOf();
     const side = "researcher";
 
-    await firestore.collection("feedback").add({ title, body, email, time, side });
+    await firestore
+      .collection("feedback")
+      .add({ title, body, email, time, side });
   };
 
   const handleChange = (name, value) => {

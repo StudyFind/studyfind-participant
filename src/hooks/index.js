@@ -26,15 +26,6 @@ export { default as useCollection } from "./useCollection";
 export { default as usePagination } from "./usePagination";
 
 // FIREBASE AUTH
-export { default as useUserData } from "./useUserData";
-export { default as useUserPlan } from "./useUserPlan";
-export { default as useUserType } from "./useUserType";
-export { default as useCustomClaims } from "./useCustomClaims";
-
-// COMPONENTS
-export { default as useTabs } from "./useTabs";
-export { default as useWizard } from "./useWizard";
-export { default as useClipboard } from "./useClipboard";
 
 // AUTOUPDATE
 export { default as useAutoUpdateLocation } from "./useAutoUpdateLocation";

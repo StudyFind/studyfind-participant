@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import moment from "moment";
+import moment from "moment-timezone";
 
 import { auth } from "database/firebase";
 

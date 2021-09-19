@@ -1,14 +1,15 @@
 import React from "react";
 import { useEffect } from "react";
 import styled from "styled-components";
-import moment from "moment";
+import moment from "moment-timezone";
 
 import { Flex, Text, Icon } from "@chakra-ui/react";
 import { HiCheckCircle } from "react-icons/hi";
 
 function Message({ message, messagesRef, isUser }) {
   useEffect(() => {
-    if (!isUser && !message.read) messagesRef.doc(message.id).update({ read: true });
+    if (!isUser && !message.read)
+      messagesRef.doc(message.id).update({ read: true });
   }, []);
 
   return (
@@ -23,7 +24,12 @@ function Message({ message, messagesRef, isUser }) {
         >
           {message.text}
         </Text>
-        <Meta pt="4px" align="center" gridGap="2px" justify={`flex-${isUser ? "end" : "start"}`}>
+        <Meta
+          pt="4px"
+          align="center"
+          gridGap="2px"
+          justify={`flex-${isUser ? "end" : "start"}`}
+        >
           {isUser && (
             <Icon
               fontSize="12px"

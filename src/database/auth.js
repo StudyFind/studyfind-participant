@@ -1,10 +1,10 @@
-import { participant, researcher } from "database/mutations";
+// import { participant, researcher } from "database/mutations";
 import { getSide, getEmail } from "database/getters";
 import { auth } from "database/firebase";
 import errors from "database/errors";
 
 const side = getSide();
-const mutator = { participant, researcher }[side];
+// const mutator = { participant, researcher }[side];
 
 const getErrorMessage = ({ code }) => {
   return { email: "", password: "", ...errors[code] };
@@ -31,7 +31,7 @@ export const signup = async ({ name, email, password }) => {
     await Promise.all([
       user.sendEmailVerification(),
       user.updateProfile({ displayName: name }),
-      mutator.create(user.uid),
+      // mutator.create(user.uid),
     ]);
 
     setLocalUserExists(true);
@@ -74,7 +74,7 @@ export const changePassword = async ({ password, newPassword }) => {
 export const deleteAccount = async ({ email, password }) => {
   try {
     const user = await authenticate({ email, password });
-    await mutator.delete(user.uid);
+    // await mutator.delete(user.uid);
     await user.delete();
     setLocalUserExists(false);
   } catch (error) {

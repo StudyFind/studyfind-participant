@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import styled from "styled-components";
-import moment from "moment";
+import moment from "moment-timezone";
 
 import { Flex, Text, Icon } from "@chakra-ui/react";
 import { HiCheckCircle } from "react-icons/hi";
