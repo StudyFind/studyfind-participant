@@ -1,9 +1,10 @@
-import { usePagination, useUserData } from "hooks";
+import { useCollection, usePagination, useUserData } from "hooks";
 import { auth } from "database/firebase";
 import { buildDashboardQuery, buildParticipantsQuery } from "database/queries";
 
 import { useState, useEffect } from "react";
 import moment from "moment";
+import { firestore } from "database/firebase";
 
 import { Flex, Heading } from "@chakra-ui/react";
 
@@ -20,6 +21,7 @@ import FindStudiesEmpty from "./FindStudiesEmpty";
 import FindStudiesError from "./FindStudiesError";
 
 function FindStudiesPage() {
+  let [filteredStudies, setFilteredStudies] = useState([]);
   const { uid, emailVerified } = useUserData(auth);
 
   const participantQuery = buildParticipantsQuery(uid);
@@ -33,7 +35,7 @@ function FindStudiesPage() {
   //     error,
   //   } = usePagination(participantQuery, 10);
 
-  const studies = [];
+  const studies = useCollection(firestore.collection("studies").where("activated", "==", true))[0];
   const loading = false;
   const loadingMore = false;
   const handleLoadMore = () => {
@@ -150,7 +152,11 @@ function FindStudiesPage() {
     });
   };
 
-  const filteredStudies = filter(studies);
+  //   useEffect(() => {
+  //     if (studies !== undefined) {
+  //       setFilteredStudies(filter(studies));
+  //     }
+  //   }, [studies]);
 
   return (
     <>

@@ -2,6 +2,7 @@ import React from "react";
 
 import Header from "./Header";
 import Hero from "./Hero";
+import SearchHero from "./SearchHero";
 import FindStudiesSection from "./FindStudiesSection/FindStudiesSection";
 import FoundingTeamSection from "./FoundingTeamSection";
 import EntireTeamSection from "./EntireTeamSection";
@@ -11,7 +12,7 @@ function Home() {
   return (
     <div>
       <Header />
-      <Hero />
+      <SearchHero />
       <FindStudiesSection />
       <FoundingTeamSection />
       <EntireTeamSection />
