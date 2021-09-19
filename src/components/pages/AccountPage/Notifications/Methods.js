@@ -1,6 +1,6 @@
 import { Grid } from "@chakra-ui/react";
 
-import { CheckboxInput } from "components";
+import { CheckboxInput } from "@studyfind/components";
 
 function Methods({ email, phone, notifications, handleNotifications }) {
   return (

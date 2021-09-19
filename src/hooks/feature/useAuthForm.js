@@ -1,9 +1,9 @@
 import { useSimpleForm } from "hooks";
-import { validate } from "functions";
+import { validate } from "@studyfind/utils";
 
 function useAuthForm({ initial, onSubmit }) {
   const check = (name, value) => {
-    if (name === "name") return value ? "" : " ";
+    if (name === "name") return validate.name(value);
     if (name === "email") return validate.email(value);
     if (name === "password") return validate.password(value);
     if (name === "newPassword") return validate.password(value);
@@ -17,7 +17,7 @@ export default useAuthForm;
 // NEW IMPLEMENTATION
 
 // import { useState } from "react";
-// import { validate, object } from "utils";
+// import { validate, object } from "@studyfind/utils";
 
 // import useTriggerToast from "../useTriggerToast";
 

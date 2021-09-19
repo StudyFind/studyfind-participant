@@ -6,9 +6,17 @@ import { useParams, useHistory } from "react-router-dom";
 
 import { auth, firestore } from "database/firebase";
 import { UserContext, StudiesContext } from "context";
-import { List, Loader } from "components";
+import { List, Loader } from "@studyfind/components";
 
-import { Grid, Flex, Heading, Radio, RadioGroup, Text, Button } from "@chakra-ui/react";
+import {
+  Grid,
+  Flex,
+  Heading,
+  Radio,
+  RadioGroup,
+  Text,
+  Button,
+} from "@chakra-ui/react";
 
 function Screening() {
   const { studyID } = useParams();
@@ -38,12 +46,17 @@ function Screening() {
   const handleSubmit = async () => {
     const nanoid = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ", 10);
 
-    await firestore.collection("studies").doc(studyID).collection("participants").doc(user.id).set({
-      fakename: nanoid(),
-      timezone: user.timezone,
-      responses,
-      status: "interested",
-    });
+    await firestore
+      .collection("studies")
+      .doc(studyID)
+      .collection("participants")
+      .doc(user.id)
+      .set({
+        fakename: nanoid(),
+        timezone: user.timezone,
+        responses,
+        status: "interested",
+      });
 
     await firestore
       .collection("participants")
@@ -64,7 +77,10 @@ function Screening() {
             <Text fontWeight="500" mb="5px">
               {i + 1}. {question.prompt}
             </Text>
-            <RadioGroup value={responses[i]} onChange={(v) => handleResponseChange(i, v)}>
+            <RadioGroup
+              value={responses[i]}
+              onChange={(v) => handleResponseChange(i, v)}
+            >
               <Grid>
                 <Radio value="Yes">Yes</Radio>
                 <Radio value="No">No</Radio>

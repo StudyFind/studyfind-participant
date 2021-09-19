@@ -1,6 +1,6 @@
 import React from "react";
 import { Icon } from "@chakra-ui/react";
-import { TextInput } from "components";
+import { TextInput } from "@studyfind/components";
 import { FaSearch } from "react-icons/fa";
 
 function SearchInput({ value, onChange }) {

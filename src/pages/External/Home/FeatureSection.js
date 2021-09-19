@@ -1,18 +1,11 @@
-import Features from "components/feature/External/HomeSections/Features/Features";
+import Features from "components/feature/External/Home/Features/Features";
 
 import {
-  FcDoughnutChart,
-  FcMultipleDevices,
-  FcPrivacy,
-  FcTimeline,
   FcSurvey,
-  FcCalendar,
-  FcDataSheet,
   FcBarChart,
   FcAlarmClock,
   FcComments,
   FcPlanner,
-  FcClock,
   FcDocument,
 } from "react-icons/fc";
 

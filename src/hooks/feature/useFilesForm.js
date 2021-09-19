@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { object } from "utils";
+import { object } from "@studyfind/utils";
 
 function useFilesForm() {
   const [values, setValues] = useState({ name: "", file: undefined });

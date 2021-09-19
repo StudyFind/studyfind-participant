@@ -1,8 +1,8 @@
 import { useColor } from "hooks";
 import { Box, Divider } from "@chakra-ui/react";
 
-import Header from "components/feature/External/HomeSections/Header/Header";
-import Footer from "components/feature/External/HomeSections/Footer/Footer";
+import Header from "components/feature/External/Home/Header/Header";
+import Footer from "components/feature/External/Home/Footer/Footer";
 
 import HeroSection from "./HeroSection";
 import FeatureSection from "./FeatureSection";

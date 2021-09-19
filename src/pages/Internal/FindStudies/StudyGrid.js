@@ -1,5 +1,5 @@
 import React from "react";
-import { Message } from "components";
+import { Message } from "@studyfind/components";
 import { Box, Grid } from "@chakra-ui/react";
 
 import StudyCardSmall from "molecules/StudyCardSmall";

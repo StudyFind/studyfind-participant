@@ -1,22 +1,19 @@
-import { useContext } from "react";
 import styled from "styled-components";
+
 import { useParams } from "react-router-dom";
 import { useTabs } from "hooks";
 
-import { UserContext, StudiesContext } from "context";
-
 import { Flex, Tabs, Tab, TabList, TabPanels } from "@chakra-ui/react";
-import { Link, Message } from "components";
+import { Link, Message } from "@studyfind/components";
 import { FaChevronLeft } from "react-icons/fa";
 
 import Details from "./Details";
 import Locations from "./Locations";
-import Consent from "./Consent";
+import Files from "./Files";
 
 function ViewStudy() {
-  const user = useContext(UserContext);
-  const studies = useContext(StudiesContext);
   const { studyID } = useParams();
+
   const study = studies.find((study) => study.id === studyID);
 
   const tabs = [

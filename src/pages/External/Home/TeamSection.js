@@ -1,6 +1,6 @@
 import Yohan from "images/founders/yohan.png";
 import Andrew from "images/founders/andrew.png";
-import Team from "components/feature/External/HomeSections/Team/Team";
+import Team from "components/feature/External/Home/Team/Team";
 
 function TeamSection() {
   const title = "About the team";
@@ -51,7 +51,14 @@ function TeamSection() {
     },
   ];
 
-  return <Team title={title} description={description} founders={founders} panels={panels} />;
+  return (
+    <Team
+      title={title}
+      description={description}
+      founders={founders}
+      panels={panels}
+    />
+  );
 }
 
 export default TeamSection;

@@ -1,8 +1,9 @@
 import { notification } from "database/mutations";
 
 import { VStack } from "@chakra-ui/react";
-import { LoadMoreButton } from "components";
-import NotificationItem from "components/feature/Notifications/NotificationItem";
+import { LoadMoreButton } from "@studyfind/components";
+
+import NotificationItem from "components/feature/Internal/Notifications/NotificationItem";
 
 function NotificationList({
   notifications,

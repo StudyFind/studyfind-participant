@@ -1,6 +1,6 @@
 import React from "react";
 import { Flex, Heading, OrderedList, ListItem, Box } from "@chakra-ui/react";
-import { Link, Message } from "components";
+import { Link, Message } from "@studyfind/components";
 
 function Locations({ study }) {
   return study?.locations?.length ? (

@@ -3,7 +3,7 @@ import { firestore } from "database/firebase";
 import { getSide, getUID } from "database/getters";
 
 import { Button, Flex, Heading } from "@chakra-ui/react";
-import { Link, Loader } from "components";
+import { Link, Loader } from "@studyfind/components";
 import { FaCog } from "react-icons/fa";
 
 import NotificationsList from "./NotificationsList";

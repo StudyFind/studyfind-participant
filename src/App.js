@@ -8,7 +8,7 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 
 import Loading from "./Loading";
 import External from "pages/External/External";
-import Internal from "pages/Internal/Internal";
+// import Internal from "pages/Internal/Internal";
 
 const theme = extendTheme({
   config: {
@@ -36,7 +36,8 @@ function App() {
       {loading ? (
         <Loading />
       ) : (
-        <BrowserRouter>{cred ? <Internal /> : <External />}</BrowserRouter>
+        // <BrowserRouter>{cred ? <Internal /> : <External />}</BrowserRouter>
+        <External />
       )}
     </ChakraProvider>
   );

@@ -1,5 +1,5 @@
 import { useArray } from "hooks";
-import { object } from "utils";
+import { object } from "@studyfind/utils";
 
 function useSortableArrayWithBooleanErrors(initialValues, newValue) {
   const getErrors = (values) => {
@@ -10,12 +10,14 @@ function useSortableArrayWithBooleanErrors(initialValues, newValue) {
   const defaultErrors = [];
   const initialErrors = getErrors(initialValues);
 
-  const notDefault = JSON.stringify(initialValues) !== JSON.stringify(defaultValues);
+  const notDefault =
+    JSON.stringify(initialValues) !== JSON.stringify(defaultValues);
 
   const values = useArray(initialValues);
   const errors = useArray(notDefault ? initialErrors : defaultErrors);
 
-  const hasChanged = JSON.stringify(initialValues) !== JSON.stringify(values.value);
+  const hasChanged =
+    JSON.stringify(initialValues) !== JSON.stringify(values.value);
 
   const create = () => {
     values.append(newValue);

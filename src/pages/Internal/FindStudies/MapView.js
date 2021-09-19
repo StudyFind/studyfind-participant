@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import GoogleMapReact from "google-map-react";
 import StudyCardSmall from "molecules/StudyCardSmall";
-import { Loader } from "components";
+import { Loader } from "@studyfind/components";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { Box, Grid } from "@chakra-ui/react";
 

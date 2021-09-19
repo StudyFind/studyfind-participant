@@ -1,7 +1,7 @@
 import { Grid } from "@chakra-ui/react";
 
 import AccountSubHeader from "../AccountSubHeader";
-import { SwitchInput } from "components";
+import { SwitchInput } from "@studyfind/components";
 
 function Categories({ categories, handleCategories }) {
   return (

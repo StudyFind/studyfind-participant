@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { datetime } from "utils";
+import { datetime } from "@studyfind/utils";
 import { storage } from "database/firebase";
 
 function useFiles(studyID) {

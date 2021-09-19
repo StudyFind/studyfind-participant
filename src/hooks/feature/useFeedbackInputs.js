@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { object } from "utils";
+import { object } from "@studyfind/utils";
 
 function useFeedbackInputs(onSubmit) {
   // `onSubmit` must be a promise

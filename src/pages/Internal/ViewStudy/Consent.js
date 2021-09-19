@@ -5,10 +5,12 @@ import { storage } from "database/firebase";
 import { useDownloadURL } from "react-firebase-hooks/storage";
 
 import { Box, Flex, Heading } from "@chakra-ui/react";
-import { Message, Loader } from "components";
+import { Message, Loader } from "@studyfind/components";
 
 function ConsentViewer({ study }) {
-  const [value, loading] = useDownloadURL(storage.ref(`consent/${study.id}.pdf`));
+  const [value, loading] = useDownloadURL(
+    storage.ref(`consent/${study.id}.pdf`)
+  );
 
   if (loading) {
     return (

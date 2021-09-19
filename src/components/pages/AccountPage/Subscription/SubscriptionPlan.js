@@ -1,4 +1,4 @@
-import { Card, CheckboxInput } from "components";
+import { Card, CheckboxInput } from "@studyfind/components";
 import { Heading, HStack, Icon, Text, Flex } from "@chakra-ui/react";
 import { Hint } from "components/simple/Hint";
 import { FaQuestionCircle } from "react-icons/fa";
@@ -30,7 +30,12 @@ function SubscriptionPlan({
     >
       <Flex width="100%">
         <HStack spacing="10px">
-          <CheckboxInput name={name} value={value} width="auto" onChange={() => {}} />
+          <CheckboxInput
+            name={name}
+            value={value}
+            width="auto"
+            onChange={() => {}}
+          />
           <HStack>
             <Icon as={icon} color="blue.200" />
             <Heading size="md">{title}</Heading>
@@ -40,7 +45,11 @@ function SubscriptionPlan({
           <Text color="blue.200" fontWeight="bold">
             {billedPrice} per month
           </Text>
-          <Hint icon={FaQuestionCircle} label={features.join(", ")} color="gray.500" />
+          <Hint
+            icon={FaQuestionCircle}
+            label={features.join(", ")}
+            color="gray.500"
+          />
         </HStack>
       </Flex>
     </Card>

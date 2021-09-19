@@ -12,7 +12,7 @@ import { createGlobalStyle } from "styled-components";
 
 import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import { Box, Flex } from "@chakra-ui/react";
-import { Page } from "components";
+import { Page } from "@studyfind/components";
 
 import {
   FaBell,
@@ -25,14 +25,14 @@ import {
 
 import Sidebar from "components/feature/Sidebar/Sidebar";
 import Verification from "./Verification/Verification";
-import ViewStudy from "./ViewStudy/ViewStudy";
-import FindStudies from "./FindStudies/FindStudies";
+// import ViewStudy from "./ViewStudy/ViewStudy";
+// import FindStudies from "./FindStudies/FindStudies";
 import YourStudies from "./YourStudies/YourStudies";
 import Notifications from "./Notifications/Notifications";
 import Account from "./Account/Account";
 import Feedback from "./Feedback/Feedback";
 
-import ConfirmModal from "components/complex/ConfirmModal/ConfirmModal";
+import { ConfirmModal } from "@studyfind/components";
 import { buildResearcherQuery } from "database/queries";
 
 const GlobalStyle = createGlobalStyle`
@@ -55,10 +55,10 @@ function Internal() {
   const { isPhone } = useDetectDevice();
 
   const links = [
-    { name: "Find Studies", path: "/", icon: <FaSearch /> },
-    { name: "Your Studies", path: "/your-studies", icon: <FaList /> },
-    { name: "Notifications", path: "/notifications", icon: <FaBell /> },
-    { name: "Account", path: "/account/profile", icon: <FaUserCircle /> },
+    // { name: "Find Studies", path: "/", icon: <FaSearch /> },
+    // { name: "Your Studies", path: "/your-studies", icon: <FaList /> },
+    // { name: "Notifications", path: "/notifications", icon: <FaBell /> },
+    // { name: "Account", path: "/account/profile", icon: <FaUserCircle /> },
     { name: "Feedback", path: "/feedback", icon: <FaCommentAlt /> },
     { name: "FAQ", path: "/faq", icon: <FaQuestionCircle /> },
   ];
@@ -147,9 +147,9 @@ function Internal() {
               }
             >
               <Switch>
-                <Route exact path="/" component={FindStudies} />
+                {/* <Route exact path="/" component={FindStudies} /> */}
                 <Route path="/notifications" component={Notifications} />
-                <Route path="/study/:studyID/:tab" component={ViewStudy} />
+                {/* <Route path="/study/:studyID/:tab" component={ViewStudy} /> */}
                 <Route path="/account/:tab" component={Account} />
                 <Route
                   path="/your-studies/:studyID?/:action?"

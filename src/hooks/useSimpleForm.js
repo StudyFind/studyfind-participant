@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { object } from "functions";
+import { object } from "@studyfind/utils";
 import lodash from "lodash";
 
 export const Form = ({ initial, cleared, check, onSubmit }) => {

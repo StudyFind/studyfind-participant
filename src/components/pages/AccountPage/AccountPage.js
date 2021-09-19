@@ -1,7 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { changePassword, deleteAccount, signout } from "database/auth";
 import { researcher, participant } from "database/mutations";
-import { getSide } from "database/getters";
 
 import { UserContext } from "context";
 
@@ -25,7 +24,7 @@ import Subscription from "./Subscription/Subscription";
 import AccountTabs from "./AccountTabs";
 
 function AccountPage() {
-  const side = getSide();
+  const side = process.env.REACT_APP_USER_SIDE;
   const user = useContext(UserContext);
 
   const [mutator, Profile] = {
@@ -86,7 +85,12 @@ function AccountPage() {
     name: "Profile",
     link: "/account/profile",
     icon: <FaUser />,
-    content: <Profile {...updateProps} handleSetProfileAttribute={handleSetProfileAttribute} />,
+    content: (
+      <Profile
+        {...updateProps}
+        handleSetProfileAttribute={handleSetProfileAttribute}
+      />
+    ),
   };
 
   const NOTIFICATIONS = {
@@ -105,14 +109,24 @@ function AccountPage() {
     name: "Timezone",
     link: "/account/timezone",
     icon: <FaMapMarkedAlt />,
-    content: <Timezone {...updateProps} handleSetTimezoneAttribute={handleSetTimezoneAttribute} />,
+    content: (
+      <Timezone
+        {...updateProps}
+        handleSetTimezoneAttribute={handleSetTimezoneAttribute}
+      />
+    ),
   };
 
   const LOCATION = {
     name: "Location",
     link: "/account/location",
     icon: <FaLocationArrow />,
-    content: <Location {...updateProps} handleSetLocationAttribute={handleSetLocationAttribute} />,
+    content: (
+      <Location
+        {...updateProps}
+        handleSetLocationAttribute={handleSetLocationAttribute}
+      />
+    ),
   };
 
   const SECURITY = {

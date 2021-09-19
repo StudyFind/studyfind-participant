@@ -1,7 +1,6 @@
-import React from "react";
 import { auth } from "database/firebase";
 import { Box, Flex, Heading, Button, Tooltip } from "@chakra-ui/react";
-import { Link } from "components";
+import { Link } from "@studyfind/components";
 
 import StudyCardLarge from "molecules/StudyCardLarge";
 
@@ -17,7 +16,12 @@ function Details({ study, user }) {
             Enrolled
           </Button>
         ) : (
-          <Tooltip label={!verified && "You must verify your email before enrolling for studies"}>
+          <Tooltip
+            label={
+              !verified &&
+              "You must verify your email before enrolling for studies"
+            }
+          >
             <Box>
               <Link to={`/study/${study.id}/screening`}>
                 <Button colorScheme="blue" isDisabled={!verified}>

@@ -1,4 +1,4 @@
-import Mailing from "components/feature/External/HomeSections/Mailing/Mailing";
+import Mailing from "components/feature/External/Home/Mailing/Mailing";
 import { mailing } from "database/mutations";
 
 function MailingSection() {

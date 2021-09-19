@@ -1,4 +1,4 @@
-import Pricing from "components/feature/External/HomeSections/Pricing/Pricing";
+import Pricing from "components/feature/External/Home/Pricing/Pricing";
 
 import { SiHive, SiMarketo, SiMicrosoft } from "react-icons/si";
 
@@ -8,14 +8,22 @@ function PricingSection() {
       icon: SiMicrosoft,
       name: "Basic",
       price: ["$29", "$19"],
-      features: ["Create Studies", "Recruit Participants", "Track Participant Status"],
+      features: [
+        "Create Studies",
+        "Recruit Participants",
+        "Track Participant Status",
+      ],
     },
 
     {
       icon: SiMarketo,
       name: "Standard",
       price: ["$99", "$79"],
-      features: ["Everything in Basic", "Participant Reminders", "Schedule Meetings"],
+      features: [
+        "Everything in Basic",
+        "Participant Reminders",
+        "Schedule Meetings",
+      ],
       isPopular: true,
     },
 
@@ -23,7 +31,11 @@ function PricingSection() {
       icon: SiHive,
       name: "Premium",
       price: ["$249", "$199"],
-      features: ["Everything in Standard", "Instant Messaging", "Email and Text Notifications"],
+      features: [
+        "Everything in Standard",
+        "Instant Messaging",
+        "Email and Text Notifications",
+      ],
     },
   ];
 
