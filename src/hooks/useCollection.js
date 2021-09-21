@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useCollection as useFirestoreCollection } from "react-firebase-hooks/firestore";
 
 function useCollection(query, options) {
-  const [collection, setCollection] = useState();
+  const [collection, setCollection] = useState(null);
   const [snapshot, loading, error] = useFirestoreCollection(query, options);
 
   const transformData = (snapshot) => {

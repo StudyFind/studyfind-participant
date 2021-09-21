@@ -1,54 +1,86 @@
+import { useHistory, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
 
-function useTabs(root, tabs) {
-  const { tab } = useParams();
+function useTabs(tabs, useURL) {
   const history = useHistory();
+  const { tab } = useParams();
 
-  const [tabIndex, setTabIndex] = useState(tabs.findIndex((t) => t.name === tab));
-
-  const handleKeyDown = (e) => {
-    const reroute = (index) => {
-      e.preventDefault();
-      history.push(tabs[index]?.name);
-    };
-
-    if (document.activeElement.classList.contains("tab")) {
-      const last = tabs.length - 1;
-      if ([39, 40].includes(e.keyCode)) reroute(tabIndex === last ? 0 : tabIndex + 1);
-      if ([37, 38].includes(e.keyCode)) reroute(tabIndex === 0 ? last : tabIndex - 1);
+  const findTabIndex = () => {
+    if (!useURL) {
+      return 0;
     }
+
+    const found = tabs.findIndex((t) => {
+      const split = t.link.split("/");
+      const last = split[split.length - 1];
+      return last === tab;
+    });
+
+    return found === -1 ? null : found;
+  };
+
+  const [tabIndex, setTabIndex] = useState(findTabIndex() ?? 0);
+
+  const handleUpdatePath = () => {
+    history.push(tabs[tabIndex].link);
   };
 
   useEffect(() => {
-    setTabIndex(tabs.findIndex((t) => tab === t.name));
+    const firstIndex = 0;
+    const lastIndex = tabs.length - 1;
+
+    const handleBack = () => {
+      setTabIndex((prevIndex) => {
+        if (prevIndex === firstIndex) {
+          return lastIndex;
+        }
+
+        return prevIndex - 1;
+      });
+    };
+
+    const handleNext = () => {
+      setTabIndex((prevIndex) => {
+        if (prevIndex === lastIndex) {
+          return firstIndex;
+        }
+
+        return prevIndex + 1;
+      });
+    };
+
+    const handleArrowKeys = ({ keyCode }) => {
+      const isTabActive = document.activeElement.classList.contains("tab-item");
+
+      if (isTabActive) {
+        if ([37, 38].includes(keyCode)) handleBack(); // down & left arrow keys
+        if ([39, 40].includes(keyCode)) handleNext(); // up & right arrow keys
+      }
+    };
+
+    document.querySelector(".tab-item").focus();
+    document.addEventListener("keydown", handleArrowKeys, false);
+
+    return () => {
+      document.removeEventListener("keydown", handleArrowKeys, false);
+    };
+  }, []);
+
+  useEffect(() => {
+    const found = findTabIndex() ?? 0;
+    setTabIndex(found);
   }, [tab]);
 
   useEffect(() => {
-    const url = history.location.pathname;
-    const rootPath = url.slice(0, root.length);
-    const restPath = url.slice(2 + root.length + tab.length);
-    const tabName = tabs[tabIndex]?.name;
+    const tabItems = document.querySelectorAll(".tab-item");
+    tabItems[tabIndex].focus();
 
-    if (root !== rootPath) {
-      return;
-    }
-
-    if (tabName === undefined) {
-      return;
-    }
-
-    if (restPath) {
-      history.push(`${root}/${tabName}/${restPath}`);
-    } else {
-      history.push(`${root}/${tabName}`);
+    if (useURL) {
+      if (tabIndex !== findTabIndex()) {
+        handleUpdatePath();
+      }
     }
   }, [tabIndex]);
-
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyDown, false);
-    return () => document.removeEventListener("keydown", handleKeyDown, false);
-  }, [handleKeyDown]);
 
   return [tabIndex, setTabIndex];
 }
