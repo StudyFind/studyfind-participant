@@ -3,9 +3,9 @@ import Andrew from "images/founders/andrew.png";
 import Team from "components/feature/External/HomeSections/Team/Team";
 
 function TeamSection() {
-  const title = "About the team";
+  const title = "About Us";
   const description =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation";
+    "StudyFind was founded by Andrew and Yohan to make it easier for anyone and everyone to participate in clinical research. The StudyFind platform provides participants and researchers a conducive ecosystem to connect seamlessly.";
 
   const founders = [
     {
@@ -13,39 +13,37 @@ function TeamSection() {
       name: "Yohan Jhaveri",
       position: "Co-Founder",
       description:
-        "Habitant morbi tristique senectus et netus et malesuada fames. Vestibulum morbi",
+        "Yohan recently graduated from Emory University with a degree in Computer Science and Economics",
     },
     {
       image: Andrew,
       name: "Andrew Garcia",
       position: "Co-Founder",
       description:
-        "Habitant morbi tristique senectus et netus et malesuada fames. Vestibulum morbi",
+        "Andrew earned his Masters in Public Health at Emory University with a focus on Health Policy and Management",
     },
   ];
 
   const panels = [
     {
-      title: "Interns",
+      title: "Our Team",
       colorScheme: "blue",
-      description:
-        "Our interns have put in the time and effort to deliver the best quality product for researchers to use.",
-      buttonText: "Meet the Interns",
+      description: "The talented individuals resonsible for the day-to-day operations at StudyFind",
+      buttonText: "Meet the team",
       buttonLink: "/team#interns",
     },
     {
       title: "Advisory Board",
       colorScheme: "teal",
       description:
-        "Our advisory board has given us the direction and strategy needed to build a product researchers love.",
+        "The diverse group of professionals that guide us in making a product researchers love",
       buttonText: "Meet the Advisory Board",
       buttonLink: "/team#board",
     },
     {
       title: "Collaborations",
       colorScheme: "purple",
-      description:
-        "Our collaborations have enabled us to constantly push boundaries and develop experimental products.",
+      description: "The institutions that enable us to constantly push boundaries and innovate",
       buttonText: "View our Collaborations",
       buttonLink: "/team#collaborations",
     },

@@ -11,7 +11,7 @@ function Features({ features }) {
 
   return (
     <SectionWrapper background={background}>
-      <SimpleGrid columns={isPhone ? 1 : 2} spacing="80px 60px">
+      <SimpleGrid columns={isPhone ? 1 : 2} spacing="80px 60px" paddingY="40px">
         {features.map((feature, i) => (
           <Feature
             key={i}

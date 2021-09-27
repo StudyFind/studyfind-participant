@@ -15,7 +15,7 @@ function PricingHeader({ title, description, isBilledAnnually, handleChange }) {
       </VStack>
       <HStack align="center" fontWeight="500">
         <Text>Monthly</Text>
-        <SwitchInput isChecked={isBilledAnnually} onChange={handleChange} />
+        <SwitchInput value={isBilledAnnually} onChange={handleChange} />
         <Text>Annually</Text>
       </HStack>
     </VStack>

@@ -14,45 +14,57 @@ import {
   FcPlanner,
   FcClock,
   FcDocument,
+  FcInspection,
+  FcAnswers,
+  FcCollaboration,
+  FcVideoCall,
+  FcOvertime,
+  FcHighPriority,
+  FcAbout,
+  FcApproval,
+  FcDisplay,
+  FcInfo,
+  FcFinePrint,
+  FcList,
+  FcRules,
 } from "react-icons/fc";
 
 function FeatureSection() {
   const features = [
     {
       icon: <FcSurvey />,
-      title: "Pre-Screening Survey",
+      title: "Screening Survey",
       description:
-        "The pre-screening survey can filter participants based on customizable inclusionary and exclusionary criteria",
+        "A brief survey that will help you automatically know what studies you may qualify for",
     },
     {
-      icon: <FcBarChart />,
-      title: "Participant Eligibility Score",
-      description:
-        "The participant eligibility score will highlight the most qualified candidates based on their reponses to the survey",
+      icon: <FcOvertime />,
+      title: "Reminders",
+      description: "Our reminders feature will keep you on track with study requirements",
     },
     {
-      icon: <FcAlarmClock />,
-      title: "Participant Reminders",
+      icon: <FcCollaboration />,
+      title: "Secure Messaging",
       description:
-        "The reminder feature can be customized to alert your participants according to your study's specific needs",
+        "We value you your privacy, so rest assured our messaging feature is completely HIPAA compliant.",
     },
     {
-      icon: <FcDocument />,
-      title: "Participant Notes",
+      icon: <FcVideoCall />,
+      title: "Meetings",
       description:
-        "The notes feature allows you to privately record important details for the participants of your study",
+        "Get on calls with researchers at different milestones in the participation process",
     },
     {
-      icon: <FcPlanner />,
-      title: "Calendar View",
+      icon: <FcCalendar />,
+      title: "Calendar (Coming Soon)",
       description:
-        "At vero eos et accusam et justo duo dolores et ea rebum. Stet clitakasd gubergren, no sea takimata sanctus.",
+        "The calendar feature allows you to view all your scheduled meetings in a single place",
     },
     {
-      icon: <FcComments />,
-      title: "Messaging",
+      icon: <FcAbout />,
+      title: "Notifications",
       description:
-        "Communicate effectively with participants through our HIPAA-compliant messaging feature",
+        "The notification feature keeps you updated about your status in the recruitment process",
     },
   ];
 
