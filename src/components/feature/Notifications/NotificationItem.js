@@ -85,11 +85,15 @@ function NotificationItem({ notification, handleNotificationRead }) {
     width: 100%;
   `;
 
+  // convert external link to internal link otherwise Link component will open link in new tab
+  const hostname = "https://studyfind.org";
+  const internalLink = link.substring(hostname.length);
+
   const NotificationLinkWrapper = ({ link, children }) =>
     link ? <NotificationLink to={link}>{children}</NotificationLink> : children;
 
   return (
-    <NotificationLinkWrapper link={link} isWrapper>
+    <NotificationLinkWrapper link={internalLink} isWrapper>
       <Card
         width="100%"
         borderColor={read ? readBorderColor : unreadBorderColor}
