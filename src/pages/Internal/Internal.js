@@ -15,7 +15,14 @@ import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import { Box, Flex } from "@chakra-ui/react";
 import { Page } from "components";
 
-import { FaBell, FaCommentAlt, FaUserCircle, FaSearch, FaClipboard } from "react-icons/fa";
+import {
+  FaBell,
+  FaCalendarAlt,
+  FaCommentAlt,
+  FaUserCircle,
+  FaSearch,
+  FaClipboard,
+} from "react-icons/fa";
 
 import FindStudies from "./Study/FindStudies/FindStudies";
 import YourStudies from "./Study/YourStudies/YourStudies";
@@ -24,7 +31,7 @@ import Sidebar from "components/feature/Sidebar/Sidebar";
 import Verification from "./Verification/Verification";
 import ViewStudy from "./Study/ViewStudy/ViewStudy";
 import Notifications from "./Notifications/Notifications";
-// import Schedule from "./Schedule/Schedule";
+import Schedule from "./Schedule/Schedule";
 import Account from "./Account/Account";
 import Feedback from "./Feedback/Feedback";
 import Screening from "./Study/Screening";
@@ -58,6 +65,7 @@ function Internal() {
     { name: "Find Studies", path: "/", icon: <FaSearch /> },
     { name: "Your Studies", path: "/your-studies", icon: <FaClipboard /> },
     { name: "Notifications", path: "/notifications", icon: <FaBell /> },
+    { name: "Schedule", path: "/schedule", icon: <FaCalendarAlt /> },
     { name: "Account", path: "/account/profile", icon: <FaUserCircle /> },
     { name: "Feedback", path: "/feedback", icon: <FaCommentAlt /> },
   ];
@@ -148,6 +156,7 @@ function Internal() {
                   <Route path="/notifications" component={Notifications} />
                   <Route path="/study/:studyID/screening" component={Screening} />
                   <Route path="/study/:studyID/:tab" component={ViewStudy} />
+                  <Route path="/schedule" component={Schedule} />
                   <Route path="/account/:tab" component={Account} />
                   <Route path="/your-studies/:studyID?/:action?" component={YourStudies} />
                   <Route path="/feedback" component={Feedback} />

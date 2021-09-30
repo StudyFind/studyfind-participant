@@ -3,17 +3,16 @@ import { useDetectDevice } from "hooks";
 import { datetime } from "utils";
 
 import { Flex, Text } from "@chakra-ui/react";
-import { FaPencilAlt, FaPhone, FaTrashAlt } from "react-icons/fa";
+import { FaCheckCircle, FaPhone } from "react-icons/fa";
 import { Card, Hint, Link, ActionButton } from "components";
 
-function MeetingItem({ participant, meeting, handleDelete }) {
+function MeetingItemParticipant({ meeting, handleConfirm }) {
   const { isPhone } = useDetectDevice();
 
   const meetingInfo = (
     <>
       <Text>Status: {meeting.confirmedByParticipant ? "Confirmed" : "Pending"}</Text>
       <Text>Study: {meeting.studyID}</Text>
-      <Text>Participant: {participant?.id}</Text>
     </>
   );
 
@@ -37,28 +36,21 @@ function MeetingItem({ participant, meeting, handleDelete }) {
         {isPhone || <Hint fontSize="12px" label={meetingInfo} />}
       </Flex>
       <Flex gridGap="4px" marginLeft="auto" align="center">
-        <Link to={meeting.link} isWrapper>
+        {!meeting.confirmedByParticipant ? (
           <ActionButton
-            icon={<FaPhone />}
-            hint={meeting.confirmedByParticipant ? "Confirmed" : "Pending"}
-            colorScheme={meeting.confirmedByParticipant ? "green" : "gray"}
+            icon={<FaCheckCircle />}
+            hint="Confirm"
+            colorScheme="blue"
+            onClick={handleConfirm}
           />
-        </Link>
-        <Link
-          to={`/study/${meeting.studyID}/participants/meetings/${meeting.participantID}`}
-          isWrapper
-        >
-          <ActionButton icon={<FaPencilAlt />} hint="Edit" colorScheme="blue" />
-        </Link>
-        <ActionButton
-          icon={<FaTrashAlt />}
-          hint="Delete"
-          colorScheme="red"
-          onClick={handleDelete}
-        />
+        ) : (
+          <Link to={meeting.link} isWrapper>
+            <ActionButton icon={<FaPhone />} hint="Join" colorScheme="green" />
+          </Link>
+        )}
       </Flex>
     </Card>
   );
 }
 
-export default MeetingItem;
+export default MeetingItemParticipant;

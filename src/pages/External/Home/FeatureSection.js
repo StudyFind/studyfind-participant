@@ -56,7 +56,7 @@ function FeatureSection() {
     },
     {
       icon: <FcCalendar />,
-      title: "Calendar (Coming Soon)",
+      title: "Calendar",
       description:
         "The calendar feature allows you to view all your scheduled meetings in a single place",
     },
