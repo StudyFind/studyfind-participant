@@ -21,26 +21,28 @@ function SidebarLogo({ isPhone, active, setActive }) {
   };
 
   return (
-    <Flex justify="space-between" align="center" padding="20px" onClick={handleToggleActive}>
+    <Flex justify="space-between" align="center" padding="20px">
       <LogoLink to="/" isWrapper>
         <Image height="1.6rem" marginRight="10px" src={SFLogo} />
         <Heading fontSize="1.5rem" color="white">
           StudyFind
         </Heading>
       </LogoLink>
-      <Flex
-        color="white"
-        background="whiteAlpha.200"
-        rounded="full"
-        height="28px"
-        width="28px"
-        justify="center"
-        align="center"
-        onClick={toggleColorMode}
-      >
-        <Icon as={colorMode === "light" ? FiMoon : FiSun} />
-      </Flex>
-      {isPhone && <ToggleIcon size="24px" color="white" />}
+      {isPhone || (
+        <Flex
+          color="white"
+          background="whiteAlpha.200"
+          rounded="full"
+          height="28px"
+          width="28px"
+          justify="center"
+          align="center"
+          onClick={toggleColorMode}
+        >
+          <Icon as={colorMode === "light" ? FiMoon : FiSun} />
+        </Flex>
+      )}
+      {isPhone && <ToggleIcon size="24px" color="white" onClick={handleToggleActive} />}
     </Flex>
   );
 }
