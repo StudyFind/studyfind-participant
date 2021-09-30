@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useColor, useDetectDevice } from "hooks";
@@ -71,14 +72,24 @@ function NotificationItem({ notification, handleNotificationRead }) {
 
   const { isPhone } = useDetectDevice();
 
+  const titleColor = useColor("black", "white");
+
   const readBorderColor = useColor("gray.200", "gray.700");
   const unreadBorderColor = useColor("blue.100", "blue.600");
 
   const readBackgroundColor = useColor("white", "gray.900");
   const unreadBackgroundColor = useColor("blue.50", "blue.900");
 
+  const NotificationLink = styled(Link)`
+    display: block;
+    width: 100%;
+  `;
+
+  const NotificationLinkWrapper = ({ link, children }) =>
+    link ? <NotificationLink to={link}>{children}</NotificationLink> : children;
+
   return (
-    <NotificationLink to={link}>
+    <NotificationLinkWrapper link={link} isWrapper>
       <Card
         width="100%"
         borderColor={read ? readBorderColor : unreadBorderColor}
@@ -92,7 +103,7 @@ function NotificationItem({ notification, handleNotificationRead }) {
               justify={isPhone ? "" : "space-between"}
               align={isPhone ? "flex-start" : "center"}
             >
-              <Text size="sm" fontWeight="600">
+              <Text size="sm" fontWeight="600" color={titleColor}>
                 {title}
               </Text>
               <NotificationTime time={time} />
@@ -103,13 +114,8 @@ function NotificationItem({ notification, handleNotificationRead }) {
           </Box>
         </Flex>
       </Card>
-    </NotificationLink>
+    </NotificationLinkWrapper>
   );
 }
-
-const NotificationLink = styled(Link)`
-  display: block;
-  width: 100%;
-`;
 
 export default NotificationItem;
