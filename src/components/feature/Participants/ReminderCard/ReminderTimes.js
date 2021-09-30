@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from "moment-timezone";
 import { Flex, Tag, TagLabel } from "@chakra-ui/react";
 
 function ReminderTimes({ times }) {

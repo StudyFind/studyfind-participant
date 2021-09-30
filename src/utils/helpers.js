@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from "moment-timezone";
 
 const convertWeekdaysAndTimesToOffsets = (weekdays, times) => {
   const offsets = [];

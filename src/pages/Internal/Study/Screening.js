@@ -1,5 +1,4 @@
 import { useState, useContext, useEffect } from "react";
-import { customAlphabet } from "nanoid/non-secure";
 
 import { useHistory } from "react-router-dom";
 
@@ -42,8 +41,6 @@ function Screening() {
   };
 
   const handleSave = async () => {
-    const nanoid = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ", 10);
-
     const creatingStudyParticipantDocument = firestore
       .collection("studies")
       .doc(studyID)
@@ -51,7 +48,6 @@ function Screening() {
       .doc(user.id)
       .set({
         status: "interested",
-        fakename: nanoid(),
         timezone: user.timezone.region,
         availability: user.availability,
         responses,

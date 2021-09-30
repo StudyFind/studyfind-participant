@@ -11,6 +11,7 @@ export const participant = {
       sex: "",
       birthdate: "",
       availability: "",
+      phone: "",
       enrolled: [],
       saved: [],
       timezone: {

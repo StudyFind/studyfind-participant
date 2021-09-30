@@ -13,7 +13,7 @@ function MeetingItem({ participant, meeting, handleDelete }) {
     <>
       <Text>Status: {meeting.confirmedByParticipant ? "Confirmed" : "Pending"}</Text>
       <Text>Study: {meeting.studyID}</Text>
-      <Text>Participant: {participant?.fakename}</Text>
+      <Text>Participant: {participant?.id}</Text>
     </>
   );
 

@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from "moment-timezone";
 import styled from "styled-components";
 
 import { useColor } from "hooks";

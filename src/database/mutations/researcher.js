@@ -8,6 +8,7 @@ export const researcher = {
     researcherRef(uid).set({
       organization: "",
       background: "",
+      phone: "",
       timezone: {
         region: getTimezone(),
         autodetect: true,
@@ -24,6 +25,7 @@ export const researcher = {
     {
       organization,
       background,
+      phone: phoneNumber,
       timezone: { region, autodetect },
       notifications: { local, email, phone },
     }
@@ -31,6 +33,7 @@ export const researcher = {
     researcherRef(uid).update({
       organization,
       background,
+      phone: phoneNumber,
       timezone: {
         region,
         autodetect,
