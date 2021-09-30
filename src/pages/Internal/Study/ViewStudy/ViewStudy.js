@@ -8,11 +8,26 @@ import Resources from "./Resources/Resources";
 import Files from "./Files/Files";
 import { StudiesContext } from "context";
 import { useContext } from "react";
+import { Message } from "components";
+import { Box } from "@chakra-ui/react";
 
 function ViewStudy() {
   const { studyID } = usePathParams();
   const studies = useContext(StudiesContext);
   const study = studies.find((study) => study.id === studyID);
+
+  if (!study) {
+    return (
+      <Box height="400px" rounded="md">
+        <Message
+          status="failure"
+          title="Study Not Found"
+          description={`The study with ID "${studyID}" does not exist in our database. It may have been either deleted or never existed in the first place.`}
+          showBackground
+        />
+      </Box>
+    );
+  }
 
   const tabs = [
     {
