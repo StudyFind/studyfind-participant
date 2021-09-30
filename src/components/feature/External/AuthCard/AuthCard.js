@@ -21,7 +21,7 @@ function AuthCard() {
   return (
     <SectionWrapper background={backgroundColor}>
       <Box
-        width={isPhone ? "80%" : "350px"}
+        width={isPhone ? "100%" : "350px"}
         rounded="md"
         borderWidth="1px"
         borderColor={borderColor}
