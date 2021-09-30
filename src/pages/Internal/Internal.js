@@ -37,6 +37,7 @@ import Feedback from "./Feedback/Feedback";
 import Screening from "./Study/Screening";
 
 import ConfirmModal from "components/complex/ConfirmModal/ConfirmModal";
+import Denied from "./Denied";
 
 import { buildParticipantQuery } from "database/queries";
 
@@ -58,6 +59,7 @@ function Internal() {
 
   const participantQuery = buildParticipantQuery(uid);
   const [user] = useDocument(participantQuery);
+  const [type, setType] = useState(null);
 
   const { isPhone } = useDetectDevice();
 
@@ -76,6 +78,15 @@ function Internal() {
 
   const history = useHistory();
 
+  const fetchAndSetUserClaims = () => {
+    auth.onIdTokenChanged(async (user) => {
+      if (user) {
+        const decodedToken = await user?.getIdTokenResult();
+        setType(decodedToken?.claims?.usertype || "");
+      }
+    });
+  };
+
   useEffect(() => {
     const redirect = localStorage.getItem("redirect");
 
@@ -83,6 +94,8 @@ function Internal() {
       history.push(redirect);
       localStorage.removeItem("redirect");
     }
+
+    fetchAndSetUserClaims();
   }, []);
 
   // const verificationHeightDesktop = "56px";
@@ -98,6 +111,10 @@ function Internal() {
   // const exceptVerificationHeightMobile = "calc(100vw - 128px)";
 
   const borderColor = useColor("gray.200", "gray.700");
+
+  if (type === "researcher") {
+    return <Denied email={auth.currentUser.email} />;
+  }
 
   return (
     <UserContext.Provider value={user}>
