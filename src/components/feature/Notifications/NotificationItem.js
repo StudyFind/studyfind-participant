@@ -23,6 +23,11 @@ import {
 import NotificationIcon from "./NotificationIcon";
 import NotificationTime from "./NotificationTime";
 
+const NotificationLink = styled(Link)`
+  display: block;
+  width: 100%;
+`;
+
 function NotificationItem({ notification, handleNotificationRead }) {
   const [initialRead] = useState(notification.read);
   /*
@@ -78,11 +83,6 @@ function NotificationItem({ notification, handleNotificationRead }) {
 
   const readBackgroundColor = useColor("white", "gray.900");
   const unreadBackgroundColor = useColor("blue.50", "blue.900");
-
-  const NotificationLink = styled(Link)`
-    display: block;
-    width: 100%;
-  `;
 
   // convert external link to internal link otherwise Link component will open link in new tab
   const hostname = "https://studyfind.org";
