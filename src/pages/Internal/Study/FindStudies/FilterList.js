@@ -39,6 +39,12 @@ function FilterList({ filters, handleFilters }) {
           value={filters.hideSaved}
           onChange={handleFilters}
         />
+        <ToggleInput
+          name="onlySaved"
+          label="Only Saved Studies"
+          value={filters.onlySaved}
+          onChange={handleFilters}
+        />
       </Flex>
     </Box>
   );
