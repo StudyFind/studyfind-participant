@@ -1,16 +1,13 @@
-import { Button } from "@chakra-ui/react";
 import { Message } from "components";
 
-function FilesEmpty({ onButtonClick }) {
+function FilesEmpty() {
   return (
     <Message
       title="No Files"
-      description="You can upload up to 10 files each with a maximum size of 50MB related to your study here"
+      description="This research study does not have any files uploaded right now. Relevent files will be uploaded by the researcher when necessary."
       height="400px"
       showBackground
-    >
-      {onButtonClick && <Button onClick={onButtonClick}>Upload File</Button>}
-    </Message>
+    />
   );
 }
 
