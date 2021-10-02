@@ -3,7 +3,6 @@ import { useColor, useDetectDevice } from "hooks";
 import { Box, SimpleGrid, Heading } from "@chakra-ui/react";
 
 import Vir from "images/advisory/vir.png";
-import Aidan from "images/advisory/aidan.jpeg";
 import Alexis from "images/advisory/alexis.png";
 import Ayesha from "images/advisory/ayesha.png";
 import Evans from "images/advisory/evans.png";
@@ -34,12 +33,6 @@ function Board() {
         National Advisory Board
       </Heading>
       <SimpleGrid columns={responsive([1, 2, 4])} spacingY="40px">
-        <TeamMember
-          image={Aidan}
-          name="Aidan Williams"
-          position="Medical College of Wisconsin"
-          linkedinURL="https://www.linkedin.com/in/aidan-williams-13a93a12a/"
-        />
         <TeamMember
           image={Alexis}
           name="Alexis Whitmire"
