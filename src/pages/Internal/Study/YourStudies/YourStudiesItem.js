@@ -21,11 +21,6 @@ function YourStudiesItem({ study, handleOpen }) {
       </Badge>
       <Flex align="center" gridGap="5px">
         <ActionButton
-          hint="Messages"
-          icon={<FaComment />}
-          onClick={() => handleOpen(study.id, "messages")}
-        />
-        <ActionButton
           hint="Questions"
           icon={<FaClipboard />}
           onClick={() => handleOpen(study.id, "questions")}
@@ -39,6 +34,11 @@ function YourStudiesItem({ study, handleOpen }) {
           hint="Reminders"
           icon={<FaClock />}
           onClick={() => handleOpen(study.id, "reminders")}
+        />
+        <ActionButton
+          hint="Messages"
+          icon={<FaComment />}
+          onClick={() => handleOpen(study.id, "messages")}
         />
       </Flex>
     </Flex>
