@@ -1,9 +1,11 @@
 import { Grid } from "@chakra-ui/react";
+
 import QuestionCard from "components/feature/Participants/QuestionCard/QuestionCard";
+import QuestionsEmpty from "./QuestionsEmpty";
 
 function Questions({ questions, responses }) {
   if (!questions || questions.length === 0) {
-    return null;
+    return <QuestionsEmpty />;
   }
 
   if (!responses || responses.length === 0) {
