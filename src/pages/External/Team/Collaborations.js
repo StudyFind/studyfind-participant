@@ -1,5 +1,5 @@
-import { useColor } from "hooks";
-import { Box, HStack, Heading } from "@chakra-ui/react";
+import { useColor, useDetectDevice } from "hooks";
+import { Box, Stack, Heading } from "@chakra-ui/react";
 
 import Emory from "images/collaborations/emory.png";
 import SBU from "images/collaborations/sbu.png";
@@ -9,6 +9,7 @@ import Stanford from "images/collaborations/stanford.png";
 import TeamCollaborations from "components/feature/External/HomeSections/Team/TeamCollaborations";
 
 function Collaborations() {
+  const { isPhone } = useDetectDevice();
   const background = useColor("gray.100", "gray.800");
 
   const collaborations = [
@@ -71,9 +72,9 @@ function Collaborations() {
       >
         Collaborations
       </Heading>
-      <HStack spacing="40px" justify="center">
+      <Stack direction={isPhone ? "column" : "row"} spacing="40px" justify="center" align="center">
         <TeamCollaborations collaborations={collaborations} />
-      </HStack>
+      </Stack>
     </Box>
   );
 }
