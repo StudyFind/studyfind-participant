@@ -70,8 +70,6 @@ function YourStudies() {
     return <Loader height="calc(100vh - 80px)" />;
   }
 
-  console.log(enrolledStudies);
-
   return enrolledStudies.length ? (
     <>
       <Flex justify="space-between" align="center" mb="25px">
