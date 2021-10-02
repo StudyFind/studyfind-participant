@@ -11,7 +11,7 @@ import { FaCheckCircle } from "react-icons/fa";
 function DetailsView({ study }) {
   const user = useContext(UserContext);
 
-  const isParticipantVerified = auth.currentUser.uid;
+  const isParticipantVerified = auth.currentUser.emailVerified;
   const hasParticipantEnrolled = user.enrolled.includes(study.id);
 
   const enrolledButtonColor = useColor("green.500", "green.400");
