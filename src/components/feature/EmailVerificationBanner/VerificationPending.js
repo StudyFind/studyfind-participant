@@ -6,7 +6,7 @@ function VerificationPending({ email, loading, handleSendVerificationEmail }) {
     <AlertBar status="warning">
       <Flex justify="space-between" align="center" wrap="wrap" width="100%">
         <Text>
-          Please verify your email <b>{email}</b> to begin creating research
+          Please check your email <b>{email}</b> for a verification link to begin creating research
           studies
         </Text>
         <Button
@@ -18,7 +18,7 @@ function VerificationPending({ email, loading, handleSendVerificationEmail }) {
           isLoading={loading}
           loadingText="Sending..."
         >
-          Send Verification Email
+          Resend Verification Email
         </Button>
       </Flex>
     </AlertBar>
