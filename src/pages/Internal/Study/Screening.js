@@ -123,7 +123,7 @@ function Screening() {
         <Button variant="outline" color="gray.500" onClick={history.goBack}>
           Back
         </Button>
-        <Button colorScheme="green" onClick={handleSave} isLoading>
+        <Button colorScheme="green" onClick={handleSave} isLoading={isSubmitting}>
           Submit
         </Button>
       </Flex>
