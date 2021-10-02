@@ -5,7 +5,7 @@ import Team from "components/feature/External/HomeSections/Team/Team";
 function TeamSection() {
   const title = "About Us";
   const description =
-    "StudyFind was founded by Andrew and Yohan to make it easier for anyone and everyone to participate in clinical research. The StudyFind platform provides participants and researchers a conducive ecosystem to connect seamlessly.";
+    "StudyFind was founded by Andrew and Yohan with the aim of making it easier for anyone and everyone to participate in clinical research. The StudyFind platform provides participants and researchers a conducive ecosystem to connect seamlessly.";
 
   const founders = [
     {

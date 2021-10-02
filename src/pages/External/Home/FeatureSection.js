@@ -46,7 +46,7 @@ function FeatureSection() {
       icon: <FcCollaboration />,
       title: "Secure Messaging",
       description:
-        "We value you your privacy, so rest assured our messaging feature is completely HIPAA compliant.",
+        "We value your privacy, so rest assured our messaging feature is HIPAA compliant",
     },
     {
       icon: <FcVideoCall />,
