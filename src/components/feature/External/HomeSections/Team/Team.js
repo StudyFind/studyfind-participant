@@ -5,7 +5,7 @@ import TeamPanels from "./TeamPanels";
 
 function Team({ title, description, founders, panels }) {
   return (
-    <SectionWrapper direction="column" spacing="80px">
+    <SectionWrapper direction="column" alignItems="center" spacing="80px">
       <TeamHeader title={title} description={description} />
       <TeamMembers founders={founders} />
       <TeamPanels panels={panels} />

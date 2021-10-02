@@ -9,7 +9,7 @@ function TeamPanels({ panels }) {
     <SimpleGrid
       alignItems="center"
       spacing={isPhone ? "20px" : "60px"}
-      columns={responsive([1, 3, 3])}
+      columns={responsive([1, 2, 3])}
       width="100%"
     >
       {panels.map((panel, i) => (

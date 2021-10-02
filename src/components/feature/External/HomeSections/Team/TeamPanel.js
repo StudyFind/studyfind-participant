@@ -1,8 +1,10 @@
-import { useColor } from "hooks";
+import { useColor, useDetectDevice } from "hooks";
 import { VStack, Heading, Text, Button } from "@chakra-ui/react";
 import { Link } from "components";
 
 function Panel({ colorScheme, title, description, buttonText, buttonLink }) {
+  const { isPhone } = useDetectDevice();
+
   const headingColor = useColor(`${colorScheme}.700`, `${colorScheme}.200`);
   const backgroundColor = useColor(`${colorScheme}.100`, `${colorScheme}.700`);
 
@@ -11,7 +13,8 @@ function Panel({ colorScheme, title, description, buttonText, buttonLink }) {
       align="flex-start"
       spacing="25px"
       padding="30px"
-      maxWidth="360px"
+      maxWidth={isPhone || "360px"}
+      width="100%"
       borderRadius="10px"
       background={backgroundColor}
     >
