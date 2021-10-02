@@ -112,7 +112,7 @@ function Internal() {
 
   const borderColor = useColor("gray.200", "gray.700");
 
-  if (type === "researcher") {
+  if (type === "RESEARCHER") {
     return <Denied email={auth.currentUser.email} />;
   }
 
