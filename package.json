@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
+    "start": "env-cmd -f ./.env.development react-scripts start",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,css,html,json}'",
     "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
     "test": "jest test --passWithNoTests",
     "build": "react-scripts build",
-    "stage": "npm run build && firebase use studyfind-development && firebase deploy --only hosting",
-    "deploy": "npm run build && firebase use studyfind-researcher && firebase deploy --only hosting"
+    "stage": "env-cmd -f ./.env.development firebase deploy --only hosting --project studyfind-development",
+    "deploy": "env-cmd -f ./.env.production firebase deploy --only hosting --project studyfind-researcher"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.13",
@@ -38,6 +38,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "env-cmd": "^10.1.0",
     "eslint": "^7.10.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest": "^24.0.2",
