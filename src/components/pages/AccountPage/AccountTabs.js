@@ -9,9 +9,17 @@ function AccountTabs({ tabs, handleSignout }) {
 
   return (
     <>
-      <Flex justify="space-between" align="center" marginBottom={isPhone && "40px"}>
+      <Flex
+        justify="space-between"
+        align="center"
+        marginBottom={isPhone && "40px"}
+      >
         <Heading size="lg">Account</Heading>
-        <Button colorScheme="red" leftIcon={<FaDoorOpen />} onClick={handleSignout}>
+        <Button
+          colorScheme="red"
+          leftIcon={<FaDoorOpen />}
+          onClick={handleSignout}
+        >
           Sign out
         </Button>
       </Flex>

@@ -6,8 +6,8 @@ function VerificationPending({ email, loading, handleSendVerificationEmail }) {
     <AlertBar status="warning">
       <Flex justify="space-between" align="center" wrap="wrap" width="100%">
         <Text>
-          Please check your email <b>{email}</b> for a verification link to begin creating research
-          studies
+          Please check your email <b>{email}</b> for a verification link to
+          begin creating research studies
         </Text>
         <Button
           size="sm"

@@ -36,7 +36,13 @@ function Interns() {
 
   return (
     <Box id="interns" minHeight="100vh" background={background} padding="40px">
-      <Heading color="blue.500" size="2xl" lineHeight="1.25" textAlign="center" marginY="20px">
+      <Heading
+        color="blue.500"
+        size="2xl"
+        lineHeight="1.25"
+        textAlign="center"
+        marginY="20px"
+      >
         Our Interns
       </Heading>
       <VStack align="stretch">
@@ -114,7 +120,12 @@ function Interns() {
           </SimpleGrid>
         </Box>
         <Box>
-          <Heading align="center" size="lg" marginTop="40px" marginBottom="60px">
+          <Heading
+            align="center"
+            size="lg"
+            marginTop="40px"
+            marginBottom="60px"
+          >
             Alumni
           </Heading>
           <SimpleGrid columns={responsive([1, 2, 4])} spacingY="40px">
@@ -178,7 +189,11 @@ function Interns() {
               position="Sr. Software Developer"
               linkedinURL="https://www.linkedin.com/in/weiting-mo-82974b138/"
             />
-            <TeamMember image={Liang} name="Liang Chen" position="Software Developer" />
+            <TeamMember
+              image={Liang}
+              name="Liang Chen"
+              position="Software Developer"
+            />
             <TeamMember
               image={Yuyao}
               name="Yuyao Wang"

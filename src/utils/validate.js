@@ -33,7 +33,10 @@ const url = (value = "") => {
 
 const date = (value = "") => {
   const isEmpty = !value;
-  const isInvalid = !validator.isDate(value, { format: "YYYY-MM-DD", delimiters: ["-"] });
+  const isInvalid = !validator.isDate(value, {
+    format: "YYYY-MM-DD",
+    delimiters: ["-"],
+  });
 
   if (isEmpty) return " ";
   if (isInvalid) return "Date is invalid";

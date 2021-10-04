@@ -27,7 +27,9 @@ function Screening() {
   const user = useContext(UserContext);
 
   const { studyID } = usePathParams();
-  const [study, loading, error] = useDocument(firestore.collection("studies").doc(studyID));
+  const [study, loading, error] = useDocument(
+    firestore.collection("studies").doc(studyID)
+  );
   const [responses, setResponses] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -65,16 +67,18 @@ function Screening() {
         responses,
       });
 
-    const appendingStudyToParticipantEnrolled = participant.appendStudyToEnrolled(
-      auth.currentUser.uid,
-      study.id
-    );
+    const appendingStudyToParticipantEnrolled =
+      participant.appendStudyToEnrolled(auth.currentUser.uid, study.id);
 
-    await Promise.all([creatingStudyParticipantDocument, appendingStudyToParticipantEnrolled])
+    await Promise.all([
+      creatingStudyParticipantDocument,
+      appendingStudyToParticipantEnrolled,
+    ])
       .then(() => {
         triggerToast({
           title: "Successfully Enrolled",
-          description: "You have successfully enrolled for this research study!",
+          description:
+            "You have successfully enrolled for this research study!",
           status: "success",
           duration: 3000,
           isClosable: true,
@@ -100,7 +104,10 @@ function Screening() {
               <Text fontWeight="500" mb="5px">
                 {i + 1}. {question.prompt}
               </Text>
-              <RadioGroup value={responses[i]} onChange={(v) => handleResponseChange(i, v)}>
+              <RadioGroup
+                value={responses[i]}
+                onChange={(v) => handleResponseChange(i, v)}
+              >
                 <Grid>
                   <Radio value="Yes">Yes</Radio>
                   <Radio value="No">No</Radio>
@@ -123,7 +130,11 @@ function Screening() {
         <Button variant="outline" color="gray.500" onClick={history.goBack}>
           Back
         </Button>
-        <Button colorScheme="green" onClick={handleSave} isLoading={isSubmitting}>
+        <Button
+          colorScheme="green"
+          onClick={handleSave}
+          isLoading={isSubmitting}
+        >
           Submit
         </Button>
       </Flex>

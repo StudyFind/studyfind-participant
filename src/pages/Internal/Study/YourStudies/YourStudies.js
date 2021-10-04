@@ -22,7 +22,9 @@ function YourStudies() {
   const studies = useContext(StudiesContext);
 
   const getEnrolledStudies = async () => {
-    const enrolledStudies = studies.filter((study) => user.enrolled.includes(study.id));
+    const enrolledStudies = studies.filter((study) =>
+      user.enrolled.includes(study.id)
+    );
 
     const studyParticipantsSnapshots = await Promise.all(
       enrolledStudies.map((study) => {

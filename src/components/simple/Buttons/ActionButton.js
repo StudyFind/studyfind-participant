@@ -1,7 +1,14 @@
 import { useColor } from "hooks";
 import { Tooltip, IconButton } from "@chakra-ui/react";
 
-export const ActionButton = ({ icon, hint, size = "sm", colorScheme, onClick, ...rest }) => {
+export const ActionButton = ({
+  icon,
+  hint,
+  size = "sm",
+  colorScheme,
+  onClick,
+  ...rest
+}) => {
   const defaultColors = {
     color: useColor("gray.500", "gray.500"),
     bg: useColor("transparent", "transparent"),
@@ -20,7 +27,13 @@ export const ActionButton = ({ icon, hint, size = "sm", colorScheme, onClick, ..
 
   return (
     <Tooltip label={hint}>
-      <IconButton size={size} icon={icon} onClick={onClick} {...colors} {...rest} />
+      <IconButton
+        size={size}
+        icon={icon}
+        onClick={onClick}
+        {...colors}
+        {...rest}
+      />
     </Tooltip>
   );
 };

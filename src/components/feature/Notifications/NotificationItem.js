@@ -95,7 +95,12 @@ function NotificationItem({ notification, handleNotificationRead }) {
         borderColor={read ? readBorderColor : unreadBorderColor}
         background={read ? readBackgroundColor : unreadBackgroundColor}
       >
-        <Flex align={isPhone ? "flex-start" : "center"} padding="12px" gridGap="10px" rounded="md">
+        <Flex
+          align={isPhone ? "flex-start" : "center"}
+          padding="12px"
+          gridGap="10px"
+          rounded="md"
+        >
           <NotificationIcon icon={icon} color={color} />
           <Box width="100%" marginLeft="4px">
             <Flex

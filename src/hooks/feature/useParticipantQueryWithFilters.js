@@ -12,7 +12,8 @@ function useParticipantQueryWithFilters(study) {
   const [filters, setFilters] = useState(initialFilters);
   const [toggleFilters, setToggleFilters] = useState(false);
 
-  const areFiltersApplied = JSON.stringify(initialFilters) !== JSON.stringify(filters);
+  const areFiltersApplied =
+    JSON.stringify(initialFilters) !== JSON.stringify(filters);
 
   const participantsQuery = firestore
     .collection("studies")
@@ -20,13 +21,14 @@ function useParticipantQueryWithFilters(study) {
     .collection("participants")
     .where("status", "in", filters.status);
 
-  const { documents, loading, error, loadingMore, handleLoadMore, fetchedAll } = usePagination(
-    participantsQuery,
-    10
-  );
+  const { documents, loading, error, loadingMore, handleLoadMore, fetchedAll } =
+    usePagination(participantsQuery, 10);
 
   const participants = documents.map((document) => {
-    return { ...document, score: compute.eligibilityScore(study.questions, document.responses) };
+    return {
+      ...document,
+      score: compute.eligibilityScore(study.questions, document.responses),
+    };
   });
 
   const handleChangeFilter = (name, value) => {

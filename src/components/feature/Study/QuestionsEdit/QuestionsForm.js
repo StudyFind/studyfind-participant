@@ -18,7 +18,11 @@ function QuestionsForm({ study, onSubmit, Wrapper }) {
   };
 
   return (
-    <Wrapper title={title} description={description} handleSubmit={handleSubmit}>
+    <Wrapper
+      title={title}
+      description={description}
+      handleSubmit={handleSubmit}
+    >
       <QuestionsInputs
         values={questionsForm.values}
         errors={questionsForm.errors}

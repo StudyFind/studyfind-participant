@@ -5,7 +5,12 @@ import { LoadMoreButton } from "components";
 import NotificationItem from "components/feature/Notifications/NotificationItem";
 import { auth } from "database/firebase";
 
-function NotificationList({ notifications, fetchedAll, loadingMore, handleLoadMore }) {
+function NotificationList({
+  notifications,
+  fetchedAll,
+  loadingMore,
+  handleLoadMore,
+}) {
   const handleNotificationRead = ({ id }) => {
     return notification.read(auth.currentUser.uid, id);
   };

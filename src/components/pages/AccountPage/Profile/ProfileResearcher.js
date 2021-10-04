@@ -19,7 +19,9 @@ function ProfileResearcher({
     const cleaned = value.replace(/\+1/, "").replace(/[^\d]/g, "");
 
     if (/(\d{3})(\d{3})(\d{1,4})/.exec(cleaned)) {
-      return cleaned.replace(/(\d{3})(\d{3})(\d{1,4})/, "+1 ($1) $2-$3").substr(0, 17);
+      return cleaned
+        .replace(/(\d{3})(\d{3})(\d{1,4})/, "+1 ($1) $2-$3")
+        .substr(0, 17);
     }
 
     if (/(\d{3})(\d{1,3})/.exec(cleaned)) {
@@ -37,7 +39,9 @@ function ProfileResearcher({
     const phoneCleaned = value.replace(/\D/g, "").substr(1);
     setPhoneValue(normalizePhone(value));
     setPhoneError(
-      phoneCleaned.length !== 0 && phoneCleaned.length !== 10 ? "The phone number is invalid" : ""
+      phoneCleaned.length !== 0 && phoneCleaned.length !== 10
+        ? "The phone number is invalid"
+        : ""
     );
     handleSetProfileAttribute(name, phoneCleaned);
   };

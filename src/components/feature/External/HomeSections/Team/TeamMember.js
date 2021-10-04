@@ -25,7 +25,12 @@ function TeamMember({ image, name, position, description, linkedinURL }) {
               </Link>
             )}
           </HStack>
-          <Text fontSize="16px" fontWeight="600" color="gray.500" align="center">
+          <Text
+            fontSize="16px"
+            fontWeight="600"
+            color="gray.500"
+            align="center"
+          >
             {position}
           </Text>
         </VStack>

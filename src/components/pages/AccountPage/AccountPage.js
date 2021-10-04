@@ -86,7 +86,12 @@ function AccountPage() {
     name: "Profile",
     link: "/account/profile",
     icon: <FaUser />,
-    content: <Profile {...updateProps} handleSetProfileAttribute={handleSetProfileAttribute} />,
+    content: (
+      <Profile
+        {...updateProps}
+        handleSetProfileAttribute={handleSetProfileAttribute}
+      />
+    ),
   };
 
   const NOTIFICATIONS = {
@@ -105,14 +110,24 @@ function AccountPage() {
     name: "Timezone",
     link: "/account/timezone",
     icon: <FaMapMarkedAlt />,
-    content: <Timezone {...updateProps} handleSetTimezoneAttribute={handleSetTimezoneAttribute} />,
+    content: (
+      <Timezone
+        {...updateProps}
+        handleSetTimezoneAttribute={handleSetTimezoneAttribute}
+      />
+    ),
   };
 
   const LOCATION = {
     name: "Location",
     link: "/account/location",
     icon: <FaLocationArrow />,
-    content: <Location {...updateProps} handleSetLocationAttribute={handleSetLocationAttribute} />,
+    content: (
+      <Location
+        {...updateProps}
+        handleSetLocationAttribute={handleSetLocationAttribute}
+      />
+    ),
   };
 
   const SECURITY = {

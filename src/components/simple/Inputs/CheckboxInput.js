@@ -1,7 +1,15 @@
 import { useColor } from "hooks";
 import { Grid, Heading, Text, Checkbox } from "@chakra-ui/react";
 
-export const CheckboxInput = ({ name, value, error, label, details, onChange, ...rest }) => {
+export const CheckboxInput = ({
+  name,
+  value,
+  error,
+  label,
+  details,
+  onChange,
+  ...rest
+}) => {
   const handleChange = (event) => {
     const value = event.target.checked;
     onChange(name, value);

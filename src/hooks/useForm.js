@@ -1,5 +1,4 @@
 import { useState } from "react";
-import lodash from "lodash";
 
 function useForm({ initial, check, submit }) {
   const names = Object.keys(initial);
@@ -19,7 +18,7 @@ function useForm({ initial, check, submit }) {
   const [errors, setErrors] = useState(validate(initial));
   const [loading, setLoading] = useState(false);
 
-  const isDifferent = !lodash.isEqual(initial, values);
+  const isDifferent = JSON.stringify(initial) !== JSON.stringify(values);
 
   const getEmpty = () => {
     const empty = {};

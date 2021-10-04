@@ -18,7 +18,11 @@ const distance = (p1, p2) => {
   const lngDiffSinSqr = Math.sin(lngDiff / 2) * Math.sin(lngDiff / 2);
 
   return (
-    2 * R * Math.asin(Math.sqrt(latDiffSinSqr + lngDiffSinSqr * Math.cos(lat1) * Math.cos(lat2)))
+    2 *
+    R *
+    Math.asin(
+      Math.sqrt(latDiffSinSqr + lngDiffSinSqr * Math.cos(lat1) * Math.cos(lat2))
+    )
   );
 };
 

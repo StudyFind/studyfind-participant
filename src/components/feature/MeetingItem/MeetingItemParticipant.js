@@ -11,14 +11,19 @@ function MeetingItemParticipant({ meeting, handleConfirm }) {
 
   const meetingInfo = (
     <>
-      <Text>Status: {meeting.confirmedByParticipant ? "Confirmed" : "Pending"}</Text>
+      <Text>
+        Status: {meeting.confirmedByParticipant ? "Confirmed" : "Pending"}
+      </Text>
       <Text>Study: {meeting.studyID}</Text>
     </>
   );
 
   return (
     <Card display="flex" gridGap="8px" padding="10px 12px" align="center">
-      <Flex direction={isPhone && "column-reverse"} align={isPhone ? "flex-start" : "center"}>
+      <Flex
+        direction={isPhone && "column-reverse"}
+        align={isPhone ? "flex-start" : "center"}
+      >
         <Flex>
           <Text
             fontSize="0.9rem"
@@ -28,7 +33,9 @@ function MeetingItemParticipant({ meeting, handleConfirm }) {
           >
             {datetime.get12HourTime(meeting.time)}
           </Text>
-          {isPhone && <Hint fontSize="12px" label={meetingInfo} marginLeft="4px" />}
+          {isPhone && (
+            <Hint fontSize="12px" label={meetingInfo} marginLeft="4px" />
+          )}
         </Flex>
         <Text fontWeight="600" marginX={isPhone || "8px"}>
           {meeting.name}

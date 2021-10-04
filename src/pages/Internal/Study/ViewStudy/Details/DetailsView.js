@@ -24,7 +24,8 @@ function DetailsView({ study }) {
       <TabHeader heading="Details">
         <Tooltip
           label={
-            !isParticipantVerified && "You must verify your email before enrolling for studies"
+            !isParticipantVerified &&
+            "You must verify your email before enrolling for studies"
           }
         >
           <Box>

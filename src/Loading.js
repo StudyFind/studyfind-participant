@@ -10,7 +10,13 @@ function Loading() {
   const background = useColor("white", "gray.900");
 
   return (
-    <Flex height="100vh" width="100vw" justify="center" align="center" background={background}>
+    <Flex
+      height="100vh"
+      width="100vw"
+      justify="center"
+      align="center"
+      background={background}
+    >
       <SpinningLogo src={Logo} />
     </Flex>
   );

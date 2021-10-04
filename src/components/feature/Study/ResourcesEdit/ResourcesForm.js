@@ -18,7 +18,11 @@ function ResourcesForm({ study, onSubmit, Wrapper }) {
   };
 
   return (
-    <Wrapper title={title} description={description} handleSubmit={handleSubmit}>
+    <Wrapper
+      title={title}
+      description={description}
+      handleSubmit={handleSubmit}
+    >
       <ResourcesInputs
         values={resourcesForm.values}
         errors={resourcesForm.errors}

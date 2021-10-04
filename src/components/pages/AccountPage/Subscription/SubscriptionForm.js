@@ -16,7 +16,10 @@ function SubscriptionForm({
     <VStack align="flex-start" spacing="24px" marginBottom="48px">
       <HStack align="center" fontWeight="500">
         <Text>Billed Monthly</Text>
-        <SwitchInput value={isBilledAnnually} onChange={handleChangeBilledAnnually} />
+        <SwitchInput
+          value={isBilledAnnually}
+          onChange={handleChangeBilledAnnually}
+        />
         <Text>Billed Annually</Text>
       </HStack>
       <VStack spacing="10px" paddingY="4px" width="100%">
@@ -35,7 +38,11 @@ function SubscriptionForm({
         ))}
       </VStack>
       <HStack width="100%" justify="flex-end">
-        <Button colorScheme="green" onClick={handleSubscribe} isLoading={linking}>
+        <Button
+          colorScheme="green"
+          onClick={handleSubscribe}
+          isLoading={linking}
+        >
           Continue
         </Button>
       </HStack>

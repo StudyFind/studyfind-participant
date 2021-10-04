@@ -21,15 +21,25 @@ function CalendarBody({ month, year, date, setDate }) {
         {[0, 1, 2, 3, 4, 5, 6].map((weekday) => {
           const count = week * 7 + weekday;
           const currentDay = count - firstWeekdayOffsetFromMonday + 1;
-          const currentDate = moment([year, month, currentDay]).format("YYYY-MM-DD");
-          const isValid = currentDay <= daysInMonth && count >= firstWeekdayOffsetFromMonday;
+          const currentDate = moment([year, month, currentDay]).format(
+            "YYYY-MM-DD"
+          );
+          const isValid =
+            currentDay <= daysInMonth && count >= firstWeekdayOffsetFromMonday;
 
           const isSelected = date === currentDate;
           const isToday = today === currentDate;
 
           return (
-            <TableBodyCell key={weekday} onClick={() => isValid && setDate(currentDate)}>
-              <Day cursor={isValid && "pointer"} justify="center" align="center">
+            <TableBodyCell
+              key={weekday}
+              onClick={() => isValid && setDate(currentDate)}
+            >
+              <Day
+                cursor={isValid && "pointer"}
+                justify="center"
+                align="center"
+              >
                 <Selected
                   justify="center"
                   align="center"

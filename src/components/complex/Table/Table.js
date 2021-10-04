@@ -1,5 +1,12 @@
 import { useColor } from "hooks";
-import { Table as ChakraTable, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
+import {
+  Table as ChakraTable,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+} from "@chakra-ui/react";
 
 // headers is an array of strings of length x
 // headers is a 2D array of children of length y and sublength x

@@ -2,7 +2,13 @@ import { useFilesForm } from "hooks";
 import { Button, Flex, Grid, Progress } from "@chakra-ui/react";
 import { TextInput, FileInput, SecondaryButton } from "components";
 
-function FilesForm({ uploading, uploadError, uploadStatus, handleCancel, handleSubmit }) {
+function FilesForm({
+  uploading,
+  uploadError,
+  uploadStatus,
+  handleCancel,
+  handleSubmit,
+}) {
   const filesForm = useFilesForm();
 
   return (

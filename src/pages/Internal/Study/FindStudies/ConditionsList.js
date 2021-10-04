@@ -1,6 +1,17 @@
-import { Box, Flex, Heading, Tag, TagLabel, TagCloseButton } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Heading,
+  Tag,
+  TagLabel,
+  TagCloseButton,
+} from "@chakra-ui/react";
 
-function ConditionsList({ conditions, handleDeleteCondition, handleClearConditions }) {
+function ConditionsList({
+  conditions,
+  handleDeleteCondition,
+  handleClearConditions,
+}) {
   return (
     !!conditions.length && (
       <Box my="25px">

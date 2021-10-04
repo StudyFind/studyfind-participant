@@ -6,7 +6,13 @@ import { SelectInput, CheckboxInput } from "components";
 import AccountWrapper from "../AccountWrapper";
 import AccountHeader from "../AccountHeader";
 
-function Timezone({ values, showButtons, handleCancel, handleUpdate, handleSetTimezoneAttribute }) {
+function Timezone({
+  values,
+  showButtons,
+  handleCancel,
+  handleUpdate,
+  handleSetTimezoneAttribute,
+}) {
   const autodetect = values?.timezone?.autodetect;
   const options = moment.tz.zonesForCountry("US").map((timezone) => ({
     label: timezone,

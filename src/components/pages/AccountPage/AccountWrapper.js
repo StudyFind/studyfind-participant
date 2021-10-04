@@ -30,7 +30,11 @@ function AccountWrapper({ children, showButtons, handleCancel, handleUpdate }) {
     >
       {children}
       {showButtons && (
-        <AccountButtons loading={loading} handleCancel={handleCancel} handleUpdate={handleSubmit} />
+        <AccountButtons
+          loading={loading}
+          handleCancel={handleCancel}
+          handleUpdate={handleSubmit}
+        />
       )}
     </Grid>
   );

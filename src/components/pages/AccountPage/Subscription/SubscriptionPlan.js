@@ -30,7 +30,12 @@ function SubscriptionPlan({
     >
       <Flex width="100%">
         <HStack spacing="10px">
-          <CheckboxInput name={name} value={value} width="auto" onChange={() => {}} />
+          <CheckboxInput
+            name={name}
+            value={value}
+            width="auto"
+            onChange={() => {}}
+          />
           <HStack>
             <Icon as={icon} color="blue.200" />
             <Heading size="md">{title}</Heading>
@@ -40,7 +45,11 @@ function SubscriptionPlan({
           <Text color="blue.200" fontWeight="bold">
             {billedPrice} per month
           </Text>
-          <Hint icon={FaQuestionCircle} label={features.join(", ")} color="gray.500" />
+          <Hint
+            icon={FaQuestionCircle}
+            label={features.join(", ")}
+            color="gray.500"
+          />
         </HStack>
       </Flex>
     </Card>

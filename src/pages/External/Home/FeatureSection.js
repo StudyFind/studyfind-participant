@@ -40,7 +40,8 @@ function FeatureSection() {
     {
       icon: <FcOvertime />,
       title: "Reminders",
-      description: "Our reminders feature will keep you on track with study requirements",
+      description:
+        "Our reminders feature will keep you on track with study requirements",
     },
     {
       icon: <FcCollaboration />,

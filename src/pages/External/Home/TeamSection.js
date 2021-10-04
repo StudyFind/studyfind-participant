@@ -28,7 +28,8 @@ function TeamSection() {
     {
       title: "Our Team",
       colorScheme: "blue",
-      description: "The talented individuals resonsible for the day-to-day operations at StudyFind",
+      description:
+        "The talented individuals resonsible for the day-to-day operations at StudyFind",
       buttonText: "Meet the team",
       buttonLink: "/team#interns",
     },
@@ -43,13 +44,21 @@ function TeamSection() {
     {
       title: "Collaborations",
       colorScheme: "purple",
-      description: "The institutions that enable us to constantly push boundaries and innovate",
+      description:
+        "The institutions that enable us to constantly push boundaries and innovate",
       buttonText: "View our Collaborations",
       buttonLink: "/team#collaborations",
     },
   ];
 
-  return <Team title={title} description={description} founders={founders} panels={panels} />;
+  return (
+    <Team
+      title={title}
+      description={description}
+      founders={founders}
+      panels={panels}
+    />
+  );
 }
 
 export default TeamSection;

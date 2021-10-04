@@ -21,15 +21,21 @@ function MessageList({
         {fetchedAll ? (
           <Box maxWidth="330px">
             <Disclaimer>
-              Messages are not end-to-end encrypted. Please avoid sharing personal health
-              information through this chat.
+              Messages are not end-to-end encrypted. Please avoid sharing
+              personal health information through this chat.
             </Disclaimer>
           </Box>
         ) : (
           <LoadMoreButton onClick={handleLoadMore} isLoading={loadingMore} />
         )}
       </Flex>
-      <Flex justify="flex-start" direction="column" padding="20px" gridGap="8px" width="100%">
+      <Flex
+        justify="flex-start"
+        direction="column"
+        padding="20px"
+        gridGap="8px"
+        width="100%"
+      >
         {messages?.map((message) => (
           <Message
             key={message.id}

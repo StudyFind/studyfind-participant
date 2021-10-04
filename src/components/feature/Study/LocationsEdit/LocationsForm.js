@@ -18,7 +18,11 @@ function LocationsForm({ study, onSubmit, Wrapper }) {
   };
 
   return (
-    <Wrapper title={title} description={description} handleSubmit={handleSubmit}>
+    <Wrapper
+      title={title}
+      description={description}
+      handleSubmit={handleSubmit}
+    >
       <LocationsInputs
         values={locationsForm.values}
         errors={locationsForm.errors}

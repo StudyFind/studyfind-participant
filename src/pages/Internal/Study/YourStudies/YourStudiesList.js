@@ -8,7 +8,11 @@ function YourStudiesList({ studies, handleOpen }) {
     <VStack spacing="20px">
       <Card width="100%">
         {studies.map((study) => (
-          <YourStudiesItem key={study.id} study={study} handleOpen={handleOpen} />
+          <YourStudiesItem
+            key={study.id}
+            study={study}
+            handleOpen={handleOpen}
+          />
         ))}
       </Card>
     </VStack>

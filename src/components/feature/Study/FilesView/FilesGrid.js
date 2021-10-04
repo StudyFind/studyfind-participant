@@ -9,7 +9,12 @@ function FilesGrid({ files, handleOpen, handleDelete }) {
   return (
     <SimpleGrid spacing="20px" columns={responsive([1, 3, 4])}>
       {files.map((file, i) => (
-        <FileCard key={i} file={file} handleOpen={handleOpen} handleDelete={handleDelete} />
+        <FileCard
+          key={i}
+          file={file}
+          handleOpen={handleOpen}
+          handleDelete={handleDelete}
+        />
       ))}
     </SimpleGrid>
   );

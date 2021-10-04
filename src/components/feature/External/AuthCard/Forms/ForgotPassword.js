@@ -43,7 +43,9 @@ function ForgotPassword({ setTab }) {
         error={authForm.errors.email}
         onChange={authForm.update}
       />
-      <AuthButton loading={authForm.loading}>Send Password Reset Email</AuthButton>
+      <AuthButton loading={authForm.loading}>
+        Send Password Reset Email
+      </AuthButton>
       <AuthTabLink onClick={() => setTab("login")}>Back to login</AuthTabLink>
     </AuthForm>
   );

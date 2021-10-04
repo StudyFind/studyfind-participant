@@ -1,7 +1,10 @@
 import { useArray } from "hooks";
 import { object } from "utils";
 
-function useSortableObjectArrayWithBooleanErrors(initialValues, newObjectValue) {
+function useSortableObjectArrayWithBooleanErrors(
+  initialValues,
+  newObjectValue
+) {
   const getObjectErrors = (value) => {
     return object.map(value, (_, v) => !v);
   };
@@ -14,12 +17,14 @@ function useSortableObjectArrayWithBooleanErrors(initialValues, newObjectValue) 
   const defaultErrors = [];
   const initialErrors = getValuesErrors(initialValues);
 
-  const notDefault = JSON.stringify(initialValues) !== JSON.stringify(defaultValues);
+  const notDefault =
+    JSON.stringify(initialValues) !== JSON.stringify(defaultValues);
 
   const values = useArray(initialValues);
   const errors = useArray(notDefault ? initialErrors : defaultErrors);
 
-  const hasChanged = JSON.stringify(initialValues) !== JSON.stringify(values.value);
+  const hasChanged =
+    JSON.stringify(initialValues) !== JSON.stringify(values.value);
 
   const create = () => {
     const newObjectError = object.map(newObjectValue, () => false);

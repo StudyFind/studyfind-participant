@@ -25,7 +25,13 @@ const compute = {
 
     const BIAS = 20;
 
-    let score = BIAS + flesch({ sentence: numSentences, word: numWords, syllable: numSyllables });
+    let score =
+      BIAS +
+      flesch({
+        sentence: numSentences,
+        word: numWords,
+        syllable: numSyllables,
+      });
 
     score = Math.min(score, 100);
     score = Math.max(score, 0);

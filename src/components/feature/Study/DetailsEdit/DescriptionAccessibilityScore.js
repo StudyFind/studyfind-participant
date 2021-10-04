@@ -1,5 +1,14 @@
 import { useColor } from "hooks";
-import { Heading, Text, Progress, Tag, Tooltip, Icon, Box, HStack } from "@chakra-ui/react";
+import {
+  Heading,
+  Text,
+  Progress,
+  Tag,
+  Tooltip,
+  Icon,
+  Box,
+  HStack,
+} from "@chakra-ui/react";
 import { FaInfoCircle } from "react-icons/fa";
 
 function DescriptionAccessibilityScore({ score }) {
@@ -27,7 +36,12 @@ function DescriptionAccessibilityScore({ score }) {
   const progressBackground = useColor("gray.200", "gray.700");
 
   return (
-    <Box borderColor={scoreBorderColor} borderWidth="1px" padding="16px 20px" rounded="md">
+    <Box
+      borderColor={scoreBorderColor}
+      borderWidth="1px"
+      padding="16px 20px"
+      rounded="md"
+    >
       <HStack justify="space-between" align="center" wrap="wrap">
         <HStack>
           <Heading size="md">Description Accessibility Score</Heading>
@@ -50,9 +64,15 @@ function DescriptionAccessibilityScore({ score }) {
         </HStack>
       </HStack>
       <Text color="gray.500" marginTop="4px" marginBottom="12px">
-        Accessible study descriptions are shown to improve participant interest and enrollment rates
+        Accessible study descriptions are shown to improve participant interest
+        and enrollment rates
       </Text>
-      <Progress value={score} marginTop="8px" background={progressBackground} colorScheme={color} />
+      <Progress
+        value={score}
+        marginTop="8px"
+        background={progressBackground}
+        colorScheme={color}
+      />
     </Box>
   );
 }

@@ -1,5 +1,13 @@
 import { useColor } from "hooks";
-import { Box, Flex, Heading, Button, Text, Tooltip, Icon } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Heading,
+  Button,
+  Text,
+  Tooltip,
+  Icon,
+} from "@chakra-ui/react";
 import { Link } from "components";
 import { FaBookmark, FaCheckCircle } from "react-icons/fa";
 
@@ -73,7 +81,8 @@ function StudyCardSmall({
         </Link>
         <Tooltip
           label={
-            !isParticipantVerified && "You must verify your email before enrolling for studies"
+            !isParticipantVerified &&
+            "You must verify your email before enrolling for studies"
           }
         >
           <Box>
@@ -94,7 +103,11 @@ function StudyCardSmall({
               </Flex>
             ) : (
               <Link to={enrollRedirectLink} isWrapper>
-                <Button size="sm" colorScheme="blue" isDisabled={!isParticipantVerified}>
+                <Button
+                  size="sm"
+                  colorScheme="blue"
+                  isDisabled={!isParticipantVerified}
+                >
                   Enroll
                 </Button>
               </Link>

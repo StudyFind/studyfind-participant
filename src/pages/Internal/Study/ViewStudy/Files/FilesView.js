@@ -19,7 +19,11 @@ function FilesView({ setEdit, files, loading, handleOpen, handleDelete }) {
       {loading ? (
         <FilesLoading />
       ) : (
-        <FilesGrid files={files} handleOpen={handleOpen} handleDelete={handleDelete} />
+        <FilesGrid
+          files={files}
+          handleOpen={handleOpen}
+          handleDelete={handleDelete}
+        />
       )}
     </>
   );

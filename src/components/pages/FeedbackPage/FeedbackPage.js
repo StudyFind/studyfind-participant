@@ -10,10 +10,13 @@ function FeedbackPage() {
   const triggerToast = useTriggerToast();
 
   const onSubmit = ({ title, body }) => {
-    return feedback.submit({ title, body }).then(() => triggerToast(toasts.providedFeedback));
+    return feedback
+      .submit({ title, body })
+      .then(() => triggerToast(toasts.providedFeedback));
   };
 
-  const { values, errors, loading, handleChange, handleSubmit } = useFeedbackInputs(onSubmit);
+  const { values, errors, loading, handleChange, handleSubmit } =
+    useFeedbackInputs(onSubmit);
 
   return (
     <Grid gap="20px">
@@ -22,8 +25,9 @@ function FeedbackPage() {
           Feedback
         </Heading>
         <Text maxWidth="400px" color="gray.500">
-          Here is your opportunity to give us feedback about our software. Please elaborate on your
-          experiences, including which feature of the software you may be referring to. Thank you!
+          Here is your opportunity to give us feedback about our software.
+          Please elaborate on your experiences, including which feature of the
+          software you may be referring to. Thank you!
         </Text>
       </Box>
       <Form onSubmit={handleSubmit}>

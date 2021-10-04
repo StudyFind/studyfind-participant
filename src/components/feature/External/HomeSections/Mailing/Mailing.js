@@ -50,7 +50,12 @@ function Mailing({ handleSubscribe /* `handleSubscribe` is a promise */ }) {
       >
         {success ? (
           <VStack>
-            <Icon as={FaCheckCircle} color="green.500" fontSize="48px" marginBottom="15px" />
+            <Icon
+              as={FaCheckCircle}
+              color="green.500"
+              fontSize="48px"
+              marginBottom="15px"
+            />
             <Heading size="lg">Thank you for subscribing</Heading>
             <Text color="gray.500" fontWeight="500">
               We&apos;ll only send you the most imporant updates
@@ -86,7 +91,9 @@ function Mailing({ handleSubscribe /* `handleSubscribe` is a promise */ }) {
               </Button>
               <HStack fontSize="12px" align="center" spacing="6px">
                 <Icon as={FaShieldAlt} color="green.500" />
-                <Text color="gray.500">We&apos;ll send relevant content only</Text>
+                <Text color="gray.500">
+                  We&apos;ll send relevant content only
+                </Text>
               </HStack>
             </VStack>
           </Form>

@@ -20,7 +20,11 @@ function SubscriptionView({ linking, currentPlan, handleManageSubscription }) {
           <strong>{datetime.getFriendlyDate("2021-09-13")}</strong>
         </Text>
         <HStack paddingTop="5px">
-          <Button size="sm" onClick={handleManageSubscription} isLoading={linking}>
+          <Button
+            size="sm"
+            onClick={handleManageSubscription}
+            isLoading={linking}
+          >
             Manage Subscription
           </Button>
         </HStack>

@@ -5,7 +5,10 @@ function Feature({ icon, title, description }) {
   const { isPhone } = useDetectDevice();
 
   return (
-    <Stack spacing={isPhone ? "15px" : "20px"} direction={isPhone ? "column" : "row"}>
+    <Stack
+      spacing={isPhone ? "15px" : "20px"}
+      direction={isPhone ? "column" : "row"}
+    >
       <Box fontSize="5xl" color="#1A202C">
         {icon}
       </Box>

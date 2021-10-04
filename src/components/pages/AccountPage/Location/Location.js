@@ -4,7 +4,13 @@ import { TextInput, CheckboxInput } from "components";
 import AccountWrapper from "../AccountWrapper";
 import AccountHeader from "../AccountHeader";
 
-function Location({ values, showButtons, handleCancel, handleUpdate, handleSetLocationAttribute }) {
+function Location({
+  values,
+  showButtons,
+  handleCancel,
+  handleUpdate,
+  handleSetLocationAttribute,
+}) {
   const autodetect = values?.location?.autodetect;
 
   return (

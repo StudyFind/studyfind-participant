@@ -40,7 +40,9 @@ function Login({ setTab }) {
         onChange={authForm.update}
       />
       <AuthButton loading={authForm.loading}>Login</AuthButton>
-      <AuthTabLink onClick={() => setTab("forgotPassword")}>Forgot Password?</AuthTabLink>
+      <AuthTabLink onClick={() => setTab("forgotPassword")}>
+        Forgot Password?
+      </AuthTabLink>
     </AuthForm>
   );
 }

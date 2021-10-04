@@ -1,7 +1,15 @@
 import { useColor } from "hooks";
 import { Flex, Grid, Heading, Text, Switch } from "@chakra-ui/react";
 
-export const SwitchInput = ({ name, value, error, label, details, onChange, ...rest }) => {
+export const SwitchInput = ({
+  name,
+  value,
+  error,
+  label,
+  details,
+  onChange,
+  ...rest
+}) => {
   const handleChange = (event) => {
     const value = event.target.checked;
     onChange(name, value);

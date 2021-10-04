@@ -27,7 +27,11 @@ function LocationsInputs({
           </EditorButton>
         )}
         {values.length && (
-          <EditorButton icon={<FaTrashAlt />} onClick={clearLocations} colorScheme="red">
+          <EditorButton
+            icon={<FaTrashAlt />}
+            onClick={clearLocations}
+            colorScheme="red"
+          >
             Delete All
           </EditorButton>
         )}

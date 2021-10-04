@@ -8,7 +8,15 @@ export const Link = ({ to, isWrapper, ...rest }) => {
   // else link is treated as internal react router link
 
   if (to.substring(0, 4) === "http") {
-    return <StyledLink href={to} color="blue.500" isExternal isWrapper={isWrapper} {...rest} />;
+    return (
+      <StyledLink
+        href={to}
+        color="blue.500"
+        isExternal
+        isWrapper={isWrapper}
+        {...rest}
+      />
+    );
   }
 
   if (to.includes("#")) {

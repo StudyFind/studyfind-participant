@@ -42,7 +42,9 @@ function Messages() {
   }, [loading]);
 
   const handleMessageSend = (text) => {
-    return message.send(studyID, participantID, { text }).then(() => scrollToBottom());
+    return message
+      .send(studyID, participantID, { text })
+      .then(() => scrollToBottom());
   };
 
   const handleMessageRead = (messageID) => {

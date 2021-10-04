@@ -6,7 +6,10 @@ function TeamMembers({ founders }) {
   const { isPhone, responsive } = useDetectDevice();
 
   return (
-    <SimpleGrid spacing={isPhone ? "50px" : "100px"} columns={responsive([1, 2, 2])}>
+    <SimpleGrid
+      spacing={isPhone ? "50px" : "100px"}
+      columns={responsive([1, 2, 2])}
+    >
       {founders.map((founder, i) => (
         <TeamMember
           key={i}

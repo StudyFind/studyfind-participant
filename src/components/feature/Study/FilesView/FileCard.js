@@ -23,10 +23,19 @@ function FileCard({ file, handleOpen }) {
         background={iconBackgroundColor}
         onClick={() => handleOpen(file)}
       >
-        <Icon as={FaFilePdf} color={secondaryColor} height="30px" width="30px" />
+        <Icon
+          as={FaFilePdf}
+          color={secondaryColor}
+          height="30px"
+          width="30px"
+        />
       </Flex>
       <Divider color={borderColor} />
-      <Box padding="15px" background={detailsBackgroundColor} borderBottomRadius="6px">
+      <Box
+        padding="15px"
+        background={detailsBackgroundColor}
+        borderBottomRadius="6px"
+      >
         <Name
           color={fileNameColor}
           fontSize="14px"

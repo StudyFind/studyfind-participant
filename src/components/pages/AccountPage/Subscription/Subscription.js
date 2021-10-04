@@ -102,7 +102,11 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
       name: "basic",
       title: "Basic",
       price: ["$29", "$19"],
-      features: ["Create Studies", "Recruit Participants", "Track Participant Status"],
+      features: [
+        "Create Studies",
+        "Recruit Participants",
+        "Track Participant Status",
+      ],
     },
 
     {
@@ -110,7 +114,11 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
       name: "standard",
       title: "Standard",
       price: ["$99", "$79"],
-      features: ["Everything in Basic", "Participant Reminders", "Schedule Meetings"],
+      features: [
+        "Everything in Basic",
+        "Participant Reminders",
+        "Schedule Meetings",
+      ],
       isPopular: true,
     },
 
@@ -119,7 +127,11 @@ function Subscription({ showButtons, handleCancel, handleUpdate }) {
       name: "premium",
       title: "Premium",
       price: ["$249", "$199"],
-      features: ["Everything in Standard", "Instant Messaging", "Email and Text Notifications"],
+      features: [
+        "Everything in Standard",
+        "Instant Messaging",
+        "Email and Text Notifications",
+      ],
     },
   ];
 

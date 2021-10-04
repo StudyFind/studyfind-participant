@@ -121,7 +121,11 @@ function Internal() {
       <StudiesContext.Provider value={studies}>
         <ConfirmContext.Provider value={setConfirm}>
           <Flex>
-            <ConfirmModal {...confirm} open={!!confirm} handleClose={() => setConfirm(null)} />
+            <ConfirmModal
+              {...confirm}
+              open={!!confirm}
+              handleClose={() => setConfirm(null)}
+            />
             <GlobalStyle />
             <Box
               width={isPhone ? "100%" : "280px"}
@@ -171,11 +175,17 @@ function Internal() {
                   <Route exact path="/" component={FindStudies} />
                   <Route path="/search" component={FindStudies} />
                   <Route path="/notifications" component={Notifications} />
-                  <Route path="/study/:studyID/screening" component={Screening} />
+                  <Route
+                    path="/study/:studyID/screening"
+                    component={Screening}
+                  />
                   <Route path="/study/:studyID/:tab" component={ViewStudy} />
                   <Route path="/schedule" component={Schedule} />
                   <Route path="/account/:tab" component={Account} />
-                  <Route path="/your-studies/:studyID?/:action?" component={YourStudies} />
+                  <Route
+                    path="/your-studies/:studyID?/:action?"
+                    component={YourStudies}
+                  />
                   <Route path="/feedback" component={Feedback} />
                   <Redirect to="/" />
                 </Switch>

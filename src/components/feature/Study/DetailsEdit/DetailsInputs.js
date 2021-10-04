@@ -35,7 +35,11 @@ function DetailsInputs({
           </EditorButton>
         )}
         {handleClear && (values.title || values.description) && (
-          <EditorButton icon={<FaEraser />} onClick={handleClear} colorScheme="purple">
+          <EditorButton
+            icon={<FaEraser />}
+            onClick={handleClear}
+            colorScheme="purple"
+          >
             Reset Values
           </EditorButton>
         )}
@@ -78,7 +82,9 @@ function DetailsInputs({
               height="250px"
               onChange={handleChange}
             />
-            <DescriptionAccessibilityScore score={compute.readabilityIndex(values.description)} />
+            <DescriptionAccessibilityScore
+              score={compute.readabilityIndex(values.description)}
+            />
           </VStack>
         </Card>
 

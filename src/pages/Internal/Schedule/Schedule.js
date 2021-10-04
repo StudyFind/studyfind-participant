@@ -37,7 +37,11 @@ function Schedule() {
   };
 
   return (
-    <Stack direction={isDesktop ? "row" : "column-reverse"} spacing="50px" align="flex-start">
+    <Stack
+      direction={isDesktop ? "row" : "column-reverse"}
+      spacing="50px"
+      align="flex-start"
+    >
       <Box width="100%">
         <Stack direction="row" justify="space-between" align="flex-start">
           <Box>
@@ -45,7 +49,11 @@ function Schedule() {
             {isDesktop && <Text color="gray.500">{displayDate}</Text>}
           </Box>
           {isDesktop || (
-            <SecondaryButton size="sm" leftIcon={<FaCalendar />} onClick={handleOpenModal}>
+            <SecondaryButton
+              size="sm"
+              leftIcon={<FaCalendar />}
+              onClick={handleOpenModal}
+            >
               {displayDate || "Select Date"}
             </SecondaryButton>
           )}

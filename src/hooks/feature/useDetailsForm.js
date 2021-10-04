@@ -24,7 +24,14 @@ function useDetailsForm(study) {
     return "";
   };
 
-  const getErrorMessages = ({ title, description, minAge, maxAge, type, conditions }) => ({
+  const getErrorMessages = ({
+    title,
+    description,
+    minAge,
+    maxAge,
+    type,
+    conditions,
+  }) => ({
     title: check("title", title),
     description: check("description", description),
     minAge: check("minAge", minAge),
@@ -68,10 +75,13 @@ function useDetailsForm(study) {
 
   const initialErrors = getErrorMessages(initialValues);
 
-  const notDefault = JSON.stringify(initialValues) !== JSON.stringify(defaultValues);
+  const notDefault =
+    JSON.stringify(initialValues) !== JSON.stringify(defaultValues);
 
   const [values, setValues] = useState(initialValues);
-  const [errors, setErrors] = useState(notDefault ? initialErrors : defaultErrors);
+  const [errors, setErrors] = useState(
+    notDefault ? initialErrors : defaultErrors
+  );
 
   const hasChanged = JSON.stringify(initialValues) !== JSON.stringify(values);
 
@@ -97,7 +107,16 @@ function useDetailsForm(study) {
     return isValid;
   };
 
-  return { values, errors, hasChanged, notDefault, reset, clear, update, validate };
+  return {
+    values,
+    errors,
+    hasChanged,
+    notDefault,
+    reset,
+    clear,
+    update,
+    validate,
+  };
 }
 
 export default useDetailsForm;

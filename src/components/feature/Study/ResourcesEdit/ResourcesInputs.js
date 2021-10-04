@@ -27,7 +27,11 @@ function ResourcesInputs({
           </EditorButton>
         )}
         {values.length && (
-          <EditorButton icon={<FaTrashAlt />} onClick={clearResources} colorScheme="red">
+          <EditorButton
+            icon={<FaTrashAlt />}
+            onClick={clearResources}
+            colorScheme="red"
+          >
             Delete All
           </EditorButton>
         )}

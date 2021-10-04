@@ -11,7 +11,12 @@ function Files({ study }) {
   }, []);
 
   return (
-    <FilesView files={files} loading={loading} handleFetch={handleFetch} handleOpen={handleOpen} />
+    <FilesView
+      files={files}
+      loading={loading}
+      handleFetch={handleFetch}
+      handleOpen={handleOpen}
+    />
   );
 }
 

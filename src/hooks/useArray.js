@@ -8,7 +8,11 @@ function useArray(initial) {
   };
 
   const update = (index, value) => {
-    setArray((prev) => [...prev.slice(0, index), value, ...prev.slice(index + 1)]);
+    setArray((prev) => [
+      ...prev.slice(0, index),
+      value,
+      ...prev.slice(index + 1),
+    ]);
   };
 
   const insert = (index, value) => {

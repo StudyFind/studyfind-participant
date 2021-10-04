@@ -61,7 +61,12 @@ function Collaborations() {
   ];
 
   return (
-    <Box id="collaborations" minHeight="100vh" background={background} padding="40px">
+    <Box
+      id="collaborations"
+      minHeight="100vh"
+      background={background}
+      padding="40px"
+    >
       <Heading
         color="blue.500"
         size="2xl"
@@ -72,7 +77,12 @@ function Collaborations() {
       >
         Collaborations
       </Heading>
-      <Stack direction={isPhone ? "column" : "row"} spacing="40px" justify="center" align="center">
+      <Stack
+        direction={isPhone ? "column" : "row"}
+        spacing="40px"
+        justify="center"
+        align="center"
+      >
         <TeamCollaborations collaborations={collaborations} />
       </Stack>
     </Box>

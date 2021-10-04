@@ -8,7 +8,13 @@ function Denied({ email }) {
   const iconColor = useColor("red.500", "red.400");
 
   return (
-    <Flex gridGap="16px" direction="column" justify="center" align="center" h="100vh">
+    <Flex
+      gridGap="16px"
+      direction="column"
+      justify="center"
+      align="center"
+      h="100vh"
+    >
       <Icon as={FaTimesCircle} color={iconColor} fontSize="36px" />
       <Box textAlign="center">
         <Text fontSize="24px" fontWeight="600">

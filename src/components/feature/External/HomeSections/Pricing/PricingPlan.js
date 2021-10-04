@@ -7,7 +7,14 @@ import PricingPlanPrice from "./PricingPlanPrice";
 import PricingPlanFeatures from "./PricingPlanFeatures";
 import PricingPlanButton from "./PricingPlanButton";
 
-function PricingPlan({ icon, name, price, features, isPopular, isBilledAnnually }) {
+function PricingPlan({
+  icon,
+  name,
+  price,
+  features,
+  isPopular,
+  isBilledAnnually,
+}) {
   const background = useColor("white", "gray.900");
   const accentColor = useColor("blue.600", "blue.400");
   const borderColor = useColor("gray.200", "gray.700");
@@ -28,7 +35,11 @@ function PricingPlan({ icon, name, price, features, isPopular, isBilledAnnually 
     >
       {isPopular && <PricingPlanBadge>Popular</PricingPlanBadge>}
       <PricingPlanHeader icon={icon} name={name} color={accentColor} />
-      <PricingPlanPrice price={price} isBilledAnnually={isBilledAnnually} color={accentColor} />
+      <PricingPlanPrice
+        price={price}
+        isBilledAnnually={isBilledAnnually}
+        color={accentColor}
+      />
       <PricingPlanFeatures features={features} color={accentColor} />
       <PricingPlanButton />
     </Flex>

@@ -84,15 +84,22 @@ function FindStudies() {
       // ========== MANDATORY ==========
       if (study.researcher.id && !study.activated) return false;
       if (user.sex && ![user.sex, "All"].includes(study.sex)) return false;
-      if (user.birthdate && !isValidAge(study.minAge, study.maxAge, user.birthdate)) return false;
+      if (
+        user.birthdate &&
+        !isValidAge(study.minAge, study.maxAge, user.birthdate)
+      )
+        return false;
 
       // ========== OPTIONAL ==========
 
       // FILTERS
-      if (filters.acceptsHealthyVolunteers && !study.acceptsHealthyVolunteers) return false;
+      if (filters.acceptsHealthyVolunteers && !study.acceptsHealthyVolunteers)
+        return false;
       if (filters.observational && study.type !== "Observational") return false;
-      if (filters.interventional && study.type !== "Interventional") return false;
-      if (filters.hideEnrolled && user.enrolled.includes(study.id)) return false;
+      if (filters.interventional && study.type !== "Interventional")
+        return false;
+      if (filters.hideEnrolled && user.enrolled.includes(study.id))
+        return false;
       if (filters.hideSaved && user.saved.includes(study.id)) return false;
       if (filters.onlySaved && !user.saved.includes(study.id)) return false;
 
@@ -108,7 +115,9 @@ function FindStudies() {
 
       // CONDITIONS
       if (filters.conditions.length) {
-        const intersection = study.conditions.filter((value) => filters.conditions.includes(value));
+        const intersection = study.conditions.filter((value) =>
+          filters.conditions.includes(value)
+        );
 
         if (!intersection.length) {
           return false;

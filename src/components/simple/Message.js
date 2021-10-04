@@ -1,8 +1,19 @@
 import { useColor } from "hooks";
 import { Heading, Text, Box, Icon, Center, Flex } from "@chakra-ui/react";
-import { FaTimesCircle, FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
+import {
+  FaTimesCircle,
+  FaCheckCircle,
+  FaExclamationCircle,
+} from "react-icons/fa";
 
-export const Message = ({ status, title, description, children, showBackground, ...rest }) => {
+export const Message = ({
+  status,
+  title,
+  description,
+  children,
+  showBackground,
+  ...rest
+}) => {
   const { icon, colorScheme } = {
     success: {
       icon: FaCheckCircle,

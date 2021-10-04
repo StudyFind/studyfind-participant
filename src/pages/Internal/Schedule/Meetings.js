@@ -20,7 +20,11 @@ function Meetings({ date }) {
   if (loading) return <MeetingsLoading />;
   if (error) return <MeetingsError />;
 
-  return meetings?.length ? <MeetingsList meetings={meetings} /> : <MeetingsEmpty />;
+  return meetings?.length ? (
+    <MeetingsList meetings={meetings} />
+  ) : (
+    <MeetingsEmpty />
+  );
 }
 
 export default Meetings;

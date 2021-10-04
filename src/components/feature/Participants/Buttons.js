@@ -15,7 +15,12 @@ function Buttons({ link, confirmed, handleEdit, handleDelete }) {
         </Link>
       )}
       {handleEdit && (
-        <ActionButton icon={<FaPencilAlt />} hint="Edit" colorScheme="blue" onClick={handleEdit} />
+        <ActionButton
+          icon={<FaPencilAlt />}
+          hint="Edit"
+          colorScheme="blue"
+          onClick={handleEdit}
+        />
       )}
       {handleDelete && (
         <ActionButton

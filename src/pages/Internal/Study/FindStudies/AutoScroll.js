@@ -1,25 +1,18 @@
-import { useState } from "react";
-import $ from "jquery";
-
 import { FaArrowUp } from "react-icons/fa";
 import { IconButton } from "@chakra-ui/react";
+import { useWindowSize } from "react-use";
 
 function AutoScroll() {
-  const [active, setActive] = useState(false);
-
   const handleAutoscroll = () => {
-    $("body").animate({ scrollTop: 0 }, "fast");
+    window.scroll({ top: 0, behavior: "smooth" });
   };
 
-  $("body").scroll(function () {
-    const scrollPosition = $("body").scrollTop();
-    setActive(scrollPosition > 100);
-  });
+  const { height } = useWindowSize();
 
   return (
     <IconButton
       onClick={handleAutoscroll}
-      display={active ? "flex" : "none"}
+      display={height > 100 ? "flex" : "none"}
       position="fixed"
       right="16px"
       bottom="16px"

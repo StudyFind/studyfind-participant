@@ -18,7 +18,11 @@ function DetailsForm({ study, onSubmit, Wrapper }) {
   };
 
   return (
-    <Wrapper title={title} description={description} handleSubmit={handleSubmit}>
+    <Wrapper
+      title={title}
+      description={description}
+      handleSubmit={handleSubmit}
+    >
       <DetailsInputs
         values={detailsForm.values}
         errors={detailsForm.errors}

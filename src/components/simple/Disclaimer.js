@@ -19,7 +19,12 @@ export const Disclaimer = ({ colorScheme = "red", children }) => {
       borderWidth="1px"
       borderColor={textColor}
     >
-      <Icon as={FaExclamationCircle} marginRight="5px" marginBottom="3px" fontSize="12px" />
+      <Icon
+        as={FaExclamationCircle}
+        marginRight="5px"
+        marginBottom="3px"
+        fontSize="12px"
+      />
       {children}
     </Text>
   );

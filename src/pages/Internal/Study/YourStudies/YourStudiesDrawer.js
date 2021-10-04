@@ -15,12 +15,20 @@ function YourStudiesDrawer({ action, isOpen, study, handleClose }) {
     reminders: action === "reminders" && <Reminders study={study} />,
     messages: action === "messages" && <Messages />,
     questions: action === "questions" && (
-      <Questions questions={study.questions} responses={study.participant.responses} />
+      <Questions
+        questions={study.questions}
+        responses={study.participant.responses}
+      />
     ),
   };
 
   return (
-    <SideDrawer heading={action} subheading={study.id} isOpen={isOpen} onClose={handleClose}>
+    <SideDrawer
+      heading={action}
+      subheading={study.id}
+      isOpen={isOpen}
+      onClose={handleClose}
+    >
       {render[action]}
     </SideDrawer>
   );

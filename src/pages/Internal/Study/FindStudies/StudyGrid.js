@@ -14,7 +14,11 @@ function StudyGrid({ conditions, filteredStudies, handleAddCondition }) {
   const user = useContext(UserContext);
 
   return filteredStudies.length ? (
-    <SimpleGrid spacing="25px" align="flex-start" columns={responsive([1, 2, 2])}>
+    <SimpleGrid
+      spacing="25px"
+      align="flex-start"
+      columns={responsive([1, 2, 2])}
+    >
       {filteredStudies.map((study) => (
         <StudyCardSmall
           key={study.id}

@@ -11,7 +11,13 @@ function PricingPlanButton() {
   };
 
   return (
-    <Button size="lg" width="100%" marginTop="10px" colorScheme="blue" onClick={handleClick}>
+    <Button
+      size="lg"
+      width="100%"
+      marginTop="10px"
+      colorScheme="blue"
+      onClick={handleClick}
+    >
       Start Now
     </Button>
   );

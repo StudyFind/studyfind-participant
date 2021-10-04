@@ -42,7 +42,9 @@ function SidebarLogo({ isPhone, active, setActive }) {
           <Icon as={colorMode === "light" ? FiMoon : FiSun} />
         </Flex>
       )}
-      {isPhone && <ToggleIcon size="24px" color="white" onClick={handleToggleActive} />}
+      {isPhone && (
+        <ToggleIcon size="24px" color="white" onClick={handleToggleActive} />
+      )}
     </Flex>
   );
 }
