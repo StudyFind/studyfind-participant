@@ -48,6 +48,16 @@
     "firebase-tools": "^8.13.1",
     "jest-styled-components": "^7.0.3"
   },
+  "_moduleAliases": {
+    "components": "./src/components",
+    "context": "./src/context",
+    "database": "./src/database",
+    "hooks": "./src/hooks",
+    "images": "./src/images",
+    "pages": "./src/pages",
+    "templates": "./src/templates",
+    "utils": "./src/utils"
+  },
   "browserslist": {
     "production": [
       ">0.2%",
