@@ -1,28 +1,40 @@
 import moment from "moment-timezone";
 
 import { useEffect } from "react";
-import { useDetectTimezone } from "hooks";
 import { firestore } from "database/firebase";
 
 function useAutoUpdateTimezone(user) {
-  const detected = useDetectTimezone();
+  const detected = moment.tz.guess(true);
 
   useEffect(() => {
     if (user?.timezone) {
-      const { region, autodetect } = user.timezone;
+      const { region, autodetect, lastUpdated } = user.timezone;
 
-      if (autodetect && region !== detected) {
+      const now = moment().utc().valueOf();
+      const thirtyMinutes = 30 * 60 * 1000;
+
+      if (
+        autodetect &&
+        region !== detected &&
+        lastUpdated + thirtyMinutes > now
+      ) {
         firestore
           .collection("researchers")
           .doc(user.id)
-          .update({ timezone: { ...user.timezone, region: detected } });
+          .update({
+            timezone: {
+              ...user.timezone,
+              region: detected,
+              lastUpdated: now,
+            },
+          });
 
         moment.tz.setDefault(detected);
       } else {
         moment.tz.setDefault(region);
       }
     }
-  }, [user]);
+  }, [user?.timezone]);
 }
 
 export default useAutoUpdateTimezone;
