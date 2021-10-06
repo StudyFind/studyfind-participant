@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "studyfind-researcher"
+    "default": "studyfind-development"
   },
   "targets": {
     "studyfind-researcher": {

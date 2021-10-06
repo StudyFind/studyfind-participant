@@ -1,8 +1,9 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
+import algoliasearch from 'algoliasearch';
 import moment from "moment";
 
-import { UserContext, StudiesContext } from "context";
+import { UserContext, StudiesContext, AlgoliaContext } from "context";
 import { Flex, Heading } from "@chakra-ui/react";
 
 import ViewMode from "./ViewMode";
@@ -15,6 +16,7 @@ import MapView from "./MapView";
 function FindStudies() {
   const user = useContext(UserContext);
   const studies = useContext(StudiesContext);
+  const algolia = useContext(AlgoliaContext)
 
   const [view, setView] = useState("grid");
   const [location, setLocation] = useState();
@@ -38,7 +40,11 @@ function FindStudies() {
   }, []);
 
   const handleFilters = (name, value) => {
-    setFilters((prev) => ({ ...prev, [name]: value }));
+    if (name in Object.keys(filters)) {
+      setFilters((prev) => ({ ...prev, [name]: value }));
+    } else {
+      algolia.setAlgoilaFilters((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleAddCondition = (condition) => {
@@ -79,7 +85,6 @@ function FindStudies() {
       if (study.researcher.id && !study.activated) return false;
       if (![user.sex, "All"].includes(study.sex)) return false;
       if (!isValidAge(study.age, user.birthdate)) return false;
-
       // ========== OPTIONAL ==========
 
       // FILTERS
@@ -125,7 +130,7 @@ function FindStudies() {
         <ViewMode view={view} setView={setView} />
       </Flex>
 
-      <FilterList filters={filters} handleFilters={handleFilters} />
+      <FilterList filters={{...filters, ...algolia.algoliaFilters}} handleFilters={handleFilters} />
 
       <ConditionsList
         conditions={filters.conditions}

@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 
 import { auth, firestore } from "database/firebase";
 import { useDocument, useCollection, useDetectTimezone } from "hooks";
-import { UserContext, StudiesContext, ConfirmContext } from "context";
+import { UserContext, StudiesContext, ConfirmContext, AlgoliaContext } from "context";
 
 import { Switch, Route, Redirect } from "react-router-dom";
 import { Box, Flex } from "@chakra-ui/react";
@@ -29,12 +29,22 @@ function Internal() {
   const [user] = useDocument(userRef);
   const [studies] = useCollection(studiesRef);
   const [confirm, setConfirm] = useState(null);
+  const [algoliaFilters, setAlgoilaFilters] = useState({
+    search: "",
+    title: false,
+  })
+  const [hits, setHits] = useState([])
+
+  useEffect(() => {
+    console.log(algoliaFilters)
+  }, [algoliaFilters])
 
   useDetectTimezone(user);
 
   return (
     <Flex>
       <UserContext.Provider value={user}>
+        <AlgoliaContext.Provider value={{algoliaFilters, setAlgoilaFilters, hits}}>
         <StudiesContext.Provider value={studies}>
           <ConfirmContext.Provider value={setConfirm}>
             <Sidebar name={user?.name} email={email} />
@@ -62,6 +72,7 @@ function Internal() {
             </Box>
           </ConfirmContext.Provider>
         </StudiesContext.Provider>
+        </AlgoliaContext.Provider>
       </UserContext.Provider>
     </Flex>
   );
