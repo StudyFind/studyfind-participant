@@ -40,10 +40,13 @@ function FindStudies() {
   }, []);
 
   const handleFilters = (name, value) => {
-    if (name in Object.keys(filters)) {
+    if (name === "search") {
+      setFilters((prev) => ({ ...prev, [name]: value }));
+      algolia.setAlgoilaFilters((prev) => ({ ...prev, [name]: value }));
+    } else if (Object.keys(filters).includes(name)) {
       setFilters((prev) => ({ ...prev, [name]: value }));
     } else {
-      algolia.setAlgoilaFilters((prev) => ({ ...prev, [name]: value }));
+      algolia.setAlgoilaFilters((prev) => ({ ...prev, [name]: value }));     
     }
   };
 
@@ -80,6 +83,7 @@ function FindStudies() {
 
   const filter = (studies) => {
     return studies.filter((study) => {
+      console.log(study)
       // ========== MANDATORY ==========
       if (study.researcher.id && !study.published) return false;
       if (study.researcher.id && !study.activated) return false;
@@ -117,7 +121,7 @@ function FindStudies() {
     });
   };
 
-  const filteredStudies = filter(studies);
+  const filteredStudies = filter(algolia.hits);
 
   return (
     <>

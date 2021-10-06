@@ -8,6 +8,7 @@ import { UserContext, StudiesContext, ConfirmContext, AlgoliaContext } from "con
 import { Switch, Route, Redirect } from "react-router-dom";
 import { Box, Flex } from "@chakra-ui/react";
 import { Page } from "components";
+import algoliasearch from "algoliasearch/lite"
 
 import Confirm from "./Confirm";
 import Sidebar from "./Sidebar";
@@ -25,6 +26,8 @@ function Internal() {
 
   const userRef = firestore.collection("participants").doc(uid);
   const studiesRef = firestore.collection("studies");
+  const algoliaClient = algoliasearch("1PDWAYKDDH", "8c2524ee4fab1358d8eab1c32aff490f")
+  const studiesIndex = algoliaClient.initIndex("test_StudyFind")
 
   const [user] = useDocument(userRef);
   const [studies] = useCollection(studiesRef);
@@ -36,7 +39,12 @@ function Internal() {
   const [hits, setHits] = useState([])
 
   useEffect(() => {
-    console.log(algoliaFilters)
+    studiesIndex.search(algoliaFilters.search)
+    .then((records) => {
+      console.log(algoliaFilters.search)
+      console.log(records.hits)
+      setHits(records.hits)
+    })
   }, [algoliaFilters])
 
   useDetectTimezone(user);
