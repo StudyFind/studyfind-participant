@@ -1,9 +1,9 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
-import algoliasearch from 'algoliasearch';
 import moment from "moment";
+import { useAlgoliaSearch } from "hooks"
 
-import { UserContext, StudiesContext, AlgoliaContext } from "context";
+import { UserContext, StudiesContext } from "context";
 import { Flex, Heading } from "@chakra-ui/react";
 
 import ViewMode from "./ViewMode";
@@ -16,7 +16,7 @@ import MapView from "./MapView";
 function FindStudies() {
   const user = useContext(UserContext);
   const studies = useContext(StudiesContext);
-  const algolia = useContext(AlgoliaContext)
+  const [hits, algoliaFilters, setAlgoilaFilters] = useAlgoliaSearch("test_StudyFind")
 
   const [view, setView] = useState("grid");
   const [location, setLocation] = useState();
@@ -40,14 +40,16 @@ function FindStudies() {
   }, []);
 
   const handleFilters = (name, value) => {
-    if (name === "search") {
-      setFilters((prev) => ({ ...prev, [name]: value }));
-      algolia.setAlgoilaFilters((prev) => ({ ...prev, [name]: value }));
-    } else if (Object.keys(filters).includes(name)) {
-      setFilters((prev) => ({ ...prev, [name]: value }));
-    } else {
-      algolia.setAlgoilaFilters((prev) => ({ ...prev, [name]: value }));     
-    }
+    console.log(name)
+    console.log(Object.keys(algoliaFilters))
+      if (name === "search") {
+        setFilters((prev) => ({ ...prev, [name]: value }));
+        setAlgoilaFilters((prev) => ({...prev, [name]: value}))
+      } else if (Object.keys(algoliaFilters).includes(name)) {
+        setAlgoilaFilters((prev) => ({...prev, [name]: value}))
+      } else {
+        setFilters((prev) => ({ ...prev, [name]: value }));
+      }
   };
 
   const handleAddCondition = (condition) => {
@@ -121,7 +123,7 @@ function FindStudies() {
     });
   };
 
-  const filteredStudies = filter(algolia.hits);
+  const filteredStudies = hits
 
   return (
     <>
@@ -134,7 +136,7 @@ function FindStudies() {
         <ViewMode view={view} setView={setView} />
       </Flex>
 
-      <FilterList filters={{...filters, ...algolia.algoliaFilters}} handleFilters={handleFilters} />
+      <FilterList filters={{...filters, ...algoliaFilters}} handleFilters={handleFilters} />
 
       <ConditionsList
         conditions={filters.conditions}

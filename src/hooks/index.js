@@ -14,3 +14,4 @@ export { default as useDetails } from "./useDetails";
 export { default as useScreening } from "./useScreening";
 export { default as useMeeting } from "./useScreening";
 export { default as useReminder } from "./useScreening";
+export { default as useAlgoliaSearch } from "./useAlgoliaSearch"
