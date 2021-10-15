@@ -12,11 +12,12 @@ import FilterList from "./FilterList";
 import ConditionsList from "./ConditionsList";
 import GridView from "./GridView";
 import MapView from "./MapView";
+import { Loader } from "components";
 
 function FindStudies() {
   const user = useContext(UserContext);
   const studies = useContext(StudiesContext);
-  const [hits, algoliaFilters, setAlgoilaFilters] = useAlgoliaSearch("test_StudyFind")
+  const [hits, isSearching, algoliaFilters, setAlgoilaFilters] = useAlgoliaSearch("test_StudyFind")
 
   const [view, setView] = useState("grid");
   const [location, setLocation] = useState();
@@ -40,8 +41,6 @@ function FindStudies() {
   }, []);
 
   const handleFilters = (name, value) => {
-    console.log(name)
-    console.log(Object.keys(algoliaFilters))
       if (name === "search") {
         setFilters((prev) => ({ ...prev, [name]: value }));
         setAlgoilaFilters((prev) => ({...prev, [name]: value}))
@@ -144,20 +143,23 @@ function FindStudies() {
         handleClearConditions={handleClearConditions}
       />
 
-      {view === "grid" ? (
-        <GridView
-          conditions={filters.conditions}
-          filteredStudies={filteredStudies}
-          handleAddCondition={handleAddCondition}
-        />
-      ) : (
-        <MapView
-          loc={location}
-          user={user}
-          conditions={filters.conditions}
-          studies={filteredStudies}
-        />
-      )}
+      {!isSearching ? (
+        view === "grid" ? (
+          <GridView
+            conditions={filters.conditions}
+            filteredStudies={filteredStudies}
+            handleAddCondition={handleAddCondition}
+          />
+        ) : (
+          <MapView
+            loc={location}
+            user={user}
+            conditions={filters.conditions}
+            studies={filteredStudies}
+          />
+        )
+      ) : (<Loader/>)}
+
     </>
   );
 }

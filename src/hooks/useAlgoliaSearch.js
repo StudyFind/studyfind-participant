@@ -1,5 +1,7 @@
 import algoliasearch from "algoliasearch/lite"
 import { useState, useEffect } from "react";
+import { useDebounce } from 'hooks';
+
 
 function useAlgoliaSearch(indexName) {
     const algoliaClient = algoliasearch("1PDWAYKDDH", "8c2524ee4fab1358d8eab1c32aff490f")
@@ -10,18 +12,27 @@ function useAlgoliaSearch(indexName) {
         title: false,
     })
 
+    const [isSearching, setIsSearching] = useState(false);
+
     const [hits, setHits] = useState([])
 
-    useEffect(() => {
-        studiesIndex.search(algoliaFilters.search)
-            .then((records) => {
-            console.log(algoliaFilters.search)
-            console.log(records.hits)
-            setHits(records.hits)
-        })
-  }, [algoliaFilters])
+    const debouncedSearchTerm = useDebounce(algoliaFilters, 400);
 
-  return [hits, algoliaFilters, setAlgoliaFilters]
+    useEffect(() => {
+        if (debouncedSearchTerm.search !== "") {
+            // Set isSearching state
+            setIsSearching(true);
+            // Fire off our API call
+            studiesIndex.search(debouncedSearchTerm.search).then(records => {
+                setIsSearching(false)
+                setHits(records.hits)
+            })
+          } else {
+            setHits([]);
+          }
+  }, [debouncedSearchTerm])
+
+  return [hits, isSearching, algoliaFilters, setAlgoliaFilters]
 }
 
 export default useAlgoliaSearch
