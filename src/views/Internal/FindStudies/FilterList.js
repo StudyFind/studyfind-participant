@@ -10,6 +10,9 @@ function FilterList({ filters, handleFilters }) {
         Filters
       </Heading>
       <Flex gridGap="10px" wrap="wrap">
+        <FilterToggle name="sex" value={filters.sex} onChange={handleFilters}>
+          Search Sex
+        </FilterToggle>
         <FilterToggle name="title" value={filters.title} onChange={handleFilters}>
           Search Title
         </FilterToggle>

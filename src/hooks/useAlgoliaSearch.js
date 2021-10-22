@@ -1,15 +1,16 @@
-import algoliasearch from "algoliasearch/lite"
+import algoliasearch from "algoliasearch"
 import { useState, useEffect } from "react";
 import { useDebounce } from 'hooks';
 
 
 function useAlgoliaSearch(indexName) {
-    const algoliaClient = algoliasearch("1PDWAYKDDH", "8c2524ee4fab1358d8eab1c32aff490f")
+    const algoliaClient = algoliasearch("1PDWAYKDDH", "90272486676cb879a4d14f9c75b0d1d9")
     const studiesIndex = algoliaClient.initIndex(indexName)
 
     const [algoliaFilters, setAlgoliaFilters] = useState({
         search: "",
         title: false,
+        sex: false,
     })
 
     const [isSearching, setIsSearching] = useState(false);
@@ -31,6 +32,16 @@ function useAlgoliaSearch(indexName) {
             setHits([]);
           }
   }, [debouncedSearchTerm])
+
+  useEffect(() => {
+    let filtersCopy = {...algoliaFilters}
+    delete filtersCopy.search
+    let filters = [Object.keys(algoliaFilters).map(key => key)][0]
+    filters = filters.filter(filter => algoliaFilters[filter])
+    studiesIndex.setSettings({
+      searchableAttributes: filters
+    })
+  }, [algoliaFilters])
 
   return [hits, isSearching, algoliaFilters, setAlgoliaFilters]
 }
