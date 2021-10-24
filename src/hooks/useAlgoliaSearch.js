@@ -3,21 +3,15 @@ import { useState, useEffect } from "react";
 import { useDebounce } from 'hooks';
 
 
-function useAlgoliaSearch(indexName) {
+function useAlgoliaSearch(indexName, filters) {
     const algoliaClient = algoliasearch("1PDWAYKDDH", "90272486676cb879a4d14f9c75b0d1d9")
     const studiesIndex = algoliaClient.initIndex(indexName)
-
-    const [algoliaFilters, setAlgoliaFilters] = useState({
-        search: "",
-        title: false,
-        sex: false,
-    })
 
     const [isSearching, setIsSearching] = useState(false);
 
     const [hits, setHits] = useState([])
 
-    const debouncedSearchTerm = useDebounce(algoliaFilters, 400);
+    const debouncedSearchTerm = useDebounce(filters, 400);
 
     useEffect(() => {
         if (debouncedSearchTerm.search !== "") {
@@ -34,16 +28,21 @@ function useAlgoliaSearch(indexName) {
   }, [debouncedSearchTerm])
 
   useEffect(() => {
-    let filtersCopy = {...algoliaFilters}
-    delete filtersCopy.search
-    let filters = [Object.keys(algoliaFilters).map(key => key)][0]
-    filters = filters.filter(filter => algoliaFilters[filter])
+    let trimmedFilters = [Object.keys(filters).map(key => key)][0]
+    trimmedFilters = trimmedFilters.filter(filter => filters[filter])
+    //This is hardcoded for the findstudies page, down the road we may have other cases like this, shouldn't be a problem since they are isolated and attributes shouldn't have the same names
+    //If it is a problem, we can simply reformat the filters before we send them to this hook
+    if (trimmedFilters.includes('locations')) {
+      const ind = trimmedFilters.indexOf('locations')
+      trimmedFilters.splice(ind, 1)
+      trimmedFilters.push('locations.address')
+    }
     studiesIndex.setSettings({
-      searchableAttributes: filters
+      searchableAttributes: trimmedFilters
     })
-  }, [algoliaFilters])
+  }, [filters])
 
-  return [hits, isSearching, algoliaFilters, setAlgoliaFilters]
+  return [hits, isSearching]
 }
 
 export default useAlgoliaSearch

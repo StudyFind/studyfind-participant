@@ -17,15 +17,23 @@ import { Loader } from "components";
 function FindStudies() {
   const user = useContext(UserContext);
   const studies = useContext(StudiesContext);
-  const [hits, isSearching, algoliaFilters, setAlgoilaFilters] = useAlgoliaSearch("test_StudyFind")
+  //May want to combine algoliaFilters and normal filters for consistency.
+  const [algoliaFilters, setAlgoliaFilters] = useState({
+    search: "",
+    title: false,
+    sex: false,
+    type: false,
+    description: false,
+    conditions: false,
+    locations: false,
+  });
+  //Should be abstract enough to be used in other parts of the code. Just make sure the attributes to search on are formatted like above
+  const [hits, isSearching] = useAlgoliaSearch("test_StudyFind", algoliaFilters)
 
   const [view, setView] = useState("grid");
   const [location, setLocation] = useState();
   const [filters, setFilters] = useState({
     search: "",
-    control: false,
-    observational: false,
-    interventional: false,
     hideEnrolled: false,
     hideSaved: false,
     conditions: [],
@@ -43,9 +51,9 @@ function FindStudies() {
   const handleFilters = (name, value) => {
       if (name === "search") {
         setFilters((prev) => ({ ...prev, [name]: value }));
-        setAlgoilaFilters((prev) => ({...prev, [name]: value}))
+        setAlgoliaFilters((prev) => ({...prev, [name]: value}))
       } else if (Object.keys(algoliaFilters).includes(name)) {
-        setAlgoilaFilters((prev) => ({...prev, [name]: value}))
+        setAlgoliaFilters((prev) => ({...prev, [name]: value}))
       } else {
         setFilters((prev) => ({ ...prev, [name]: value }));
       }
@@ -82,6 +90,7 @@ function FindStudies() {
     return minAge <= userAge && userAge <= maxAge;
   };
 
+  //Might need to redo the filter function to account for fields already filtered during the retrieval.
   const filter = (studies) => {
     return studies.filter((study) => {
       console.log(study)

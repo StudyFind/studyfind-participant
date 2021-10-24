@@ -11,19 +11,22 @@ function FilterList({ filters, handleFilters }) {
       </Heading>
       <Flex gridGap="10px" wrap="wrap">
         <FilterToggle name="sex" value={filters.sex} onChange={handleFilters}>
-          Search Sex
+          Sex
         </FilterToggle>
         <FilterToggle name="title" value={filters.title} onChange={handleFilters}>
-          Search Title
+          Title
         </FilterToggle>
-        <FilterToggle name="control" value={filters.control} onChange={handleFilters}>
-          Accepts Healthy Volunteers
+        <FilterToggle name="type" value={filters.type} onChange={handleFilters}>
+          Type
         </FilterToggle>
-        <FilterToggle name="observational" value={filters.observational} onChange={handleFilters}>
-          Observational Studies
+        <FilterToggle name="description" value={filters.description} onChange={handleFilters}>
+          Description
         </FilterToggle>
-        <FilterToggle name="interventional" value={filters.interventional} onChange={handleFilters}>
-          Interventional Studies
+        <FilterToggle name="conditions" value={filters.conditions} onChange={handleFilters}>
+          Conditions
+        </FilterToggle>
+        <FilterToggle name="locations" value={filters.locations} onChange={handleFilters}>
+          Address
         </FilterToggle>
         <FilterToggle name="hideEnrolled" value={filters.hideEnrolled} onChange={handleFilters}>
           Hide Enrolled Studies
