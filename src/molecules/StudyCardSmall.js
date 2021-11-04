@@ -23,8 +23,8 @@ function StudyCardSmall({ study, conditions, handleAddCondition }) {
     firestore.collection("participants").doc(user.id).update({ saved: updatedSaved });
   };
 
-  const isSaved = user.saved.includes(study.id);
-  const isEnrolled = user.enrolled.includes(study.id);
+  const isSaved = user?.saved?.includes(study.id);
+  const isEnrolled = user?.enrolled?.includes(study.id);
   const isExternal = !("id" in study.researcher);
 
   return (
