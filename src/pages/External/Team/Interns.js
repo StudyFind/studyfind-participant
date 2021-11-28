@@ -30,7 +30,7 @@ import Brandon from "images/interns/brandon.png";
 
 import TeamMember from "components/feature/External/HomeSections/Team/TeamMember";
 
-function Interns() {
+function interns() {
   const { responsive } = useDetectDevice();
   const background = useColor("gray.100", "gray.800");
 
@@ -43,7 +43,7 @@ function Interns() {
         textAlign="center"
         marginY="20px"
       >
-        Our Interns
+        Our interns
       </Heading>
       <VStack align="stretch">
         <Box>
@@ -80,12 +80,6 @@ function Interns() {
               name="Jason Ji"
               position="Jr. Software Developer"
               linkedinURL="https://www.linkedin.com/in/jason-ji-566673166/"
-            />
-            <TeamMember
-              image={Ivan}
-              name="Ivan Yau"
-              position="Jr. Software Developer"
-              linkedinURL="https://www.linkedin.com/in/ivan-yau/"
             />
             <TeamMember
               image={Etna}
@@ -206,6 +200,12 @@ function Interns() {
               position="Software Developer"
               linkedinURL="https://www.linkedin.com/in/keely-culbertson/"
             />
+            <TeamMember
+              image={Ivan}
+              name="Ivan Yau"
+              position="Jr. Software Developer"
+              linkedinURL="https://www.linkedin.com/in/ivan-yau/"
+            />
           </SimpleGrid>
         </Box>
       </VStack>
@@ -213,4 +213,4 @@ function Interns() {
   );
 }
 
-export default Interns;
+export default interns;
