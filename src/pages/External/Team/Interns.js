@@ -30,7 +30,7 @@ import Brandon from "images/interns/brandon.png";
 
 import TeamMember from "components/feature/External/HomeSections/Team/TeamMember";
 
-function interns() {
+function Interns() {
   const { responsive } = useDetectDevice();
   const background = useColor("gray.100", "gray.800");
 
@@ -43,7 +43,7 @@ function interns() {
         textAlign="center"
         marginY="20px"
       >
-        Our interns
+        Our Interns
       </Heading>
       <VStack align="stretch">
         <Box>
@@ -213,4 +213,4 @@ function interns() {
   );
 }
 
-export default interns;
+export default Interns;
