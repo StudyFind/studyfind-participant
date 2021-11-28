@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "env-cmd -f ./.env.development react-scripts start",
+    "dev": "env-cmd -f ./.env.development react-scripts start",
+    "start": "env-cmd -f ./.env.production react-scripts start",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,css,html,json}'",
     "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
     "test": "jest test --passWithNoTests",
-    "build": "react-scripts build",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "stage": "env-cmd -f ./.env.development firebase deploy --only hosting --project studyfind-development",
     "deploy": "env-cmd -f ./.env.production firebase deploy --only hosting --project studyfind-researcher"
   },
