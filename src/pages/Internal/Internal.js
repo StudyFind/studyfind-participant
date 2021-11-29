@@ -117,7 +117,7 @@ function Internal() {
   }
 
   return (
-    <UserContext.Provider value={user}>
+    <UserContext.Provider value={{...user, firstName: displayName.split(" ")[0]}}>
       <StudiesContext.Provider value={studies}>
         <ConfirmContext.Provider value={setConfirm}>
           <Flex>
