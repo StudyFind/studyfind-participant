@@ -3,7 +3,7 @@ import { useColor } from "hooks";
 import { Flex, Tag } from "@chakra-ui/react";
 
 function ReminderWeekdays({ weekdays }) {
-  const acronyms = ["S", "M", "T", "W", "T", "F", "S"];
+  const acronyms = ["M", "T", "W", "T", "F", "S", "S"];
 
   const tagColor = useColor("gray.500", "gray.400");
   const tagBackground = useColor("gray.200", "gray.700");
