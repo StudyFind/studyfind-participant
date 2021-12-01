@@ -78,9 +78,9 @@ function Screening() {
         triggerToast({
           title: "Successfully Enrolled",
           description:
-            "You have successfully enrolled for this research study!",
+            "You have successfully began the enrollment process for this research study. A researcher will follow up with you to see if you're qualified for this study.",
           status: "success",
-          duration: 3000,
+          duration: 5000,
           isClosable: true,
           position: "top",
         });

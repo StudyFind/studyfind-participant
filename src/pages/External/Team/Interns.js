@@ -82,12 +82,6 @@ function Interns() {
               linkedinURL="https://www.linkedin.com/in/jason-ji-566673166/"
             />
             <TeamMember
-              image={Ivan}
-              name="Ivan Yau"
-              position="Jr. Software Developer"
-              linkedinURL="https://www.linkedin.com/in/ivan-yau/"
-            />
-            <TeamMember
               image={Etna}
               name="Etna Ozkara"
               position="Jr. Software Developer"
@@ -205,6 +199,12 @@ function Interns() {
               name="Keely Culbertson"
               position="Software Developer"
               linkedinURL="https://www.linkedin.com/in/keely-culbertson/"
+            />
+            <TeamMember
+              image={Ivan}
+              name="Ivan Yau"
+              position="Jr. Software Developer"
+              linkedinURL="https://www.linkedin.com/in/ivan-yau/"
             />
           </SimpleGrid>
         </Box>
