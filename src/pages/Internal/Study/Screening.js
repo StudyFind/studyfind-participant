@@ -53,6 +53,15 @@ function Screening() {
     });
   };
 
+  //Generating random padded numbers
+  const trailingDigits = Math.floor(Math.random() * 10000);
+  const stringDigits = trailingDigits.toString()
+  const paddedDigits = stringDigits.length < 4 ? stringDigits.padStart(4, 0) : stringDigits
+  console.log(user, user.firstName + paddedDigits)
+
+  //Generating random color
+  const color = ['blue.500', 'pink.300', 'black', 'yellow.500', 'green.500', 'red.500', 'orange.500', 'teal.500', 'cyan.500', 'purple.500', 'grey'][Math.floor(Math.random() * 11)]
+
   const handleSave = async () => {
     setIsSubmitting(true);
     const creatingStudyParticipantDocument = firestore
@@ -62,6 +71,8 @@ function Screening() {
       .doc(user.id)
       .set({
         status: "interested",
+        firstname: user.firstName + paddedDigits,
+        color: color,
         timezone: user.timezone.region,
         availability: user.availability,
         responses,
