@@ -53,11 +53,6 @@ function Screening() {
     });
   };
 
-  //Generating random padded numbers
-  const trailingDigits = Math.floor(Math.random() * 10000);
-  const stringDigits = trailingDigits.toString();
-  const paddedDigits = stringDigits.padStart(4, 0);
-
   //Generating random color
   const colors = [
     "blue.500",
@@ -85,7 +80,6 @@ function Screening() {
       .set({
         status: "interested",
         color: randomColor,
-        fakename: user.firstName + " " + paddedDigits,
         timezone: user.timezone.region,
         availability: user.availability,
         responses,
