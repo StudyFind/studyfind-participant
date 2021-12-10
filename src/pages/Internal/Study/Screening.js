@@ -85,7 +85,7 @@ function Screening() {
       .set({
         status: "interested",
         color: randomColor,
-        fakename: user.firstName + " " + paddedDigits,
+        fakename: auth.currentUser.displayName + " " + paddedDigits,
         timezone: user.timezone.region,
         availability: user.availability,
         responses,
