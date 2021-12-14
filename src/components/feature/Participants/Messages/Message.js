@@ -19,14 +19,19 @@ function Message({ message, handleMessageRead, isUserMessageSender }) {
     <Flex direction="column" align={placement}>
       <MessageBox direction="column" align={placement}>
         <Text
+          display="flex"
           maxWidth="300px"
-          padding="5px 10px"
+          padding={message?.hasAttachment ? "15px 15px" : "5px 10px"}
           rounded="md"
+          flexDirection="row"
+          alignItems="center"
           color={isUserMessageSender ? "white" : "gray.700"}
           background={isUserMessageSender ? "blue.500" : "gray.200"}
         >
           {message.text}
-          {message?.hasAttachment && <FaFileDownload />}
+          <Flex paddingLeft="10px">
+            {message?.hasAttachment && <FaFileDownload fontSize="32px" />}
+          </Flex>
         </Text>
         <Meta paddingTop="4px" align="center" gridGap="2px" justify={placement}>
           {isUserMessageSender && (
