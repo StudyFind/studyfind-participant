@@ -4,6 +4,7 @@ import moment from "moment-timezone";
 
 import { Flex, Text, Icon } from "@chakra-ui/react";
 import { HiCheckCircle } from "react-icons/hi";
+import { FaFileDownload } from "react-icons/fa";
 
 function Message({ message, handleMessageRead, isUserMessageSender }) {
   useEffect(() => {
@@ -25,6 +26,7 @@ function Message({ message, handleMessageRead, isUserMessageSender }) {
           background={isUserMessageSender ? "blue.500" : "gray.200"}
         >
           {message.text}
+          {message?.hasAttachment && <FaFileDownload />}
         </Text>
         <Meta paddingTop="4px" align="center" gridGap="2px" justify={placement}>
           {isUserMessageSender && (
