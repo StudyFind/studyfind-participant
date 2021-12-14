@@ -3,7 +3,6 @@ import { ActionButton } from "components";
 import { FaClock, FaCalendar, FaClipboard, FaComment } from "react-icons/fa";
 
 function YourStudiesItem({ study, handleOpen }) {
-  console.log(study);
   const statusColors = {
     interested: "gray",
     screened: "purple",
