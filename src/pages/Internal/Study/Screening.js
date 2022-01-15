@@ -74,6 +74,7 @@ function Screening() {
   ];
 
   const randomColor = colors[Math.floor(Math.random() * colors.length)];
+  const firstName = auth.currentUser.displayName.split("")[0];
 
   const handleSave = async () => {
     setIsSubmitting(true);
@@ -85,7 +86,7 @@ function Screening() {
       .set({
         status: "interested",
         color: randomColor,
-        fakename: user.firstName + " " + paddedDigits,
+        fakename: firstName + " " + paddedDigits,
         timezone: user.timezone.region,
         availability: user.availability,
         responses,
