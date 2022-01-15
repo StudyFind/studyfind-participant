@@ -1,4 +1,4 @@
-import { Text, Badge, Flex } from "@chakra-ui/react";
+import { Text, Badge } from "@chakra-ui/react";
 import { ActionButton } from "components";
 import { FaClock, FaCalendar, FaClipboard, FaComment } from "react-icons/fa";
 
@@ -12,14 +12,33 @@ function YourStudiesItem({ study, handleOpen }) {
   };
 
   return (
-    <Flex align="center" gridGap="10px" padding="10px">
-      <Text maxWidth="500px" isTruncated fontWeight="500" mr="auto">
+    <div
+      style={{
+        display: "grid",
+        alignItems: "center",
+        padding: "10px",
+        columnGap: "10px",
+      }}
+    >
+      <Text isTruncated fontWeight="500">
         {study.title}
       </Text>
-      <Badge size="sm" colorScheme={statusColors[study.participant.status]}>
-        {study.participant.status}
-      </Badge>
-      <Flex align="center" gridGap="5px">
+      <div
+        style={{
+          display: "subgrid",
+          gridColumn: 2,
+          justifySelf: "end",
+          alignItems: "center",
+          columnGap: "5px",
+        }}
+      >
+        <Badge
+          size="sm"
+          mr="5px"
+          colorScheme={statusColors[study.participant.status]}
+        >
+          {study.participant.status}
+        </Badge>
         <ActionButton
           hint="Questions"
           icon={<FaClipboard />}
@@ -40,8 +59,8 @@ function YourStudiesItem({ study, handleOpen }) {
           icon={<FaComment />}
           onClick={() => handleOpen(study.id, "messages")}
         />
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   );
 }
 
