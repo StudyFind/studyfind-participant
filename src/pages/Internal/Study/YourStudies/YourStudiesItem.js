@@ -13,8 +13,8 @@ function YourStudiesItem({ study, handleOpen }) {
 
   return (
     <Flex align="center" gridGap="10px" padding="10px">
-      <Text maxWidth="500px" isTruncated fontWeight="500" mr="auto">
-        {study.title}
+      <Text fontWeight="500" mr="auto">
+        {study.id}
       </Text>
       <Badge size="sm" colorScheme={statusColors[study.participant.status]}>
         {study.participant.status}
