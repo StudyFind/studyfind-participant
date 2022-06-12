@@ -20,7 +20,8 @@ const updatedAccount = {
 
 const deletedAccount = {
   title: "Account Deleted",
-  description: "Your account has been deleted along with all your user data and research studies.",
+  description:
+    "Your account has been deleted along with all your user data and research studies.",
   status: "success",
   duration: LONG,
   isClosable: true,

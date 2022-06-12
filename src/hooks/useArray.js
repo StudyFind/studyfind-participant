@@ -3,15 +3,19 @@ import { useState } from "react";
 function useArray(initial) {
   const [array, setArray] = useState(initial || []);
 
-  const appendItem = (value) => {
+  const append = (value) => {
     setArray((prev) => prev.concat([value]));
   };
 
-  const updateItem = (value, index) => {
-    setArray((prev) => [...prev.slice(0, index), value, ...prev.slice(index + 1)]);
+  const update = (index, value) => {
+    setArray((prev) => [
+      ...prev.slice(0, index),
+      value,
+      ...prev.slice(index + 1),
+    ]);
   };
 
-  const insertItem = (value, index) => {
+  const insert = (index, value) => {
     setArray((prev) => [...prev.slice(0, index), value, ...prev.slice(index)]);
   };
 
@@ -19,25 +23,24 @@ function useArray(initial) {
     setArray((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const resetArray = () => {
+  const reset = () => {
     setArray(initial);
   };
 
-  const clearArray = () => {
+  const clear = () => {
     setArray([]);
   };
 
-  return [
-    array,
-    {
-      appendItem,
-      updateItem,
-      insertItem,
-      deleteItem,
-      clearArray,
-      resetArray,
-    },
-  ];
+  return {
+    value: array,
+    set: setArray,
+    append,
+    update,
+    insert,
+    delete: deleteItem,
+    reset,
+    clear,
+  };
 }
 
 export default useArray;

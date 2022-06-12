@@ -1,25 +1,26 @@
 {
-  "name": "studyfind-researcher",
-  "version": "0.1.0",
+  "name": "studyfind-participant",
+  "version": "1.0.0",
   "private": true,
+  "scripts": {
+    "start": "env-cmd -f ./.env.development react-scripts start",
+    "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,css,html,json}'",
+    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
+    "test": "jest test --passWithNoTests",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "stage": "env-cmd -f ./.env.development firebase deploy --only hosting --project studyfind-development",
+    "deploy": "env-cmd -f ./.env.production firebase deploy --only hosting --project studyfind-researcher"
+  },
   "dependencies": {
-    "@chakra-ui/icons": "^1.0.0",
-    "@chakra-ui/react": "^1.0.0",
-    "@emotion/react": "^11.0.0",
-    "@emotion/styled": "^11.0.0",
-    "@material-ui/core": "^4.12.1",
-    "@studyfind/components": "^0.4.3",
-    "firebase": "^7.22.1",
-    "flesch": "^1.0.5",
-    "framer-motion": "^2.9.5-rc.0",
-    "google-map-react": "^2.1.9",
-    "jquery": "^3.5.1",
-    "lodash": "^4.17.20",
-    "moment": "^2.29.1",
+    "@chakra-ui/icons": "^1.0.13",
+    "@chakra-ui/react": "^1.6.3",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "firebase": "^8.6.3",
+    "flesch": "^2.0.0",
+    "framer-motion": "^4",
+    "google-map-react": "^2.1.10",
     "moment-timezone": "^0.5.33",
-    "nanoid": "^3.1.23",
-    "node-sass": "^4.12.0",
-    "pure-react-carousel": "^1.27.6",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-firebase-hooks": "^3.0.4",
@@ -27,22 +28,35 @@
     "react-router-dom": "^5.2.0",
     "react-router-hash-link": "^2.4.3",
     "react-scripts": "^4.0.3",
-    "react-slick": "^0.28.1",
-    "react-social-icons": "^5.5.1",
-    "styled-components": "^5.2.0",
-    "syllable": "^4.1.0",
-    "unique-names-generator": "^4.4.0",
-    "validator": "^13.5.2"
+    "react-sortable-hoc": "^2.0.0",
+    "react-use": "^17.2.4",
+    "styled-components": "^5.3.0",
+    "syllable": "^5.0.0",
+    "validator": "^13.6.0"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "deploy": "yarn build && firebase deploy",
-    "serve": "firebase serve",
-    "emulate": "firebase emulators:start",
-    "test": "jest test --passWithNoTests",
-    "eject": "react-scripts eject",
-    "lint": "eslint ./src --ext .js,.jsx"
+  "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "env-cmd": "^10.1.0",
+    "eslint": "^7.10.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.0.2",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.21.2",
+    "eslint-plugin-react-hooks": "^4.1.2",
+    "firebase-tools": "^8.13.1",
+    "jest-styled-components": "^7.0.3"
+  },
+  "_moduleAliases": {
+    "components": "./src/components",
+    "context": "./src/context",
+    "database": "./src/database",
+    "hooks": "./src/hooks",
+    "images": "./src/images",
+    "pages": "./src/pages",
+    "templates": "./src/templates",
+    "utils": "./src/utils"
   },
   "browserslist": {
     "production": [
@@ -55,18 +69,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "eslint": "^7.10.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jest": "^24.0.2",
-    "eslint-plugin-jsx-a11y": "^6.3.1",
-    "eslint-plugin-react": "^7.21.2",
-    "eslint-plugin-react-hooks": "^4.1.2",
-    "firebase-tools": "^8.13.1",
-    "jest-styled-components": "^7.0.3"
   }
 }

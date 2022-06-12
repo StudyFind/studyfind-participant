@@ -1,26 +1,7 @@
-import { useEffect } from "react";
-import { firestore } from "database/firebase";
+import moment from "moment-timezone";
 
-import moment from "moment";
-
-function useDetectTimezone(user) {
-  useEffect(() => {
-    if (user) {
-      const timezone = user.timezone;
-      const preference = user.preferences?.timezone?.autodetect;
-
-      moment.tz.setDefault(timezone);
-
-      if (preference) {
-        const guessed = moment.tz.guess(true);
-
-        if (guessed !== timezone) {
-          firestore.collection("researchers").doc(user.id).update({ timezone: guessed });
-          moment.tz.setDefault(guessed);
-        }
-      }
-    }
-  }, [user]);
+function useDetectTimezone() {
+  return moment.tz.guess(true);
 }
 
 export default useDetectTimezone;
