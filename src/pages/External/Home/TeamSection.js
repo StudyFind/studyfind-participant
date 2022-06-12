@@ -1,20 +1,10 @@
-import Yohan from "images/founders/yohan.png";
 import Andrew from "images/founders/andrew.png";
 import Team from "components/feature/External/HomeSections/Team/Team";
 
 function TeamSection() {
   const title = "About Us";
-  const description =
-    "StudyFind was founded by Andrew and Yohan with the aim of making it easier for anyone and everyone to participate in clinical research. The StudyFind platform provides participants and researchers a conducive ecosystem to connect seamlessly.";
 
   const founders = [
-    {
-      image: Yohan,
-      name: "Yohan Jhaveri",
-      position: "Co-Founder",
-      description:
-        "Yohan recently graduated from Emory University with a degree in Computer Science and Economics",
-    },
     {
       image: Andrew,
       name: "Andrew Garcia",
@@ -51,14 +41,7 @@ function TeamSection() {
     },
   ];
 
-  return (
-    <Team
-      title={title}
-      description={description}
-      founders={founders}
-      panels={panels}
-    />
-  );
+  return <Team title={title} founders={founders} panels={panels} />;
 }
 
 export default TeamSection;
