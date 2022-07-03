@@ -5,9 +5,9 @@ import Header from "components/feature/External/HomeSections/Header/Header";
 import Footer from "components/feature/External/HomeSections/Footer/Footer";
 
 import HeroSection from "./HeroSection";
-import FeatureSection from "./FeatureSection";
-import TeamSection from "./TeamSection";
-import MailingSection from "./MailingSection";
+import PromotionSection from "./PromotionSection";
+import SpotlightSection from "./SpotlightSection";
+import DiscoverSection from "./DiscoverSection";
 
 function HomePage() {
   const dividerColor = useColor("gray.200", "gray.600");
@@ -17,11 +17,11 @@ function HomePage() {
       <Header logoLink="/#" buttonText="Join Now" buttonLink="/auth" />
       <HeroSection />
       <Divider borderColor={dividerColor} />
-      <FeatureSection />
+      <SpotlightSection />
       <Divider borderColor={dividerColor} />
-      <TeamSection />
+      <PromotionSection />
       <Divider borderColor={dividerColor} />
-      <MailingSection />
+      <DiscoverSection />
       <Divider borderColor={dividerColor} />
       <Footer
         links={{

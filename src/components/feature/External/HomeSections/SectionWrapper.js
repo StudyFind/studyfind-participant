@@ -14,6 +14,7 @@ function SectionWrapper({ children, ...rest }) {
       paddingY="50px"
       minHeight="100vh"
       width="100vw"
+      maxWidth="100%"
       background={backgroundColor}
       {...rest}
     >

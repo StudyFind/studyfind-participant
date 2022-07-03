@@ -1,5 +1,4 @@
 import { useDetectDevice } from "hooks";
-
 import SectionWrapper from "../SectionWrapper";
 import HeroLogo from "./HeroLogo";
 import HeroCallout from "./HeroCallout";

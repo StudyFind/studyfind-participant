@@ -13,7 +13,7 @@ import Internal from "pages/Internal/Internal";
 const theme = extendTheme({
   config: {
     useSystemColorMode: true,
-    initialColorMode: "dark",
+    initialColorMode: "light",
   },
 });
 
