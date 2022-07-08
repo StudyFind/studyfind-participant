@@ -1,5 +1,6 @@
 import { useDetectDevice } from "hooks";
 import { Box, Flex, Image, Button, Text } from "@chakra-ui/react";
+import { Link } from "components";
 
 const buttonStyleProps = {
   background: "rgba(0, 0, 0, 0.4)",
@@ -8,7 +9,7 @@ const buttonStyleProps = {
   _hover: { background: "rgba(0, 0, 0, 0.6)" },
 };
 
-function DiscoveryPanel({ img, label, desc, textColor }) {
+function DiscoveryPanel({ img, label, desc, textColor, link }) {
   const { isPhone } = useDetectDevice();
 
   return (
@@ -28,16 +29,18 @@ function DiscoveryPanel({ img, label, desc, textColor }) {
         justify="center"
         zIndex="1"
       >
-        <Button {...buttonStyleProps}>
-          <Text
-            fontWeight="700"
-            fontSize="lg"
-            textTransform={"uppercase"}
-            color="white"
-          >
-            {label}
-          </Text>
-        </Button>
+        <Link to={link} isWrapper>
+          <Button {...buttonStyleProps}>
+            <Text
+              fontWeight="700"
+              fontSize="lg"
+              textTransform={"uppercase"}
+              color="white"
+            >
+              {label}
+            </Text>
+          </Button>
+        </Link>
         <Text textAlign="center" width="50%" color={textColor}>
           {desc}
         </Text>

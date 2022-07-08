@@ -23,6 +23,7 @@ import Security from "./Security/Security";
 import Subscription from "./Subscription/Subscription";
 
 import AccountTabs from "./AccountTabs";
+import { useRouteMatch } from "react-router-dom";
 
 function AccountPage() {
   const side = getSide();
@@ -36,6 +37,8 @@ function AccountPage() {
   const [values, setValues] = useState(user);
 
   const haveInputsChanged = JSON.stringify(values) !== JSON.stringify(user);
+
+  let { path } = useRouteMatch();
 
   useEffect(() => {
     setValues(user);
@@ -84,7 +87,7 @@ function AccountPage() {
 
   const PROFILE = {
     name: "Profile",
-    link: "/account/profile",
+    link: `${path}/account/profile`,
     icon: <FaUser />,
     content: (
       <Profile
@@ -96,7 +99,7 @@ function AccountPage() {
 
   const NOTIFICATIONS = {
     name: "Notifications",
-    link: "/account/notifications",
+    link: `${path}/notifications`,
     icon: <FaBell />,
     content: (
       <Notifications
@@ -108,7 +111,7 @@ function AccountPage() {
 
   const TIMEZONE = {
     name: "Timezone",
-    link: "/account/timezone",
+    link: `${path}/account/timezone`,
     icon: <FaMapMarkedAlt />,
     content: (
       <Timezone
@@ -120,7 +123,7 @@ function AccountPage() {
 
   const LOCATION = {
     name: "Location",
-    link: "/account/location",
+    link: `${path}/account/location`,
     icon: <FaLocationArrow />,
     content: (
       <Location
@@ -132,7 +135,7 @@ function AccountPage() {
 
   const SECURITY = {
     name: "Security",
-    link: "/account/security",
+    link: `${path}/account/security`,
     icon: <FaShieldAlt />,
     content: (
       <Security
@@ -145,7 +148,7 @@ function AccountPage() {
 
   const SUBSCRIPTION = {
     name: "Subscription",
-    link: "/account/subscription",
+    link: `${path}/account/subscription`,
     icon: <FaCreditCard />,
     content: (
       <Subscription

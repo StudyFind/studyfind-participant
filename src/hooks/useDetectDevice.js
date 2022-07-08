@@ -1,4 +1,4 @@
-import { useMediaQuery } from "@chakra-ui/react";
+import { useMediaQuery } from "hooks";
 
 function useDetectDevice() {
   const [isDesktop] = useMediaQuery("(min-width: 1280px)");

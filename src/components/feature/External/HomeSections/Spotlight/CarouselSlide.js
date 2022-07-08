@@ -23,7 +23,7 @@ function CarouselSlide({ img, alt, handleNext, handleBack }) {
 
     zIndex: 1,
     position: "absolute",
-    top: "50%",
+    top: "45%",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

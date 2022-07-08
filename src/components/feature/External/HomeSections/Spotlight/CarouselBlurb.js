@@ -26,7 +26,7 @@ function CarouselBlurb({ text, ...rest }) {
       <Link
         style={{
           marginTop: "20px",
-          alignSelf: isPhone ? "flex-end" : "center",
+          alignSelf: isPhone ? "center" : "flex-end",
         }}
         to={link}
       >

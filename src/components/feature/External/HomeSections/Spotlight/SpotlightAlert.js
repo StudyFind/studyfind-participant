@@ -1,19 +1,16 @@
 import AlertBar from "components/feature/EmailVerificationBanner/AlertBar";
-import { Text, Flex } from "@chakra-ui/react";
-import { useDetectDevice } from "hooks";
+import { Text } from "@chakra-ui/react";
 
 function SpotlightAlert({ text }) {
-  const { isPhone } = useDetectDevice();
-
   return (
     <AlertBar
       position="absolute"
-      top={isPhone ? "2.5%" : "4%"}
-      height="50px"
+      top="25px"
+      height="auto"
+      minHeight="50px"
       width="95%"
       marginX="50px"
     >
-      <Flex></Flex>
       <Text>{text}</Text>
     </AlertBar>
   );

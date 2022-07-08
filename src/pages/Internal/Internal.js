@@ -11,7 +11,13 @@ import { auth, firestore } from "database/firebase";
 import { UserContext, StudiesContext, ConfirmContext } from "context";
 import { createGlobalStyle } from "styled-components";
 
-import { Switch, Route, Redirect, useHistory } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  Redirect,
+  useHistory,
+  useRouteMatch,
+} from "react-router-dom";
 import { Box, Flex } from "@chakra-ui/react";
 import { Page } from "components";
 
@@ -26,7 +32,6 @@ import {
 
 import FindStudies from "./Study/FindStudies/FindStudies";
 import YourStudies from "./Study/YourStudies/YourStudies";
-
 import Sidebar from "components/feature/Sidebar/Sidebar";
 import Verification from "./Verification/Verification";
 import ViewStudy from "./Study/ViewStudy/ViewStudy";
@@ -35,7 +40,6 @@ import Schedule from "./Schedule/Schedule";
 import Account from "./Account/Account";
 import Feedback from "./Feedback/Feedback";
 import Screening from "./Study/Screening";
-
 import ConfirmModal from "components/complex/ConfirmModal/ConfirmModal";
 import Denied from "./Denied";
 
@@ -63,13 +67,31 @@ function Internal() {
 
   const { isPhone } = useDetectDevice();
 
+  let { path } = useRouteMatch();
+
   const links = [
-    { name: "Find Studies", path: "/", icon: <FaSearch /> },
-    { name: "Your Studies", path: "/your-studies", icon: <FaClipboard /> },
-    { name: "Notifications", path: "/notifications", icon: <FaBell /> },
-    { name: "Schedule", path: "/schedule", icon: <FaCalendarAlt /> },
-    { name: "Account", path: "/account/profile", icon: <FaUserCircle /> },
-    { name: "Feedback", path: "/feedback", icon: <FaCommentAlt /> },
+    { name: "Find Studies", path: path, icon: <FaSearch /> },
+    {
+      name: "Your Studies",
+      path: `${path}/your-studies`,
+      icon: <FaClipboard />,
+    },
+    {
+      name: "Notifications",
+      path: `${path}/notifications`,
+      icon: <FaBell />,
+    },
+    {
+      name: "Schedule",
+      path: `${path}/schedule`,
+      icon: <FaCalendarAlt />,
+    },
+    {
+      name: "Account",
+      path: `${path}/account/profile`,
+      icon: <FaUserCircle />,
+    },
+    { name: "Feedback", path: `${path}/feedback`, icon: <FaCommentAlt /> },
   ];
 
   const [confirm, setConfirm] = useState(null);
@@ -97,18 +119,6 @@ function Internal() {
 
     fetchAndSetUserClaims();
   }, []);
-
-  // const verificationHeightDesktop = "56px";
-  // const verificationHeightMobile = "128px";
-
-  // const navigationWidthDesktop = "280px";
-  // const navigationHeightMobile = "71px";
-
-  // const exceptNavigationWidthDesktop = "calc(100vw - 280px)";
-  // const exceptNavigationHeightMobile = "calc(100vw - 71px)";
-
-  // const exceptVerificationHeightDesktop = "calc(100vw - 40px)";
-  // const exceptVerificationHeightMobile = "calc(100vw - 128px)";
 
   const borderColor = useColor("gray.200", "gray.700");
 
@@ -172,22 +182,28 @@ function Internal() {
                 }
               >
                 <Switch>
-                  <Route exact path="/" component={FindStudies} />
-                  <Route path="/search" component={FindStudies} />
-                  <Route path="/notifications" component={Notifications} />
+                  <Route exact path={path} component={FindStudies} />
+                  <Route path={`${path}/search`} component={FindStudies} />
                   <Route
-                    path="/study/:studyID/screening"
+                    path={`${path}/notifications`}
+                    component={Notifications}
+                  />
+                  <Route
+                    path={`${path}/study/:studyID/screening`}
                     component={Screening}
                   />
-                  <Route path="/study/:studyID/:tab" component={ViewStudy} />
-                  <Route path="/schedule" component={Schedule} />
-                  <Route path="/account/:tab" component={Account} />
                   <Route
-                    path="/your-studies/:studyID?/:action?"
+                    path={`${path}/study/:studyID/:tab`}
+                    component={ViewStudy}
+                  />
+                  <Route path={`${path}/schedule`} component={Schedule} />
+                  <Route path={`${path}/account/:tab`} component={Account} />
+                  <Route
+                    path={`${path}/your-studies/:studyID?/:action?`}
                     component={YourStudies}
                   />
-                  <Route path="/feedback" component={Feedback} />
-                  <Redirect to="/" />
+                  <Route path={`${path}/feedback`} component={Feedback} />
+                  <Redirect to={path} />
                 </Switch>
               </Page>
             </Box>

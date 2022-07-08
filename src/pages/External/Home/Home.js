@@ -8,16 +8,18 @@ import HeroSection from "./HeroSection";
 import PromotionSection from "./PromotionSection";
 import SpotlightSection from "./SpotlightSection";
 import DiscoverSection from "./DiscoverSection";
+import { useRef } from "react";
 
 function HomePage() {
   const dividerColor = useColor("gray.200", "gray.600");
+  const surveyScroll = useRef(null);
 
   return (
     <Box>
-      <Header logoLink="/#" buttonText="Join Now" buttonLink="/auth" />
-      <HeroSection />
+      <Header logoLink="/" />
+      <HeroSection ref={surveyScroll} />
       <Divider borderColor={dividerColor} />
-      <SpotlightSection />
+      <SpotlightSection ref={surveyScroll} />
       <Divider borderColor={dividerColor} />
       <PromotionSection />
       <Divider borderColor={dividerColor} />

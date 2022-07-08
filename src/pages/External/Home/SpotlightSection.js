@@ -5,6 +5,7 @@ import { Box } from "@chakra-ui/react";
 import { useColor } from "hooks";
 import { useDetectDevice } from "hooks";
 import SpotlightAlert from "components/feature/External/HomeSections/Spotlight/SpotlightAlert";
+import { forwardRef } from "react";
 
 const POSTS = [
   {
@@ -29,11 +30,10 @@ const POSTS = [
     link: "",
   },
 ];
-
 const ALERT = "This is a test alert!";
 const INTERVAL = 5000;
 
-function SpotlightSection() {
+const SpotlightSection = (props, ref) => {
   const dividerColor = useColor("gray.200", "gray.600");
   const { isPhone } = useDetectDevice();
 
@@ -44,6 +44,7 @@ function SpotlightSection() {
       position="relative"
     >
       <SpotlightAlert text={ALERT} />
+
       <Spotlight items={POSTS} interval={INTERVAL} />
       {isPhone || (
         <Box
@@ -57,8 +58,10 @@ function SpotlightSection() {
           marginTop={"0px !important"}
         ></Box>
       )}
+      {/* Scrolling page here */}
+      <Box ref={ref} position="absolute" bottom="15%"></Box>
     </SectionWrapper>
   );
-}
+};
 
-export default SpotlightSection;
+export default forwardRef(SpotlightSection);
