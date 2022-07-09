@@ -23,11 +23,13 @@ import Security from "./Security/Security";
 import Subscription from "./Subscription/Subscription";
 
 import AccountTabs from "./AccountTabs";
-import { useRouteMatch } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 
 function AccountPage() {
   const side = getSide();
   const user = useContext(UserContext);
+  const { path } = useRouteMatch();
+  const history = useHistory();
 
   const [mutator, Profile] = {
     researcher: [researcher, ProfileResearcher],
@@ -37,8 +39,6 @@ function AccountPage() {
   const [values, setValues] = useState(user);
 
   const haveInputsChanged = JSON.stringify(values) !== JSON.stringify(user);
-
-  let { path } = useRouteMatch();
 
   useEffect(() => {
     setValues(user);
@@ -87,7 +87,7 @@ function AccountPage() {
 
   const PROFILE = {
     name: "Profile",
-    link: `${path}/account/profile`,
+    link: "/account/profile",
     icon: <FaUser />,
     content: (
       <Profile
@@ -99,7 +99,7 @@ function AccountPage() {
 
   const NOTIFICATIONS = {
     name: "Notifications",
-    link: `${path}/notifications`,
+    link: "/account/notifications",
     icon: <FaBell />,
     content: (
       <Notifications
@@ -164,7 +164,15 @@ function AccountPage() {
       ? [PROFILE, NOTIFICATIONS, TIMEZONE, SECURITY, SUBSCRIPTION]
       : [PROFILE, NOTIFICATIONS, TIMEZONE, SECURITY];
 
-  return <AccountTabs tabs={tabs} handleSignout={signout} />;
+  return (
+    <AccountTabs
+      tabs={tabs}
+      handleSignout={() => {
+        signout();
+        history.push("/participant/auth");
+      }}
+    />
+  );
 }
 
 export default AccountPage;

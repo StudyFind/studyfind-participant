@@ -59,7 +59,7 @@ const SpotlightSection = (props, ref) => {
         ></Box>
       )}
       {/* Scrolling page here */}
-      <Box ref={ref} position="absolute" bottom="15%"></Box>
+      <Box ref={ref} position="absolute" bottom={isPhone ? "5%" : "15%"}></Box>
     </SectionWrapper>
   );
 };

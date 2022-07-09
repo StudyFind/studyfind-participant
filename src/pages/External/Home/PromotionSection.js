@@ -8,7 +8,7 @@ function PromotionSection() {
   const infomation = {
     heading: "Communicating, Coordinating, and Collaborating",
     tagline: "Should not require separate tools",
-    desc: "Studyfind is an app and web based platform that implements technological innovations in the research and academic field. The aim of our services is to optimize the particpant recruitment process for research studies by provind a means of connection and communication between researches and research participants",
+    desc: "Studyfind is an app and web based platform that implements technological innovations in the research and academic field. The aim of our services is to optimize the participant recruitment process for research studies by provind a means of connection and communication between researches and research participants",
     videoLink: "https://www.youtube.com/embed/5_iZ0r33wWk",
   };
 
