@@ -34,13 +34,12 @@ function Notifications() {
   if (error) return <NotificationsError />;
 
   let { path } = useRouteMatch();
-  const pathStart = `${path}`.split("/")[1];
 
   return (
     <>
       <Flex justify="space-between" align="center" mb="25px">
         <Heading size="lg">Notifications</Heading>
-        <Link to={`/${pathStart}/account/notifications`} isWrapper>
+        <Link to={`/participant/dashboard/account/notifications`} isWrapper>
           <Button leftIcon={<FaCog />}>Change Preferences</Button>
         </Link>
       </Flex>

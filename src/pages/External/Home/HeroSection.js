@@ -3,7 +3,6 @@ import Hero from "components/feature/External/HomeSections/Hero/Hero";
 import { forwardRef } from "react";
 
 const HeroSection = (props, ref) => {
-
   const buttonAction = () => {
     ref.current.scrollIntoView({
       block: "end",
@@ -14,9 +13,9 @@ const HeroSection = (props, ref) => {
   return (
     <>
       <Hero
-        blackText="Participating in clinical trials"
-        blueText="is just a click away"
-        buttonText="Join Now"
+        blackText="We need you to help us lead the way in"
+        blueText="diversifying the clinical trial space"
+        buttonText="Join registry"
         buttonLink="/auth"
         image={Background}
         buttonAction={buttonAction}
