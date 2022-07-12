@@ -1,7 +1,7 @@
 import SectionWrapper from "components/feature/External/HomeSections/SectionWrapper";
 import Spotlight from "components/feature/External/HomeSections/Spotlight/Spotlight";
 import placeholder from "images/homepage/placeholder.png";
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import { useColor } from "hooks";
 import { useDetectDevice } from "hooks";
 import SpotlightAlert from "components/feature/External/HomeSections/Spotlight/SpotlightAlert";
@@ -11,22 +11,57 @@ const POSTS = [
   {
     img: placeholder,
     alt: "desc",
-    title: "This is a title",
-    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Architecto excepturi dolor consequatur alias impedit sed eos, consectetur beatae minima quod perferendis officia nam magni dicta temporibus reprehenderit officiis aliquid quia.",
+    title: "Title of specific survey",
+    desc: (
+      <Text>
+        The goal of this survey is to better understand the needs of the{" "}
+        <strong>Black</strong> community regarding clinical trials. This takes
+        less than (10 minutes) and your responses will aid us in creating our
+        participant registry!
+      </Text>
+    ),
     link: "",
   },
   {
     img: placeholder,
     alt: "desc",
-    title: "This is a title2",
-    desc: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Architecto excepturi dolor consequatur alias impedit sed eos, consectetur beatae minima quod perferendis officia nam magni dicta temporibus reprehenderit officiis aliquid quia.",
+    title: "Title of specific survey",
+    desc: (
+      <Text>
+        The goal of this survey is to better understand the needs of the{" "}
+        <strong>LatinX</strong> community regarding clinical trials. This takes
+        less than (10 minutes) and your responses will aid us in creating our
+        participant registry!
+      </Text>
+    ),
     link: "",
   },
   {
     img: placeholder,
     alt: "desc",
-    title: "This is a title3",
-    desc: "Lorem ipsum dolo",
+    title: "Title of specific survey",
+    desc: (
+      <Text>
+        The goal of this survey is to better understand the needs of the{" "}
+        <strong>LBGTQ+</strong> community regarding clinical trials. This takes
+        less than (10 minutes) and your responses will aid us in creating our
+        participant registry!
+      </Text>
+    ),
+    link: "",
+  },
+  {
+    img: placeholder,
+    alt: "desc",
+    title: "Title of specific survey",
+    desc: (
+      <Text>
+        The goal of this survey is to better understand the needs of the
+        <strong>AAPI</strong> community regarding clinical trials. This takes
+        less than (10 minutes) and your responses will aid us in creating our
+        participant registry!
+      </Text>
+    ),
     link: "",
   },
 ];
