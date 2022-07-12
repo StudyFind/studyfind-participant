@@ -5,23 +5,25 @@ import Header from "components/feature/External/HomeSections/Header/Header";
 import Footer from "components/feature/External/HomeSections/Footer/Footer";
 
 import HeroSection from "./HeroSection";
-import FeatureSection from "./FeatureSection";
-import TeamSection from "./TeamSection";
-import MailingSection from "./MailingSection";
+import PromotionSection from "./PromotionSection";
+import SpotlightSection from "./SpotlightSection";
+import DiscoverSection from "./DiscoverSection";
+import { useRef } from "react";
 
 function HomePage() {
   const dividerColor = useColor("gray.200", "gray.600");
+  const surveyScroll = useRef(null);
 
   return (
     <Box>
-      <Header logoLink="/#" buttonText="Join Now" buttonLink="/auth" />
-      <HeroSection />
+      <Header logoLink="/" />
+      <HeroSection ref={surveyScroll} />
       <Divider borderColor={dividerColor} />
-      <FeatureSection />
+      <SpotlightSection ref={surveyScroll} />
       <Divider borderColor={dividerColor} />
-      <TeamSection />
+      <PromotionSection />
       <Divider borderColor={dividerColor} />
-      <MailingSection />
+      <DiscoverSection />
       <Divider borderColor={dividerColor} />
       <Footer
         links={{

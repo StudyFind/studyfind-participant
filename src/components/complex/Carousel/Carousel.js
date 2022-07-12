@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-
 import { Flex } from "@chakra-ui/react";
-
 import CarouselDots from "./CarouselDots";
 
 function Carousel({ items, size = "md", interval, ...rest }) {

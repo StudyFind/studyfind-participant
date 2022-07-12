@@ -9,6 +9,7 @@ import { FaCog } from "react-icons/fa";
 import NotificationsList from "./NotificationsList";
 import NotificationsEmpty from "./NotificationsEmpty";
 import NotificationsError from "./NotificationsError";
+import { useRouteMatch } from "react-router-dom";
 
 function Notifications() {
   const uid = getUID();
@@ -32,11 +33,13 @@ function Notifications() {
   if (loading) return <Loader height="calc(100vh - 80px)" />;
   if (error) return <NotificationsError />;
 
+  let { path } = useRouteMatch();
+
   return (
     <>
       <Flex justify="space-between" align="center" mb="25px">
         <Heading size="lg">Notifications</Heading>
-        <Link to="/account/notifications" isWrapper>
+        <Link to={`/participant/dashboard/account/notifications`} isWrapper>
           <Button leftIcon={<FaCog />}>Change Preferences</Button>
         </Link>
       </Flex>
