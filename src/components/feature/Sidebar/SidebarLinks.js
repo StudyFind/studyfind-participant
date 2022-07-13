@@ -8,8 +8,8 @@ function SidebarLinks({ links, setActive }) {
   const { pathname } = useLocation();
 
   const isSelected = (path) => {
-    const pagename = path.split("/")[2];
-    const truename = pathname.split("/")[2];
+    const pagename = path.split("/")[3];
+    const truename = pathname.split("/")[3];
     return pagename === truename;
   };
 

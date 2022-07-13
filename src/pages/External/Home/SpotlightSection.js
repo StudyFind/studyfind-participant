@@ -6,10 +6,31 @@ import { useColor } from "hooks";
 import { useDetectDevice } from "hooks";
 import SpotlightAlert from "components/feature/External/HomeSections/Spotlight/SpotlightAlert";
 import { forwardRef } from "react";
+import latinxcommunity from "images/homepage/latinxcommunity.png";
+import blackcommunity from "images/homepage/blackcommunity.png";
+import womencommunity from "images/homepage/womencommunity.png";
+import { Link } from "components";
 
 const POSTS = [
   {
-    img: placeholder,
+    img: latinxcommunity,
+    alt: "Four illustrated LatinX members standing on either side of a medicine vial with a label reading: “Registrar Para Estudios.",
+    title: "Hispanic/Latinx Community Survey ",
+    desc: (
+      <Text>
+        This survey and project aim to better understand how the Hispanic/
+        Latinx community interacts with clinical trials and the research space.
+        We aim not only to understand the specific issues that surround this
+        community, but we want to increase representation. The goal is to create
+        a registry of Hispanic/Latinx folks that would be interested, willing,
+        and able to join us in our mission to diversify clinical trials!
+      </Text>
+    ),
+    link: "https://forms.gle/joQLT6vx8v7EPrY5A",
+  },
+  /*
+  {
+    img: blackcommunity,
     alt: "desc",
     title: "Title of specific survey",
     desc: (
@@ -23,27 +44,13 @@ const POSTS = [
     link: "",
   },
   {
-    img: placeholder,
+    img: womencommunity,
     alt: "desc",
     title: "Title of specific survey",
     desc: (
       <Text>
         The goal of this survey is to better understand the needs of the{" "}
-        <strong>LatinX</strong> community regarding clinical trials. This takes
-        less than (10 minutes) and your responses will aid us in creating our
-        participant registry!
-      </Text>
-    ),
-    link: "",
-  },
-  {
-    img: placeholder,
-    alt: "desc",
-    title: "Title of specific survey",
-    desc: (
-      <Text>
-        The goal of this survey is to better understand the needs of the{" "}
-        <strong>LBGTQ+</strong> community regarding clinical trials. This takes
+        <strong>women</strong> community regarding clinical trials. This takes
         less than (10 minutes) and your responses will aid us in creating our
         participant registry!
       </Text>
@@ -64,8 +71,8 @@ const POSTS = [
     ),
     link: "",
   },
+  */
 ];
-const ALERT = "This is a test alert!";
 const INTERVAL = 5000;
 
 const SpotlightSection = (props, ref) => {
@@ -74,11 +81,22 @@ const SpotlightSection = (props, ref) => {
 
   return (
     <SectionWrapper
-      paddingY={isPhone ? "100px" : "200px"}
+      paddingY={"200px"}
       paddingX={0}
       position="relative"
     >
-      <SpotlightAlert text={ALERT} />
+      <SpotlightAlert>
+        <Text textAlign="center">
+          <strong>OUT NOW: </strong>
+          <Link
+            to="https://forms.gle/joQLT6vx8v7EPrY5A"
+            textDecoration="underline"
+          >
+            Hispanic/LatinX Community Survey & Registry
+          </Link>{" "}
+          Come back to see the next community in the upcoming weeks!
+        </Text>
+      </SpotlightAlert>
 
       <Spotlight items={POSTS} interval={INTERVAL} />
       {isPhone || (

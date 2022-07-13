@@ -5,7 +5,7 @@ import { auth } from "database/firebase";
 import Auth from "pages/External/Auth/Auth";
 
 const NoParticipantPageTemp = () => {
-  return <Redirect to="participant/auth" />;
+  return <Redirect to="/participant/auth" />;
 };
 
 const ParticipantRoutes = () => {

@@ -1,6 +1,6 @@
-import { Alert, AlertIcon } from "@chakra-ui/react";
+import { Alert } from "@chakra-ui/react";
 
-function AlertBar({ icon, children, status, ...rest }) {
+function AlertBar({ children, status, ...rest }) {
   return (
     <Alert
       status={status}
@@ -9,7 +9,6 @@ function AlertBar({ icon, children, status, ...rest }) {
       minHeight="56px"
       {...rest}
     >
-      <AlertIcon as={icon} />
       {children}
     </Alert>
   );

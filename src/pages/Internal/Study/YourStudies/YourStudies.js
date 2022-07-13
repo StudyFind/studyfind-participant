@@ -1,4 +1,4 @@
-import { useHistory } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import { usePathParams } from "hooks";
 
 import { Flex, Heading } from "@chakra-ui/react";
@@ -20,6 +20,8 @@ function YourStudies() {
 
   const user = useContext(UserContext);
   const studies = useContext(StudiesContext);
+
+  const { path } = useRouteMatch();
 
   const getEnrolledStudies = async () => {
     const enrolledStudies = studies.filter((study) =>
@@ -61,11 +63,11 @@ function YourStudies() {
   const history = useHistory();
 
   const handleOpen = (studyID, action) => {
-    history.push(`/your-studies/${studyID}/${action}`);
+    history.push(`/participant/dashboard/your-studies/${studyID}/${action}`);
   };
 
   const handleClose = () => {
-    history.push(`/your-studies`);
+    history.push(`/participant/dashboard/your-studies`);
   };
 
   if (loading) {

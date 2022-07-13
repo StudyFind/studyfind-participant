@@ -15,7 +15,7 @@ const HeroSection = (props, ref) => {
       <Hero
         blackText="We need you to help us lead the way in"
         blueText="diversifying the clinical trial space"
-        buttonText="Join registry"
+        buttonText="Join Registry"
         buttonLink="/auth"
         image={Background}
         buttonAction={buttonAction}

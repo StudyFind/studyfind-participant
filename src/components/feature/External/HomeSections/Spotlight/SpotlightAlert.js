@@ -1,7 +1,7 @@
 import AlertBar from "components/feature/EmailVerificationBanner/AlertBar";
-import { Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 
-function SpotlightAlert({ text }) {
+function SpotlightAlert({ children }) {
   return (
     <AlertBar
       position="absolute"
@@ -11,7 +11,7 @@ function SpotlightAlert({ text }) {
       width="95%"
       marginX="50px"
     >
-      <Text>{text}</Text>
+      <Flex w="100%" justify="center">{children}</Flex>
     </AlertBar>
   );
 }

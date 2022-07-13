@@ -17,7 +17,7 @@ function CarouselBlurb({ text, ...rest }) {
       <Text
         mb="10px"
         fontWeight="700"
-        fontSize={isPhone ? "xl" : "3xl"}
+        fontSize={isPhone ? "md" : "xl"}
         align="left"
       >
         {title}
