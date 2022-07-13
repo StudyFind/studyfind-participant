@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 function useTabs(tabs, useURL) {
   const history = useHistory();
   const { tab } = useParams();
+  
 
   const findTabIndex = () => {
     if (!useURL) {
@@ -22,7 +23,9 @@ function useTabs(tabs, useURL) {
   const [tabIndex, setTabIndex] = useState(findTabIndex() ?? 0);
 
   const handleUpdatePath = () => {
-    history.push(tabs[tabIndex].link);
+    const split = tabs[tabIndex].link.split("/");
+    const last = split[split.length - 1];
+    history.push(last);
   };
 
   useEffect(() => {

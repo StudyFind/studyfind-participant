@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 
-import { useHistory } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 
 import { auth, firestore } from "database/firebase";
 import { UserContext } from "context";
@@ -25,6 +25,7 @@ function Screening() {
   const triggerToast = useTriggerToast();
   const verified = auth.currentUser.emailVerified;
   const user = useContext(UserContext);
+  const { path } = useRouteMatch();
 
   const { studyID } = usePathParams();
   const [study, loading, error] = useDocument(
@@ -110,7 +111,7 @@ function Screening() {
           position: "top",
         });
 
-        history.push(`/study/${study.id}/details`);
+        history.push(`/participant/dashboard/study/${study.id}/details`);
       })
       .then(() => setIsSubmitting(true));
   };

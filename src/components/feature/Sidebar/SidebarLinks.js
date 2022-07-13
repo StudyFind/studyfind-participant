@@ -1,5 +1,5 @@
 import { useColor } from "hooks";
-import { useLocation } from "react-router-dom";
+import { useLocation, useRouteMatch } from "react-router-dom";
 
 import { Link } from "components";
 import { Grid, Flex } from "@chakra-ui/react";
@@ -8,8 +8,8 @@ function SidebarLinks({ links, setActive }) {
   const { pathname } = useLocation();
 
   const isSelected = (path) => {
-    const pagename = path.split("/")[1];
-    const truename = pathname.split("/")[1];
+    const pagename = path.split("/")[3];
+    const truename = pathname.split("/")[3];
     return pagename === truename;
   };
 

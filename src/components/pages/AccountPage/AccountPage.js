@@ -23,10 +23,13 @@ import Security from "./Security/Security";
 import Subscription from "./Subscription/Subscription";
 
 import AccountTabs from "./AccountTabs";
+import { useHistory, useRouteMatch } from "react-router-dom";
 
 function AccountPage() {
   const side = getSide();
   const user = useContext(UserContext);
+  const { path } = useRouteMatch();
+  const history = useHistory();
 
   const [mutator, Profile] = {
     researcher: [researcher, ProfileResearcher],
@@ -108,7 +111,7 @@ function AccountPage() {
 
   const TIMEZONE = {
     name: "Timezone",
-    link: "/account/timezone",
+    link: `${path}/account/timezone`,
     icon: <FaMapMarkedAlt />,
     content: (
       <Timezone
@@ -120,7 +123,7 @@ function AccountPage() {
 
   const LOCATION = {
     name: "Location",
-    link: "/account/location",
+    link: `${path}/account/location`,
     icon: <FaLocationArrow />,
     content: (
       <Location
@@ -132,7 +135,7 @@ function AccountPage() {
 
   const SECURITY = {
     name: "Security",
-    link: "/account/security",
+    link: `${path}/account/security`,
     icon: <FaShieldAlt />,
     content: (
       <Security
@@ -145,7 +148,7 @@ function AccountPage() {
 
   const SUBSCRIPTION = {
     name: "Subscription",
-    link: "/account/subscription",
+    link: `${path}/account/subscription`,
     icon: <FaCreditCard />,
     content: (
       <Subscription
@@ -161,7 +164,15 @@ function AccountPage() {
       ? [PROFILE, NOTIFICATIONS, TIMEZONE, SECURITY, SUBSCRIPTION]
       : [PROFILE, NOTIFICATIONS, TIMEZONE, SECURITY];
 
-  return <AccountTabs tabs={tabs} handleSignout={signout} />;
+  return (
+    <AccountTabs
+      tabs={tabs}
+      handleSignout={() => {
+        signout();
+        history.push("/participant/auth");
+      }}
+    />
+  );
 }
 
 export default AccountPage;

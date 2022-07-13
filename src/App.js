@@ -1,19 +1,16 @@
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect } from "react";
-
 import { auth } from "database/firebase";
-
 import { BrowserRouter } from "react-router-dom";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-
 import Loading from "./Loading";
 import External from "pages/External/External";
-import Internal from "pages/Internal/Internal";
+import ParticipantSide from "pages/Internal/ParticipantRoutes";
 
 const theme = extendTheme({
   config: {
     useSystemColorMode: true,
-    initialColorMode: "dark",
+    initialColorMode: "light",
   },
 });
 
@@ -36,7 +33,10 @@ function App() {
       {loading ? (
         <Loading />
       ) : (
-        <BrowserRouter>{cred ? <Internal /> : <External />}</BrowserRouter>
+        <BrowserRouter>
+          <ParticipantSide />
+          <External />
+        </BrowserRouter>
       )}
     </ChakraProvider>
   );

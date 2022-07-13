@@ -10,7 +10,7 @@ function External() {
       <Route exact path="/" component={Home} />
       <Route exact path="/auth" component={Auth} />
       <Route exact path="/team" component={Team} />
-      <Redirect to="/auth" />
+      {/* <Redirect to="/auth" /> */}
     </Switch>
   );
 }
