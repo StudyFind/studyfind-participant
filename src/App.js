@@ -9,7 +9,7 @@ import ParticipantSide from "pages/Internal/ParticipantRoutes";
 
 const theme = extendTheme({
   config: {
-    useSystemColorMode: false,
+    useSystemColorMode: true,
     initialColorMode: "light",
   },
 });
