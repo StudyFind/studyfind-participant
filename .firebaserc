@@ -1,4 +1,7 @@
 {
+  "projects": {
+    "default": "studyfind-researcher"
+  },
   "targets": {
     "studyfind-researcher": {
       "hosting": {
