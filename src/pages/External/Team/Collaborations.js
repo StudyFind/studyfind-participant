@@ -63,23 +63,24 @@ function Collaborations() {
   return (
     <Box
       id="collaborations"
-      minHeight="100vh"
       background={background}
       padding="40px"
+      paddingBottom="60px"
     >
       <Heading
         color="blue.500"
         size="2xl"
         lineHeight="1.25"
-        textAlign="center"
+        textAlign="left"
+        marginLeft="70px"
         marginTop="20px"
-        marginBottom="80px"
+        marginBottom="40px"
       >
         Collaborations
       </Heading>
       <Stack
         direction={isPhone ? "column" : "row"}
-        spacing="40px"
+        spacing="145px"
         justify="center"
         align="center"
       >
