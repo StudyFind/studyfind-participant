@@ -154,13 +154,6 @@ function Interns() {
               linkedinURL="https://www.linkedin.com/in/amisha-papneja-a28946197/"
             />
             <TeamMember
-              image={Andrew}
-              drawnImage={Drawn_Andrew}
-              name="Andrew Watson"
-              position="Software Developer Intern"
-              linkedinURL="https://www.linkedin.com/in/andrew-watson-dev/"
-            />
-            <TeamMember
               image={ChristianJ}
               drawnImage={Drawn_Christian}
               name="Christian Johnson"
@@ -185,22 +178,15 @@ function Interns() {
               image={Etna}
               drawnImage={Drawn_Etna}
               name="Etna Ozkara"
-              position="Automation Engineer"
+              position="Automation Engineer Lead"
               linkedinURL="https://www.linkedin.com/in/etna-ozkara-1a876b204"
             />
             <TeamMember
               image={Isabella}
               drawnImage={Drawn_Isabella}
-              name="Isabella Stubbs"
+              name="Isabella Santos"
               position="Marketing and Technical Writing Intern"
               linkedinURL="https://www.linkedin.com/in/isabella-abreu-stubbs-79616b225"
-            />
-            <TeamMember
-              image={Joshua}
-              drawnImage={Drawn_Joshua}
-              name="Joshua Matias"
-              position="Human Resources Intern"
-              linkedinURL="https://www.linkedin.com/in/joshua-matias-32429617a"
             />
             <TeamMember
               image={Kayla}
@@ -216,13 +202,6 @@ function Interns() {
               position="Graphic Design Intern"
             />
             <TeamMember
-              image={Randy}
-              drawnImage={Drawn_Randy}
-              name="Randy Erickson"
-              position="Marketing and Technical Writing"
-              linkedinURL="https://www.linkedin.com/in/randy-erickson-2138878a/"
-            />
-            <TeamMember
               image={Sheyla}
               drawnImage={Drawn_Sheyla}
               name="Sheyla Torres"
@@ -235,13 +214,6 @@ function Interns() {
               name="Ting Vivian Hsuan"
               position="Executive Assistant"
               linkedinURL="https://www.linkedin.com/in/ting-hsuan-lee-3a022022a/"
-            />
-            <TeamMember
-              image={Tomoma}
-              drawnImage={Drawn_Tomoma}
-              name="Tomoma Hayashi"
-              position="Marketing and Technical Writing Intern"
-              linkedinURL="https://www.linkedin.com/in/tomoma-hayashi"
             />
             <TeamMember
               image={Xiren}
@@ -290,6 +262,13 @@ function Interns() {
               name="Ameet Rahegaonkar"
               position="Cybersecurity Engineer Intern"
               linkedinURL="https://www.linkedin.com/in/ameet-rahegaonkar-5b1782114"
+            />
+            <TeamMember
+              image={Andrew}
+              drawnImage={Drawn_Andrew}
+              name="Andrew Watson"
+              position="Software Developer Intern"
+              linkedinURL="https://www.linkedin.com/in/andrew-watson-dev/"
             />
             <TeamMember
               image={Ayushi}
@@ -411,6 +390,13 @@ function Interns() {
               linkedinURL="https://www.linkedin.com/in/jonathon-sisson/"
             />
             <TeamMember
+              image={Joshua}
+              drawnImage={Drawn_Joshua}
+              name="Joshua Matias"
+              position="Human Resources Intern"
+              linkedinURL="https://www.linkedin.com/in/joshua-matias-32429617a"
+            />
+            <TeamMember
               image={Kathrin}
               drawnImage={Drawn_Kathrin}
               name="Kathrin Spendier"
@@ -425,6 +411,18 @@ function Interns() {
               linkedinURL="https://www.linkedin.com/in/keely-culbertson/"
             />
             <TeamMember
+              image={Placeholder}
+              drawnImage={Placeholder}
+              name="Kunal Suri"
+              position="Software Developer Intern"
+            />
+            <TeamMember
+              image={Placeholder}
+              drawnImage={Placeholder}
+              name="Kyle Bronson"
+              position="Technical Sales Intern"
+            />
+            <TeamMember
               image={Liang}
               drawnImage={Drawn_Liang}
               name="Liang Chen"
@@ -436,6 +434,12 @@ function Interns() {
               name="Michael Albo"
               position="Software Developer Intern"
               linkedinURL="https://www.linkedin.com/in/michael-albo-55b74b196/"
+            />
+            <TeamMember
+              image={Placeholder}
+              drawnImage={Placeholder}
+              name="Mileen Meyer"
+              position="Marketing Intern"
             />
             <TeamMember
               image={Mikolaj}
@@ -466,6 +470,13 @@ function Interns() {
               linkedinURL="https://www.linkedin.com/in/nikita-kute-bds-mph/"
             />
             <TeamMember
+              image={Randy}
+              drawnImage={Drawn_Randy}
+              name="Randy Erickson"
+              position="Marketing and Technical Writing"
+              linkedinURL="https://www.linkedin.com/in/randy-erickson-2138878a/"
+            />
+            <TeamMember
               image={Ruochen}
               drawnImage={Drawn_Ruochen}
               name="Ruochen Kong"
@@ -485,6 +496,13 @@ function Interns() {
               name="Tea Charlton"
               position="Marketing and Technical Writing Intern"
               linkedinURL="https://www.linkedin.com/in/tea-charlton-2699b5213/"
+            />
+            <TeamMember
+              image={Tomoma}
+              drawnImage={Drawn_Tomoma}
+              name="Tomoma Hayashi"
+              position="Marketing and Technical Writing Intern"
+              linkedinURL="https://www.linkedin.com/in/tomoma-hayashi"
             />
             <TeamMember
               image={Urvi}
