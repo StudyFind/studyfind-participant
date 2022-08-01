@@ -7,6 +7,8 @@ export const AuthButton = ({ children, loading, ...rest }) => (
     type="submit"
     isLoading={loading}
     loadingText={children}
+    boxShadow="xl"
+    mt="20px"
     {...rest}
   >
     {children}

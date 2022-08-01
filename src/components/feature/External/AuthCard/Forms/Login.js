@@ -6,11 +6,11 @@ import { AuthContext } from "context";
 import { EmailInput, PasswordInput } from "components";
 import {
   AuthForm,
-  AuthHeading,
   AuthInput,
   AuthButton,
   AuthTabLink,
 } from "components/feature/External/AuthCard/Blocks";
+import AuthLabel from "../Blocks/AuthLabel";
 
 function Login({ setTab }) {
   const { handleLogin } = useContext(AuthContext);
@@ -22,7 +22,7 @@ function Login({ setTab }) {
 
   return (
     <AuthForm onSubmit={authForm.submit}>
-      <AuthHeading>Welcome Back!</AuthHeading>
+      <AuthLabel>Enter Email Address</AuthLabel>
       <AuthInput
         as={EmailInput}
         name="email"
@@ -31,6 +31,7 @@ function Login({ setTab }) {
         error={authForm.errors.email}
         onChange={authForm.update}
       />
+      <AuthLabel>Enter Your Password</AuthLabel>
       <AuthInput
         as={PasswordInput}
         name="password"
