@@ -12,6 +12,7 @@ function TeamMembers({ founders }) {
           key={i}
           name={founder.name}
           image={founder.image}
+          drawnImage={founder.drawnImage}
           position={founder.position}
           description={founder.description}
         />
