@@ -63,11 +63,11 @@ function YourStudies() {
   const history = useHistory();
 
   const handleOpen = (studyID, action) => {
-    history.push(`/participant/dashboard/your-studies/${studyID}/${action}`);
+    history.push(`/dashboard/your-studies/${studyID}/${action}`);
   };
 
   const handleClose = () => {
-    history.push(`/participant/dashboard/your-studies`);
+    history.push(`/dashboard/your-studies`);
   };
 
   if (loading) {

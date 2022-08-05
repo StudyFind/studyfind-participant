@@ -14,6 +14,7 @@ function useTabs(tabs, useURL) {
     const found = tabs.findIndex((t) => {
       const split = t.link.split("/");
       const last = split[split.length - 1];
+      console.log(last);
       return last === tab;
     });
 

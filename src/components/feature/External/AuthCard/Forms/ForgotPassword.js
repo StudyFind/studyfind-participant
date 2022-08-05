@@ -34,7 +34,6 @@ function ForgotPassword({ setTab }) {
 
   return (
     <AuthForm onSubmit={authForm.submit}>
-      <AuthHeading>Forgot Password</AuthHeading>
       <AuthInput
         as={EmailInput}
         name="email"

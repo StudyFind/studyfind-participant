@@ -13,7 +13,6 @@ import { useRouteMatch } from "react-router-dom";
 function StudyGrid({ conditions, filteredStudies, handleAddCondition }) {
   const { responsive } = useDetectDevice();
   const user = useContext(UserContext);
-  const { path } = useRouteMatch();
 
   return filteredStudies.length ? (
     <SimpleGrid
@@ -32,8 +31,8 @@ function StudyGrid({ conditions, filteredStudies, handleAddCondition }) {
               ? () => participant.removeStudyFromSaved(user.id, study.id)
               : () => participant.appendStudyToSaved(user.id, study.id)
           }
-          detailsRedirectLink={`${path}/study/${study.id}/details`}
-          enrollRedirectLink={`${path}/study/${study.id}/screening`}
+          detailsRedirectLink={`/dashboard/study/${study.id}/details`}
+          enrollRedirectLink={`/dashboard/study/${study.id}/screening`}
           hasParticipantEnrolled={user.enrolled.includes(study.id)}
           hasParticipantSaved={user.saved.includes(study.id)}
           isParticipantVerified={auth.currentUser.emailVerified}

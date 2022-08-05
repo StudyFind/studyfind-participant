@@ -111,7 +111,7 @@ function Screening() {
           position: "top",
         });
 
-        history.push(`/participant/dashboard/study/${study.id}/details`);
+        history.push(`/dashboard/study/${study.id}/details`);
       })
       .then(() => setIsSubmitting(true));
   };

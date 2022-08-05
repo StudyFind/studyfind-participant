@@ -1,4 +1,4 @@
-import { Button, Flex, Text } from "@chakra-ui/react";
+import { Button, Flex, Heading, Text } from "@chakra-ui/react";
 import { Link } from "components";
 import { useDetectDevice } from "hooks";
 
@@ -14,18 +14,19 @@ function CarouselBlurb({ text, ...rest }) {
       justifySelf="center"
       {...rest}
     >
-      <Text
-        mb="10px"
-        fontWeight="700"
-        fontSize={isPhone ? "md" : "xl"}
-        align="left"
-      >
+      <Heading fontWeight="700" fontSize={isPhone ? "xl" : "3xl"} align="left">
         {title}
-      </Text>
+      </Heading>
+      <Heading mb={"40px"} fontWeight="500" fontSize={isPhone ? "xl" : "2xl"}>
+        Community Survey & Registry
+      </Heading>
       <Text>{desc}</Text>
+      <Text w={'100%'} textAlign={isPhone && "center"} mt={"40px"}>
+        Take this <strong>5 minute</strong> survey and join our registry:
+      </Text>
       <Link
         style={{
-          marginTop: "20px",
+          marginTop: "40px",
           alignSelf: isPhone ? "center" : "flex-end",
         }}
         to={link}

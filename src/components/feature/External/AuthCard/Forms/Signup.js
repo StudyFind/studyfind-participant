@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { useAuthForm } from "hooks";
-
 import { AuthContext } from "context";
 
 import {
@@ -12,13 +11,13 @@ import {
 } from "components";
 import {
   AuthForm,
-  AuthHeading,
   AuthInput,
   AuthButton,
   AuthTabLink,
 } from "components/feature/External/AuthCard/Blocks";
 
 import { Text } from "@chakra-ui/react";
+import AuthLabel from "../Blocks/AuthLabel";
 
 function Signup({ setTab }) {
   const { handleSignup } = useContext(AuthContext);
@@ -62,23 +61,27 @@ function Signup({ setTab }) {
 
   return (
     <AuthForm onSubmit={authForm.submit}>
-      <AuthHeading>Create Account!</AuthHeading>
+      <AuthLabel>Full name</AuthLabel>
       <AuthInput
         as={TextInput}
         name="name"
-        placeholder="Name"
+        placeholder="Full name"
         value={authForm.values.name}
         error={authForm.errors.name}
         onChange={authForm.update}
       />
+
+      <AuthLabel>Enter Email Address</AuthLabel>
       <AuthInput
         as={EmailInput}
         name="email"
-        placeholder="Email"
+        placeholder="Email address"
         value={authForm.values.email}
         error={authForm.errors.email}
         onChange={authForm.update}
       />
+
+      <AuthLabel>Enter Your password</AuthLabel>
       <AuthInput
         as={PasswordInput}
         name="password"
