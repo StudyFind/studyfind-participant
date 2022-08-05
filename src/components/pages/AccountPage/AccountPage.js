@@ -23,12 +23,11 @@ import Security from "./Security/Security";
 import Subscription from "./Subscription/Subscription";
 
 import AccountTabs from "./AccountTabs";
-import { useHistory, useRouteMatch } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 function AccountPage() {
   const side = getSide();
   const user = useContext(UserContext);
-  const { path } = useRouteMatch();
   const history = useHistory();
 
   const [mutator, Profile] = {
@@ -111,7 +110,7 @@ function AccountPage() {
 
   const TIMEZONE = {
     name: "Timezone",
-    link: `${path}/account/timezone`,
+    link: `/account/timezone`,
     icon: <FaMapMarkedAlt />,
     content: (
       <Timezone
@@ -123,7 +122,7 @@ function AccountPage() {
 
   const LOCATION = {
     name: "Location",
-    link: `${path}/account/location`,
+    link: `/account/location`,
     icon: <FaLocationArrow />,
     content: (
       <Location
@@ -135,7 +134,7 @@ function AccountPage() {
 
   const SECURITY = {
     name: "Security",
-    link: `${path}/account/security`,
+    link: `/account/security`,
     icon: <FaShieldAlt />,
     content: (
       <Security
@@ -148,7 +147,7 @@ function AccountPage() {
 
   const SUBSCRIPTION = {
     name: "Subscription",
-    link: `${path}/account/subscription`,
+    link: `/account/subscription`,
     icon: <FaCreditCard />,
     content: (
       <Subscription
@@ -169,7 +168,7 @@ function AccountPage() {
       tabs={tabs}
       handleSignout={() => {
         signout();
-        history.push("/participant/auth");
+        history.push("/auth");
       }}
     />
   );

@@ -9,7 +9,7 @@ const buttonStyleProps = {
   _hover: { background: "rgba(0, 0, 0, 0.6)" },
 };
 
-function DiscoveryPanel({ img, label, desc, textColor, link }) {
+function DiscoveryPanel({ img, label, desc, link }) {
   const { isPhone } = useDetectDevice();
 
   return (
@@ -41,15 +41,14 @@ function DiscoveryPanel({ img, label, desc, textColor, link }) {
             </Text>
           </Button>
         </Link>
-        <Text textAlign="center" width="50%" color={textColor}>
+        <Text textAlign="center" w={"180px"} color={"white"}>
           {desc}
         </Text>
       </Flex>
       <Image
+        filter={"brightness(65%)"}
         w={isPhone && "100%"}
         marginTop={isPhone && "-50%"}
-        filter={isPhone && "auto"}
-        blur={isPhone && "2px"}
         src={img}
       />
     </Box>

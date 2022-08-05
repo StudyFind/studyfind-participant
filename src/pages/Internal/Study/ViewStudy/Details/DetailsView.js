@@ -17,7 +17,7 @@ function DetailsView({ study }) {
   const enrolledButtonColor = useColor("green.500", "green.400");
   const enrolledButtonBackground = useColor("green.100", "green.900");
 
-  const enrollRedirectLink = `/study/${study.id}/screening`;
+  const enrollRedirectLink = `/dashboard/study/${study.id}/screening`;
 
   return (
     <>

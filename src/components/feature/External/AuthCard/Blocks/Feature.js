@@ -19,13 +19,13 @@ function Feature({ icon, title, description }) {
         <Text
           align={isPhone && "center"}
           fontWeight="800"
-          fontSize={isLargerThan900 ? "sm" : "xs"}
+          fontSize={"xs"}
         >
           {title}
         </Text>
         <Text
           align={isPhone && "center"}
-          fontSize={isLargerThan900 ? "sm" : "xs"}
+          fontSize={"xs"}
           color="gray.500"
         >
           {description}

@@ -3,8 +3,8 @@ import { Flex, Text } from "@chakra-ui/react";
 
 function AuthSwitch({ tab, setTab }) {
   const tabs = [
-    { desc: "No Account?", value: "login", label: "Sign up" },
-    { desc: "Have an account?", value: "signup", label: "Login" },
+    { desc: "Have an account?", value: "login", label: "Sign in" },
+    { desc: "No account?", value: "signup", label: "Sign up" },
   ];
 
   const linkColor = useColor("blue.500", "blue.400");

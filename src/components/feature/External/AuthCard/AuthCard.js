@@ -20,13 +20,13 @@ function AuthCard() {
     heading = "Forgot Password?";
   }
   if (tab === "login") {
-    heading = "Login";
+    heading = "Sign in";
   }
 
   return (
     <Box
       boxShadow={!isPhone && '2xl'}
-      paddingY={isPhone ? '80px' : '40px'}
+      paddingY={isPhone ? '80px' : '30px'}
       borderRadius="20px"
       width={isPhone ? "100%" : "400px"}
     >

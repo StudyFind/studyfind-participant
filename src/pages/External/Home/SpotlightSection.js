@@ -13,9 +13,27 @@ import { Link } from "components";
 
 const POSTS = [
   {
+    img: blackcommunity,
+    alt: "An illustrated portrait of six black family members all standing together; ages ranging from infant to senior.",
+    title: "Black",
+    desc: (
+      <Text>
+        This survey and project aim to better understand how the Black community
+        interacts with clinical trials and the research space. Historical
+        realities have destroyed the trust between the Black community,
+        researchers and physicians. We aim not only to understand the specific
+        issues that surround this community, but we want to increase
+        representation. The goal is to create a registry of individuals who are
+        interested, willing, and able to join us in our mission to diversify
+        clinical trials!
+      </Text>
+    ),
+    link: "",
+  },
+  {
     img: latinxcommunity,
     alt: "Four illustrated LatinX members standing on either side of a medicine vial with a label reading: “Registrar Para Estudios.",
-    title: "Hispanic/Latinx Community Survey ",
+    title: "Hispanic / Latinx",
     desc: (
       <Text>
         This survey and project aim to better understand how the Hispanic/
@@ -73,7 +91,7 @@ const POSTS = [
   },
   */
 ];
-const INTERVAL = 5000;
+const INTERVAL = 10000;
 
 const SpotlightSection = (props, ref) => {
   const dividerColor = useColor("gray.200", "gray.600");

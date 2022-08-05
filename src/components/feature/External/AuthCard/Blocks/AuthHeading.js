@@ -4,8 +4,8 @@ import AuthSwitch from "../AuthSwitch";
 export const AuthHeading = ({ tab, setTab, children, ...rest }) => {
   return (
     <>
-      <Flex position="relative" justify="space-between" paddingX="40px">
-        <Heading fontSize="5xl" textAlign="left" fontWeight="400" {...rest}>
+      <Flex position="relative" justify="space-between" paddingX="30px">
+        <Heading fontSize="3xl" textAlign="left" fontWeight="400" {...rest}>
           {children}
         </Heading>
         {tab !== "forgotPassword" && (

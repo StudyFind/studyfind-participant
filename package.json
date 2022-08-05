@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "env-cmd -f ./.env.development react-scripts start",
+    "start": "env-cmd -f ./.env.production react-scripts start",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,css,html,json}'",
     "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
     "test": "jest test --passWithNoTests",
@@ -39,6 +39,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "dotenv": "^16.0.1",
     "env-cmd": "^10.1.0",
     "eslint": "^7.10.0",
     "eslint-plugin-import": "^2.22.1",

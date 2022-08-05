@@ -1,4 +1,4 @@
-import { Box, Flex, SimpleGrid } from "@chakra-ui/react";
+import { Box, Flex, Heading, SimpleGrid } from "@chakra-ui/react";
 import { useColor, useDetectDevice } from "hooks";
 
 import {
@@ -10,7 +10,6 @@ import {
   FcAbout,
 } from "react-icons/fc";
 import Feature from "./Blocks/Feature";
-import SectionWrapper from "../HomeSections/SectionWrapper";
 
 function AuthFeatures() {
   const features = [
@@ -60,13 +59,14 @@ function AuthFeatures() {
 
       <Flex
         direction="column"
-        justify="center"
+        justify="space-around"
         gap="30px"
         height="100%"
         width="100%"
         paddingY={isPhone? '60px' : '40px'}
         paddingX="30px"
       >
+        <Heading w={"100%"} textAlign={"center"} fontSize={"3xl"} color={"blue.500"}>Current Features</Heading>
         {features.map((feature, i) => (
           <Feature
             key={i}

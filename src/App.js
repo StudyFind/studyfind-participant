@@ -1,11 +1,10 @@
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useEffect } from "react";
 import { auth } from "database/firebase";
 import { BrowserRouter } from "react-router-dom";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import Loading from "./Loading";
-import External from "pages/External/External";
 import ParticipantSide from "pages/Internal/ParticipantRoutes";
+import External from "pages/External/External";
 
 const theme = extendTheme({
   config: {
@@ -17,16 +16,17 @@ const theme = extendTheme({
 function App() {
   const [cred, loading] = useAuthState(auth);
 
-  useEffect(() => {
-    const externalPaths = ["", "/", "/auth", "/team"];
-    const currentPath = window.location.pathname;
+  // useEffect(() => {
+  //   const externalPaths = ["", "/", "/auth", "/team"];
+  //   const currentPath = window.location.pathname;
 
-    localStorage.removeItem("redirect");
+  //   localStorage.removeItem("redirect");
 
-    if (!cred && !externalPaths.includes(currentPath)) {
-      localStorage.setItem("redirect", currentPath);
-    }
-  }, [cred]);
+  //   if (!cred && !externalPaths.includes(currentPath)) {
+  //     localStorage.setItem("redirect", currentPath);
+  //   }
+  //   // console.log(process.env.REACT_APP_URL);
+  // }, [cred]);
 
   return (
     <ChakraProvider theme={theme}>
@@ -34,8 +34,7 @@ function App() {
         <Loading />
       ) : (
         <BrowserRouter>
-          <ParticipantSide />
-          <External />
+          {window.location.host.split(".")[0] === "participant" ? <ParticipantSide /> : <External />}
         </BrowserRouter>
       )}
     </ChakraProvider>

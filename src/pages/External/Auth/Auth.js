@@ -15,12 +15,13 @@ function Auth() {
     <Flex direction="column">
       <Grid
         templateRows={isPhone && "repeat(2, fr)"}
-        templateColumns={!isPhone && "repeat(5, 1fr)"}
+        templateColumns={!isPhone && "repeat(6, 1fr)"}
       >
         <GridItem
           rowStart={isPhone && 1}
           rowEnd={isPhone && 2}
-          height="100vh"
+          minHeight="100vh"
+          maxHeight="100%"
           width="100%"
           bg={background}
           colSpan={!isPhone && 2}
@@ -30,13 +31,14 @@ function Auth() {
         <GridItem
           rowStart={isPhone && 0}
           rowEnd={isPhone && 1}
-          colSpan={!isPhone && 3}
+          colSpan={!isPhone && 4}
         >
           <Box position="relative" height="100%">
-            <Link to="/participant">
+            {/* TODO: Temp link, link this to home page */}
+            <Link to="/auth">
               <Stack position="absolute" left="30px" top="20px" direction="row">
                 <HeaderLogo />
-                <Heading {...headingStyles}>Participant</Heading>
+                <Heading color={"blue.500"}{...headingStyles}>Participant</Heading>
               </Stack>
             </Link>
             <AuthProvider>

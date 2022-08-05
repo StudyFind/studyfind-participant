@@ -11,7 +11,7 @@ function DiscoverLogo({ text, ...rest }) {
       {...rest}
     >
       <Image src={SFLogo} height="3rem" />
-      <Text textAlign="center">{text}</Text>
+      <Text textAlign="center" maxWidth={"200px"}>{text}</Text>
     </Flex>
   );
 }
