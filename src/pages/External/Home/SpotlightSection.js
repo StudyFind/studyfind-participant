@@ -28,7 +28,7 @@ const POSTS = [
         clinical trials!
       </Text>
     ),
-    link: "",
+    link: "https://forms.gle/FxrH9rq7dj7QWb5W6",
   },
   {
     img: latinxcommunity,
@@ -98,19 +98,15 @@ const SpotlightSection = (props, ref) => {
   const { isPhone } = useDetectDevice();
 
   return (
-    <SectionWrapper
-      paddingY={"200px"}
-      paddingX={0}
-      position="relative"
-    >
+    <SectionWrapper paddingY={"200px"} paddingX={0} position="relative">
       <SpotlightAlert>
         <Text textAlign="center">
           <strong>OUT NOW: </strong>
           <Link
-            to="https://forms.gle/joQLT6vx8v7EPrY5A"
+            to="https://forms.gle/FxrH9rq7dj7QWb5W6"
             textDecoration="underline"
           >
-            Hispanic/LatinX Community Survey & Registry
+            Black Community Survey & Registry
           </Link>{" "}
           Come back to see the next community in the upcoming weeks!
         </Text>
