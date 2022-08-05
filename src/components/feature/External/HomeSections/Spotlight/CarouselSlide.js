@@ -1,5 +1,5 @@
 import { useColor, useDetectDevice } from "hooks";
-import { Box, Icon } from "@chakra-ui/react";
+import { Box, Icon, Image } from "@chakra-ui/react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 function CarouselSlide({ img, alt, handleNext, handleBack }) {
@@ -34,7 +34,11 @@ function CarouselSlide({ img, alt, handleNext, handleBack }) {
       <Box left={"-15px"} {...iconStyleProps}>
         <Icon as={FaArrowLeft} onClick={handleBack} />
       </Box>
-      <img src={img} alt={alt} />
+      <Image
+        src={img}
+        alt={alt}
+        boxShadow={"md"}
+      />
       <Box right={"-15px"} {...iconStyleProps}>
         <Icon as={FaArrowRight} onClick={handleNext} />
       </Box>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDetectDevice } from "hooks";
+import { useColor, useDetectDevice } from "hooks";
 
 import { Box } from "@chakra-ui/react";
 
@@ -10,6 +10,7 @@ function AuthCard() {
   const exists = localStorage.getItem("exists");
   const defaultTab = exists === "true" ? "login" : "signup";
   const [tab, setTab] = useState(defaultTab);
+  const background = useColor("white", "gray.900");
 
   let heading = "Login"
   const { isPhone } = useDetectDevice();
@@ -25,10 +26,11 @@ function AuthCard() {
 
   return (
     <Box
-      boxShadow={!isPhone && '2xl'}
-      paddingY={isPhone ? '80px' : '30px'}
+      boxShadow={!isPhone && "2xl"}
+      paddingY={isPhone ? "80px" : "30px"}
       borderRadius="20px"
       width={isPhone ? "100%" : "400px"}
+      bg={background}
     >
       <AuthHeading tab={tab} setTab={setTab}>
         {heading}

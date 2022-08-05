@@ -8,7 +8,7 @@ import External from "pages/External/External";
 
 const theme = extendTheme({
   config: {
-    useSystemColorMode: false,
+    useSystemColorMode: true,
     initialColorMode: "light",
   },
 });
