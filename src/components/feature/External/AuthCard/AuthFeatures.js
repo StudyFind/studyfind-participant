@@ -51,7 +51,7 @@ function AuthFeatures() {
     },
   ];
 
-  const background = useColor("gray.100", "gray.800");
+  const background = useColor("gray.100", "gray.900");
 
   const { isPhone } = useDetectDevice();
 
@@ -65,6 +65,7 @@ function AuthFeatures() {
         width="100%"
         paddingY={isPhone? '60px' : '40px'}
         paddingX="30px"
+        bg={background}
       >
         <Heading w={"100%"} textAlign={"center"} fontSize={"3xl"} color={"blue.500"}>Current Features</Heading>
         {features.map((feature, i) => (
