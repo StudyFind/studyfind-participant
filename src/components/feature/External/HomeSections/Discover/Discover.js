@@ -34,7 +34,8 @@ function Discover() {
         <DiscoveryPanel
           img={discoverLeft}
           label={PART_LABEL}
-          desc={PART_DESC}
+          line1={"recruiting participants"}
+          line2={"for research studies"}
           link={PART_LINK}
         />
       </GridItem>
@@ -55,7 +56,8 @@ function Discover() {
         <DiscoveryPanel
           img={discoverRight}
           label={RES_LABEL}
-          desc={RES_DESC}
+          line1={"searching for studies and"}
+          line2={"research opportunities"}
           link={RES_LINK}
         />
       </GridItem>
