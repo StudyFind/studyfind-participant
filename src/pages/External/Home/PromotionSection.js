@@ -1,21 +1,33 @@
 import Promotion from "components/feature/External/HomeSections/Promotion/Promotion";
+import PromotionAccordian from "components/feature/External/HomeSections/Promotion/PromotionAccordian";
 import SectionWrapper from "components/feature/External/HomeSections/SectionWrapper";
 import { useColor } from "hooks";
+
+const FEATURES = [
+  {
+    title: "Simplifying Communication",
+    desc: "Creating a unique experience in how participants and researchers exchange information.",
+  },
+  {
+    title: "Seamless Coordination",
+    desc: "StudyFind's Research Portal allows seamless coordination with participants pre and post-screening.",
+  },
+  {
+    title: "Diversifying Collaboration",
+    desc: "Not just understanding each community, but making way to increase representation.",
+  },
+];
 
 function PromotionSection() {
   const background = useColor("gray.100", "gray.800");
 
-  const infomation = {
-    heading: "Communicating, Coordinating, and Collaborating",
-    tagline: "should not require separate tools",
-    desc: "StudyFind is an app and web-based platform that implements innovations in the research and academic field. Our services aim to optimize the participant recruitment process for research studies by providing a means of connection and communication between researchers and research participants.",
-    videoLink: "https://www.youtube.com/embed/5_iZ0r33wWk",
-  };
-
   return (
-    <SectionWrapper background={background}>
-      <Promotion infomation={infomation} />
-    </SectionWrapper>
+    <>
+      <SectionWrapper background={background}>
+        <Promotion features={FEATURES} />
+      </SectionWrapper>
+      <PromotionAccordian />
+    </>
   );
 }
 

@@ -8,33 +8,41 @@ function ImageCarousel({
   handleNext,
   itemIndex,
   items,
+  variants,
+  controls,
   ...rest
 }) {
-  const pic = items[itemIndex];
-
   return (
-    <Flex
-      direction="column"
-      justifySelf="flex-start"
-      alignItems="center"
-      position="relative"
-      {...rest}
-    >
-      <CarouselSlide
-        handleBack={handleBack}
-        handleNext={handleNext}
-        img={pic.img}
-        alt={pic.alt}
-      />
-      <CarouselCircles
-        size={"sm"}
-        itemIndex={itemIndex}
-        length={items.length}
-        handleSelect={handleSelect}
-        position="absolute"
-        bottom="-20px"
-      />
-    </Flex>
+    <>
+      {items.map((item, i) => (
+        <Flex
+          key={i}
+          display={i === itemIndex ? "block" : "none"}
+          direction="column"
+          justifySelf="flex-start"
+          alignItems="center"
+          position="relative"
+          {...rest}
+        >
+          <CarouselSlide
+            handleBack={handleBack}
+            handleNext={handleNext}
+            variants={variants}
+            controls={controls}
+            img={item.img}
+            alt={item.alt}
+          />
+          <CarouselCircles
+            size={"sm"}
+            itemIndex={itemIndex}
+            length={items.length}
+            handleSelect={handleSelect}
+            position="absolute"
+            bottom="-20px"
+          />
+        </Flex>
+      ))}
+    </>
   );
 }
 

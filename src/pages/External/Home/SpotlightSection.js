@@ -13,6 +13,22 @@ import { Link } from "components";
 
 const POSTS = [
   {
+    img: womencommunity,
+    alt: "Four illustrated women, each of diverse backgrounds and ages, in a line, holding hands. ",
+    title: "Women",
+    desc: (
+      <Text>
+        This survey and project aim to better understand how women interact with
+        clinical trials and the research space. We aim not only to understand
+        the specific issues that surround this community, but to also increase
+        representation. The goal is to create a registry of individuals who are
+        interested, willing, and able to join us in our mission to diversify
+        clinical trials!
+      </Text>
+    ),
+    link: "https://forms.gle/HRVukLG3uoHRqWsR8",
+  },
+  {
     img: blackcommunity,
     alt: "An illustrated portrait of six black family members all standing together; ages ranging from infant to senior.",
     title: "Black",
@@ -46,52 +62,8 @@ const POSTS = [
     ),
     link: "https://forms.gle/joQLT6vx8v7EPrY5A",
   },
-  /*
-  {
-    img: blackcommunity,
-    alt: "desc",
-    title: "Title of specific survey",
-    desc: (
-      <Text>
-        The goal of this survey is to better understand the needs of the{" "}
-        <strong>Black</strong> community regarding clinical trials. This takes
-        less than (10 minutes) and your responses will aid us in creating our
-        participant registry!
-      </Text>
-    ),
-    link: "",
-  },
-  {
-    img: womencommunity,
-    alt: "desc",
-    title: "Title of specific survey",
-    desc: (
-      <Text>
-        The goal of this survey is to better understand the needs of the{" "}
-        <strong>women</strong> community regarding clinical trials. This takes
-        less than (10 minutes) and your responses will aid us in creating our
-        participant registry!
-      </Text>
-    ),
-    link: "",
-  },
-  {
-    img: placeholder,
-    alt: "desc",
-    title: "Title of specific survey",
-    desc: (
-      <Text>
-        The goal of this survey is to better understand the needs of the
-        <strong>AAPI</strong> community regarding clinical trials. This takes
-        less than (10 minutes) and your responses will aid us in creating our
-        participant registry!
-      </Text>
-    ),
-    link: "",
-  },
-  */
 ];
-const INTERVAL = 10000;
+const INTERVAL = 5000;
 
 const SpotlightSection = (props, ref) => {
   const dividerColor = useColor("gray.200", "gray.600");
@@ -99,14 +71,15 @@ const SpotlightSection = (props, ref) => {
 
   return (
     <SectionWrapper paddingY={"200px"} paddingX={0} position="relative">
+      {/* Alert */}
       <SpotlightAlert>
         <Text textAlign="center">
           <strong>OUT NOW: </strong>
           <Link
-            to="https://forms.gle/FxrH9rq7dj7QWb5W6"
+            to="https://forms.gle/HRVukLG3uoHRqWsR8"
             textDecoration="underline"
           >
-            Black Community Survey & Registry
+            Women Community Survey & Registry
           </Link>{" "}
           Come back to see the next community in the upcoming weeks!
         </Text>

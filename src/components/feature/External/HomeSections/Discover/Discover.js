@@ -8,11 +8,9 @@ import discoverRight from "images/homepage/discover-right.png";
 const CALL_TO_ACTION = "Discover what StudyFind can provide for you";
 
 const PART_LABEL = "I am a participant";
-const PART_DESC = "searching for studies and research opportunities";
 const PART_LINK = "https://participant.studyfind.org/";
 
 const RES_LABEL = "I am a researcher";
-const RES_DESC = "recruiting participants for research studies";
 const RES_LINK = "https://researcher.studyfind.org/";
 
 function Discover() {

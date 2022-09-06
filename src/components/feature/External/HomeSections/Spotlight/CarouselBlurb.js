@@ -15,13 +15,13 @@ function CarouselBlurb({ text, ...rest }) {
       {...rest}
     >
       <Heading fontWeight="700" fontSize={isPhone ? "xl" : "3xl"} align="left">
-        {title}
+        {title} Community
       </Heading>
       <Heading mb={"40px"} fontWeight="500" fontSize={isPhone ? "xl" : "2xl"}>
-        Community Survey & Registry
+        Survey & Registry
       </Heading>
       <Text>{desc}</Text>
-      <Text w={'100%'} textAlign={isPhone && "center"} mt={"40px"}>
+      <Text w={"100%"} textAlign={isPhone && "center"} mt={"40px"}>
         Take this <strong>5 minute</strong> survey and join our registry:
       </Text>
       <Link
@@ -32,7 +32,7 @@ function CarouselBlurb({ text, ...rest }) {
         to={link}
       >
         <Button colorScheme="blue" link>
-          View more
+          View More
         </Button>
       </Link>
     </Flex>

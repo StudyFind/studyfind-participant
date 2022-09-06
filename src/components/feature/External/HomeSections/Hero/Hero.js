@@ -1,6 +1,7 @@
 import { useDetectDevice } from "hooks";
 import SectionWrapper from "../SectionWrapper";
 import HeroCallout from "./HeroCallout";
+import HeroLogo from "./HeroLogo";
 
 function Hero({ buttonAction, blackText, blueText, buttonText, buttonLink, image }) {
   const { isPhone } = useDetectDevice();
@@ -8,7 +9,7 @@ function Hero({ buttonAction, blackText, blueText, buttonText, buttonLink, image
   return (
     <SectionWrapper
       direction="column"
-      justify="flex-end"
+      justify="space-between"
       align="flex-start"
       padding={isPhone ? "30px" : "50px"}
       backgroundImage={isPhone || `url(${image})`}
@@ -16,6 +17,7 @@ function Hero({ buttonAction, blackText, blueText, buttonText, buttonLink, image
       backgroundRepeat="no-repeat"
       backgroundPosition="right"
     >
+      <HeroLogo />
       <HeroCallout
         blackText={blackText}
         blueText={blueText}

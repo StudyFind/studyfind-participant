@@ -1,14 +1,20 @@
 import { useColor, useDetectDevice } from "hooks";
-import { Box, Icon, Image } from "@chakra-ui/react";
+import { Box, chakra, Icon, Image } from "@chakra-ui/react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { isValidMotionProp, motion } from "framer-motion";
 
-function CarouselSlide({ img, alt, handleNext, handleBack }) {
+// For opacity animation
+const MotionDiv = chakra(motion.div, {
+  shouldForwardProp: (prop) => isValidMotionProp(prop) || prop === "children",
+});
+
+function CarouselSlide({ img, alt, handleNext, handleBack, variants, controls, itemIndex }) {
   const highlightColor = useColor("#706D6D", "white");
   const defaultColor = useColor("gray.200", "gray.700");
   const selectedColor = useColor("blue.500", "blue.400");
 
   const { isPhone } = useDetectDevice();
-  
+
   const iconStyleProps = {
     cursor: "pointer",
     height: "30px",
@@ -34,11 +40,9 @@ function CarouselSlide({ img, alt, handleNext, handleBack }) {
       <Box left={"-15px"} {...iconStyleProps}>
         <Icon as={FaArrowLeft} onClick={handleBack} />
       </Box>
-      <Image
-        src={img}
-        alt={alt}
-        boxShadow={"md"}
-      />
+      <MotionDiv animate={controls} variants={variants}>
+        <Image src={img} alt={alt} boxShadow={"md"} />
+      </MotionDiv>
       <Box right={"-15px"} {...iconStyleProps}>
         <Icon as={FaArrowRight} onClick={handleNext} />
       </Box>
