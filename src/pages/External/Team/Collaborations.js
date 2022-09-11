@@ -80,7 +80,7 @@ function Collaborations() {
       </Heading>
       <Stack
         direction={isPhone ? "column" : "row"}
-        spacing="145px"
+        spacing="150px"
         justify="center"
         align="center"
       >

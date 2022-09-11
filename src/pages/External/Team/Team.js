@@ -13,15 +13,29 @@ import Footer from "../../../components/feature/External/HomeSections/Footer/Foo
 function Team() {
   const dividerColor = useColor("gray.200", "gray.600");
 
+  const background = useColor("white", "gray.900");
+  const borderColor = useColor("gray.200", "gray.700");
+
   return (
     <Box>
-      <HStack justify="flex-start" padding="30px">
+      <HStack
+        justify="flex-start"
+        padding="25px"
+        position="fixed"
+        background={background}
+        top="0"
+        width="100%"
+        boxShadow="sm"
+        borderBottomWidth="1px"
+        borderBottomColor={borderColor}
+      >
         <Link to="/">
           <HStack
             spacing="5px"
             align="center"
             color="blue.500"
             _hover={{ textDecoration: "underline" }}
+            onClick={() => window.scrollTo({ top: 0 })}
           >
             <Icon as={FaChevronLeft} fontSize="12px" /> <Text>Return home</Text>
           </HStack>

@@ -7,7 +7,12 @@ function CoFounder() {
   const { isPhone, responsive } = useDetectDevice();
   const background = useColor("gray.100", "gray.800");
   return (
-    <Box id="cofounder" padding="40px" background={background}>
+    <Box
+      id="cofounder"
+      padding="40px"
+      paddingTop="100px"
+      background={background}
+    >
       <Heading
         color="blue.500"
         size="2xl"

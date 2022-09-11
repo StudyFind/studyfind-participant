@@ -8,9 +8,7 @@ function Header({ logoLink }) {
   const background = useColor("white", "gray.900");
   const borderColor = useColor("gray.200", "gray.700");
 
-  const links = [
-    { link: "/team", title: "Our Team" },
-  ];
+  const links = [{ link: "/team", title: "Our Team" }];
 
   const navLinkItems = links.map((item) => (
     <Link key={item.title} to={item.link}>
@@ -37,6 +35,8 @@ function Header({ logoLink }) {
       zIndex="400"
       borderBottomWidth="1px"
       borderBottomColor={borderColor}
+      gridGap="10px"
+      onClick={() => window.scrollTo({ top: 0 })}
     >
       <Link to={logoLink}>
         <HeaderLogo />
