@@ -2,13 +2,29 @@ import { useColor, useDetectDevice } from "hooks";
 import { Flex, Text } from "@chakra-ui/react";
 import { Link } from "components";
 import HeaderLogo from "./HeaderLogo";
+import { useState } from "react";
+import { useWindowScroll, useWindowSize } from "react-use";
+import { useEffect } from "react";
 
 function Header({ logoLink }) {
   const { isPhone } = useDetectDevice();
   const background = useColor("white", "gray.900");
   const borderColor = useColor("gray.200", "gray.700");
 
+  const [active, setActive] = useState(false);
+
+  const { y } = useWindowScroll();
+  const { height } = useWindowSize();
+
+  useEffect(() => {
+    setActive(y > height);
+  }, [y, height]);
+
   const links = [{ link: "/team", title: "Our Team" }];
+
+  if (!active) {
+    return null;
+  }
 
   const navLinkItems = links.map((item) => (
     <Link key={item.title} to={item.link}>

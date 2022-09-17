@@ -7,7 +7,7 @@ function CarouselCircles({ handleSelect, itemIndex, length, ...rest }) {
   const pixelSizeString = `8px`;
 
   return (
-    <HStack {...rest} spacing={pixelSizeString}>
+    <HStack {...rest} spacing={pixelSizeString} w="100%" justify="center">
       {Array(length)
         .fill(true)
         .map((_, i) => (

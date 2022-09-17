@@ -10,8 +10,10 @@ function DiscoverLogo({ text, ...rest }) {
       alignItems="center"
       {...rest}
     >
-      <Image src={SFLogo} height="3rem" />
-      <Text textAlign="center" maxWidth={"200px"}>{text}</Text>
+      <Image src={SFLogo} height="3rem" mb={5} />
+      <Text textAlign="center" maxWidth={"200px"}>
+        {text}
+      </Text>
     </Flex>
   );
 }

@@ -182,13 +182,6 @@ function Interns() {
               linkedinURL="https://www.linkedin.com/in/etna-ozkara-1a876b204"
             />
             <TeamMember
-              image={Isabella}
-              drawnImage={Drawn_Isabella}
-              name="Isabella Santos"
-              position="Marketing and Technical Writing Intern"
-              linkedinURL="https://www.linkedin.com/in/isabella-abreu-stubbs-79616b225"
-            />
-            <TeamMember
               image={Kayla}
               drawnImage={Drawn_Kayla}
               name="Kayla Lin"
@@ -242,6 +235,13 @@ function Interns() {
             Alumni
           </Heading>
           <SimpleGrid columns={responsive([1, 2, 4])} spacingY="40px">
+            <TeamMember
+              image={Isabella}
+              drawnImage={Drawn_Isabella}
+              name="Isabella Santos"
+              position="Marketing and Technical Writing Intern"
+              linkedinURL="https://www.linkedin.com/in/isabella-abreu-stubbs-79616b225"
+            />
             <TeamMember
               image={Aakash}
               drawnImage={Drawn_Aakash}
